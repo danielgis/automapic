@@ -1,0 +1,7 @@
+Automapic/bin
+Automapic/obj
+*.user
+*.suo
+_ReSharper.*
+*.sln.cache
+*.pyc
