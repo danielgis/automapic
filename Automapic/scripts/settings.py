@@ -6,6 +6,10 @@ _BASE_DIR = os.path.dirname(__file__)
 _TEMP_FOLDER = pkg.get_config_param_value('TEMP_FOLDER', one=True)
 _ZONAS_GEOGRAFICAS = [17, 18, 19]
 
+_LAYERS_DIR = os.path.join(_BASE_DIR, 'layers')
+_EXT_LAYER = '.lyr'     # Extension de archivos Layer
+
+
 # ---------------------------------------------------------------------------------------------------
 # Plano topografico 25000
 
