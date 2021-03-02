@@ -1,4 +1,8 @@
 ﻿Imports System.Windows.Forms
+Imports ESRI.ArcGIS.Catalog
+Imports ESRI.ArcGIS.CatalogUI
+Imports ESRI.ArcGIS.Display
+Imports ESRI.ArcGIS.Carto
 Module settings
     '1. Metadata
     '   - Variables que obtienen informacion sobre desarrollo, fecha, etc.
@@ -18,6 +22,8 @@ Module settings
 
     '* _path: Obtiene la ruta actual en donde se almacena la instalacion del addin
     Public _path As String = __file__()
+    Public _scripts_path As String = _path & "\scripts"
+    Public _layer_path As String = _scripts_path & "\layers"
 
     '3. Variables dinamicas alterables segun fin
     '   - Estas variables solo podran ser alteradas manejandolas dentro del contexto que fueron creados
@@ -33,7 +39,12 @@ Module settings
     Public d_standar_output As String
     Public _LOADER_CONTROL As ProgressBar
 
-    '5. Funciones globales
+    '5. Nombre de formatos GIS
+
+    Public f_shapefile As String = "shapefile"
+    Public f_featureclass As String = "featureclass"
+
+    '6. Funciones globales
     '   - Funciones que devuelven resultados y que puedes ser usados en cualquier parte del proceso
 
     '* __file__: Obtiene la ruta actual en donde se almacena la instalacion del addin
@@ -78,4 +89,58 @@ Module settings
         runProgressBar("ini")
         Return Nothing
     End Function
+    Public Function GetFilter(filetype As String) As Object
+        Dim objfilter As IGxObjectFilter = Nothing
+        Select Case filetype
+            Case f_shapefile
+                objfilter = New GxFilterShapefiles()
+            Case f_featureclass
+                objfilter = New GxFilterFGDBFeatureClasses()
+        End Select
+        Return objfilter
+    End Function
+
+    Public Function openDialogBoxESRI(filetype As String, Optional textButton As String = "Agregar") As Object
+        Dim pEnumGX As IEnumGxObject = Nothing
+        Dim pGxDialog As IGxDialog = New GxDialogClass
+        pGxDialog.AllowMultiSelect = False
+        pGxDialog.Title = "Seleccionar"
+        If filetype IsNot Nothing Then
+            pGxDialog.Title = String.Format("Seleccionar un {0}", filetype)
+        End If
+        pGxDialog.ObjectFilter = GetFilter(filetype)
+        pGxDialog.ButtonCaption = textButton
+
+        If Not pGxDialog.DoModalOpen(0, pEnumGX) Then
+            Return Nothing
+        End If
+
+        Dim objGxObject As IGxObject = pEnumGX.Next
+        Return objGxObject.FullName
+
+    End Function
+    Public Sub DrawPolygon(ByVal activeView As IActiveView)
+
+        If activeView Is Nothing Then
+            Return
+        End If
+
+        Dim screenDisplay As IScreenDisplay = activeView.ScreenDisplay
+
+        ' Constant.
+        screenDisplay.StartDrawing(screenDisplay.hDC, CShort(esriScreenCache.esriNoScreenCache))
+        Dim rgbColor As IRgbColor = New RgbColorClass
+        rgbColor.Red = 255
+
+        Dim color As IColor = rgbColor ' Implicit cast.
+        Dim simpleFillSymbol As ISimpleFillSymbol = New SimpleFillSymbolClass
+        simpleFillSymbol.Color = color
+
+        Dim symbol As ISymbol = TryCast(simpleFillSymbol, ISymbol) ' Dynamic cast.
+        Dim rubberBand As IRubberBand = New RubberPolygonClass
+        Dim geometry As ESRI.ArcGIS.Geometry.IGeometry = rubberBand.TrackNew(screenDisplay, symbol)
+        screenDisplay.SetSymbol(symbol)
+        screenDisplay.DrawPolygon(geometry)
+        screenDisplay.FinishDrawing()
+    End Sub
 End Module

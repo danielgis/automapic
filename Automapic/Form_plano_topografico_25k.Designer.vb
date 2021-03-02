@@ -73,7 +73,7 @@ Partial Class Form_plano_topografico_25k
         Me.tlp_plano_topografico.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
         Me.tlp_plano_topografico.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.tlp_plano_topografico.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlp_plano_topografico.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlp_plano_topografico.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
         Me.tlp_plano_topografico.Size = New System.Drawing.Size(470, 677)
         Me.tlp_plano_topografico.TabIndex = 0
         '
