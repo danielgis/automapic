@@ -1,8 +1,7 @@
 ﻿Imports System.Windows.Forms
 Imports ESRI.ArcGIS.Catalog
 Imports ESRI.ArcGIS.CatalogUI
-Imports ESRI.ArcGIS.Display
-Imports ESRI.ArcGIS.Carto
+
 Module settings
     '1. Metadata
     '   - Variables que obtienen informacion sobre desarrollo, fecha, etc.
@@ -29,6 +28,8 @@ Module settings
     '   - Estas variables solo podran ser alteradas manejandolas dentro del contexto que fueron creados
 
     '* controller_sesion: Variable que toma valores de {0: "Sin incio de sesion, 1: "Usuario logeado"}
+    Public user As String
+    Public pass As String
     Public controller_sesion As Integer = 0
     Public python_path As String = ""
 
@@ -38,6 +39,11 @@ Module settings
     Public d_contador As Integer = 0
     Public d_standar_output As String
     Public _LOADER_CONTROL As ProgressBar
+
+    Public xmin As Double
+    Public ymin As Double
+    Public xmax As Double
+    Public ymax As Double
 
     '5. Nombre de formatos GIS
 
@@ -119,28 +125,29 @@ Module settings
         Return objGxObject.FullName
 
     End Function
-    Public Sub DrawPolygon(ByVal activeView As IActiveView)
+    'Public Sub DrawPolygon(ByVal activeView As IActiveView)
 
-        If activeView Is Nothing Then
-            Return
-        End If
+    '    If activeView Is Nothing Then
+    '        Return
+    '    End If
 
-        Dim screenDisplay As IScreenDisplay = activeView.ScreenDisplay
+    '    Dim screenDisplay As IScreenDisplay = activeView.ScreenDisplay
 
-        ' Constant.
-        screenDisplay.StartDrawing(screenDisplay.hDC, CShort(esriScreenCache.esriNoScreenCache))
-        Dim rgbColor As IRgbColor = New RgbColorClass
-        rgbColor.Red = 255
+    '    ' Constant
+    '    screenDisplay.StartDrawing(screenDisplay.hDC, CShort(esriScreenCache.esriNoScreenCache))
+    '    Dim rgbColor As IRgbColor = New RgbColorClass
+    '    rgbColor.Red = 255
 
-        Dim color As IColor = rgbColor ' Implicit cast.
-        Dim simpleFillSymbol As ISimpleFillSymbol = New SimpleFillSymbolClass
-        simpleFillSymbol.Color = color
+    '    Dim color As IColor = rgbColor ' Implicit Cast
+    '    Dim simpleFillSymbol As ISimpleFillSymbol = New SimpleFillSymbolClass
+    '    simpleFillSymbol.Color = color
 
-        Dim symbol As ISymbol = TryCast(simpleFillSymbol, ISymbol) ' Dynamic cast.
-        Dim rubberBand As IRubberBand = New RubberPolygonClass
-        Dim geometry As ESRI.ArcGIS.Geometry.IGeometry = rubberBand.TrackNew(screenDisplay, symbol)
-        screenDisplay.SetSymbol(symbol)
-        screenDisplay.DrawPolygon(geometry)
-        screenDisplay.FinishDrawing()
-    End Sub
+    '    Dim symbol As ISymbol = TryCast(simpleFillSymbol, ISymbol) ' Dynamic Cast
+    '    Dim rubberBand As IRubberBand = New RubberPolygonClass
+    '    Dim geometry As ESRI.ArcGIS.Geometry.IGeometry = rubberBand.TrackNew(screenDisplay, symbol)
+    '    screenDisplay.SetSymbol(symbol)
+    '    screenDisplay.DrawPolygon(geometry)
+    '    screenDisplay.FinishDrawing()
+
+    'End Sub
 End Module

@@ -5,16 +5,17 @@ import arcobjects as arc
 import os
 from bisect import bisect
 import uuid
+import json
 
+_DF_MAPAPRINCIPAL = 'DFMAPAPRINCIPAL'
+_PT_LAYER_INTERES = 'PT_area_interes_{}'
+_PL_LAYER_INTERES = 'PL_area_interes_{}'
+_PO_LAYER_INTERES = 'PO_area_interes_{}'
 
-code = arcpy.GetParameterAsText(0)
-zona = arcpy.GetParameterAsText(0)
-maptype = arcpy.GetParameterAsText(1)
-# titulo = arcpy.GetParameterAsText(2)
-# autor = arcpy.GetParameterAsText(3)
-# numero = arcpy.GetParameterAsText(4)
-# detalle = arcpy.GetParameterAsText(6)
-# descripcion = arcpy.GetParameterAsText(7)
+_TITULO_MAPA_TEXT_ELEMENT = 'TITULOMAPA'
+_AUTOR_TEXT_ELEMENT = 'AUTOR'
+_NUMEROMAPA_TEXT_ELEMENT = 'NUMEROMAPA'
+_BARRA_ESCALA = 'BARRAESCALA'
 
 
 def get_orientation():
@@ -30,6 +31,16 @@ def get_scale(scale):
     return response
 
 
+def set_scale_bar(scale):
+    _UNITS_KM = 10
+    _UNITS_M = 9
+    response = dict()
+    scale_ratio = scale/100
+    response['Division'] = scale_ratio/1000.0 if scale >= 100000 else scale_ratio
+    response['UnitLabel'] = 'Kilometers'if scale >= 100000 else 'Meters'
+    response['Units'] = _UNITS_KM if scale >= 100000 else _UNITS_M
+    return response
+
 def set_PG(mxd):
     return mxd
 
@@ -42,65 +53,121 @@ def set_SIEF(mxd):
 def set_SSM(mxd):
     return mxd
 
-
-# def set_scale_bar():
-#     2000
-
 def generate_map():
+    global titulo, autor, escala, numero
+    response = dict()
     id_process = uuid.uuid4().get_hex()
-    if int(zona) == st._ZONAS_GEOGRAFICAS[0]:
-        mxd_path = ''
-        feature = st._FC_PO_AREA_INTERES_17
-    elif int(zona) == st._ZONAS_GEOGRAFICAS[1]:
-        mxd_path = ''
-        feature = st._FC_PO_AREA_INTERES_18
-    elif int(zona) == st._ZONAS_GEOGRAFICAS[2]:
-        mxd_path = ''
-        feature = st._FC_PO_AREA_INTERES_19
+    desc = arcpy.Describe(feature)
+    wkid = desc.spatialReference.factoryCode
 
-    query = "{} = '{}'".format(_ID_AREA, code)
+    if not wkid:
+        raise RuntimeError(msg._ERROR_NOT_PROJECTION)
+
+    if wkid == st._EPSG_W17S:
+        mxd_path = st._MXD_PG_17
+    elif wkid == st._EPSG_W18S:
+        mxd_path = st._MXD_PG_18
+    elif wkid == st._EPSG_W19S:
+        mxd_path = st._MXD_PG_19
+    else:
+        raise RuntimeError(msg._ERROR_PROJECTION_NO_VALID)
+    
+    shapeType = desc.shapetype.lower()
+
+    zona = str(wkid)[3:]
+
+    if shapeType == 'point':
+        _NAME_LAYER_INTERES = _PT_LAYER_INTERES
+    elif shapeType == 'polyline':
+        _NAME_LAYER_INTERES = _PL_LAYER_INTERES
+    elif shapeType == 'polygon':
+        _NAME_LAYER_INTERES = _PO_LAYER_INTERES
+
+    _NAME_LAYER_INTERES = _NAME_LAYER_INTERES.format(zona)
 
     mxd = arcpy.mapping.MapDocument(mxd_path)
-    dframe_main = arcpy.mapping.ListDataFrames(mxd)[0]
-    name_feature = os.path.basename(feature)
+    df_principal = arcpy.mapping.ListDataFrames(mxd, '{}'.format(_DF_MAPAPRINCIPAL))[0]
+    lyr_interes = arcpy.mapping.ListLayers(mxd, '{}'.format(_NAME_LAYER_INTERES), df_principal)[0]
 
-    layers = arcpy.mapping.ListLayers(mxd, name_feature, dframe_main)[0]
+    shape_dir = os.path.dirname(feature)
+    shape_name =  os.path.basename(feature)
+    shape_name_without_ext = shape_name.split('.')[0]
 
-    if not layers:
-        raise RuntimeError(msg._ERROR_NOT_LAYER)
-        
-    lyr = layers[0]
-
-    # Si tiene soporte de consultas
-    if lyr.supports("DEFINITIONQUERY"):
-        lyr.definitionQuery = query
-    
+    lyr_interes.replaceDataSource(shape_dir, "SHAPEFILE_WORKSPACE", shape_name_without_ext, False)
+    arcpy.RefreshTOC()
     arcpy.RefreshActiveView()
 
-    dframe_main.extent = lyr.getExtent()
-    scale = get_scale(dframe.scale)
-    dframe.scale = scale
+    coords = [xmin, ymin, xmax, ymax]
+    coords = filter(lambda i: i, coords)
 
+    ext = arcpy.Extent(*coords) if len(coords) == 4 else lyr_interes.getExtent()
+    lyr_interes.visible = True
+
+    response['extent'] = json.loads(ext.JSON)
+
+    df_principal.extent = ext
+    scale = get_scale(df_principal.scale)
+    df_principal.scale = scale
+
+    arcpy.RefreshTOC()
     arcpy.RefreshActiveView()
 
-    if maptype == 1:
-        mxd = et_PG(mxd)
-    elif mapdtype == 2:
-        mxd = set_ZC(mxd)
-    elif maptype == 3:
-        mxd = set_SIEF(mxd)
-    elif maptype == 4:
-        mxd = set_SSM(mxd)
+    if not titulo:
+        titulo = 'Lorem Ipsum'
+    if not autor:
+        autor = 'AUtomapic'
+    if not numero:
+        numero = '1'
+
+    mxd.author = autor
+
+    text_elements = arcpy.mapping.ListLayoutElements(mxd , "TEXT_ELEMENT")
+
+    for elm in text_elements:
+        if elm.name == _TITULO_MAPA_TEXT_ELEMENT:
+            elm.text = titulo.upper()
+        # elif elm.name == _AUTOR_TEXT_ELEMENT:
+        #     elm.text += autor
+        elif elm.name == _NUMEROMAPA_TEXT_ELEMENT:
+            elm.text = numero.zfill(2)
+
+    arcpy.RefreshTOC()
+    arcpy.RefreshActiveView()
 
     output_dir_mxd = os.path.join(st._TEMP_FOLDER, id_process)
     os.mkdir(output_dir_mxd)
+    name = titulo.replace(' ', '')
+    name_out = '{}.mxd'.format(name)
+    response['mxd'] = os.path.join(output_dir_mxd, name_out)
+    mxd.saveACopy(response['mxd'])
 
-
-
-    # name_out = '{}_{}.mxd'.format(code)
-
-    # response = os.path.join(output_dir_mxd, name_out)
-
-    # mxd.saveACopy()
+    params = set_scale_bar(scale)
+    arc.set_scale_properties(response['mxd'], _BARRA_ESCALA, **params)
+    arc.select_grid(response['mxd'], scale)
+    return response
 
     
+if __name__ == '__main__':
+    response = dict()
+    response['status'] = 0
+    feature = arcpy.GetParameterAsText(0)
+    maptype = arcpy.GetParameterAsText(1)
+    titulo = arcpy.GetParameterAsText(2)
+    autor = arcpy.GetParameterAsText(3)
+    escala = arcpy.GetParameter(4)
+    numero = arcpy.GetParameterAsText(5)
+    detalle = arcpy.GetParameterAsText(6)
+    xmin = arcpy.GetParameter(7)
+    ymin = arcpy.GetParameter(8)
+    xmax = arcpy.GetParameter(9)
+    ymax = arcpy.GetParameter(10)
+
+    try:
+        response['response'] = generate_map()
+        response['status'] = 1
+    except Exception as e:
+        response['message'] = e.message
+    finally:
+        response = json.dumps(response)
+        arcpy.SetParameterAsText(11, response)
+

@@ -41,7 +41,7 @@ Public Class Modulos
     Private Sub cbx_modulos_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbx_modulos.SelectedIndexChanged
         Dim modulo As Integer = (CType(cbx_modulos.SelectedItem, KeyValuePair(Of Integer, String))).Key
         If (modulo = 1) Then
-            Dim mapa_peligros_geologicos = New Form_mapa_peligros_geologicos()
+            Dim mapa_peligros_geologicos = Form_mapa_peligros_geologicos.GetInstance()
             openFormByName(mapa_peligros_geologicos, pnl_modulos_form)
         ElseIf (modulo = 2) Then
             Dim plano_topografico_form = New Form_plano_topografico_25k()

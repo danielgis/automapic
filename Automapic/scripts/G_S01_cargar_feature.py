@@ -1,6 +1,6 @@
-
 import arcpy
 import settings as st
+import os
 import os
 
 arcpy.env.addOutputsToMap = True
@@ -14,12 +14,11 @@ state, message, response = 0, str(), str()
 try:
     params = arcpy.GetParameterInfo()
 
-
     if params[1]:
         if not symbology.endswith(st._EXT_LAYER):
             symbology = '{}{}'.format(symbology, st._EXT_LAYER)
         params[2].symbology = os.path.join(st._LAYERS_DIR, symbology)
-
+        
     state, message, response = 1, 'success', feature
     
 except Exception as e:

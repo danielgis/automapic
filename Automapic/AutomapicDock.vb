@@ -50,7 +50,6 @@ Public Class AutomapicDock
 
             MyBase.Dispose(Param)
         End Sub
-
     End Class
 
 
@@ -80,6 +79,5 @@ Public Class AutomapicDock
             End Try
         End If
     End Sub
-
 
 End Class

@@ -99,6 +99,10 @@
     <Reference Include="ESRI.ArcGIS.System">
       <Private>False</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -127,6 +131,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Config.esriaddinx</DependentUpon>
     </Compile>
+    <Compile Include="DrawPolygon.vb" />
     <Compile Include="Exceptions.vb" />
     <Compile Include="Form_mapa_peligros_geologicos.Designer.vb">
       <DependentUpon>Form_mapa_peligros_geologicos.vb</DependentUpon>
@@ -203,6 +208,7 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+    <None Include="packages.config" />
     <None Include="scripts\arc_danielgis.sde">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -292,6 +298,9 @@
     <None Include="Resources\user1.png" />
     <None Include="Resources\TaskUpdate32.png" />
     <None Include="Resources\TaskUpdate16.png" />
+    <None Include="Resources\ElementRectangle32.png" />
+    <None Include="Resources\EditingCopyFeaturesTool32.png" />
+    <AddInContent Include="Images\DrawPolygon.png" />
     <Content Include="scripts\arcobjects.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
