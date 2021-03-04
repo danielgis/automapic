@@ -221,7 +221,7 @@ def generate_map():
         if layer.isBroken:
             arcpy.mapping.RemoveLayer(df_principal, layer)
 
-    for layer in arcpy.mapping.ListLayers(mxd), '*', df_ubicacion:
+    for layer in arcpy.mapping.ListLayers(mxd, '*', df_ubicacion):
         if layer.isBroken:
             arcpy.mapping.RemoveLayer(df_ubicacion, layer)
     
