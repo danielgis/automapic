@@ -9,7 +9,7 @@ Public Class Login
         user = tbx_user.Text
         pass = tbx_pass.Text
         If Not (user = "admin" And pass = "admin") Then
-            MessageBox.Show("Usuario y contraseña incorrecta")
+            MessageBox.Show("Usuario y contraseña incorrecta", __title__, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
         End If
         '------------------------------

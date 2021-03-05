@@ -301,6 +301,7 @@
     <None Include="Resources\ElementRectangle32.png" />
     <None Include="Resources\EditingCopyFeaturesTool32.png" />
     <AddInContent Include="Images\DrawPolygon.png" />
+    <None Include="Resources\RepresentationEraseTool32.png" />
     <Content Include="scripts\arcobjects.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

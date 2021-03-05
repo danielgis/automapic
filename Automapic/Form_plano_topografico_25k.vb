@@ -92,7 +92,7 @@ Public Class Form_plano_topografico_25k
         'Se imprime el error como PythonError
         If response(0) = 0 Then
             RuntimeError.PythonError = response(2)
-            MessageBox.Show(response(2))
+            MessageBox.Show(response(2), __title__, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
         End If
 
@@ -122,7 +122,7 @@ Public Class Form_plano_topografico_25k
         'Se imprime el error como PythonError
         If response(0) = 0 Then
             RuntimeError.PythonError = response(2)
-            MessageBox.Show(response(2))
+            MessageBox.Show(response(2), __title__, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
         End If
 
@@ -157,7 +157,7 @@ Public Class Form_plano_topografico_25k
         'Se imprime el error como PythonError
         If response(0) = 0 Then
             RuntimeError.PythonError = response(2)
-            MessageBox.Show(response(2))
+            MessageBox.Show(response(2), __title__, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
             'Throw RuntimeError
         End If
@@ -189,7 +189,7 @@ Public Class Form_plano_topografico_25k
         'Se imprime el error como PythonError
         If response(0) = 0 Then
             RuntimeError.PythonError = response(2)
-            MessageBox.Show(response(2))
+            MessageBox.Show(response(2), __title__, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
             'Throw RuntimeError
         End If

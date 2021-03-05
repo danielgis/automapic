@@ -1,19 +1,20 @@
-﻿'Imports System.Web.Script.Serialization
-'Imports System.Web.Extensions
-'Imports Newtonsoft.Json
-Imports System.Windows.Forms
-Imports ESRI.ArcGIS.Carto
+﻿Imports System.Windows.Forms
 Imports ESRI.ArcGIS.ArcMapUI
-Imports ESRI.ArcGIS.Display
-'Imports ESRI.ArcGIS.Desktop.AddIns
+Imports ESRI.ArcGIS.Carto
 Imports ESRI.ArcGIS.esriSystem
 Imports ESRI.ArcGIS.Framework
+Imports Newtonsoft.Json
 
 Public Class Form_mapa_peligros_geologicos
     Dim path_shapefile As String
     Dim params As New List(Of Object)
     Dim layer As String
     Dim toggleTool As Boolean = False
+    Dim maptype As String = Nothing
+    Dim xmin As Double
+    Dim ymin As Double
+    Dim xmax As Double
+    Dim ymax As Double
     Private Shared _instance As Form_mapa_peligros_geologicos
     Private Sub New()
 
@@ -33,9 +34,10 @@ Public Class Form_mapa_peligros_geologicos
 
     End Function
     Private Sub Form_mapa_peligros_geologicos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        tbx_autor.Text = user
+        tbx_autor_pg.Text = user
     End Sub
     Private Sub btn_loadshp_Click(sender As Object, e As EventArgs) Handles btn_loadshp.Click
+        Cursor.Current = Cursors.WaitCursor
         path_shapefile = openDialogBoxESRI(f_shapefile)
         If path_shapefile Is Nothing Then
             Return
@@ -45,11 +47,28 @@ Public Class Form_mapa_peligros_geologicos
         params.Clear()
         params.Add(path_shapefile)
         ExecuteGP(_tool_addFeatureToMap, params, _toolboxPath_automapic, getresult:=False)
+        btn_generar_mapa_pg.Enabled = True
+        If tbx_xmin.Text <> 0 Then
+            Dim r As DialogResult = MessageBox.Show("Desea mantener la extensión especificada", __title__, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+            If r = DialogResult.No Then
+                tbx_xmin.Text = 0
+                tbx_ymin.Text = 0
+                tbx_xmax.Text = 0
+                tbx_ymax.Text = 0
+            End If
+        End If
+        Cursor.Current = Cursors.Default
         runProgressBar("ini")
-        'Dim rawresp As String = "{""id"":174543706,""first_name"":""Hamed"",""last_name"":""Ap"",""username"":""hamed_ap"",""type"":""private""}"
-        'Dim jsonResulttodict = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(rawresp)
-        'Dim firstItem = jsonResulttodict.Item("id")
-        'MessageBox.Show(firstItem)
+    End Sub
+
+    Public Sub ToggleDataView()
+        Dim pMxDoc As IMxDocument
+        pMxDoc = My.ArcMap.Application.Document
+        If TypeOf pMxDoc.ActiveView Is IPageLayout Then
+            pMxDoc.ActiveView = pMxDoc.FocusMap
+        Else
+            Return
+        End If
     End Sub
 
     Private Sub btn_draw_Click(sender As Object, e As EventArgs) Handles btn_draw.Click
@@ -61,6 +80,7 @@ Public Class Form_mapa_peligros_geologicos
             runProgressBar("ini")
             Return
         End If
+        ToggleDataView()
         btn_draw.FlatAppearance.BorderColor = Drawing.Color.Red
         Dim dockWinID As UID = New UIDClass()
         dockWinID.Value = My.ThisAddIn.IDs.DrawPolygon
@@ -70,10 +90,61 @@ Public Class Form_mapa_peligros_geologicos
         toggleTool = True
     End Sub
 
-    'Private Sub mouseUpEvent(ByVal arg As Tool.MouseEventArgs) MyBase.OnMouseDown(arg)
-    '    MessageBox.Show("si funciona")
-    'End Sub
+    Private Sub btn_generar_mapa_pg_Click(sender As Object, e As EventArgs) Handles btn_generar_mapa_pg.Click
+        Cursor.Current = Cursors.WaitCursor
+        runProgressBar()
+        params.Clear()
 
+        params.Add(path_shapefile)
 
+        If rbt_pg.Checked Then
+            maptype = "PG"
+        ElseIf rbt_zc.Checked Then
+            maptype = "ZC"
+        ElseIf rbt_smm.Checked Then
+            maptype = "SMM"
+        ElseIf rbt_sief.Checked Then
+            maptype = "SIEF"
+        Else
+            MessageBox.Show("Debe marcar el tipo de mapa que desea generar", __title__, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            runProgressBar("ini")
+            Return
+        End If
 
+        params.Add(maptype)
+        params.Add(tbx_title_pg.Text)
+        params.Add(tbx_autor_pg.Text)
+        params.Add(tbx_escala_pg.Text)
+        params.Add(tbx_numero_pg.Text)
+        params.Add(tbx_detalle_pg.Text)
+        xmin = CDbl(Val(tbx_xmin.Text))
+        params.Add(xmin)
+        ymin = CDbl(Val(tbx_ymin.Text))
+        params.Add(ymin)
+        xmax = CDbl(Val(tbx_xmax.Text))
+        params.Add(xmax)
+        ymax = CDbl(Val(tbx_ymax.Text))
+        params.Add(ymax)
+
+        Dim response As String = ExecuteGP(_tool_mapGeologicalHazards, params, _toolboxPath_peligros_geologicos)
+
+        Dim responseJson = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(response)
+        If responseJson.Item("status") = 0 Then
+            MessageBox.Show(responseJson.Item("message"), __title__, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            runProgressBar("ini")
+            Return
+        End If
+
+        Dim mxd_path As String = responseJson.Item("response").Item("mxd")
+        My.ArcMap.Application.OpenDocument(mxd_path)
+        Cursor.Current = Cursors.Default
+        runProgressBar("ini")
+    End Sub
+
+    Private Sub btn_blank_extent_Click(sender As Object, e As EventArgs) Handles btn_blank_extent.Click
+        tbx_xmin.Text = 0
+        tbx_ymin.Text = 0
+        tbx_xmax.Text = 0
+        tbx_ymax.Text = 0
+    End Sub
 End Class

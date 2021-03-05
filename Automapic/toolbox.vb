@@ -9,6 +9,7 @@ Module toolbox
     '1. Variables globales
     '* _toolboxPath: Construye la ruta donde se encuentra el archivo *.tbx
     Public _toolboxPath_plano_topografico As String = _path & "\scripts\T01_plano_topografico_25k.tbx"
+    Public _toolboxPath_peligros_geologicos As String = _path & "\scripts\T02_mapa_peligros_geologicos.tbx"
     Public _toolboxPath_automapic As String = _path & "\scripts\T00_automapic.tbx"
 
     '* Nombre de herramientas del tbx _toolboxPath
@@ -17,6 +18,8 @@ Module toolbox
     Public _tool_exportMXDToMPK As String = "exportMXDToMPK"
 
     Public _tool_addFeatureToMap As String = "addFeatureToMap"
+
+    Public _tool_mapGeologicalHazards As String = "mapGeologicalHazards"
     'Public _tool_verificarpoligonosflotantes As String = "verificarpoligonosflotantes"
 
     '5. Funciones globales de toolbox

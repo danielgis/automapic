@@ -30,6 +30,11 @@ _FIELD_NM_DIST = 'NM_DIST'
 _FIELD_NM_PROV = 'NM_PROV'
 _FIELD_NM_DEPA = 'NM_DEPA'
 
+_OPTION_PG = 'PG'
+_OPTION_ZC = 'ZC'
+_OPTION_SMM = 'SMM'
+_OPTION_SIEF = 'SIEF'
+
 
 def get_orientation():
     pass
@@ -125,8 +130,10 @@ def generate_map():
     response['extent'] = json.loads(ext.JSON)
 
     df_principal.extent = ext
-    scale = get_scale(df_principal.scale)
-    df_principal.scale = scale
+
+    if not escala:
+        escala = get_scale(df_principal.scale)
+    df_principal.scale = escala
 
     arcpy.RefreshTOC()
     arcpy.RefreshActiveView()
@@ -137,22 +144,44 @@ def generate_map():
     _NAME_LAYER_PROVINCIAS = 'provincias'
     _NAME_LAYER_DISTRITOS = 'distritos'
 
+    _NAME_LAYER_PG = 'peligros_geologicos'
+    _NAME_LAYER_ZC = 'zonas_criticas'
+    _NAME_LAYER_SMM = 'susc_movimientos_masa'
+    _NAME_LAYER_SIEF = 'susc_inundacion_erosion'
+
     lyr_departamentos = arcpy.mapping.ListLayers(mxd, '{}'.format(_NAME_LAYER_DEPARTAMENTOS), df_principal)[0]
     lyr_provincias = arcpy.mapping.ListLayers(mxd, '{}'.format(_NAME_LAYER_PROVINCIAS), df_principal)[0]
     lyr_distritos = arcpy.mapping.ListLayers(mxd, '{}'.format(_NAME_LAYER_DISTRITOS), df_principal)[0]
 
-    arcpy.SelectLayerByLocation_management(lyr_distritos, "INTERSECT", area, "#", "NEW_SELECTION", "NOT_INVERT")
+    arcpy.SelectLayerByLocation_management(lyr_distritos, "INTERSECT", area, "#", "NEW_SELECTION")
 
     cursor = arcpy.da.SearchCursor(lyr_distritos, [_FIELD_CD_DIST, _FIELD_CD_PROV, _FIELD_CD_DEPA, _FIELD_NM_DIST , _FIELD_NM_PROV, _FIELD_NM_DEPA, 'SHAPE@'])
     data = map(lambda i: i, cursor)
 
     arcpy.SelectLayerByAttribute_management(lyr_distritos, "CLEAR_SELECTION")
 
-    query_distritos = " AND {} in ('{}')".format(_FIELD_CD_DIST, "', '".join(list(set([i[0] for i in data]))))
-    lyr_distritos.definitionQuery += query_distritos
+    query_distritos = "{} in ('{}')".format(_FIELD_CD_DIST, "', '".join(list(set([i[0] for i in data]))))
+    lyr_distritos.definitionQuery += ' AND ' + query_distritos
 
-    query_provincias = " AND {} in ('{}')".format(_FIELD_CD_PROV, "', '".join(list(set([i[1] for i in data]))))
-    lyr_provincias.definitionQuery += query_provincias
+    query_provincias = "{} in ('{}')".format(_FIELD_CD_PROV, "', '".join(list(set([i[1] for i in data]))))
+    lyr_provincias.definitionQuery += ' AND ' + query_provincias
+
+    if maptype == _OPTION_PG:
+        lyr_pg = arcpy.mapping.ListLayers(mxd, '{}'.format(_NAME_LAYER_PG), df_principal)[0]
+        lyr_pg.definitionQuery = query_distritos
+        lyr_pg.visible = True
+    elif maptype == _OPTION_ZC:
+        lyr_zc = arcpy.mapping.ListLayers(mxd, '{}'.format(_NAME_LAYER_ZC), df_principal)[0]
+        lyr_zc.definitionQuery = query_distritos
+        lyr_zc.visible = True
+    elif maptype == _OPTION_SMM:
+        lyr_smm = arcpy.mapping.ListLayers(mxd, '{}'.format(_NAME_LAYER_SMM), df_principal)[0]
+        lyr_smm.definitionQuery = query_distritos
+        lyr_smm.visible = True
+    elif maptype == _OPTION_SIEF:
+        lyr_sief = arcpy.mapping.ListLayers(mxd, '{}'.format(_NAME_LAYER_SIEF), df_principal)[0]
+        lyr_sief.definitionQuery = query_distritos
+        lyr_sief.visible = True
 
     # query_departamentos = "{} in ('{}')".format(_FIELD_CD_DEPA, "', '".join(list(set([i[2] for i in data]))))
     # lyr_departamentos.definitionQuery = query_departamentos
@@ -218,7 +247,7 @@ def generate_map():
     arcpy.RefreshActiveView()
 
     for layer in arcpy.mapping.ListLayers(mxd, '*', df_principal):
-        if layer.isBroken:
+        if (layer.isBroken) or (not layer.visible):
             arcpy.mapping.RemoveLayer(df_principal, layer)
 
     for layer in arcpy.mapping.ListLayers(mxd, '*', df_ubicacion):
@@ -235,9 +264,9 @@ def generate_map():
     response['mxd'] = os.path.join(output_dir_mxd, name_out)
     mxd.saveACopy(response['mxd'])
 
-    params = set_scale_bar(scale)
+    params = set_scale_bar(escala)
     arc.set_scale_properties(response['mxd'], _BARRA_ESCALA, **params)
-    arc.select_grid(response['mxd'], scale)
+    arc.select_grid(response['mxd'], escala)
     return response
 
     
@@ -256,12 +285,12 @@ if __name__ == '__main__':
     xmax = arcpy.GetParameter(9)
     ymax = arcpy.GetParameter(10)
 
-    # try:
-    response['response'] = generate_map()
-    response['status'] = 1
-    # except Exception as e:
-    #     response['message'] = e.message
-    # finally:
-    response = json.dumps(response)
-    arcpy.SetParameterAsText(11, response)
+    try:
+        response['response'] = generate_map()
+        response['status'] = 1
+    except Exception as e:
+        response['message'] = e.message
+    finally:
+        response = json.dumps(response)
+        arcpy.SetParameterAsText(11, response)
 

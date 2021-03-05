@@ -27,23 +27,21 @@ Partial Class Form_mapa_peligros_geologicos
         Me.tbx_pathshp = New System.Windows.Forms.TextBox()
         Me.btn_loadshp = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.tbx_title_pg = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.tbx_autor = New System.Windows.Forms.TextBox()
+        Me.tbx_autor_pg = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.TextBox3 = New System.Windows.Forms.TextBox()
-        Me.TextBox4 = New System.Windows.Forms.TextBox()
+        Me.tbx_escala_pg = New System.Windows.Forms.TextBox()
+        Me.tbx_detalle_pg = New System.Windows.Forms.TextBox()
         Me.tbx_detalle = New System.Windows.Forms.Label()
-        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton3 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton4 = New System.Windows.Forms.RadioButton()
+        Me.rbt_pg = New System.Windows.Forms.RadioButton()
+        Me.rbt_zc = New System.Windows.Forms.RadioButton()
+        Me.rbt_smm = New System.Windows.Forms.RadioButton()
+        Me.rbt_sief = New System.Windows.Forms.RadioButton()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
+        Me.tbx_numero_pg = New System.Windows.Forms.NumericUpDown()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.btn_draw = New System.Windows.Forms.Button()
+        Me.btn_generar_mapa_pg = New System.Windows.Forms.Button()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.tbx_xmin = New System.Windows.Forms.TextBox()
         Me.tbx_ymin = New System.Windows.Forms.TextBox()
@@ -53,8 +51,11 @@ Partial Class Form_mapa_peligros_geologicos
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
+        Me.btn_draw = New System.Windows.Forms.Button()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.btn_blank_extent = New System.Windows.Forms.Button()
         Me.TableLayoutPanel1.SuspendLayout()
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tbx_numero_pg, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -67,28 +68,29 @@ Partial Class Form_mapa_peligros_geologicos
         Me.TableLayoutPanel1.Controls.Add(Me.tbx_pathshp, 0, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.btn_loadshp, 1, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.Label1, 0, 10)
-        Me.TableLayoutPanel1.Controls.Add(Me.TextBox1, 0, 11)
+        Me.TableLayoutPanel1.Controls.Add(Me.tbx_title_pg, 0, 11)
         Me.TableLayoutPanel1.Controls.Add(Me.Label2, 0, 12)
-        Me.TableLayoutPanel1.Controls.Add(Me.tbx_autor, 0, 13)
+        Me.TableLayoutPanel1.Controls.Add(Me.tbx_autor_pg, 0, 13)
         Me.TableLayoutPanel1.Controls.Add(Me.Label3, 0, 14)
-        Me.TableLayoutPanel1.Controls.Add(Me.TextBox3, 0, 15)
-        Me.TableLayoutPanel1.Controls.Add(Me.TextBox4, 0, 17)
+        Me.TableLayoutPanel1.Controls.Add(Me.tbx_escala_pg, 0, 15)
+        Me.TableLayoutPanel1.Controls.Add(Me.tbx_detalle_pg, 0, 17)
         Me.TableLayoutPanel1.Controls.Add(Me.tbx_detalle, 0, 16)
-        Me.TableLayoutPanel1.Controls.Add(Me.RadioButton1, 0, 5)
-        Me.TableLayoutPanel1.Controls.Add(Me.RadioButton2, 0, 6)
-        Me.TableLayoutPanel1.Controls.Add(Me.RadioButton3, 0, 7)
-        Me.TableLayoutPanel1.Controls.Add(Me.RadioButton4, 0, 8)
+        Me.TableLayoutPanel1.Controls.Add(Me.rbt_pg, 0, 5)
+        Me.TableLayoutPanel1.Controls.Add(Me.rbt_zc, 0, 6)
+        Me.TableLayoutPanel1.Controls.Add(Me.rbt_smm, 0, 7)
+        Me.TableLayoutPanel1.Controls.Add(Me.rbt_sief, 0, 8)
         Me.TableLayoutPanel1.Controls.Add(Me.Label5, 0, 4)
-        Me.TableLayoutPanel1.Controls.Add(Me.NumericUpDown1, 1, 15)
+        Me.TableLayoutPanel1.Controls.Add(Me.tbx_numero_pg, 1, 15)
         Me.TableLayoutPanel1.Controls.Add(Me.Label6, 1, 14)
-        Me.TableLayoutPanel1.Controls.Add(Me.Button2, 0, 20)
-        Me.TableLayoutPanel1.Controls.Add(Me.Button1, 1, 19)
+        Me.TableLayoutPanel1.Controls.Add(Me.btn_generar_mapa_pg, 0, 21)
         Me.TableLayoutPanel1.Controls.Add(Me.btn_draw, 1, 18)
         Me.TableLayoutPanel1.Controls.Add(Me.TableLayoutPanel2, 0, 18)
+        Me.TableLayoutPanel1.Controls.Add(Me.Button1, 1, 19)
+        Me.TableLayoutPanel1.Controls.Add(Me.btn_blank_extent, 0, 19)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 22
+        Me.TableLayoutPanel1.RowCount = 23
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
@@ -107,6 +109,7 @@ Partial Class Form_mapa_peligros_geologicos
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
@@ -154,14 +157,14 @@ Partial Class Form_mapa_peligros_geologicos
         Me.Label1.TabIndex = 3
         Me.Label1.Text = "Título de mapa"
         '
-        'TextBox1
+        'tbx_title_pg
         '
-        Me.TextBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TableLayoutPanel1.SetColumnSpan(Me.TextBox1, 2)
-        Me.TextBox1.Location = New System.Drawing.Point(3, 244)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(404, 22)
-        Me.TextBox1.TabIndex = 4
+        Me.tbx_title_pg.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TableLayoutPanel1.SetColumnSpan(Me.tbx_title_pg, 2)
+        Me.tbx_title_pg.Location = New System.Drawing.Point(3, 244)
+        Me.tbx_title_pg.Name = "tbx_title_pg"
+        Me.tbx_title_pg.Size = New System.Drawing.Size(404, 22)
+        Me.tbx_title_pg.TabIndex = 4
         '
         'Label2
         '
@@ -173,14 +176,14 @@ Partial Class Form_mapa_peligros_geologicos
         Me.Label2.TabIndex = 5
         Me.Label2.Text = "Autor"
         '
-        'tbx_autor
+        'tbx_autor_pg
         '
-        Me.tbx_autor.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TableLayoutPanel1.SetColumnSpan(Me.tbx_autor, 2)
-        Me.tbx_autor.Location = New System.Drawing.Point(3, 294)
-        Me.tbx_autor.Name = "tbx_autor"
-        Me.tbx_autor.Size = New System.Drawing.Size(404, 22)
-        Me.tbx_autor.TabIndex = 6
+        Me.tbx_autor_pg.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TableLayoutPanel1.SetColumnSpan(Me.tbx_autor_pg, 2)
+        Me.tbx_autor_pg.Location = New System.Drawing.Point(3, 294)
+        Me.tbx_autor_pg.Name = "tbx_autor_pg"
+        Me.tbx_autor_pg.Size = New System.Drawing.Size(404, 22)
+        Me.tbx_autor_pg.TabIndex = 6
         '
         'Label3
         '
@@ -192,23 +195,23 @@ Partial Class Form_mapa_peligros_geologicos
         Me.Label3.TabIndex = 7
         Me.Label3.Text = "Escala"
         '
-        'TextBox3
+        'tbx_escala_pg
         '
-        Me.TextBox3.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox3.Location = New System.Drawing.Point(3, 344)
-        Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.Size = New System.Drawing.Size(324, 22)
-        Me.TextBox3.TabIndex = 8
+        Me.tbx_escala_pg.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.tbx_escala_pg.Location = New System.Drawing.Point(3, 344)
+        Me.tbx_escala_pg.Name = "tbx_escala_pg"
+        Me.tbx_escala_pg.Size = New System.Drawing.Size(324, 22)
+        Me.tbx_escala_pg.TabIndex = 8
         '
-        'TextBox4
+        'tbx_detalle_pg
         '
-        Me.TableLayoutPanel1.SetColumnSpan(Me.TextBox4, 2)
-        Me.TextBox4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TextBox4.Location = New System.Drawing.Point(3, 393)
-        Me.TextBox4.Multiline = True
-        Me.TextBox4.Name = "TextBox4"
-        Me.TextBox4.Size = New System.Drawing.Size(404, 114)
-        Me.TextBox4.TabIndex = 9
+        Me.TableLayoutPanel1.SetColumnSpan(Me.tbx_detalle_pg, 2)
+        Me.tbx_detalle_pg.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tbx_detalle_pg.Location = New System.Drawing.Point(3, 393)
+        Me.tbx_detalle_pg.Multiline = True
+        Me.tbx_detalle_pg.Name = "tbx_detalle_pg"
+        Me.tbx_detalle_pg.Size = New System.Drawing.Size(404, 114)
+        Me.tbx_detalle_pg.TabIndex = 9
         '
         'tbx_detalle
         '
@@ -220,53 +223,53 @@ Partial Class Form_mapa_peligros_geologicos
         Me.tbx_detalle.TabIndex = 10
         Me.tbx_detalle.Text = "Detalle"
         '
-        'RadioButton1
+        'rbt_pg
         '
-        Me.RadioButton1.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.RadioButton1.AutoSize = True
-        Me.RadioButton1.Location = New System.Drawing.Point(3, 94)
-        Me.RadioButton1.Name = "RadioButton1"
-        Me.RadioButton1.Size = New System.Drawing.Size(324, 21)
-        Me.RadioButton1.TabIndex = 11
-        Me.RadioButton1.TabStop = True
-        Me.RadioButton1.Text = "Peligros geológicos"
-        Me.RadioButton1.UseVisualStyleBackColor = True
+        Me.rbt_pg.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.rbt_pg.AutoSize = True
+        Me.rbt_pg.Location = New System.Drawing.Point(3, 94)
+        Me.rbt_pg.Name = "rbt_pg"
+        Me.rbt_pg.Size = New System.Drawing.Size(324, 21)
+        Me.rbt_pg.TabIndex = 11
+        Me.rbt_pg.TabStop = True
+        Me.rbt_pg.Text = "Peligros geológicos"
+        Me.rbt_pg.UseVisualStyleBackColor = True
         '
-        'RadioButton2
+        'rbt_zc
         '
-        Me.RadioButton2.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.RadioButton2.AutoSize = True
-        Me.RadioButton2.Location = New System.Drawing.Point(3, 124)
-        Me.RadioButton2.Name = "RadioButton2"
-        Me.RadioButton2.Size = New System.Drawing.Size(324, 21)
-        Me.RadioButton2.TabIndex = 12
-        Me.RadioButton2.TabStop = True
-        Me.RadioButton2.Text = "Zonas críticas"
-        Me.RadioButton2.UseVisualStyleBackColor = True
+        Me.rbt_zc.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.rbt_zc.AutoSize = True
+        Me.rbt_zc.Location = New System.Drawing.Point(3, 124)
+        Me.rbt_zc.Name = "rbt_zc"
+        Me.rbt_zc.Size = New System.Drawing.Size(324, 21)
+        Me.rbt_zc.TabIndex = 12
+        Me.rbt_zc.TabStop = True
+        Me.rbt_zc.Text = "Zonas críticas"
+        Me.rbt_zc.UseVisualStyleBackColor = True
         '
-        'RadioButton3
+        'rbt_smm
         '
-        Me.RadioButton3.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.RadioButton3.AutoSize = True
-        Me.RadioButton3.Location = New System.Drawing.Point(3, 154)
-        Me.RadioButton3.Name = "RadioButton3"
-        Me.RadioButton3.Size = New System.Drawing.Size(324, 21)
-        Me.RadioButton3.TabIndex = 13
-        Me.RadioButton3.TabStop = True
-        Me.RadioButton3.Text = "Susceptibilidad por movimientos en masa"
-        Me.RadioButton3.UseVisualStyleBackColor = True
+        Me.rbt_smm.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.rbt_smm.AutoSize = True
+        Me.rbt_smm.Location = New System.Drawing.Point(3, 154)
+        Me.rbt_smm.Name = "rbt_smm"
+        Me.rbt_smm.Size = New System.Drawing.Size(324, 21)
+        Me.rbt_smm.TabIndex = 13
+        Me.rbt_smm.TabStop = True
+        Me.rbt_smm.Text = "Susceptibilidad por movimientos en masa"
+        Me.rbt_smm.UseVisualStyleBackColor = True
         '
-        'RadioButton4
+        'rbt_sief
         '
-        Me.RadioButton4.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.RadioButton4.AutoSize = True
-        Me.RadioButton4.Location = New System.Drawing.Point(3, 184)
-        Me.RadioButton4.Name = "RadioButton4"
-        Me.RadioButton4.Size = New System.Drawing.Size(324, 21)
-        Me.RadioButton4.TabIndex = 14
-        Me.RadioButton4.TabStop = True
-        Me.RadioButton4.Text = "Susceptibilidad por inundación y erosión"
-        Me.RadioButton4.UseVisualStyleBackColor = True
+        Me.rbt_sief.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.rbt_sief.AutoSize = True
+        Me.rbt_sief.Location = New System.Drawing.Point(3, 184)
+        Me.rbt_sief.Name = "rbt_sief"
+        Me.rbt_sief.Size = New System.Drawing.Size(324, 21)
+        Me.rbt_sief.TabIndex = 14
+        Me.rbt_sief.TabStop = True
+        Me.rbt_sief.Text = "Susceptibilidad por inundación y erosión"
+        Me.rbt_sief.UseVisualStyleBackColor = True
         '
         'Label5
         '
@@ -278,14 +281,14 @@ Partial Class Form_mapa_peligros_geologicos
         Me.Label5.TabIndex = 15
         Me.Label5.Text = "Seleccione tipo de mapa"
         '
-        'NumericUpDown1
+        'tbx_numero_pg
         '
-        Me.NumericUpDown1.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.NumericUpDown1.Location = New System.Drawing.Point(333, 344)
-        Me.NumericUpDown1.Name = "NumericUpDown1"
-        Me.NumericUpDown1.Size = New System.Drawing.Size(74, 22)
-        Me.NumericUpDown1.TabIndex = 16
-        Me.NumericUpDown1.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.tbx_numero_pg.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.tbx_numero_pg.Location = New System.Drawing.Point(333, 344)
+        Me.tbx_numero_pg.Name = "tbx_numero_pg"
+        Me.tbx_numero_pg.Size = New System.Drawing.Size(74, 22)
+        Me.tbx_numero_pg.TabIndex = 16
+        Me.tbx_numero_pg.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
         'Label6
         '
@@ -297,42 +300,18 @@ Partial Class Form_mapa_peligros_geologicos
         Me.Label6.TabIndex = 17
         Me.Label6.Text = "Nro"
         '
-        'Button2
+        'btn_generar_mapa_pg
         '
-        Me.TableLayoutPanel1.SetColumnSpan(Me.Button2, 2)
-        Me.Button2.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Button2.Location = New System.Drawing.Point(3, 635)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(404, 29)
-        Me.Button2.TabIndex = 19
-        Me.Button2.Text = "Generar mapa"
-        Me.Button2.UseVisualStyleBackColor = True
-        '
-        'Button1
-        '
-        Me.Button1.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button1.FlatAppearance.BorderColor = System.Drawing.Color.Gray
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.Image = Global.Automapic.My.Resources.Resources.TaskUpdate32
-        Me.Button1.Location = New System.Drawing.Point(333, 568)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(74, 39)
-        Me.Button1.TabIndex = 18
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'btn_draw
-        '
-        Me.btn_draw.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btn_draw.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btn_draw.FlatAppearance.BorderColor = System.Drawing.Color.Gray
-        Me.btn_draw.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btn_draw.Image = Global.Automapic.My.Resources.Resources.EditingCopyFeaturesTool32
-        Me.btn_draw.Location = New System.Drawing.Point(333, 513)
-        Me.btn_draw.Name = "btn_draw"
-        Me.btn_draw.Size = New System.Drawing.Size(74, 49)
-        Me.btn_draw.TabIndex = 20
-        Me.btn_draw.UseVisualStyleBackColor = True
+        Me.TableLayoutPanel1.SetColumnSpan(Me.btn_generar_mapa_pg, 2)
+        Me.btn_generar_mapa_pg.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btn_generar_mapa_pg.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btn_generar_mapa_pg.Enabled = False
+        Me.btn_generar_mapa_pg.Location = New System.Drawing.Point(3, 635)
+        Me.btn_generar_mapa_pg.Name = "btn_generar_mapa_pg"
+        Me.btn_generar_mapa_pg.Size = New System.Drawing.Size(404, 29)
+        Me.btn_generar_mapa_pg.TabIndex = 19
+        Me.btn_generar_mapa_pg.Text = "Generar mapa"
+        Me.btn_generar_mapa_pg.UseVisualStyleBackColor = True
         '
         'TableLayoutPanel2
         '
@@ -368,6 +347,7 @@ Partial Class Form_mapa_peligros_geologicos
         Me.tbx_xmin.Name = "tbx_xmin"
         Me.tbx_xmin.Size = New System.Drawing.Size(75, 22)
         Me.tbx_xmin.TabIndex = 0
+        Me.tbx_xmin.Text = "0"
         '
         'tbx_ymin
         '
@@ -377,6 +357,7 @@ Partial Class Form_mapa_peligros_geologicos
         Me.tbx_ymin.Name = "tbx_ymin"
         Me.tbx_ymin.Size = New System.Drawing.Size(75, 22)
         Me.tbx_ymin.TabIndex = 1
+        Me.tbx_ymin.Text = "0"
         '
         'tbx_xmax
         '
@@ -386,6 +367,7 @@ Partial Class Form_mapa_peligros_geologicos
         Me.tbx_xmax.Name = "tbx_xmax"
         Me.tbx_xmax.Size = New System.Drawing.Size(75, 22)
         Me.tbx_xmax.TabIndex = 2
+        Me.tbx_xmax.Text = "0"
         '
         'tbx_ymax
         '
@@ -395,6 +377,7 @@ Partial Class Form_mapa_peligros_geologicos
         Me.tbx_ymax.Name = "tbx_ymax"
         Me.tbx_ymax.Size = New System.Drawing.Size(75, 22)
         Me.tbx_ymax.TabIndex = 3
+        Me.tbx_ymax.Text = "0"
         '
         'lbl_xmin
         '
@@ -436,6 +419,42 @@ Partial Class Form_mapa_peligros_geologicos
         Me.Label9.TabIndex = 7
         Me.Label9.Text = "ymax"
         '
+        'btn_draw
+        '
+        Me.btn_draw.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btn_draw.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btn_draw.FlatAppearance.BorderColor = System.Drawing.Color.Gray
+        Me.btn_draw.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btn_draw.Image = Global.Automapic.My.Resources.Resources.EditingCopyFeaturesTool32
+        Me.btn_draw.Location = New System.Drawing.Point(333, 513)
+        Me.btn_draw.Name = "btn_draw"
+        Me.btn_draw.Size = New System.Drawing.Size(74, 49)
+        Me.btn_draw.TabIndex = 20
+        Me.btn_draw.UseVisualStyleBackColor = True
+        '
+        'Button1
+        '
+        Me.Button1.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Button1.FlatAppearance.BorderColor = System.Drawing.Color.Gray
+        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button1.Image = Global.Automapic.My.Resources.Resources.TaskUpdate32
+        Me.Button1.Location = New System.Drawing.Point(333, 568)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(74, 39)
+        Me.Button1.TabIndex = 18
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'btn_blank_extent
+        '
+        Me.btn_blank_extent.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btn_blank_extent.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btn_blank_extent.Image = Global.Automapic.My.Resources.Resources.RepresentationEraseTool32
+        Me.btn_blank_extent.Location = New System.Drawing.Point(3, 568)
+        Me.btn_blank_extent.Name = "btn_blank_extent"
+        Me.btn_blank_extent.Size = New System.Drawing.Size(75, 39)
+        Me.btn_blank_extent.TabIndex = 22
+        Me.btn_blank_extent.UseVisualStyleBackColor = True
+        '
         'Form_mapa_peligros_geologicos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -449,7 +468,7 @@ Partial Class Form_mapa_peligros_geologicos
         Me.Text = "Form_mapa_peligros_geologicos"
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tbx_numero_pg, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.TableLayoutPanel2.PerformLayout()
         Me.ResumeLayout(False)
@@ -461,22 +480,22 @@ Partial Class Form_mapa_peligros_geologicos
     Friend WithEvents tbx_pathshp As System.Windows.Forms.TextBox
     Friend WithEvents btn_loadshp As System.Windows.Forms.Button
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
+    Friend WithEvents tbx_title_pg As System.Windows.Forms.TextBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents tbx_autor As System.Windows.Forms.TextBox
+    Friend WithEvents tbx_autor_pg As System.Windows.Forms.TextBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents TextBox3 As System.Windows.Forms.TextBox
-    Friend WithEvents TextBox4 As System.Windows.Forms.TextBox
+    Friend WithEvents tbx_escala_pg As System.Windows.Forms.TextBox
+    Friend WithEvents tbx_detalle_pg As System.Windows.Forms.TextBox
     Friend WithEvents tbx_detalle As System.Windows.Forms.Label
-    Friend WithEvents RadioButton1 As System.Windows.Forms.RadioButton
-    Friend WithEvents RadioButton2 As System.Windows.Forms.RadioButton
-    Friend WithEvents RadioButton3 As System.Windows.Forms.RadioButton
-    Friend WithEvents RadioButton4 As System.Windows.Forms.RadioButton
+    Friend WithEvents rbt_pg As System.Windows.Forms.RadioButton
+    Friend WithEvents rbt_zc As System.Windows.Forms.RadioButton
+    Friend WithEvents rbt_smm As System.Windows.Forms.RadioButton
+    Friend WithEvents rbt_sief As System.Windows.Forms.RadioButton
     Friend WithEvents Label5 As System.Windows.Forms.Label
-    Friend WithEvents NumericUpDown1 As System.Windows.Forms.NumericUpDown
+    Friend WithEvents tbx_numero_pg As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents Button1 As System.Windows.Forms.Button
-    Friend WithEvents Button2 As System.Windows.Forms.Button
+    Friend WithEvents btn_generar_mapa_pg As System.Windows.Forms.Button
     Friend WithEvents btn_draw As System.Windows.Forms.Button
     Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents tbx_xmin As System.Windows.Forms.TextBox
@@ -487,4 +506,5 @@ Partial Class Form_mapa_peligros_geologicos
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents Label9 As System.Windows.Forms.Label
+    Friend WithEvents btn_blank_extent As System.Windows.Forms.Button
 End Class

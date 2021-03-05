@@ -91,7 +91,7 @@ Module settings
     End Function
     Public Function successProcess()
         Dim message As String = "Proceso finalizado con exito"
-        MessageBox.Show(message, __title__, MessageBoxButtons.OK)
+        MessageBox.Show(message, __title__, MessageBoxButtons.OK, MessageBoxIcon.Information)
         runProgressBar("ini")
         Return Nothing
     End Function
