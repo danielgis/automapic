@@ -462,4 +462,3 @@ def ArcCatalog_GetSelectedTable(bStandalone=False):
     pDS = pGxDS.Dataset
     pTable = CType(pDS, esriGeoDatabase.ITable)
     print "Selected table: " + pDS.Name
-

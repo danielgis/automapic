@@ -1,3 +1,7 @@
+import sys
+reload(sys)
+sys.setdefaultencoding("utf-8")
+
 import arcpy
 import settings as st
 import messages as msg
@@ -139,19 +143,29 @@ def generate_map():
     arcpy.RefreshActiveView()
 
     area = arcpy.FromWKT(df_principal.extent.polygon.WKT, arcpy.SpatialReference(wkid))
+    # area = arcpy.CopyFeatures_management(area, os.path.join(st._TEMP_FOLDER, 'area.shp'))
+    # area = arcpy.MakeFeatureLayer_management(area, 'area')
 
     _NAME_LAYER_DEPARTAMENTOS = 'departamentos'
     _NAME_LAYER_PROVINCIAS = 'provincias'
     _NAME_LAYER_DISTRITOS = 'distritos'
 
-    _NAME_LAYER_PG = 'peligros_geologicos'
-    _NAME_LAYER_ZC = 'zonas_criticas'
-    _NAME_LAYER_SMM = 'susc_movimientos_masa'
-    _NAME_LAYER_SIEF = 'susc_inundacion_erosion'
+    _NAME_LAYER_PG = 't_peligros_geologicos'
+    _TITLE_PG = 'inventario de peligros geol\xc3\x93gicos'
+
+    _NAME_LAYER_ZC = 't_zonas_criticas'
+    _TITLE_ZC = 'zonas cr\xc3\x8dticas peligros geol\xc3\x93gicos'
+
+    _NAME_LAYER_SMM = 't_susc_movimientos_masa'
+    _TITLE_SMM = 'susceptibilidad a movimientos en masa'
+
+    _NAME_LAYER_SIEF = 't_susc_inundacion_erosion'
+    _TITLE_SIEF = 'susceptibilidad a inundaciones'
 
     lyr_departamentos = arcpy.mapping.ListLayers(mxd, '{}'.format(_NAME_LAYER_DEPARTAMENTOS), df_principal)[0]
     lyr_provincias = arcpy.mapping.ListLayers(mxd, '{}'.format(_NAME_LAYER_PROVINCIAS), df_principal)[0]
     lyr_distritos = arcpy.mapping.ListLayers(mxd, '{}'.format(_NAME_LAYER_DISTRITOS), df_principal)[0]
+    arcpy.AddMessage(lyr_distritos.name)
 
     arcpy.SelectLayerByLocation_management(lyr_distritos, "INTERSECT", area, "#", "NEW_SELECTION")
 
@@ -170,6 +184,7 @@ def generate_map():
         lyr_pg = arcpy.mapping.ListLayers(mxd, '{}'.format(_NAME_LAYER_PG), df_principal)[0]
         lyr_pg.definitionQuery = query_distritos
         lyr_pg.visible = True
+
     elif maptype == _OPTION_ZC:
         lyr_zc = arcpy.mapping.ListLayers(mxd, '{}'.format(_NAME_LAYER_ZC), df_principal)[0]
         lyr_zc.definitionQuery = query_distritos
@@ -229,9 +244,20 @@ def generate_map():
 
     text_elements = arcpy.mapping.ListLayoutElements(mxd , "TEXT_ELEMENT")
 
+    prx = str()
+    if _OPTION_PG == maptype:
+        prx = _TITLE_PG
+    elif _OPTION_ZC == maptype:
+        prx = _TITLE_ZC
+    elif _OPTION_SMM == maptype:
+        prx = _TITLE_SMM
+    elif _OPTION_SIEF== maptype:
+        prx = _TITLE_SIEF
+
     for elm in text_elements:
         if elm.name == _TITULO_MAPA_TEXT_ELEMENT:
-            elm.text = titulo.upper()
+            elm.text =  prx.upper() + '\n' + titulo.upper()
+            elm.elementPositionY = 2.6   
         elif elm.name == _FIGURA_PUPUP_TEXT_ELEMENT:
             elm.text = titulo.title()
         elif elm.name == _NUMEROMAPA_TEXT_ELEMENT:
@@ -247,12 +273,22 @@ def generate_map():
     arcpy.RefreshActiveView()
 
     for layer in arcpy.mapping.ListLayers(mxd, '*', df_principal):
-        if (layer.isBroken) or (not layer.visible):
+        if layer.name.lower() == 'basemap':
+            continue
+        if (layer.isBroken) or ((layer.visible == False) and (layer.name.startswith('t_'))):
             arcpy.mapping.RemoveLayer(df_principal, layer)
+            continue
+        if layer.supports("VISIBLE"):
+            try:
+                arcpy.AddMessage(layer.name)
+                layer.visible = True
+            except:
+                pass
 
     for layer in arcpy.mapping.ListLayers(mxd, '*', df_ubicacion):
         if layer.isBroken:
             arcpy.mapping.RemoveLayer(df_ubicacion, layer)
+
     
     arcpy.RefreshTOC()
     arcpy.RefreshActiveView()

@@ -3,10 +3,12 @@ from snippets import GetStandaloneModules, InitStandalone
 import arcpy
 from bisect import bisect
 
+
 GetStandaloneModules()
 InitStandalone()
 
 install_dir = arcpy.GetInstallInfo()['InstallDir']
+
 
 
 def set_scale_properties(mxd_path, name_scale, **kwargs):
@@ -50,6 +52,7 @@ def select_grid(mxd_path, scale):
 
     mapGrids = mapFrame.QueryInterface(esriCarto.IMapGrids)
     grids = [mapGrids.MapGrid(i) for i in xrange(mapGrids.MapGridCount)]
+    # arcpy.AddMessage([i.Name for i in grids])
     grids_names = [int(i.Name) for i in grids]
     grids_names.sort()
     idx = bisect(grids_names, scale) - 1
