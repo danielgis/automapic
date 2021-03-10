@@ -27,6 +27,16 @@ _PROVINCIA_TEXT_ELEMENT = 'PROVINCIA'
 _DISTRITO_TEXT_ELEMENT = 'DISTRITO'
 _FIGURA_PUPUP_TEXT_ELEMENT = 'FIGURAPOPUP'
 
+# _PGDETALLE_TEXT_ELEMENT = 'PGDETALLE'
+_ZCDETALLE_TEXT_ELEMENT = 'ZCDETALLE'
+_SMMDETALLE_TEXT_ELEMENT = 'SMMDETALLE'
+_SIEFDETALLE_TEXT_ELEMENT = 'SIEFDETALLE'
+
+_PGLEYENDA_TEXT_ELEMENT = 'PGLEYENDA'
+_ZCLEYENDA_TEXT_ELEMENT = 'ZCLEYENDA'
+_SMMLEYENDA_TEXT_ELEMENT = 'SMMLEYENDA'
+_SIEFLEYENDA_TEXT_ELEMENT = 'SIEFLEYENDA'
+
 _FIELD_CD_DIST = 'CD_DIST'
 _FIELD_CD_PROV = 'CD_PROV'
 _FIELD_CD_DEPA = 'CD_DEPA'
@@ -75,8 +85,23 @@ def set_SIEF(mxd):
 def set_SSM(mxd):
     return mxd
 
+
+def set_detalle(text, max_character_by_line):
+    nlist = list()
+    textList = text.split(' ')
+    ini, end, tx = 0, 0, str()
+    for i, t in enumerate(textList, 1):
+        tx = ' '.join(textList[ini:i])
+        if len(tx) > max_character_by_line:
+            end = i - 1
+            tx = ' '.join(textList[ini:end])
+            nlist.append(tx)
+            ini = end
+    nlist.append(tx)
+    return '\n'.join(nlist)
+
 def generate_map():
-    global titulo, autor, escala, numero
+    global titulo, autor, escala, numero, detalle
     response = dict()
     id_process = uuid.uuid4().get_hex()
     desc = arcpy.Describe(feature)
@@ -111,7 +136,7 @@ def generate_map():
     df_principal, df_ubicacion = arcpy.mapping.ListDataFrames(mxd)
     # df_ubicacion = arcpy.mapping.ListDataFrames(mxd, '{}'.format(_DF_MAPAPRINCIPAL))[1]
 
-    lyrs_interes = arcpy.mapping.ListLayers(mxd, '{}'.format(_NAME_LAYER_INTERES))
+    lyrs_interes = arcpy.mapping.ListLayers(mxd, '{}'.format(_NAME_LAYER_INTERES), df_principal)
     # lyr_interes = arcpy.mapping.ListLayers(mxd, '{}'.format(_NAME_LAYER_INTERES), df_principal)[0]
 
     shape_dir = os.path.dirname(feature)
@@ -165,7 +190,7 @@ def generate_map():
     lyr_departamentos = arcpy.mapping.ListLayers(mxd, '{}'.format(_NAME_LAYER_DEPARTAMENTOS), df_principal)[0]
     lyr_provincias = arcpy.mapping.ListLayers(mxd, '{}'.format(_NAME_LAYER_PROVINCIAS), df_principal)[0]
     lyr_distritos = arcpy.mapping.ListLayers(mxd, '{}'.format(_NAME_LAYER_DISTRITOS), df_principal)[0]
-    arcpy.AddMessage(lyr_distritos.name)
+    # arcpy.AddMessage(lyr_distritos.name)
 
     arcpy.SelectLayerByLocation_management(lyr_distritos, "INTERSECT", area, "#", "NEW_SELECTION")
 
@@ -245,14 +270,26 @@ def generate_map():
     text_elements = arcpy.mapping.ListLayoutElements(mxd , "TEXT_ELEMENT")
 
     prx = str()
+    name_detalle = 'none'
+    name_leyenda = str()
+    len_text = 69
     if _OPTION_PG == maptype:
         prx = _TITLE_PG
+        # name_detalle = _PGDETALLE_TEXT_ELEMENT
+        name_leyenda = _PGLEYENDA_TEXT_ELEMENT
     elif _OPTION_ZC == maptype:
         prx = _TITLE_ZC
+        name_detalle = _ZCDETALLE_TEXT_ELEMENT
+        name_leyenda = _ZCLEYENDA_TEXT_ELEMENT
+        len_text = 51
     elif _OPTION_SMM == maptype:
         prx = _TITLE_SMM
+        name_detalle = _SMMDETALLE_TEXT_ELEMENT
+        name_leyenda = _SMMLEYENDA_TEXT_ELEMENT
     elif _OPTION_SIEF== maptype:
         prx = _TITLE_SIEF
+        name_detalle = _SIEFDETALLE_TEXT_ELEMENT
+        name_leyenda = _SIEFLEYENDA_TEXT_ELEMENT
 
     for elm in text_elements:
         if elm.name == _TITULO_MAPA_TEXT_ELEMENT:
@@ -268,6 +305,16 @@ def generate_map():
             elm.text += ambito[4].upper()
         elif elm.name == _DISTRITO_TEXT_ELEMENT:
             elm.text += ambito[3].upper()
+        elif elm.name == name_detalle:
+            elm.text = set_detalle(detalle, len_text)
+    
+    # arcpy.AddMessage(name_leyenda)
+    legend_element = arcpy.mapping.ListLayoutElements(mxd, "", name_leyenda)[0]
+    # for i in legends_element:
+    #     arcpy.AddMessage(i.name)
+    #     if i.name == name_leyenda:
+    legend_element.elementPositionX = 25.65
+    legend_element.elementPositionY = 7.7
 
     arcpy.RefreshTOC()
     arcpy.RefreshActiveView()
@@ -280,7 +327,7 @@ def generate_map():
             continue
         if layer.supports("VISIBLE"):
             try:
-                arcpy.AddMessage(layer.name)
+                # arcpy.AddMessage(layer.name)
                 layer.visible = True
             except:
                 pass
@@ -321,12 +368,12 @@ if __name__ == '__main__':
     xmax = arcpy.GetParameter(9)
     ymax = arcpy.GetParameter(10)
 
-    try:
-        response['response'] = generate_map()
-        response['status'] = 1
-    except Exception as e:
-        response['message'] = e.message
-    finally:
-        response = json.dumps(response)
-        arcpy.SetParameterAsText(11, response)
+    # try:
+    response['response'] = generate_map()
+    response['status'] = 1
+    # except Exception as e:
+    # response['message'] = e.message
+    # finally:
+    response = json.dumps(response)
+    arcpy.SetParameterAsText(11, response)
 
