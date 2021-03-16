@@ -38,11 +38,11 @@ _SCALE_MAPA_TOPOGRAFICO_25K = 25000
 # ---------------------------------------------------------------------------------------------------
 # Mapas DGAR
 
-_GDB_DIR_DGAR = pkg.get_config_param_value('GDB_PATH_PG', one=True)
+# _GDB_DIR_DGAR = pkg.get_config_param_value('GDB_PATH_PG', one=True)
 
-_FC_PO_AREA_INTERES_17 = os.path.join(_GDB_DIR_DGAR, 'PO_area_interes_17')
-_FC_PO_AREA_INTERES_18 = os.path.join(_GDB_DIR_DGAR, 'PO_area_interes_18')
-_FC_PO_AREA_INTERES_19 = os.path.join(_GDB_DIR_DGAR, 'PO_area_interes_19')
+# _FC_PO_AREA_INTERES_17 = os.path.join(_GDB_DIR_DGAR, 'PO_area_interes_17')
+# _FC_PO_AREA_INTERES_18 = os.path.join(_GDB_DIR_DGAR, 'PO_area_interes_18')
+# _FC_PO_AREA_INTERES_19 = os.path.join(_GDB_DIR_DGAR, 'PO_area_interes_19')
 
 # MXD
 _MXD_PG_17 = os.path.join(_MXD_DIR, 'T01PG17.mxd')

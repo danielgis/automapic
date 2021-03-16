@@ -22,6 +22,7 @@ Partial Class Login
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.KeyPreview = True
         Me.tlp_login = New System.Windows.Forms.TableLayoutPanel()
         Me.tbx_user = New System.Windows.Forms.TextBox()
         Me.tbx_pass = New System.Windows.Forms.TextBox()
@@ -110,7 +111,6 @@ Partial Class Login
         Me.btn_login.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btn_login.Dock = System.Windows.Forms.DockStyle.Fill
         Me.btn_login.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(144, Byte), Integer), CType(CType(223, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.btn_login.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn_login.ForeColor = System.Drawing.Color.Black
         Me.btn_login.Location = New System.Drawing.Point(143, 303)
         Me.btn_login.Name = "btn_login"

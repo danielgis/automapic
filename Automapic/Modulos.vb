@@ -51,4 +51,8 @@ Public Class Modulos
             openFormByName(mapa_peligros_geologicos, pnl_modulos_form)
         End If
     End Sub
+
+    Private Sub pbx_add_Click(sender As Object, e As EventArgs) Handles pbx_add.Click
+        GPToolDialog(_tool_updateSettings, False, _toolboxPath_automapic)
+    End Sub
 End Class

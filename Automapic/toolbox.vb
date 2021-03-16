@@ -20,6 +20,7 @@ Module toolbox
     Public _tool_addFeatureToMap As String = "addFeatureToMap"
     Public _tool_exportMXDToMPK As String = "exportMXDToMPK"
     Public _tool_validateUser As String = "validateUser"
+    Public _tool_updateSettings As String = "updateSettings"
 
     Public _tool_mapGeologicalHazards As String = "mapGeologicalHazards"
     'Public _tool_verificarpoligonosflotantes As String = "verificarpoligonosflotantes"

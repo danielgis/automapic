@@ -22,13 +22,13 @@ Public Class Form_plano_topografico_25k
     'Public m_application As IApplication
     Private Sub Form_plano_topografico_25k_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Cursor.Current = Cursors.WaitCursor
-        If IO.File.Exists(path_config) Then
-            Dim fileReader As String = My.Computer.FileSystem.ReadAllText(path_config)
-            llbl_pathgdb.Text = fileReader
-        Else
-            'MessageBox.Show("Necesita especificar la geodatabase a consultar", __title__, MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Return
-        End If
+        'If IO.File.Exists(path_config) Then
+        '    Dim fileReader As String = My.Computer.FileSystem.ReadAllText(path_config)
+        '    llbl_pathgdb.Text = fileReader
+        'Else
+        '    'MessageBox.Show("Necesita especificar la geodatabase a consultar", __title__, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        '    Return
+        'End If
         params.Clear()
         Dim response = ExecuteGP(_tool_getComponentCodeSheet, params, _toolboxPath_plano_topografico, True)
         response = Split(response, ";")
@@ -36,7 +36,7 @@ Public Class Form_plano_topografico_25k
         'Se imprime el error como PythonError
         If response(0) = 0 Then
             RuntimeError.PythonError = response(2)
-            MessageBox.Show(RuntimeError.PythonError, __title__, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            'MessageBox.Show(RuntimeError.PythonError, __title__, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
         End If
 
@@ -213,10 +213,11 @@ Public Class Form_plano_topografico_25k
         If path_geodatabase Is Nothing Then
             Return
         End If
-        Dim fs As IO.FileStream = IO.File.Create(path_config)
-        Dim info As Byte() = New UTF8Encoding(True).GetBytes(path_geodatabase)
-        fs.Write(info, 0, info.Length)
-        fs.Close()
+
+        'Dim fs As IO.FileStream = IO.File.Create(path_config)
+        'Dim info As Byte() = New UTF8Encoding(True).GetBytes(path_geodatabase)
+        'fs.Write(info, 0, info.Length)
+        'fs.Close()
         'llbl_pathgdb.Text = path_geodatabase
         Form_plano_topografico_25k_Load(sender, e)
     End Sub

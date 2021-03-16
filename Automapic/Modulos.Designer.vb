@@ -27,17 +27,17 @@ Partial Class Modulos
         Me.tlp_modulos_controles = New System.Windows.Forms.TableLayoutPanel()
         Me.cbx_modulos = New System.Windows.Forms.ComboBox()
         Me.lbl_modulos = New System.Windows.Forms.Label()
-        Me.pbx_search = New System.Windows.Forms.PictureBox()
-        Me.pbx_add = New System.Windows.Forms.PictureBox()
         Me.pnl_modulos_form = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.btn_cerrar_sesion = New System.Windows.Forms.Button()
         Me.pgb_modulos = New System.Windows.Forms.ProgressBar()
+        Me.pbx_search = New System.Windows.Forms.PictureBox()
+        Me.pbx_add = New System.Windows.Forms.PictureBox()
         Me.tlp_modulos.SuspendLayout()
         Me.tlp_modulos_controles.SuspendLayout()
+        Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.pbx_search, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbx_add, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'tlp_modulos
@@ -99,28 +99,6 @@ Partial Class Modulos
         Me.lbl_modulos.TabIndex = 1
         Me.lbl_modulos.Text = "Seleccionar módulo"
         '
-        'pbx_search
-        '
-        Me.pbx_search.BackgroundImage = CType(resources.GetObject("pbx_search.BackgroundImage"), System.Drawing.Image)
-        Me.pbx_search.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.pbx_search.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pbx_search.Location = New System.Drawing.Point(381, 23)
-        Me.pbx_search.Name = "pbx_search"
-        Me.pbx_search.Size = New System.Drawing.Size(29, 23)
-        Me.pbx_search.TabIndex = 2
-        Me.pbx_search.TabStop = False
-        '
-        'pbx_add
-        '
-        Me.pbx_add.BackgroundImage = Global.Automapic.My.Resources.Resources.add
-        Me.pbx_add.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.pbx_add.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pbx_add.Location = New System.Drawing.Point(416, 23)
-        Me.pbx_add.Name = "pbx_add"
-        Me.pbx_add.Size = New System.Drawing.Size(29, 23)
-        Me.pbx_add.TabIndex = 3
-        Me.pbx_add.TabStop = False
-        '
         'pnl_modulos_form
         '
         Me.pnl_modulos_form.Dock = System.Windows.Forms.DockStyle.Fill
@@ -163,6 +141,29 @@ Partial Class Modulos
         Me.pgb_modulos.Size = New System.Drawing.Size(342, 28)
         Me.pgb_modulos.TabIndex = 2
         '
+        'pbx_search
+        '
+        Me.pbx_search.BackgroundImage = CType(resources.GetObject("pbx_search.BackgroundImage"), System.Drawing.Image)
+        Me.pbx_search.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.pbx_search.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pbx_search.Location = New System.Drawing.Point(381, 23)
+        Me.pbx_search.Name = "pbx_search"
+        Me.pbx_search.Size = New System.Drawing.Size(29, 23)
+        Me.pbx_search.TabIndex = 2
+        Me.pbx_search.TabStop = False
+        '
+        'pbx_add
+        '
+        Me.pbx_add.BackgroundImage = Global.Automapic.My.Resources.Resources.TaskUpdate32
+        Me.pbx_add.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.pbx_add.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.pbx_add.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pbx_add.Location = New System.Drawing.Point(416, 23)
+        Me.pbx_add.Name = "pbx_add"
+        Me.pbx_add.Size = New System.Drawing.Size(29, 23)
+        Me.pbx_add.TabIndex = 3
+        Me.pbx_add.TabStop = False
+        '
         'Modulos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -176,9 +177,9 @@ Partial Class Modulos
         Me.tlp_modulos.ResumeLayout(False)
         Me.tlp_modulos_controles.ResumeLayout(False)
         Me.tlp_modulos_controles.PerformLayout()
+        Me.TableLayoutPanel1.ResumeLayout(False)
         CType(Me.pbx_search, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pbx_add, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TableLayoutPanel1.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub

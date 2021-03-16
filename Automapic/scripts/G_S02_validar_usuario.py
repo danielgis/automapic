@@ -26,8 +26,11 @@ try:
     perfil = pkg.get_perfil(user)
     if not perfil:
         raise RuntimeError(msg._ERROR_NO_MODULES_ASSIGNED)
-    
     modules = [[i[0], i[1].encode('windows-1252')] for i in perfil]
+    # Quita el registro del usuario logueado anteriormente
+    pkg.set_all_user_logout(iscommit=True)
+    # Activa al usuario logueado
+    pkg.set_user_login(user, iscommit=True)
     response['status'] = 1
     response['response'] = modules
 except Exception as e:

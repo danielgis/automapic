@@ -43,21 +43,25 @@ def get_validate_user_pass(user, password, one=True):
 def get_perfil(user):
     return "select id_modulo, modulo from vw_access where user = '{}'".format(user)
 
+@packageDecore
+def get_user_login(one=True):
+    return "SELECT USER FROM TB_USER WHERE LOGIN = 1"
 
-# print get_validate_user_pass('daguado', 'asdasd')
-# @packageDecore
-# def get_config_param():
-#     return 'SELECT ID, PARAMETER, VALUE, DESCRIPTION FROM TB_CONFIG WHERE STATE = 1'
+@packageDecore
+def set_user_login(user, iscommit=True):
+    return "UPDATE TB_USER SET LOGIN = 1 WHERE USER = '{}'".format(user)
 
+@packageDecore
+def set_all_user_logout(iscommit=True):
+    return "UPDATE TB_USER SET LOGIN = 0"
 
-# @packageDecore
-# def get_config_default():
-#     return 'SELECT ID, PARAMETER, VALUE_DEFAULT FROM TB_CONFIG WHERE STATE = 1'
+@packageDecore
+def get_config_by_user(user):
+    return "select config, name from VW_USER_CONFIG WHERE USER = '{}'".format(user)
 
-
-# @packageDecore
-# def set_config_param(id_parameter, value, iscommit=True):
-#     return "UPDATE TB_CONFIG SET VALUE = '{}' WHERE ID = {}".format(value, id_parameter)
+@packageDecore
+def set_config_param(id_parameter, value, iscommit=True):
+    return "UPDATE TB_CONFIG SET VALUE = '{}' WHERE ID = {}".format(value, id_parameter)
 
 
 # @packageDecore

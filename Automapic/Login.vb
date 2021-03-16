@@ -10,6 +10,14 @@ Public Class Login
     Private Sub LoginValidate(user As String, password As String)
 
     End Sub
+    Private Sub text_box_consulta_uea_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress
+        'Si se presiona la tecla enter y el boton buscar esta habilitado
+        If e.KeyChar = Chr(13) Then
+            'Llama a la funcion buscar 
+            Call btn_login_Click(sender, e)
+        End If
+    End Sub
+
     Private Sub btn_login_Click(sender As Object, e As EventArgs) Handles btn_login.Click
         'Incluir proceso de validacion
         'LoginValidate(user, password)
