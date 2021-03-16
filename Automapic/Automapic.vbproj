@@ -317,6 +317,9 @@
     <Content Include="scripts\G_S02_validar_usuario.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="scripts\G_S03_exportar_mapa_a_mpk.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="scripts\messages.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -330,9 +333,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\PT_S02_generar_mapa.py">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="scripts\PT_S03_exportar_mapa_a_mpk.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\settings.py">

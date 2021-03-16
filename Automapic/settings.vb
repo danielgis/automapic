@@ -50,6 +50,7 @@ Module settings
 
     Public f_shapefile As String = "shapefile"
     Public f_featureclass As String = "featureclass"
+    Public f_geodatabase As String = "geodatabase"
 
     '6. Funciones globales
     '   - Funciones que devuelven resultados y que puedes ser usados en cualquier parte del proceso
@@ -103,6 +104,8 @@ Module settings
                 objfilter = New GxFilterShapefiles()
             Case f_featureclass
                 objfilter = New GxFilterFGDBFeatureClasses()
+            Case f_geodatabase
+                objfilter = New GxFilterFileGeodatabases()
         End Select
         Return objfilter
     End Function

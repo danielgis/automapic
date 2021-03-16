@@ -1,4 +1,5 @@
-﻿Imports System.Windows.Forms
+﻿Imports System.Text
+Imports System.Windows.Forms
 Imports ESRI.ArcGIS.ArcMapUI
 Imports ESRI.ArcGIS.Carto
 Imports ESRI.ArcGIS.Catalog
@@ -15,13 +16,19 @@ Public Class Form_plano_topografico_25k
     Dim cuadrante_selected As String
     Dim orientacion_selected As String
     Dim path_template As String
-
+    Dim path_config As String = _path & "\scripts\.config"
     'Private m_application As IApplication
 
     'Public m_application As IApplication
     Private Sub Form_plano_topografico_25k_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'runProgressBar()
         Cursor.Current = Cursors.WaitCursor
+        If IO.File.Exists(path_config) Then
+            Dim fileReader As String = My.Computer.FileSystem.ReadAllText(path_config)
+            llbl_pathgdb.Text = fileReader
+        Else
+            'MessageBox.Show("Necesita especificar la geodatabase a consultar", __title__, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
         params.Clear()
         Dim response = ExecuteGP(_tool_getComponentCodeSheet, params, _toolboxPath_plano_topografico, True)
         response = Split(response, ";")
@@ -41,15 +48,7 @@ Public Class Form_plano_topografico_25k
             cbx_fila.Items.Add(i)
         Next
 
-        'Carga opciones al combo box de modulos
-        'Dim dictionary As New Dictionary(Of Integer, String)
-        'Dictionary.Add(1, "Peligros geologicos")
-        'Dictionary.Add(2, "Plano Topográfico 25000")
-        'cbx_modulos.DataSource = New BindingSource(dictionary, Nothing)
-        'cbx_modulos.DisplayMember = "Value"
-        'cbx_modulos.ValueMember = "Key"
         Cursor.Current = Cursors.Default
-        'runProgressBar("ini")
     End Sub
     Private Sub cbx_fila_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbx_fila.SelectedIndexChanged
         params.Clear()
@@ -200,5 +199,25 @@ Public Class Form_plano_topografico_25k
         Cursor.Current = Cursors.Default
         runProgressBar("end")
         successProcess()
+    End Sub
+
+    Private Sub llbl_pathgdb_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbl_pathgdb.LinkClicked
+        If llbl_pathgdb.Text <> "..." Then
+            Dim msg As String = "Esta seguro que desea cambiar la ubicación de la geodatabase a consultar"
+            Dim result As DialogResult = MessageBox.Show(msg, __title__, MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
+            If result = DialogResult.Cancel Then
+                Return
+            End If
+        End If
+        Dim path_geodatabase As String = openDialogBoxESRI(f_geodatabase)
+        If path_geodatabase Is Nothing Then
+            Return
+        End If
+        Dim fs As IO.FileStream = IO.File.Create(path_config)
+        Dim info As Byte() = New UTF8Encoding(True).GetBytes(path_geodatabase)
+        fs.Write(info, 0, info.Length)
+        fs.Close()
+        'llbl_pathgdb.Text = path_geodatabase
+        Form_plano_topografico_25k_Load(sender, e)
     End Sub
 End Class

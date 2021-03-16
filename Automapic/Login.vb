@@ -4,6 +4,9 @@ Imports Newtonsoft.Json
 Public Class Login
     Dim params As New List(Of Object)
     Dim RuntimeError As AutomapicExceptions = New AutomapicExceptions()
+    Private Sub Login_load(sender As Object, e As EventArgs) Handles Me.Load
+
+    End Sub
     Private Sub LoginValidate(user As String, password As String)
 
     End Sub

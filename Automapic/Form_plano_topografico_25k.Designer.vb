@@ -36,6 +36,7 @@ Partial Class Form_plano_topografico_25k
         Me.btn_generar_mapa = New System.Windows.Forms.Button()
         Me.btn_export = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.llbl_pathgdb = New System.Windows.Forms.LinkLabel()
         Me.tlp_plano_topografico.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -63,6 +64,7 @@ Partial Class Form_plano_topografico_25k
         Me.tlp_plano_topografico.Controls.Add(Me.btn_generar_mapa, 4, 4)
         Me.tlp_plano_topografico.Controls.Add(Me.btn_export, 0, 4)
         Me.tlp_plano_topografico.Controls.Add(Me.Label3, 5, 2)
+        Me.tlp_plano_topografico.Controls.Add(Me.llbl_pathgdb, 0, 5)
         Me.tlp_plano_topografico.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tlp_plano_topografico.Location = New System.Drawing.Point(0, 0)
         Me.tlp_plano_topografico.Name = "tlp_plano_topografico"
@@ -217,6 +219,19 @@ Partial Class Form_plano_topografico_25k
         Me.Label3.Text = "-"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
+        'llbl_pathgdb
+        '
+        Me.llbl_pathgdb.AutoSize = True
+        Me.tlp_plano_topografico.SetColumnSpan(Me.llbl_pathgdb, 7)
+        Me.llbl_pathgdb.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.llbl_pathgdb.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.llbl_pathgdb.Location = New System.Drawing.Point(3, 650)
+        Me.llbl_pathgdb.Name = "llbl_pathgdb"
+        Me.llbl_pathgdb.Size = New System.Drawing.Size(464, 17)
+        Me.llbl_pathgdb.TabIndex = 14
+        Me.llbl_pathgdb.TabStop = True
+        Me.llbl_pathgdb.Text = "..."
+        '
         'Form_plano_topografico_25k
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -249,4 +264,5 @@ Partial Class Form_plano_topografico_25k
     Friend WithEvents btn_generar_mapa As System.Windows.Forms.Button
     Friend WithEvents btn_export As System.Windows.Forms.Button
     Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents llbl_pathgdb As System.Windows.Forms.LinkLabel
 End Class
