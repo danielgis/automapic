@@ -15,9 +15,11 @@ Module toolbox
     '* Nombre de herramientas del tbx _toolboxPath
     Public _tool_getComponentCodeSheet As String = "getComponentCodeSheet"
     Public _tool_generateTopographicMap As String = "generateTopographicMap"
-    Public _tool_exportMXDToMPK As String = "exportMXDToMPK"
+
 
     Public _tool_addFeatureToMap As String = "addFeatureToMap"
+    Public _tool_exportMXDToMPK As String = "exportMXDToMPK"
+    Public _tool_validateUser As String = "validateUser"
 
     Public _tool_mapGeologicalHazards As String = "mapGeologicalHazards"
     'Public _tool_verificarpoligonosflotantes As String = "verificarpoligonosflotantes"

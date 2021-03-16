@@ -6,6 +6,7 @@ Imports ESRI.ArcGIS.Framework
 Imports Newtonsoft.Json
 
 Public Class Form_mapa_peligros_geologicos
+    Dim RuntimeError As AutomapicExceptions = New AutomapicExceptions()
     Dim path_shapefile As String
     Dim params As New List(Of Object)
     Dim layer As String
@@ -146,5 +147,29 @@ Public Class Form_mapa_peligros_geologicos
         tbx_ymin.Text = 0
         tbx_xmax.Text = 0
         tbx_ymax.Text = 0
+    End Sub
+
+    Private Sub btn_pg_export_Click(sender As Object, e As EventArgs) Handles btn_pg_export.Click
+        runProgressBar()
+        Cursor.Current = Cursors.WaitCursor
+        params.Clear()
+        params.Add("CURRENT")
+
+        Dim response = ExecuteGP(_tool_exportMXDToMPK, params, _toolboxPath_automapic)
+        response = Split(response, ";")
+        'Si ocurrio un error durante el proceso este devuelve el primer valor como 0
+        'Se imprime el error como PythonError
+        If response(0) = 0 Then
+            RuntimeError.PythonError = response(2)
+            MessageBox.Show(RuntimeError.PythonError, __title__, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+            'Throw RuntimeError
+        End If
+
+        Dim path_dirname As String = LTrim(response(2).ToString())
+        Process.Start(path_dirname)
+        Cursor.Current = Cursors.Default
+        runProgressBar("end")
+        successProcess()
     End Sub
 End Class

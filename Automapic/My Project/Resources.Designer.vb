@@ -93,6 +93,36 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property GenericPackageOverlay64() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("GenericPackageOverlay64", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property MapPackageMPKFile32() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("MapPackageMPKFile32", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property MapPackageMPKFile64() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("MapPackageMPKFile64", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property RepresentationEraseTool32() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("RepresentationEraseTool32", resourceCulture)

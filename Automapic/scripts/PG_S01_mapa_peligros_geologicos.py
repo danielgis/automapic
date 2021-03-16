@@ -306,7 +306,11 @@ def generate_map():
         elif elm.name == _DISTRITO_TEXT_ELEMENT:
             elm.text += ambito[3].upper()
         elif elm.name == name_detalle:
-            elm.text = set_detalle(detalle, len_text)
+            if detalle:
+                if maptype == _OPTION_ZC:
+                    elm.text += '\n' + set_detalle(detalle, len_text)
+                    continue
+                elm.text = set_detalle(detalle, len_text)
     
     # arcpy.AddMessage(name_leyenda)
     legend_element = arcpy.mapping.ListLayoutElements(mxd, "", name_leyenda)[0]
@@ -368,12 +372,12 @@ if __name__ == '__main__':
     xmax = arcpy.GetParameter(9)
     ymax = arcpy.GetParameter(10)
 
-    # try:
-    response['response'] = generate_map()
-    response['status'] = 1
-    # except Exception as e:
-    # response['message'] = e.message
-    # finally:
-    response = json.dumps(response)
-    arcpy.SetParameterAsText(11, response)
+    try:
+        response['response'] = generate_map()
+        response['status'] = 1
+    except Exception as e:
+        response['message'] = e.message
+    finally:
+        response = json.dumps(response)
+        arcpy.SetParameterAsText(11, response)
 

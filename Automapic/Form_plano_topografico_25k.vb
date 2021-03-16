@@ -20,7 +20,7 @@ Public Class Form_plano_topografico_25k
 
     'Public m_application As IApplication
     Private Sub Form_plano_topografico_25k_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        runProgressBar()
+        'runProgressBar()
         Cursor.Current = Cursors.WaitCursor
         params.Clear()
         Dim response = ExecuteGP(_tool_getComponentCodeSheet, params, _toolboxPath_plano_topografico, True)
@@ -29,7 +29,7 @@ Public Class Form_plano_topografico_25k
         'Se imprime el error como PythonError
         If response(0) = 0 Then
             RuntimeError.PythonError = response(2)
-            MessageBox.Show(response(2))
+            MessageBox.Show(RuntimeError.PythonError, __title__, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
         End If
 
@@ -49,7 +49,7 @@ Public Class Form_plano_topografico_25k
         'cbx_modulos.DisplayMember = "Value"
         'cbx_modulos.ValueMember = "Key"
         Cursor.Current = Cursors.Default
-        runProgressBar("ini")
+        'runProgressBar("ini")
     End Sub
     Private Sub cbx_fila_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbx_fila.SelectedIndexChanged
         params.Clear()
@@ -64,7 +64,7 @@ Public Class Form_plano_topografico_25k
         'Se imprime el error como PythonError
         If response(0) = 0 Then
             RuntimeError.PythonError = response(2)
-            MessageBox.Show(response(2))
+            MessageBox.Show(RuntimeError.PythonError, __title__, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
         End If
 
@@ -92,7 +92,7 @@ Public Class Form_plano_topografico_25k
         'Se imprime el error como PythonError
         If response(0) = 0 Then
             RuntimeError.PythonError = response(2)
-            MessageBox.Show(response(2), __title__, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show(RuntimeError.PythonError, __title__, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
         End If
 
@@ -122,7 +122,7 @@ Public Class Form_plano_topografico_25k
         'Se imprime el error como PythonError
         If response(0) = 0 Then
             RuntimeError.PythonError = response(2)
-            MessageBox.Show(response(2), __title__, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show(RuntimeError.PythonError, __title__, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
         End If
 
@@ -157,7 +157,7 @@ Public Class Form_plano_topografico_25k
         'Se imprime el error como PythonError
         If response(0) = 0 Then
             RuntimeError.PythonError = response(2)
-            MessageBox.Show(response(2), __title__, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show(RuntimeError.PythonError, __title__, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
             'Throw RuntimeError
         End If
@@ -183,13 +183,13 @@ Public Class Form_plano_topografico_25k
         params.Clear()
         params.Add(path_template)
 
-        Dim response = ExecuteGP(_tool_exportMXDToMPK, params, _toolboxPath_plano_topografico)
+        Dim response = ExecuteGP(_tool_exportMXDToMPK, params, _toolboxPath_automapic)
         response = Split(response, ";")
         'Si ocurrio un error durante el proceso este devuelve el primer valor como 0
         'Se imprime el error como PythonError
         If response(0) = 0 Then
             RuntimeError.PythonError = response(2)
-            MessageBox.Show(response(2), __title__, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show(RuntimeError.PythonError, __title__, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
             'Throw RuntimeError
         End If

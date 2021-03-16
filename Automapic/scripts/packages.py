@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import sqlite3
 from sqlite3 import Error
 import os
@@ -11,8 +13,6 @@ def packageDecore(func):
     def decorator(*args, **kwargs):
         global conn, cursor
         package = func(*args, **kwargs)
-        print(args)
-        print(kwargs)
         cursor.execute(package)
         if kwargs.get('iscommit'):
             return
@@ -31,7 +31,20 @@ def packageDecore(func):
 def get_config_param_value(name, one=True):
     return "SELECT VALUE FROM TB_CONFIG WHERE STATE = 1 AND NAME = '{}'".format(name)
 
+@packageDecore
+def get_validate_user(user, one=True):
+    return "SELECT COUNT(*) FROM TB_USER WHERE USER='{}'".format(user)
 
+@packageDecore
+def get_validate_user_pass(user, password, one=True):
+    return "SELECT COUNT(*) FROM TB_USER WHERE USER  ='{}' AND PASSWORD = '{}'".format(user, password)
+
+@packageDecore
+def get_perfil(user):
+    return "select id_modulo, modulo from vw_access where user = '{}'".format(user)
+
+
+# print get_validate_user_pass('daguado', 'asdasd')
 # @packageDecore
 # def get_config_param():
 #     return 'SELECT ID, PARAMETER, VALUE, DESCRIPTION FROM TB_CONFIG WHERE STATE = 1'

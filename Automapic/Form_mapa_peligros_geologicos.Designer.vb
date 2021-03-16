@@ -42,6 +42,7 @@ Partial Class Form_mapa_peligros_geologicos
         Me.tbx_numero_pg = New System.Windows.Forms.NumericUpDown()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.btn_generar_mapa_pg = New System.Windows.Forms.Button()
+        Me.btn_draw = New System.Windows.Forms.Button()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.tbx_xmin = New System.Windows.Forms.TextBox()
         Me.tbx_ymin = New System.Windows.Forms.TextBox()
@@ -51,8 +52,7 @@ Partial Class Form_mapa_peligros_geologicos
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
-        Me.btn_draw = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.btn_pg_export = New System.Windows.Forms.Button()
         Me.btn_blank_extent = New System.Windows.Forms.Button()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.tbx_numero_pg, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -85,7 +85,7 @@ Partial Class Form_mapa_peligros_geologicos
         Me.TableLayoutPanel1.Controls.Add(Me.btn_generar_mapa_pg, 0, 21)
         Me.TableLayoutPanel1.Controls.Add(Me.btn_draw, 1, 18)
         Me.TableLayoutPanel1.Controls.Add(Me.TableLayoutPanel2, 0, 18)
-        Me.TableLayoutPanel1.Controls.Add(Me.Button1, 1, 19)
+        Me.TableLayoutPanel1.Controls.Add(Me.btn_pg_export, 1, 19)
         Me.TableLayoutPanel1.Controls.Add(Me.btn_blank_extent, 0, 19)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
@@ -313,6 +313,19 @@ Partial Class Form_mapa_peligros_geologicos
         Me.btn_generar_mapa_pg.Text = "Generar mapa"
         Me.btn_generar_mapa_pg.UseVisualStyleBackColor = True
         '
+        'btn_draw
+        '
+        Me.btn_draw.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btn_draw.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btn_draw.FlatAppearance.BorderColor = System.Drawing.Color.Gray
+        Me.btn_draw.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btn_draw.Image = Global.Automapic.My.Resources.Resources.EditingCopyFeaturesTool32
+        Me.btn_draw.Location = New System.Drawing.Point(333, 513)
+        Me.btn_draw.Name = "btn_draw"
+        Me.btn_draw.Size = New System.Drawing.Size(74, 49)
+        Me.btn_draw.TabIndex = 20
+        Me.btn_draw.UseVisualStyleBackColor = True
+        '
         'TableLayoutPanel2
         '
         Me.TableLayoutPanel2.ColumnCount = 4
@@ -419,30 +432,17 @@ Partial Class Form_mapa_peligros_geologicos
         Me.Label9.TabIndex = 7
         Me.Label9.Text = "ymax"
         '
-        'btn_draw
+        'btn_pg_export
         '
-        Me.btn_draw.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btn_draw.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btn_draw.FlatAppearance.BorderColor = System.Drawing.Color.Gray
-        Me.btn_draw.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btn_draw.Image = Global.Automapic.My.Resources.Resources.EditingCopyFeaturesTool32
-        Me.btn_draw.Location = New System.Drawing.Point(333, 513)
-        Me.btn_draw.Name = "btn_draw"
-        Me.btn_draw.Size = New System.Drawing.Size(74, 49)
-        Me.btn_draw.TabIndex = 20
-        Me.btn_draw.UseVisualStyleBackColor = True
-        '
-        'Button1
-        '
-        Me.Button1.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button1.FlatAppearance.BorderColor = System.Drawing.Color.Gray
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.Image = Global.Automapic.My.Resources.Resources.TaskUpdate32
-        Me.Button1.Location = New System.Drawing.Point(333, 568)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(74, 39)
-        Me.Button1.TabIndex = 18
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.btn_pg_export.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btn_pg_export.FlatAppearance.BorderColor = System.Drawing.Color.Gray
+        Me.btn_pg_export.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btn_pg_export.Image = Global.Automapic.My.Resources.Resources.MapPackageMPKFile32
+        Me.btn_pg_export.Location = New System.Drawing.Point(333, 568)
+        Me.btn_pg_export.Name = "btn_pg_export"
+        Me.btn_pg_export.Size = New System.Drawing.Size(74, 39)
+        Me.btn_pg_export.TabIndex = 18
+        Me.btn_pg_export.UseVisualStyleBackColor = True
         '
         'btn_blank_extent
         '
@@ -494,7 +494,7 @@ Partial Class Form_mapa_peligros_geologicos
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents tbx_numero_pg As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label6 As System.Windows.Forms.Label
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents btn_pg_export As System.Windows.Forms.Button
     Friend WithEvents btn_generar_mapa_pg As System.Windows.Forms.Button
     Friend WithEvents btn_draw As System.Windows.Forms.Button
     Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel

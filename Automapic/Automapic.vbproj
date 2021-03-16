@@ -302,6 +302,9 @@
     <None Include="Resources\EditingCopyFeaturesTool32.png" />
     <AddInContent Include="Images\DrawPolygon.png" />
     <None Include="Resources\RepresentationEraseTool32.png" />
+    <None Include="Resources\GenericPackageOverlay64.png" />
+    <None Include="Resources\MapPackageMPKFile64.png" />
+    <None Include="Resources\MapPackageMPKFile32.png" />
     <Content Include="scripts\arcobjects.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -309,6 +312,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\G_S01_cargar_feature.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="scripts\G_S02_validar_usuario.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\messages.py">

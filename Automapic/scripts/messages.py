@@ -9,3 +9,9 @@ _OPEN_DIALOG_BUTTON_TITLE = 'Seleccionar'
 
 _ERROR_NOT_PROJECTION = 'El archivo especificado no tiene una proyeccion cartografica valida'
 _ERROR_PROJECTION_NO_VALID = u'El archivo especificado tiene una proyección no valida. Proyecciones validas WGS 17, 18, 19S'
+
+_ERROR_UNREGISTERED_USER = 'El usuario ingresado no esta registrado'
+_ERROR_INCORRECT_PASSWORD = u'La contraseña ingresada no es correcta'
+_ERROR_NO_MODULES_ASSIGNED = u'El usuario no tiene módulos asignados'
+_ERROR_ADD_USER = 'Por favor ingrese un nombre de usuario'
+_ERROR_ADD_PASSWORD = 'Por favor ingrese una contraseña'
