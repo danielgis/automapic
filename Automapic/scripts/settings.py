@@ -4,6 +4,8 @@ import packages as pkg
 
 _BASE_DIR = os.path.dirname(__file__)
 _TEMP_FOLDER = pkg.get_config_param_value('TEMP_FOLDER', one=True)
+_REQUIREMENTS_DIR = os.path.join(_BASE_DIR, 'require')
+
 _ZONAS_GEOGRAFICAS = [17, 18, 19]
 _EPSG_W17S = 32717
 _EPSG_W18S = 32718

@@ -230,6 +230,9 @@
     <None Include="scripts\mxd\T0319.mxd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="scripts\require\comtypes-1.1.7-py2-none-any.whl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="scripts\T00_automapic.tbx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -323,6 +326,9 @@
     <Content Include="scripts\G_S04_configuracion.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="scripts\G_S05_instalar_librerias.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="scripts\messages.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -336,6 +342,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\PT_S02_generar_mapa.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="scripts\require\get-pip.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\settings.py">

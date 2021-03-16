@@ -5,7 +5,7 @@
 ''' make up the dockable window.
 ''' </summary>}
 Public Class AutomapicDock
-
+    Dim params As New List(Of Object)
     Public Sub New(ByVal hook As Object)
 
         ' This call is required by the Windows Form Designer.
@@ -55,6 +55,7 @@ Public Class AutomapicDock
 
 
     Private Sub AutomapicDock_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ExecuteGP(_tool_installPackages, params, _toolboxPath_automapic, False)
         Dim loginForm As Form = New Login()
         openFormByName(loginForm, pnl_main)
         'Carga opciones al combo box de modulos
