@@ -15,3 +15,12 @@ _ERROR_INCORRECT_PASSWORD = u'La contraseña ingresada no es correcta'
 _ERROR_NO_MODULES_ASSIGNED = u'El usuario no tiene módulos asignados'
 _ERROR_ADD_USER = 'Por favor ingrese un nombre de usuario'
 _ERROR_ADD_PASSWORD = 'Por favor ingrese una contraseña'
+
+
+
+SET_CONFIG_TEMP_FOLDER = u'Configuración del directorio de archivos temporales'
+SET_CONFIG_GDB_PT = u'Configuración de la geodatabase de archivos para el módulo de Planos Topográficos 25000'
+SET_CONFIG_MXD_PT_17 = u'Configuración del documento de mapa en zona 17 para el módulo de Planos Topográficos 25000'
+SET_CONFIG_MXD_PT_18 = u'Configuración del documento de mapa en zona 18 para el módulo de Planos Topográficos 25000'
+SET_CONFIG_MXD_PT_19 = u'Configuración del documento de mapa en zona 19 para el módulo de Planos Topográficos 25000'
+PROCESS_FINISHED = 'Proceso finalizado correctamente'
