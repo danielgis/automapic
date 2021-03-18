@@ -11,6 +11,8 @@ bdgeocat_conn = arcpy.GetParameterAsText(3)
 arcpy.AddMessage(msg._SET_CONFIG_TEMP_FOLDER)
 pkg.set_config_param(1, temp_folder, iscommit=True)
 
+SDE_WORKSPACE = 'SDE_WORKSPACE'
+
 if gdb_pt25000:
     arcpy.AddMessage(msg._SET_CONFIG_GDB_PT)
     pkg.set_config_param(2, gdb_pt25000, iscommit=True)
@@ -39,19 +41,19 @@ if bdgeocat_conn:
 
     arcpy.AddMessage(msg._SET_CONFIG_MXD_PG_17)
     mxd17_pg = arcpy.mapping.MapDocument(st._MXD_PG_17)
-    mxd17_pg.findAndReplaceWorkspacePaths("", bdgeocat_conn)
+    mxd17_pg.replaceWorkspaces("", "", bdgeocat_conn, SDE_WORKSPACE, False)
     mxd17_pg.save()
     del mxd17_pg
 
     arcpy.AddMessage(msg._SET_CONFIG_MXD_PG_18)
     mxd18_pg = arcpy.mapping.MapDocument(st._MXD_PG_18)
-    mxd18_pg.findAndReplaceWorkspacePaths("", bdgeocat_conn)
+    mxd18_pg.replaceWorkspaces("", "", bdgeocat_conn, SDE_WORKSPACE, False)
     mxd18_pg.save()
     del mxd18_pg
 
     arcpy.AddMessage(msg._SET_CONFIG_MXD_PG_19)
     mxd19_pg = arcpy.mapping.MapDocument(st._MXD_PG_19)
-    mxd19_pg.findAndReplaceWorkspacePaths("", bdgeocat_conn)
+    mxd19_pg.replaceWorkspaces("", "", bdgeocat_conn, SDE_WORKSPACE, False)
     mxd19_pg.save()
     del mxd19_pg
 
