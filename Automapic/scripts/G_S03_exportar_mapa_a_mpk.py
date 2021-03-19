@@ -33,12 +33,22 @@ try:
     mpk_path = os.path.join(mxd_path_dirname, mpk_name)
     _CONVERT = 'CONVERT'
     _CONVER_ARCSDE = 'CONVERT_ARCSDE'
+    _DISPLAY = 'DISPLAY'
+    _ALL = 'ALL'
+    _DESKTOP = "DESKTOP"
+    _NOT_REFERENCED = "#"
+    _CURRENT = "CURRENT"
 
     params = list()
     params.append(mxd_copy)
     params.append(mpk_path)
     params.append(_CONVERT)
     params.append(_CONVER_ARCSDE)
+    params.append(_DISPLAY)
+    params.append(_ALL)
+    params.append(_DESKTOP)
+    params.append(_NOT_REFERENCED)
+    params.append(_CURRENT)
 
     arcpy.PackageMap_management(*params)
 
