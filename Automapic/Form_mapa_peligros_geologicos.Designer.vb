@@ -155,7 +155,7 @@ Partial Class Form_mapa_peligros_geologicos
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(324, 17)
         Me.Label1.TabIndex = 3
-        Me.Label1.Text = "Título de mapa"
+        Me.Label1.Text = "Nombre del sector o zona evaluada"
         '
         'tbx_title_pg
         '

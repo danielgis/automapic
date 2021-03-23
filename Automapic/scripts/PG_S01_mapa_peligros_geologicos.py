@@ -37,6 +37,10 @@ _ZCLEYENDA_TEXT_ELEMENT = 'ZCLEYENDA'
 _SMMLEYENDA_TEXT_ELEMENT = 'SMMLEYENDA'
 _SIEFLEYENDA_TEXT_ELEMENT = 'SIEFLEYENDA'
 
+_TAGDEPA_TEXT_ELEMENT = 'TAGDEPA'
+_TAGPROV_TEXT_ELEMENT = 'TAGPROV'
+_TAGDIST_TEXT_ELEMENT = 'TAGDIST'
+
 _FIELD_CD_DIST = 'CD_DIST'
 _FIELD_CD_PROV = 'CD_PROV'
 _FIELD_CD_DEPA = 'CD_DEPA'
@@ -69,7 +73,7 @@ def set_scale_bar(scale):
     response = dict()
     scale_ratio = scale/100
     response['Division'] = scale_ratio/1000.0 if scale >= 100000 else scale_ratio
-    response['UnitLabel'] = 'Kilometers'if scale >= 100000 else 'Meters'
+    response['UnitLabel'] = 'Kilometros'if scale >= 100000 else 'Metros'
     response['Units'] = _UNITS_KM if scale >= 100000 else _UNITS_M
     return response
 
@@ -173,6 +177,7 @@ def generate_map():
 
     _NAME_LAYER_DEPARTAMENTOS = 'departamentos'
     _NAME_LAYER_PROVINCIAS = 'provincias'
+    _NAME_LAYER_PROVINCIA = 'provincia'
     _NAME_LAYER_DISTRITOS = 'distritos'
 
     _NAME_LAYER_PG = 't_peligros_geologicos'
@@ -191,6 +196,7 @@ def generate_map():
     lyr_provincias = arcpy.mapping.ListLayers(mxd, '{}'.format(_NAME_LAYER_PROVINCIAS), df_principal)[0]
     lyr_distritos = arcpy.mapping.ListLayers(mxd, '{}'.format(_NAME_LAYER_DISTRITOS), df_principal)[0]
     # arcpy.AddMessage(lyr_distritos.name)
+    lyr_provincia = arcpy.mapping.ListLayers(mxd, '{}'.format(_NAME_LAYER_PROVINCIA), df_ubicacion)[0]
 
     arcpy.SelectLayerByLocation_management(lyr_distritos, "INTERSECT", area, "#", "NEW_SELECTION")
 
@@ -254,6 +260,8 @@ def generate_map():
     
     ambito = data[i]
 
+    lyr_provincia.definitionQuery = "{} = '{}'".format(_FIELD_CD_PROV, ambito[1])
+
     arcpy.RefreshTOC()
     arcpy.RefreshActiveView()
 
@@ -311,6 +319,12 @@ def generate_map():
                     elm.text += '\n' + set_detalle(detalle, len_text)
                     continue
                 elm.text = set_detalle(detalle, len_text)
+        elif elm.name == _TAGDEPA_TEXT_ELEMENT:
+            elm.text += ambito[5].upper()
+        elif elm.name == _TAGPROV_TEXT_ELEMENT:
+            elm.text += ambito[4].upper()
+        elif elm.name == _TAGDIST_TEXT_ELEMENT:
+            elm.text += ambito[3].upper()
     
     # arcpy.AddMessage(name_leyenda)
     legend_element = arcpy.mapping.ListLayoutElements(mxd, "", name_leyenda)[0]
