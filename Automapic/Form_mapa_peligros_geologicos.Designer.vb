@@ -207,6 +207,7 @@ Partial Class Form_mapa_peligros_geologicos
         '
         Me.TableLayoutPanel1.SetColumnSpan(Me.tbx_detalle_pg, 2)
         Me.tbx_detalle_pg.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tbx_detalle_pg.Enabled = False
         Me.tbx_detalle_pg.Location = New System.Drawing.Point(3, 393)
         Me.tbx_detalle_pg.Multiline = True
         Me.tbx_detalle_pg.Name = "tbx_detalle_pg"

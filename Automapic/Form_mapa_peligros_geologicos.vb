@@ -91,6 +91,31 @@ Public Class Form_mapa_peligros_geologicos
         toggleTool = True
     End Sub
 
+    Private Sub rbt_pg_Click(sender As Object, e As EventArgs) Handles rbt_pg.Click
+        If rbt_pg.Checked Then
+            tbx_detalle_pg.Enabled = False
+            tbx_detalle_pg.Text = ""
+        End If
+    End Sub
+
+    Private Sub rbt_zc_Click(sender As Object, e As EventArgs) Handles rbt_zc.Click
+        If rbt_zc.Checked Then
+            tbx_detalle_pg.Enabled = False
+            tbx_detalle_pg.Text = ""
+        End If
+    End Sub
+
+    Private Sub rbt_smm_Click(sender As Object, e As EventArgs) Handles rbt_smm.Click
+        If rbt_smm.Checked Then
+            tbx_detalle_pg.Enabled = True
+        End If
+    End Sub
+    Private Sub rbt_sief_Click(sender As Object, e As EventArgs) Handles rbt_sief.Click
+        If rbt_sief.Checked Then
+            tbx_detalle_pg.Enabled = True
+        End If
+    End Sub
+
     Private Sub btn_generar_mapa_pg_Click(sender As Object, e As EventArgs) Handles btn_generar_mapa_pg.Click
         Cursor.Current = Cursors.WaitCursor
         runProgressBar()

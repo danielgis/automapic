@@ -6,6 +6,10 @@ Public Class Modulos
     End Sub
 
     Private Sub btn_cerrar_sesion_Click(sender As Object, e As EventArgs) Handles btn_cerrar_sesion.Click
+        Dim response As DialogResult = MessageBox.Show("¿Está seguro que deasea cerrar sesión en Automapic?", __title__, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        If response = DialogResult.No Then
+            Return
+        End If
         Dim LoginForm = New Login()
         openFormByName(LoginForm, Me.Parent)
         modulosDict.Clear()

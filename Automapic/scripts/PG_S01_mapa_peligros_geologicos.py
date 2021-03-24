@@ -73,7 +73,7 @@ def set_scale_bar(scale):
     response = dict()
     scale_ratio = scale/100
     response['Division'] = scale_ratio/1000.0 if scale >= 100000 else scale_ratio
-    response['UnitLabel'] = 'Kilometros'if scale >= 100000 else 'Metros'
+    response['UnitLabel'] = 'Kilometros' if scale >= 100000 else 'Metros'
     response['Units'] = _UNITS_KM if scale >= 100000 else _UNITS_M
     return response
 
@@ -287,7 +287,7 @@ def generate_map():
         name_leyenda = _PGLEYENDA_TEXT_ELEMENT
     elif _OPTION_ZC == maptype:
         prx = _TITLE_ZC
-        name_detalle = _ZCDETALLE_TEXT_ELEMENT
+        # name_detalle = _ZCDETALLE_TEXT_ELEMENT
         name_leyenda = _ZCLEYENDA_TEXT_ELEMENT
         len_text = 51
     elif _OPTION_SMM == maptype:
@@ -315,9 +315,9 @@ def generate_map():
             elm.text += ambito[3].upper()
         elif elm.name == name_detalle:
             if detalle:
-                if maptype == _OPTION_ZC:
-                    elm.text += '\n' + set_detalle(detalle, len_text)
-                    continue
+                # if maptype == _OPTION_ZC:
+                #     elm.text += '\n' + set_detalle(detalle, len_text)
+                #     continue
                 elm.text = set_detalle(detalle, len_text)
         elif elm.name == _TAGDEPA_TEXT_ELEMENT:
             elm.text += ambito[5].upper()

@@ -131,6 +131,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Config.esriaddinx</DependentUpon>
     </Compile>
+    <Compile Include="developers.vb" />
     <Compile Include="DrawPolygon.vb" />
     <Compile Include="Exceptions.vb" />
     <Compile Include="Form_mapa_peligros_geologicos.Designer.vb">
@@ -308,6 +309,8 @@
     <None Include="Resources\GenericPackageOverlay64.png" />
     <None Include="Resources\MapPackageMPKFile64.png" />
     <None Include="Resources\MapPackageMPKFile32.png" />
+    <AddInContent Include="Images\about.png" />
+    <AddInContent Include="Images\developers.png" />
     <Content Include="scripts\arcobjects.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
