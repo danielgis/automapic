@@ -67,6 +67,7 @@ def select_grid(mxd_path, scale):
     mxdObject.Save()
     del mxdObject
 
+
 # params = {'Units': 9, 'UnitLabel': 'Meters', 'Division': 850}
-# set_scale_properties(r'C:\\assets\\temp\\3b2888da43ad48fdba8c963a9813d1d8\\LoremIpsum.mxd', 'BARRAESCALA', **params)
+# set_text_element_popup_properties(r'C:\assets\temp\26f1279bf0db4a71831727ee2b7ec0d8\LoremIpsum.mxd', 'FIGURAPOPUP', **params)
 # select_grid(r'C:\assets\temp\9b0cc985d36747188929cd2c332f371b\LoremIpsum.mxd', 250000)

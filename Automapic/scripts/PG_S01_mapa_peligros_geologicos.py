@@ -26,6 +26,7 @@ _DEPARTAMENTO_TEXT_ELEMENT = 'REGION'
 _PROVINCIA_TEXT_ELEMENT = 'PROVINCIA'
 _DISTRITO_TEXT_ELEMENT = 'DISTRITO'
 _FIGURA_PUPUP_TEXT_ELEMENT = 'FIGURAPOPUP'
+_SECTOR_TEXT_ELEMENT = 'TEXTSECTOR'
 
 # _PGDETALLE_TEXT_ELEMENT = 'PGDETALLE'
 _ZCDETALLE_TEXT_ELEMENT = 'ZCDETALLE'
@@ -184,7 +185,7 @@ def generate_map():
     _TITLE_PG = 'inventario de peligros geol\xc3\x93gicos'
 
     _NAME_LAYER_ZC = 't_zonas_criticas'
-    _TITLE_ZC = 'zonas cr\xc3\x8dticas peligros geol\xc3\x93gicos'
+    _TITLE_ZC = 'zonas cr\xc3\x8dticas por peligros geol\xc3\x93gicos'
 
     _NAME_LAYER_SMM = 't_susc_movimientos_masa'
     _TITLE_SMM = 'susceptibilidad a movimientos en masa'
@@ -258,7 +259,7 @@ def generate_map():
             metrica_selected = metrica
             idx = i
     
-    ambito = data[i]
+    ambito = data[idx]
 
     lyr_provincia.definitionQuery = "{} = '{}'".format(_FIELD_CD_PROV, ambito[1])
 
@@ -304,7 +305,7 @@ def generate_map():
             elm.text =  prx.upper() + '\n' + titulo.upper()
             elm.elementPositionY = 2.6   
         elif elm.name == _FIGURA_PUPUP_TEXT_ELEMENT:
-            elm.text = titulo.title()
+            elm.text = set_detalle(titulo, 20).title()
         elif elm.name == _NUMEROMAPA_TEXT_ELEMENT:
             elm.text = numero.zfill(2)
         elif elm.name == _DEPARTAMENTO_TEXT_ELEMENT:
@@ -325,6 +326,8 @@ def generate_map():
             elm.text += ambito[4].upper()
         elif elm.name == _TAGDIST_TEXT_ELEMENT:
             elm.text += ambito[3].upper()
+        elif elm.name == _SECTOR_TEXT_ELEMENT:
+            elm.text = set_detalle(titulo.upper(), 20)
     
     # arcpy.AddMessage(name_leyenda)
     legend_element = arcpy.mapping.ListLayoutElements(mxd, "", name_leyenda)[0]
