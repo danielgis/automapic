@@ -102,7 +102,7 @@ def set_detalle(text, max_character_by_line):
             tx = ' '.join(textList[ini:end])
             nlist.append(tx)
             ini = end
-    nlist.append(tx)
+    nlist.append(' '.join(textList[end:]))
     return '\n'.join(nlist)
 
 def generate_map():

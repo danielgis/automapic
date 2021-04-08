@@ -52,7 +52,6 @@ def select_grid(mxd_path, scale):
 
     mapGrids = mapFrame.QueryInterface(esriCarto.IMapGrids)
     grids = [mapGrids.MapGrid(i) for i in xrange(mapGrids.MapGridCount)]
-    # arcpy.AddMessage([i.Name for i in grids])
     grids_names = [int(i.Name) for i in grids]
     grids_names.sort()
     idx = bisect(grids_names, scale) - 1
