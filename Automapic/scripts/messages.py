@@ -26,3 +26,5 @@ _SET_CONFIG_MXD_PG_18 = u'Configuración del documento de mapa en zona 18 para e
 _SET_CONFIG_MXD_PG_19 = u'Configuración del documento de mapa en zona 19 para el módulo de Peligros Geológicos'
 _PROCESS_FINISHED = 'Proceso finalizado correctamente'
 _SET_CONFIG_GDB_PG = 'Configuración de la geodatabase de archivos para el módulo de Peligros Geológicos'
+
+_ERROR_FEATURE_CUADRICULAS_MG = 'El feature class de hojas a escala 500000 no se encuentra en la geodatabase'

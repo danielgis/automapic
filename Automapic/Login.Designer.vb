@@ -22,7 +22,6 @@ Partial Class Login
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.KeyPreview = True
         Me.tlp_login = New System.Windows.Forms.TableLayoutPanel()
         Me.tbx_user = New System.Windows.Forms.TextBox()
         Me.tbx_pass = New System.Windows.Forms.TextBox()
@@ -138,6 +137,7 @@ Partial Class Login
         Me.ClientSize = New System.Drawing.Size(530, 493)
         Me.Controls.Add(Me.tlp_login)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.KeyPreview = True
         Me.Name = "Login"
         Me.Text = "Login"
         Me.tlp_login.ResumeLayout(False)

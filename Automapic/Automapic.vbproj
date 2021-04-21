@@ -132,8 +132,15 @@
       <DependentUpon>Config.esriaddinx</DependentUpon>
     </Compile>
     <Compile Include="developers.vb" />
+    <Compile Include="DrawLine.vb" />
     <Compile Include="DrawPolygon.vb" />
     <Compile Include="Exceptions.vb" />
+    <Compile Include="Form_mapa_geologico_50k.Designer.vb">
+      <DependentUpon>Form_mapa_geologico_50k.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form_mapa_geologico_50k.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form_mapa_peligros_geologicos.Designer.vb">
       <DependentUpon>Form_mapa_peligros_geologicos.vb</DependentUpon>
     </Compile>
@@ -180,6 +187,9 @@
     <EmbeddedResource Include="AutomapicDock.resx">
       <DependentUpon>AutomapicDock.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_mapa_geologico_50k.resx">
+      <DependentUpon>Form_mapa_geologico_50k.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_mapa_peligros_geologicos.resx">
       <DependentUpon>Form_mapa_peligros_geologicos.vb</DependentUpon>
     </EmbeddedResource>
@@ -213,6 +223,9 @@
     <None Include="scripts\arc_danielgis.sde">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="scripts\layers\cuadriculas.lyr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="scripts\mxd\T0117.mxd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -241,6 +254,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="scripts\T02_mapa_peligros_geologicos.tbx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="scripts\T03_mapa_geologico_50k.tbx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -294,9 +310,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="scripts\layers\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\search1.png" />
     <None Include="Resources\user1.png" />
@@ -311,6 +325,10 @@
     <None Include="Resources\MapPackageMPKFile32.png" />
     <AddInContent Include="Images\about.png" />
     <AddInContent Include="Images\developers.png" />
+    <None Include="Resources\database.png" />
+    <None Include="Resources\workspace.png" />
+    <AddInContent Include="Images\DrawLine.png" />
+    <None Include="Resources\select.png" />
     <Content Include="scripts\arcobjects.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -318,6 +336,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\G_S01_cargar_feature.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="scripts\G_S01_cargar_raster.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\G_S02_validar_usuario.py">
@@ -333,6 +354,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\messages.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="scripts\MG_S01_obtener_codigos.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="scripts\MG_S02_cargar_cuadriculas.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\packages.py">

@@ -53,6 +53,9 @@ Public Class Modulos
         ElseIf (modulo = 2) Then
             Dim mapa_peligros_geologicos = Form_mapa_peligros_geologicos.GetInstance()
             openFormByName(mapa_peligros_geologicos, pnl_modulos_form)
+        ElseIf (modulo = 3) Then
+            Dim mapa_geologico_50k = New Form_mapa_geologico_50k()
+            openFormByName(mapa_geologico_50k, pnl_modulos_form)
         End If
     End Sub
 

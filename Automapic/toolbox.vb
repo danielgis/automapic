@@ -11,6 +11,7 @@ Module toolbox
     Public _toolboxPath_plano_topografico As String = _path & "\scripts\T01_plano_topografico_25k.tbx"
     Public _toolboxPath_peligros_geologicos As String = _path & "\scripts\T02_mapa_peligros_geologicos.tbx"
     Public _toolboxPath_automapic As String = _path & "\scripts\T00_automapic.tbx"
+    Public _toolboxPath_mapa_geologico As String = _path & "\scripts\T03_mapa_geologico_50k.tbx"
 
     '* Nombre de herramientas del tbx _toolboxPath
     Public _tool_getComponentCodeSheet As String = "getComponentCodeSheet"
@@ -18,12 +19,16 @@ Module toolbox
 
 
     Public _tool_addFeatureToMap As String = "addFeatureToMap"
+    Public _tool_addRasterToMap As String = "addRasterToMap"
     Public _tool_exportMXDToMPK As String = "exportMXDToMPK"
     Public _tool_validateUser As String = "validateUser"
     Public _tool_updateSettings As String = "updateSettings"
     Public _tool_installPackages As String = "installPackages"
 
     Public _tool_mapGeologicalHazards As String = "mapGeologicalHazards"
+
+    Public _tool_getComponentCodeSheetMg As String = "getComponentCodeSheetMg"
+    Public _tool_addFeatureQuadsToMapMg As String = "addFeatureQuadsToMapMg"
     'Public _tool_verificarpoligonosflotantes As String = "verificarpoligonosflotantes"
 
     '5. Funciones globales de toolbox

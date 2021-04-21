@@ -58,6 +58,13 @@ Public Class AutomapicDock
         ExecuteGP(_tool_installPackages, params, _toolboxPath_automapic, False)
         Dim loginForm As Form = New Login()
         openFormByName(loginForm, pnl_main)
+        'If __status__ = "Development" Then
+        '    user = "daguado"
+        '    pass = user
+        '    Dim a = CType(Me.Controls("btn_login"), Button)
+        '    a.PerformClick()
+        '    Return
+        'End If
         'Carga opciones al combo box de modulos
         'Dim dictionary As New Dictionary(Of Integer, String)
         'Dictionary.Add(1, "Peligros geologicos")

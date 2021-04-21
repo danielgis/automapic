@@ -56,4 +56,8 @@ _ID_AREA = 'id_area'
 
 
 # ---------------------------------------------------------------------------------------------------
-# 
+# Mapa Geologico
+# PATHS
+
+_CODHOJA_FIELD = 'CODHOJA'
+_CUADRICULAS_MG_PATH = r'DS01_DATO_GEOGRAFICO\GPO_DG_HOJAS_50K'

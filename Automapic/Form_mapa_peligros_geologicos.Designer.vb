@@ -42,7 +42,6 @@ Partial Class Form_mapa_peligros_geologicos
         Me.tbx_numero_pg = New System.Windows.Forms.NumericUpDown()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.btn_generar_mapa_pg = New System.Windows.Forms.Button()
-        Me.btn_draw = New System.Windows.Forms.Button()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.tbx_xmin = New System.Windows.Forms.TextBox()
         Me.tbx_ymin = New System.Windows.Forms.TextBox()
@@ -52,6 +51,7 @@ Partial Class Form_mapa_peligros_geologicos
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
+        Me.btn_draw = New System.Windows.Forms.Button()
         Me.btn_pg_export = New System.Windows.Forms.Button()
         Me.btn_blank_extent = New System.Windows.Forms.Button()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -314,19 +314,6 @@ Partial Class Form_mapa_peligros_geologicos
         Me.btn_generar_mapa_pg.Text = "Generar mapa"
         Me.btn_generar_mapa_pg.UseVisualStyleBackColor = True
         '
-        'btn_draw
-        '
-        Me.btn_draw.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btn_draw.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btn_draw.FlatAppearance.BorderColor = System.Drawing.Color.Gray
-        Me.btn_draw.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btn_draw.Image = Global.Automapic.My.Resources.Resources.EditingCopyFeaturesTool32
-        Me.btn_draw.Location = New System.Drawing.Point(333, 513)
-        Me.btn_draw.Name = "btn_draw"
-        Me.btn_draw.Size = New System.Drawing.Size(74, 49)
-        Me.btn_draw.TabIndex = 20
-        Me.btn_draw.UseVisualStyleBackColor = True
-        '
         'TableLayoutPanel2
         '
         Me.TableLayoutPanel2.ColumnCount = 4
@@ -432,6 +419,19 @@ Partial Class Form_mapa_peligros_geologicos
         Me.Label9.Size = New System.Drawing.Size(75, 17)
         Me.Label9.TabIndex = 7
         Me.Label9.Text = "ymax"
+        '
+        'btn_draw
+        '
+        Me.btn_draw.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btn_draw.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btn_draw.FlatAppearance.BorderColor = System.Drawing.Color.Gray
+        Me.btn_draw.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btn_draw.Image = Global.Automapic.My.Resources.Resources.EditingCopyFeaturesTool32
+        Me.btn_draw.Location = New System.Drawing.Point(333, 513)
+        Me.btn_draw.Name = "btn_draw"
+        Me.btn_draw.Size = New System.Drawing.Size(74, 49)
+        Me.btn_draw.TabIndex = 20
+        Me.btn_draw.UseVisualStyleBackColor = True
         '
         'btn_pg_export
         '

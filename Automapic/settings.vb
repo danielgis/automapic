@@ -40,6 +40,7 @@ Module settings
     Public d_contador As Integer = 0
     Public d_standar_output As String
     Public _LOADER_CONTROL As ProgressBar
+    Public drawLine_wkt As String
 
     Public xmin As Double
     Public ymin As Double
@@ -51,6 +52,7 @@ Module settings
     Public f_shapefile As String = "shapefile"
     Public f_featureclass As String = "featureclass"
     Public f_geodatabase As String = "geodatabase"
+    Public f_raster As String = "raster"
 
     '6. Funciones globales
     '   - Funciones que devuelven resultados y que puedes ser usados en cualquier parte del proceso
@@ -106,6 +108,8 @@ Module settings
                 objfilter = New GxFilterFGDBFeatureClasses()
             Case f_geodatabase
                 objfilter = New GxFilterFileGeodatabases()
+            Case f_raster
+                objfilter = New GxFilterRasterDatasets()
         End Select
         Return objfilter
     End Function
@@ -116,7 +120,7 @@ Module settings
         pGxDialog.AllowMultiSelect = False
         pGxDialog.Title = "Seleccionar"
         If filetype IsNot Nothing Then
-            pGxDialog.Title = String.Format("Seleccionar un {0}", filetype)
+            pGxDialog.Title = String.Format("Seleccionar {0}", filetype)
         End If
         pGxDialog.ObjectFilter = GetFilter(filetype)
         pGxDialog.ButtonCaption = textButton
