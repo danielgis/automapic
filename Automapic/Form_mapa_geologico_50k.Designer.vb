@@ -31,7 +31,7 @@ Partial Class Form_mapa_geologico_50k
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.tbx_mg_pathdata = New System.Windows.Forms.TextBox()
         Me.btn_mg_loaddata = New System.Windows.Forms.Button()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lbl_mg_cargar_dem = New System.Windows.Forms.Label()
         Me.btn_mg_drawline = New System.Windows.Forms.Button()
         Me.btn_mp_seccion = New System.Windows.Forms.Button()
         Me.tb_mg_mapa = New System.Windows.Forms.TabPage()
@@ -46,10 +46,13 @@ Partial Class Form_mapa_geologico_50k
         Me.lbl_mg_cuad = New System.Windows.Forms.Label()
         Me.btn_load_code = New System.Windows.Forms.Button()
         Me.btn_load_gdb = New System.Windows.Forms.Button()
+        Me.lbl_mg_tolerancia = New System.Windows.Forms.Label()
+        Me.nud_mg_tolerancia = New System.Windows.Forms.NumericUpDown()
         Me.tc_mg_50k.SuspendLayout()
         Me.tb_mg_perfil.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
+        CType(Me.nud_mg_tolerancia, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'tc_mg_50k
@@ -60,6 +63,7 @@ Partial Class Form_mapa_geologico_50k
         Me.tc_mg_50k.Controls.Add(Me.tb_mg_perfil)
         Me.tc_mg_50k.Controls.Add(Me.tb_mg_mapa)
         Me.tc_mg_50k.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tc_mg_50k.Enabled = False
         Me.tc_mg_50k.ImageList = Me.ilist_mg_50k
         Me.tc_mg_50k.Location = New System.Drawing.Point(3, 88)
         Me.tc_mg_50k.Name = "tc_mg_50k"
@@ -107,18 +111,20 @@ Partial Class Form_mapa_geologico_50k
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.tbx_mg_pathdata, 0, 2)
         Me.TableLayoutPanel2.Controls.Add(Me.btn_mg_loaddata, 1, 2)
-        Me.TableLayoutPanel2.Controls.Add(Me.Label1, 0, 1)
+        Me.TableLayoutPanel2.Controls.Add(Me.lbl_mg_cargar_dem, 0, 1)
         Me.TableLayoutPanel2.Controls.Add(Me.btn_mg_drawline, 1, 4)
         Me.TableLayoutPanel2.Controls.Add(Me.btn_mp_seccion, 0, 6)
+        Me.TableLayoutPanel2.Controls.Add(Me.nud_mg_tolerancia, 1, 3)
+        Me.TableLayoutPanel2.Controls.Add(Me.lbl_mg_tolerancia, 0, 3)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 7
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5.0!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 53.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.TableLayoutPanel2.Size = New System.Drawing.Size(478, 576)
@@ -128,7 +134,7 @@ Partial Class Form_mapa_geologico_50k
         '
         Me.tbx_mg_pathdata.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.tbx_mg_pathdata.Enabled = False
-        Me.tbx_mg_pathdata.Location = New System.Drawing.Point(3, 34)
+        Me.tbx_mg_pathdata.Location = New System.Drawing.Point(3, 29)
         Me.tbx_mg_pathdata.Name = "tbx_mg_pathdata"
         Me.tbx_mg_pathdata.Size = New System.Drawing.Size(392, 22)
         Me.tbx_mg_pathdata.TabIndex = 0
@@ -137,22 +143,22 @@ Partial Class Form_mapa_geologico_50k
         '
         Me.btn_mg_loaddata.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btn_mg_loaddata.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btn_mg_loaddata.Location = New System.Drawing.Point(401, 33)
+        Me.btn_mg_loaddata.Location = New System.Drawing.Point(401, 28)
         Me.btn_mg_loaddata.Name = "btn_mg_loaddata"
         Me.btn_mg_loaddata.Size = New System.Drawing.Size(74, 24)
         Me.btn_mg_loaddata.TabIndex = 3
         Me.btn_mg_loaddata.Text = "..."
         Me.btn_mg_loaddata.UseVisualStyleBackColor = True
         '
-        'Label1
+        'lbl_mg_cargar_dem
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Label1.Location = New System.Drawing.Point(3, 13)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(392, 17)
-        Me.Label1.TabIndex = 4
-        Me.Label1.Text = "Cargar DEM"
+        Me.lbl_mg_cargar_dem.AutoSize = True
+        Me.lbl_mg_cargar_dem.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lbl_mg_cargar_dem.Location = New System.Drawing.Point(3, 8)
+        Me.lbl_mg_cargar_dem.Name = "lbl_mg_cargar_dem"
+        Me.lbl_mg_cargar_dem.Size = New System.Drawing.Size(392, 17)
+        Me.lbl_mg_cargar_dem.TabIndex = 4
+        Me.lbl_mg_cargar_dem.Text = "Cargar DEM"
         '
         'btn_mg_drawline
         '
@@ -161,9 +167,9 @@ Partial Class Form_mapa_geologico_50k
         Me.btn_mg_drawline.Dock = System.Windows.Forms.DockStyle.Fill
         Me.btn_mg_drawline.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn_mg_drawline.Image = CType(resources.GetObject("btn_mg_drawline.Image"), System.Drawing.Image)
-        Me.btn_mg_drawline.Location = New System.Drawing.Point(401, 68)
+        Me.btn_mg_drawline.Location = New System.Drawing.Point(401, 88)
         Me.btn_mg_drawline.Name = "btn_mg_drawline"
-        Me.btn_mg_drawline.Size = New System.Drawing.Size(74, 47)
+        Me.btn_mg_drawline.Size = New System.Drawing.Size(74, 44)
         Me.btn_mg_drawline.TabIndex = 5
         Me.btn_mg_drawline.UseVisualStyleBackColor = False
         '
@@ -336,6 +342,26 @@ Partial Class Form_mapa_geologico_50k
         Me.btn_load_gdb.TabIndex = 10
         Me.btn_load_gdb.UseVisualStyleBackColor = True
         '
+        'lbl_mg_tolerancia
+        '
+        Me.lbl_mg_tolerancia.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lbl_mg_tolerancia.AutoSize = True
+        Me.lbl_mg_tolerancia.Location = New System.Drawing.Point(3, 61)
+        Me.lbl_mg_tolerancia.Name = "lbl_mg_tolerancia"
+        Me.lbl_mg_tolerancia.Size = New System.Drawing.Size(392, 17)
+        Me.lbl_mg_tolerancia.TabIndex = 7
+        Me.lbl_mg_tolerancia.Text = "Establecer radio de búsqueda de POG's (m)"
+        '
+        'nud_mg_tolerancia
+        '
+        Me.nud_mg_tolerancia.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.nud_mg_tolerancia.Location = New System.Drawing.Point(401, 59)
+        Me.nud_mg_tolerancia.Maximum = New Decimal(New Integer() {500, 0, 0, 0})
+        Me.nud_mg_tolerancia.Name = "nud_mg_tolerancia"
+        Me.nud_mg_tolerancia.Size = New System.Drawing.Size(74, 22)
+        Me.nud_mg_tolerancia.TabIndex = 8
+        Me.nud_mg_tolerancia.Value = New Decimal(New Integer() {150, 0, 0, 0})
+        '
         'Form_mapa_geologico_50k
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -351,6 +377,7 @@ Partial Class Form_mapa_geologico_50k
         Me.TableLayoutPanel2.PerformLayout()
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
+        CType(Me.nud_mg_tolerancia, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -372,9 +399,11 @@ Partial Class Form_mapa_geologico_50k
     Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents tbx_mg_pathdata As System.Windows.Forms.TextBox
     Friend WithEvents btn_mg_loaddata As System.Windows.Forms.Button
-    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents lbl_mg_cargar_dem As System.Windows.Forms.Label
     Friend WithEvents btn_mg_drawline As System.Windows.Forms.Button
     Friend WithEvents btn_mp_seccion As System.Windows.Forms.Button
     Friend WithEvents btn_load_code As System.Windows.Forms.Button
     Friend WithEvents btn_load_gdb As System.Windows.Forms.Button
+    Friend WithEvents nud_mg_tolerancia As System.Windows.Forms.NumericUpDown
+    Friend WithEvents lbl_mg_tolerancia As System.Windows.Forms.Label
 End Class

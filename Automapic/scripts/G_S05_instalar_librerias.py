@@ -55,6 +55,11 @@ if __name__ == '__main__':
         upgrade_pip()
     try:
         import comtypes
+        # import pandas as pd
+        # arcpy.ImportToolbox(st._BASE_DIR, "T00_automapic")
+        # arcpy.ImportToolbox(st._BASE_DIR, "T01_plano_topografico_25k")
+        # arcpy.ImportToolbox(st._BASE_DIR, "T02_mapa_peligros_geologicos")
+        # arcpy.ImportToolbox(st._BASE_DIR, "T03_mapa_geologico_50k")
     except:
         packages = glob.glob('{}/*.whl'.format(st._REQUIREMENTS_DIR))
         map(install_package, packages)

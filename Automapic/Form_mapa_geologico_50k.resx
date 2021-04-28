@@ -117,6 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btn_mg_drawline.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAADfSURBVFhH7ZbLDcIwEETTE51QAOKOKAGJDih58Uzs
+        QGAF/owTJLKjUbyWkveOGcxs1bqXS3a+dJjz5WZeJ2Y6cAkTTtIQNqPYJvBHAgF0BMzrxEwHLkKBACF8
+        fzhdw2d3r+0qkOB4Pt+nkNNL4BscIaeHQA4cIUctkAtHyFEKlMARclQCpXCEHIVADRwhp1WgFo6Q0yLQ
+        AkfIqRVohSPk1Ago4Ag5pQIqOEJOiYASjpCTK6CGI+R4AhHkVQZHPgo8trHxTppN4LcFvPIN8bgCYd5+
+        HmPl4wqsUfdyudpwB10PWbjrdvSlAAAAAElFTkSuQmCC
+</value>
+  </data>
   <metadata name="ilist_mg_50k.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
@@ -125,7 +136,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACw
-        DQAAAk1TRnQBSQFMAgEBBwEAAYABAAGAAQABEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        DQAAAk1TRnQBSQFMAgEBBwEAAZABAAGQAQABEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAASADAAEBAQABCAYAAQgYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -184,17 +195,6 @@
         AcABAQHAAQEC/wIAAYABAALBAv8CAAGAAQABwgEhAZ8B/wIAAYABAAEEARABCAUAAQQBEAGfAf8EAAEE
         ARAC/wIAAYABAAHAASEC/wIAAYABAALBAZ8B/wIAAYABAQHAAQEBCAMAAcABAQHAAQEBnwH/AgAB4AED
         AeABAwL/AgAB8AEPAf4BPwL/AgAB/gF/Af4BPws=
-</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="btn_mg_drawline.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAADfSURBVFhH7ZbLDcIwEETTE51QAOKOKAGJDih58Uzs
-        QGAF/owTJLKjUbyWkveOGcxs1bqXS3a+dJjz5WZeJ2Y6cAkTTtIQNqPYJvBHAgF0BMzrxEwHLkKBACF8
-        fzhdw2d3r+0qkOB4Pt+nkNNL4BscIaeHQA4cIUctkAtHyFEKlMARclQCpXCEHIVADRwhp1WgFo6Q0yLQ
-        AkfIqRVohSPk1Ago4Ag5pQIqOEJOiYASjpCTK6CGI+R4AhHkVQZHPgo8trHxTppN4LcFvPIN8bgCYd5+
-        HmPl4wqsUfdyudpwB10PWbjrdvSlAAAAAElFTkSuQmCC
 </value>
   </data>
 </root>

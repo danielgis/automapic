@@ -1,7 +1,6 @@
 import arcpy
 import settings as st
 import os
-import os
 
 arcpy.env.addOutputsToMap = True
 

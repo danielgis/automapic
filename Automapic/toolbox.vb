@@ -29,6 +29,9 @@ Module toolbox
 
     Public _tool_getComponentCodeSheetMg As String = "getComponentCodeSheetMg"
     Public _tool_addFeatureQuadsToMapMg As String = "addFeatureQuadsToMapMg"
+    Public _tool_generateProfile As String = "generateProfile"
+    Public _tool_setSrcDataframeByCodHoja As String = "setSrcDataframeByCodHoja"
+    Public _tool_addFeaturesByCodHoja As String = "addFeaturesByCodHoja"
     'Public _tool_verificarpoligonosflotantes As String = "verificarpoligonosflotantes"
 
     '5. Funciones globales de toolbox

@@ -16,6 +16,8 @@ try:
     params = arcpy.GetParameterInfo()
 
     path_feature = os.path.join(gdb_path, st._CUADRICULAS_MG_PATH)
+    mxd = arcpy.mapping.MapDocument("CURRENT")
+    mxd.activeDataFrame.spatialReference = arcpy.SpatialReference(4326)
     if not arcpy.Exists(path_feature):
         raise RuntimeError(msg._ERROR_FEATURE_CUADRICULAS_MG)
     response['response'] = path_feature

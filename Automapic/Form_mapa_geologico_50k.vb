@@ -14,6 +14,7 @@ Public Class Form_mapa_geologico_50k
     Dim columna_selected As String
     Dim cuadrante_selected As String
     Dim codhoja As String = Nothing
+    Dim zona As String = Nothing
     Private Sub btn_mg_loaddata_Click(sender As Object, e As EventArgs) Handles btn_mg_loaddata.Click
         Cursor.Current = Cursors.WaitCursor
         path_raster = openDialogBoxESRI(f_raster)
@@ -50,7 +51,27 @@ Public Class Form_mapa_geologico_50k
     End Sub
 
     Private Sub btn_mp_seccion_Click(sender As Object, e As EventArgs) Handles btn_mp_seccion.Click
-        MessageBox.Show(drawLine_wkt, __title__, MessageBoxButtons.OK, MessageBoxIcon.Information)
+        'MessageBox.Show(drawLine_wkt, __title__, MessageBoxButtons.OK, MessageBoxIcon.Information)
+        runProgressBar()
+        params.Clear()
+        params.Add(tbx_mg_pathdata.Text)
+        params.Add(drawLine_wkt)
+        params.Add(codhoja)
+        params.Add(path_geodatabase)
+        params.Add(zona)
+        params.Add(nud_mg_tolerancia.Value.ToString)
+        Dim response = ExecuteGP(_tool_generateProfile, params, _toolboxPath_mapa_geologico)
+        Dim responseJson = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(response)
+        If responseJson.Item("status") = 0 Then
+            RuntimeError.PythonError = responseJson.Item("message")
+            MessageBox.Show(RuntimeError.PythonError, __title__, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            runProgressBar("ini")
+            Return
+        End If
+        params.Clear()
+        params.Add(responseJson.Item("response"))
+        ExecuteGP(_tool_addFeatureToMap, params, _toolboxPath_automapic)
+        runProgressBar("ini")
     End Sub
 
     Private Sub btn_load_gdb_Click(sender As Object, e As EventArgs) Handles btn_load_gdb.Click
@@ -82,6 +103,7 @@ Public Class Form_mapa_geologico_50k
             cbx_mg_fila.Enabled = False
             cbx_mg_col.Enabled = False
             cbx_mg_cuad.Enabled = False
+            tc_mg_50k.Enabled = False
             runProgressBar("ini")
             Cursor.Current = Cursors.Default
             Return
@@ -103,6 +125,7 @@ Public Class Form_mapa_geologico_50k
             cbx_mg_fila.Enabled = False
             cbx_mg_col.Enabled = False
             cbx_mg_cuad.Enabled = False
+            tc_mg_50k.Enabled = False
             runProgressBar("ini")
             Cursor.Current = Cursors.Default
             Return
@@ -121,6 +144,7 @@ Public Class Form_mapa_geologico_50k
         cbx_mg_col.Enabled = True
         cbx_mg_cuad.Enabled = True
         btn_load_code.Enabled = False
+        tc_mg_50k.Enabled = False
         codhoja = Nothing
 
         'fin de proceso
@@ -221,19 +245,32 @@ Public Class Form_mapa_geologico_50k
     Private Sub btn_load_code_Click(sender As Object, e As EventArgs) Handles btn_load_code.Click
         If codhoja IsNot Nothing Then
             Dim r As DialogResult = MessageBox.Show("Esta seguro que desea cambiar de hoja", __title__, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-            If r = DialogResult.No Then
-                Return
-            Else
+            If r = DialogResult.Yes Then
                 codhoja = Nothing
                 cbx_mg_fila.Enabled = True
                 cbx_mg_col.Enabled = True
                 cbx_mg_cuad.Enabled = True
-                Return
+                tc_mg_50k.Enabled = False
             End If
+            Return
         End If
         cbx_mg_fila.Enabled = False
         cbx_mg_col.Enabled = False
         cbx_mg_cuad.Enabled = False
+        tc_mg_50k.Enabled = True
         codhoja = String.Concat(cbx_mg_fila.SelectedItem.ToString(), cbx_mg_col.SelectedItem.ToString(), cbx_mg_cuad.SelectedItem.ToString())
+        params.Clear()
+        params.Add(codhoja)
+        params.Add(path_geodatabase)
+        Dim response = ExecuteGP(_tool_setSrcDataframeByCodHoja, params, _toolboxPath_mapa_geologico)
+        Dim responseJson = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(response)
+        If responseJson.Item("status") = 1 Then
+            zona = responseJson.Item("response")
+            params.Clear()
+            params.Add(path_geodatabase)
+            params.Add(zona.ToString)
+            params.Add(codhoja)
+            ExecuteGP(_tool_addFeaturesByCodHoja, params, _toolboxPath_mapa_geologico, getresult:=False)
+        End If
     End Sub
 End Class
