@@ -57,11 +57,8 @@ def getanglebtwnlines(m1, m2):
 
     # propiedad entre dos rectas que intersectan
 
-    tan_angulo = (m2 - m1) / (1 - m2 * m1)
-
-    angulo_r = math.atan(tan_angulo)
-    # angulo_s = angulo_r * math.pi / 180
-    return abs(int(round(angulo_r)))
+    tan_angulo = abs((m2 - m1) / (1 + (m2 * m1)))
+    return math.degrees(math.atan(tan_angulo))
 
 
 def dataframe_to_feature(dataframe, output, geometry_column, src=None):
@@ -79,6 +76,19 @@ def dataframe_to_feature(dataframe, output, geometry_column, src=None):
     feature = arcpy.da.NumPyArrayToFeatureClass(arr, output, geometry_column)
     return feature
 
+def buzamiento_aparente(buzamiento_real, ang_seccion_azimut, df_buzamiento_aparente):
+    df = df_buzamiento_aparente
+    bz_real_list = df[st._BZ_REAL_FIELD].unique()
+    bz_real_sel = min(bz_real_list, key=lambda x: abs(x - buzamiento_real))
+    ang_sec_azm_list = df[df[st._BZ_REAL_FIELD] == bz_real_sel][st._A_BZ_SECC_FIELD].unique()
+    ang_sec_azm_sel = min(ang_sec_azm_list, key=lambda x: abs(x - ang_seccion_azimut))
+    response = df.loc[(df[st._BZ_REAL_FIELD] == bz_real_sel) & (df[st._A_BZ_SECC_FIELD] == ang_sec_azm_sel)][st._BZ_APAR_DD_FIELD]
+    response = response.tolist()
+    arcpy.AddMessage(response)
+    # response = df[(df['BZ_REAL'] == bz_real_sel) & (df['A_BZ_SECC'] == ang_sec_azm_sel)]['BZ_APAR_DD'][0]
+    # arcpy.AddMessage(response)
+    # arcpy.AddMessage(dir(response))
+    return response[0]
 
 # try:
 mxd = arcpy.mapping.MapDocument('CURRENT')
@@ -87,11 +97,16 @@ raster_dem_src = arcpy.Describe(raster_dem).spatialReference
 pog_path = os.path.join(geodatabase, st._POG_MG_PATH.format(zona, zona))
 pog_seccion_path = os.path.join(geodatabase, st._POG_MG_PERFIL_PATH.format(zona, zona))
 
+
 linestring_geom = arcpy.FromWKT(linestring_wkt, mxd.activeDataFrame.spatialReference)
 cuadriculas_path = os.path.join(geodatabase, st._CUADRICULAS_MG_PATH)
 query = "{} = '{}'".format(st._CODHOJA_FIELD, codhoja)
 cuadricula = arcpy.da.SearchCursor(cuadriculas_path, ['shape@'], query, raster_dem_src)
 cuadricula_geom = map(lambda i: i[0], cuadricula)[0]
+
+buzamiento_aparente_path = os.path.join(geodatabase, st._TB_MG_BUZAMIENTO_APARENTE_PATH)
+np_buzamiento_aparente = arcpy.da.TableToNumPyArray(buzamiento_aparente_path, ["*"])
+df_buzamiento_aparente = pd.DataFrame(np_buzamiento_aparente)
 
 xmin_cuad, ymin_cuad = cuadricula_geom.extent.XMin, cuadricula_geom.extent.YMin
 
@@ -181,6 +196,7 @@ for pog in cursor:
         st._POG_FIELD: pog[0],
         st._BZ_REAL_FIELD: pog[3], 
         st._A_BZ_SECC_FIELD: ang_secc,
+        st._BZ_APAR_FIELD: buzamiento_aparente(pog[3], ang_secc, df_buzamiento_aparente),
         st._BZ_SEC_FIELD: 0,
         st._P_SECC_FIELD: 0,
         st._CODHOJA_FIELD: codhoja
