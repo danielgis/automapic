@@ -32,3 +32,31 @@ def check_layer_inside_data_frame(features, symbols, df_name=None, query=None):
         
         arcpy.RefreshTOC()
         arcpy.RefreshActiveView()
+
+
+def split_line_at_points(geometry_line, geometry_points):
+    p_ini = geometry_line.firstPoint
+    p_end = geometry_line.firstPoint
+
+    parts = list()
+
+    for i in geometry_points:
+        if not i.within(geometry_line):
+            continue
+        if i.X ==  p_ini.X and i.Y == p_ini.Y:
+            continue
+        if i.X ==  p_end.X and i.Y == p_end.Y:
+            continue
+        m = geometry_line.measureOnLine(i)
+        part_line = geometry_line.segmentAlongLine(0, m)
+        parts.append(part_line)
+    
+    parts.append(geometry_line)
+    
+    parts.sort(key=lambda l: l.length)
+    response = [b.symmetricDifference(a) for a, b in zip(parts, parts[1:])]
+    response.insert(0, parts[0])
+    return response
+
+
+

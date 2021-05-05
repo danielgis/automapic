@@ -341,6 +341,9 @@
     <Content Include="scripts\automapic.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="scripts\automapic_template_json.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="scripts\G_S01_cargar_feature.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

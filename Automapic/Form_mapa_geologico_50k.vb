@@ -68,9 +68,12 @@ Public Class Form_mapa_geologico_50k
             runProgressBar("ini")
             Return
         End If
-        params.Clear()
-        params.Add(responseJson.Item("response"))
-        ExecuteGP(_tool_addFeatureToMap, params, _toolboxPath_automapic)
+        'params.Clear()
+        'params.Add(responseJson.Item("response").Item("seccion"))
+        'ExecuteGP(_tool_addFeatureToMap, params, _toolboxPath_automapic)
+        'params.Clear()
+        'params.Add(responseJson.Item("response").Item("pog"))
+        'ExecuteGP(_tool_addFeatureToMap, params, _toolboxPath_automapic)
         runProgressBar("ini")
     End Sub
 

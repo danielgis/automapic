@@ -9,6 +9,8 @@ import math
 import pandas as pd
 import numpy as np
 import uuid
+import automapic_template_json as auttmp
+import automapic as aut
 
 arcpy.env.overwriteOutput = True
 
@@ -66,13 +68,11 @@ def dataframe_to_feature(dataframe, output, geometry_column, src=None):
     dt = arr.dtype
     desc = dt.descr
     for i in range(len(desc)):
-        arcpy.AddMessage(desc[i][1])
         if desc[i][1] == '|O':
             desc[i] = (desc[i][0], '<U300')
 
     dt = np.dtype(desc)
     arr = arr.astype(dt)
-    arcpy.AddMessage(arr.dtype)
     feature = arcpy.da.NumPyArrayToFeatureClass(arr, output, geometry_column)
     return feature
 
@@ -84,11 +84,32 @@ def buzamiento_aparente(buzamiento_real, ang_seccion_azimut, df_buzamiento_apare
     ang_sec_azm_sel = min(ang_sec_azm_list, key=lambda x: abs(x - ang_seccion_azimut))
     response = df.loc[(df[st._BZ_REAL_FIELD] == bz_real_sel) & (df[st._A_BZ_SECC_FIELD] == ang_sec_azm_sel)][st._BZ_APAR_DD_FIELD]
     response = response.tolist()
-    arcpy.AddMessage(response)
     # response = df[(df['BZ_REAL'] == bz_real_sel) & (df['A_BZ_SECC'] == ang_sec_azm_sel)]['BZ_APAR_DD'][0]
-    # arcpy.AddMessage(response)
-    # arcpy.AddMessage(dir(response))
     return response[0]
+
+
+def remove_duplicated(list_geometry):
+    list_geometry_unique = list()
+    for idx, geometry in enumerate(list_geometry):
+        if idx == 0:
+            list_geometry_unique.append(geometry)
+            continue
+        controller = False
+        for geometry_unique in list_geometry_unique:
+            if geometry.equals(geometry_unique):
+                controller = True
+                break
+
+        if not controller:
+            list_geometry_unique.append(geometry)
+    return list_geometry_unique
+    # n_duplicated = 0
+    # for i in list_geometry:
+    #     if geometry.equals(i):
+    #         n_duplicated += 1
+    # response = True if n_duplicated > 1 else False
+    # arcpy.AddMessage('se encontraron {} duplicados'.format(n_duplicated))
+    # return response
 
 # try:
 mxd = arcpy.mapping.MapDocument('CURRENT')
@@ -96,6 +117,8 @@ mxd = arcpy.mapping.MapDocument('CURRENT')
 raster_dem_src = arcpy.Describe(raster_dem).spatialReference
 pog_path = os.path.join(geodatabase, st._POG_MG_PATH.format(zona, zona))
 pog_seccion_path = os.path.join(geodatabase, st._POG_MG_PERFIL_PATH.format(zona, zona))
+gpl_seccion_path = os.path.join(geodatabase, st._GPL_MG_PERFIL_PATH.format(zona, zona))
+ulito_path = os.path.join(geodatabase, st._ULITO_MG_PATH.format(zona, zona))
 
 
 linestring_geom = arcpy.FromWKT(linestring_wkt, mxd.activeDataFrame.spatialReference)
@@ -139,6 +162,7 @@ for i, r in enumerate(iterable, 1):
     z_arr = raster.GetRasterBand(1).ReadAsArray(raster_x, raster_y, 1, 1)
     z = z_arr[0][0] + y_ini
     coords.append('{} {}'.format(first_point.X + r, z))
+    # coords.append([first_point.X + r, z])
     if z_arr[0][0] > y_top:
         y_top = z_arr[0][0]
 
@@ -163,7 +187,6 @@ for pog in cursor:
     if not pog[1]:
         continue
     pog_m, pnt = getm(pog[1]), pog[2]
-    # arcpy.AddMessage(pog_m)
     
        
     x = ((linestring_geom_m * end_point.X) - (pog_m * pnt.centroid.X) - end_point.Y + pnt.centroid.Y) / (linestring_geom_m - pog_m)
@@ -189,6 +212,7 @@ for pog in cursor:
         continue
     z = z_arr[0][0] + y_ini
     coords.append('{} {}'.format(first_point.X + distance, z))
+    # coords.append([first_point.X + distance, z])
     rows.append({
         'x': first_point.X + distance,
         'y': z,
@@ -204,41 +228,191 @@ for pog in cursor:
     if z_arr[0][0] > y_top:
         y_top = z_arr[0][0]
 
-arcpy.AddMessage(rows)
 df = pd.DataFrame(rows)
 tmp_name = 'pog_proyectados_{}'.format(uuid.uuid4().get_hex())
-
-pog_seccion_mfl = arcpy.MakeFeatureLayer_management(pog_seccion_path, tmp_name)
-
-arcpy.SelectLayerByAttribute_management(pog_seccion_mfl, "NEW_SELECTION", query)
+pog_seccion_mfl = arcpy.MakeFeatureLayer_management(pog_seccion_path, tmp_name, query)
+# arcpy.SelectLayerByAttribute_management(pog_seccion_mfl, "NEW_SELECTION", query)
 arcpy.DeleteRows_management(pog_seccion_mfl)
-arcpy.SelectLayerByAttribute_management(pog_seccion_mfl, "CLEAR_SELECTION")
-
+# arcpy.SelectLayerByAttribute_management(pog_seccion_mfl, "CLEAR_SELECTION")
 shp_output = os.path.join(st._TEMP_FOLDER, tmp_name + '.shp')
 dataframe_to_feature(df, shp_output, ['x', 'y'], mxd.activeDataFrame.spatialReference)
 arcpy.Append_management(shp_output, pog_seccion_path, "NO_TEST")
 
+
+# Obteniendo los puntos de interseccion entre la linea de perfil y las unidades geologicas
+ulito_mfl = arcpy.MakeFeatureLayer_management(ulito_path, 'ulito_{}'.format(codhoja), query)
+arcpy.SelectLayerByLocation_management(ulito_mfl, "INTERSECT", linestring_geom, None, "NEW_SELECTION")
+
+puntos_contacto = list()
+puntos_unidades = list()
+ulito_cursor = arcpy.da.SearchCursor(ulito_mfl, ['SHAPE@', 'ETIQUETA'])
+for ulito in ulito_cursor:
+    points = linestring_geom.intersect(ulito[0], 1)
+    for point in points:
+        r = linestring_geom.measureOnLine(point)
+        x = point.X
+        y = point.Y
+        raster_x = int((x - gt[0]) / gt[1])
+        raster_y = int((y - gt[3]) / gt[5])
+
+        z_arr = raster.GetRasterBand(1).ReadAsArray(raster_x, raster_y, 1, 1)
+        z = z_arr[0][0] + y_ini
+        coords.append('{} {}'.format(first_point.X + r, z))
+        punto_contacto = arcpy.Point()
+        punto_contacto.X = first_point.X + r
+        punto_contacto.Y = z
+        puntos_contacto.append(punto_contacto)
+
+        if z_arr[0][0] > y_top:
+            y_top = z_arr[0][0]
+    lineas = linestring_geom.intersect(ulito[0], 2)
+    for lineaArr in lineas:
+        linea = arcpy.Polyline(lineaArr)
+        r = linestring_geom.measureOnLine(linea.centroid)
+        x = linea.centroid.X
+        y = linea.centroid.Y
+        raster_x = int((x - gt[0]) / gt[1])
+        raster_y = int((y - gt[3]) / gt[5])
+        z_arr = raster.GetRasterBand(1).ReadAsArray(raster_x, raster_y, 1, 1)
+        z = z_arr[0][0] + y_ini
+        coords.append('{} {}'.format(first_point.X + r, z))
+        puntos_unidad = arcpy.Point()
+        puntos_unidad.X = first_point.X + r
+        puntos_unidad.Y = z
+        puntos_unidades.append([puntos_unidad, ulito[1]])
+
+        if z_arr[0][0] > y_top:
+            y_top = z_arr[0][0]
+
+
+
+
+
+
 coords.sort(key=lambda i: i.split(' ')[0])
+# coords.sort(key=lambda i: i[0])
 
 
 y_top = y_top * 1.2 + y_ini
 
 
-aux_lines = [first_point.X, y_top, first_point.X, y_ini, first_point.X + linestring_geom.length, y_ini, first_point.X + linestring_geom.length, y_top]
+# aux_lines = [first_point.X, y_top, first_point.X, y_ini, first_point.X + linestring_geom.length, y_ini, first_point.X + linestring_geom.length, y_top]
 
-aux_lines_string = '{} {}, {} {}, {} {}, {} {}'.format(*aux_lines)
+# aux_lines = [
+#     [first_point.X, y_top], 
+#     [first_point.X, y_ini], 
+#     [first_point.X + linestring_geom.length, y_ini], 
+#     [first_point.X + linestring_geom.length, y_top]
+# ]
 
+# # aux_lines_string = '{} {}, {} {}, {} {}, {} {}'.format(*aux_lines)
 sec_lines_string = ','.join(coords)
+wkt = "LINESTRING ({})".format(sec_lines_string)
+# # wkt = "MULTILINESTRING (({}), ({}))".format(sec_lines_string, aux_lines_string)
+geometry_line = arcpy.FromWKT(wkt)
 
-wkt = "MULTILINESTRING (({}), ({}))".format(sec_lines_string, aux_lines_string)
+# puntos_contacto_unique = filter(lambda i: not is_geometry_duplicated(i, puntos_contacto), puntos_contacto)
+
+# puntos_contacto_unique = list()
 
 
-g = arcpy.FromWKT(wkt)
+puntos_contacto_unique = remove_duplicated(puntos_contacto)
+geometry_line_split = aut.split_line_at_points(geometry_line, puntos_contacto_unique)
 
-output_name = 'seccion_geologica_{}.shp'.format(codhoja)
-output_seccion = os.path.join(st._TEMP_FOLDER, output_name)
-arcpy.CopyFeatures_management(g, output_seccion)
-response['response'] = output_seccion
+
+auttmp._PL_PERFIL_TEMPLATE['features'] = []
+
+for line in geometry_line_split:
+    line_json = json.loads(line.JSON)
+    line_json['paths']
+    contador = 0
+    controler = True
+    for punto_unidad in puntos_unidades:
+        within = punto_unidad[0].within(line)
+        if within:
+            data = {
+                "attributes": {
+                    "CODI": 0,
+                    "HOJA": codhoja[:3],
+                    "CUADRANTE": codhoja[-1],
+                    "CODHOJA": codhoja,
+                    "DESCRIP": '1303',
+                    "ETIQUETA": punto_unidad[1]
+                }, 
+                "geometry": {
+                    "paths": line_json['paths']
+                }
+            }
+            auttmp._PL_PERFIL_TEMPLATE['features'].append(data)
+            break
+
+linea_seccion = {
+                "attributes": {
+                    "CODI": 0,
+                    "HOJA": codhoja[:3],
+                    "CUADRANTE": codhoja[-1],
+                    "CODHOJA": codhoja,
+                    "DESCRIP": '1304',
+                    "ETIQUETA": ''
+                }, 
+                "geometry": {
+                    "paths": [[[first_point.X, y_ini], [first_point.X + linestring_geom.length, y_ini]]]
+                }
+            }
+auttmp._PL_PERFIL_TEMPLATE['features'].append(linea_seccion)
+
+linea_altura1 = {
+                "attributes": {
+                    "CODI": 0,
+                    "HOJA": codhoja[:3],
+                    "CUADRANTE": codhoja[-1],
+                    "CODHOJA": codhoja,
+                    "DESCRIP": '1305',
+                    "ETIQUETA": ''
+                }, 
+                "geometry": {
+                    "paths": [[[first_point.X, y_top], [first_point.X, y_ini]]]
+                }
+            }
+auttmp._PL_PERFIL_TEMPLATE['features'].append(linea_altura1)
+
+linea_altura2 = {
+                "attributes": {
+                    "CODI": 0,
+                    "HOJA": codhoja[:3],
+                    "CUADRANTE": codhoja[-1],
+                    "CODHOJA": codhoja,
+                    "DESCRIP": 1305,
+                    "ETIQUETA": ''
+                }, 
+                "geometry": {
+                    "paths": [[[first_point.X + linestring_geom.length, y_ini], [first_point.X + linestring_geom.length, y_top]]]
+                }
+            }
+auttmp._PL_PERFIL_TEMPLATE['features'].append(linea_altura2)
+
+# Cargando las linea de perfil a la base de datos
+rows_seccion = arcpy.AsShape(auttmp._PL_PERFIL_TEMPLATE, True)
+gpl_seccion_mfl = arcpy.MakeFeatureLayer_management(gpl_seccion_path, 'gpl_seccion_path_{}'.format(codhoja), query)
+arcpy.DeleteRows_management(gpl_seccion_mfl)
+arcpy.Append_management(rows_seccion, gpl_seccion_path, "NO_TEST")
+
+
+# Agregando capa de seccion al mapa
+gpl_seccion_layer = arcpy.mapping.Layer(gpl_seccion_path)
+gpl_seccion_layer.definitionQuery = query
+arcpy.mapping.AddLayer(mxd.activeDataFrame, gpl_seccion_layer)
+
+# Agregando capa de pog proyectados al mapa
+pog_seccion_layer = arcpy.mapping.Layer(pog_seccion_path)
+pog_seccion_layer.definitionQuery = query
+arcpy.mapping.AddLayer(mxd.activeDataFrame, pog_seccion_layer)
+
+# output_name = 'seccion_geologica_{}.shp'.format(codhoja)
+# output_seccion = os.path.join(st._TEMP_FOLDER, output_name)
+# arcpy.CopyFeatures_management(g, output_seccion)
+# response['response'] = {'seccion': output_seccion, 'pog': shp_output}
+response['response'] = True
 # except Exception as e:
 #     response['status'] = 0
 #     response['message'] = e.message
