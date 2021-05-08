@@ -16,6 +16,7 @@ arcpy.env.overwriteOutput = True
 
 raster_dem = arcpy.GetParameterAsText(0)
 linestring_wkt = arcpy.GetParameterAsText(1)
+arcpy.AddMessage(linestring_wkt)
 codhoja = arcpy.GetParameterAsText(2)
 geodatabase = arcpy.GetParameterAsText(3)
 zona = arcpy.GetParameterAsText(4)
@@ -29,20 +30,32 @@ wkid = int('327{}'.format(zona))
 _GEOMETRY_FIELD = 'shape'
 
 
-def getm(azimut):
-    """
-    obtiene la pendiente en radianes
-    :param azimut: azimut del Punto de observación geológico POG
-    :return: pendiente en radianes
-    """
-    pi = math.pi
-    ang_s = 0
 
+def get_angle_by_azimut(azimut):
     quad = math.ceil(azimut / 90.0)
-    ang_s = 90 * (quad + int(not quad % 2)) - azimut
-
+    ang_s = 90 * (quad + int(not quad % 2)) - azimut + (180 if quad in (2, 3) else 0)
     ang_r = ang_s * math.pi / 180
-    return math.tan(ang_r)
+    return ang_r
+
+def get_angle_by_coords(x_ini, y_ini, x_fin, y_fin):
+    ang_r = math.atan2(y_fin - y_ini, x_fin - x_ini)
+    return ang_r
+
+
+# def getm(azimut):
+#     """
+#     obtiene la pendiente en radianes
+#     :param azimut: azimut del Punto de observación geológico POG
+#     :return: pendiente en radianes
+#     """
+#     pi = math.pi
+#     ang_s = 0
+
+#     quad = math.ceil(azimut / 90.0)
+#     ang_s = 90 * (quad + int(not quad % 2)) - azimut + (180 if quad in (2, 3) else 0)
+
+#     ang_r = ang_s * math.pi / 180
+#     return math.tan(ang_r)
 
 
 def getanglebtwnlines(m1, m2):
@@ -87,6 +100,20 @@ def buzamiento_aparente(buzamiento_real, ang_seccion_azimut, df_buzamiento_apare
     # response = df[(df['BZ_REAL'] == bz_real_sel) & (df['A_BZ_SECC'] == ang_sec_azm_sel)]['BZ_APAR_DD'][0]
     return response[0]
 
+
+def dotVectorSeccPogByAngle(ang_sec, ang_pog):
+    # Obteniendo el vector unitario para pendiente de seccion
+    # ang_sec = math.atan(m_sec)
+    A = np.array([math.sin(ang_sec), math.cos(ang_sec)])
+    # Obteniendo el vector unitario para pendiente de pog
+    # ang_pog = math.atan(m_pog)
+    B = np.array([math.sin(ang_pog), math.cos(ang_pog)])
+
+    # Producto cruzado de vectores
+    AXB = np.dot(A, B)
+    arcpy.AddMessage('{} {} {}'.format(ang_sec*180/math.pi, ang_pog*180/math.pi, AXB))
+    # arcpy.AddMessage(AXB)
+    return AXB
 
 def remove_duplicated(list_geometry):
     list_geometry_unique = list()
@@ -153,6 +180,8 @@ iterable.append(linestring_geom.length)
 first_point = linestring_geom.firstPoint
 end_point = linestring_geom.lastPoint
 
+arcpy.AddMessage('{} {}'.format(first_point.X, first_point.Y))
+
 for i, r in enumerate(iterable, 1):
     pnt = linestring_geom.positionAlongLine(r, False)
     x, y = pnt.centroid.X, pnt.centroid.Y
@@ -175,7 +204,8 @@ cursor = arcpy.da.SearchCursor(pog_layer, ["OID@", st._AZIMUT_FIELD, 'SHAPE@', s
 cursor = map(lambda i: i, cursor)
 
 # Pendiente de la linea
-linestring_geom_m = (end_point.Y - first_point.Y) / (end_point.X - first_point.X)
+linestring_geom_angle = get_angle_by_coords(first_point.X, first_point.Y, end_point.X, end_point.Y)
+linestring_geom_m = math.tan(linestring_geom_angle)
 
 # geojson = dict()
 # geojson["type"] = "FeatureCollection"
@@ -186,7 +216,8 @@ rows = list()
 for pog in cursor:
     if not pog[1]:
         continue
-    pog_m, pnt = getm(pog[1]), pog[2]
+    pog_angle = get_angle_by_azimut(pog[1])
+    pog_m, pnt = math.tan(pog_angle), pog[2]
     
        
     x = ((linestring_geom_m * end_point.X) - (pog_m * pnt.centroid.X) - end_point.Y + pnt.centroid.Y) / (linestring_geom_m - pog_m)
@@ -213,16 +244,20 @@ for pog in cursor:
     z = z_arr[0][0] + y_ini
     coords.append('{} {}'.format(first_point.X + distance, z))
     # coords.append([first_point.X + distance, z])
+    dot_seccion_pog = dotVectorSeccPogByAngle(linestring_geom_angle, pog_angle)
+    buz_aparente = buzamiento_aparente(pog[3], ang_secc, df_buzamiento_aparente)
+    p_secc = 'derecha' if dot_seccion_pog > 0 else 'izquierda'
+    bz_secc = buz_aparente if dot_seccion_pog > 0 else 180 - buz_aparente
     rows.append({
         'x': first_point.X + distance,
         'y': z,
-        st._CODI_FIELD: pog[4],
+        st._CODI_FIELD: 1801,
         st._POG_FIELD: pog[0],
         st._BZ_REAL_FIELD: pog[3], 
         st._A_BZ_SECC_FIELD: ang_secc,
-        st._BZ_APAR_FIELD: buzamiento_aparente(pog[3], ang_secc, df_buzamiento_aparente),
-        st._BZ_SEC_FIELD: 0,
-        st._P_SECC_FIELD: 0,
+        st._BZ_APAR_FIELD: buz_aparente,
+        st._BZ_SEC_FIELD: bz_secc,
+        st._P_SECC_FIELD: p_secc,
         st._CODHOJA_FIELD: codhoja
     })
     if z_arr[0][0] > y_top:
@@ -399,14 +434,23 @@ arcpy.Append_management(rows_seccion, gpl_seccion_path, "NO_TEST")
 
 
 # Agregando capa de seccion al mapa
-gpl_seccion_layer = arcpy.mapping.Layer(gpl_seccion_path)
-gpl_seccion_layer.definitionQuery = query
-arcpy.mapping.AddLayer(mxd.activeDataFrame, gpl_seccion_layer)
+# gpl_seccion_name = os.path.basename(gpl_seccion_path)
+# gpl_seccion_lyrs = arcpy.mapping.ListLayers(mxd, '*{}*'.format(gpl_seccion_name), mxd.activeDataFrame)
+# if len(gpl_seccion_lyrs):
+    # gpl_seccion_layer = gpl_seccion_lyrs[0]
+# else:
+    # gpl_seccion_layer = arcpy.mapping.Layer(gpl_seccion_path)
+# gpl_seccion_layer.definitionQuery = query
+
+features = [gpl_seccion_path, pog_seccion_path]
+layers = [None, os.path.join(st._BASE_DIR, 'layers/pog_perfil.lyr')]
+aut.check_layer_inside_data_frame(features, layers, df_name=None, query=query)
+# arcpy.mapping.AddLayer(mxd.activeDataFrame, gpl_seccion_layer)
 
 # Agregando capa de pog proyectados al mapa
-pog_seccion_layer = arcpy.mapping.Layer(pog_seccion_path)
-pog_seccion_layer.definitionQuery = query
-arcpy.mapping.AddLayer(mxd.activeDataFrame, pog_seccion_layer)
+# pog_seccion_layer = arcpy.mapping.Layer(pog_seccion_path)
+# pog_seccion_layer.definitionQuery = query
+# arcpy.mapping.AddLayer(mxd.activeDataFrame, pog_seccion_layer)
 
 # output_name = 'seccion_geologica_{}.shp'.format(codhoja)
 # output_seccion = os.path.join(st._TEMP_FOLDER, output_name)
