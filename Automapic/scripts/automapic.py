@@ -33,7 +33,48 @@ def check_layer_inside_data_frame(features, symbols, df_name=None, query=None):
         arcpy.RefreshTOC()
         arcpy.RefreshActiveView()
 
+def add_layer_with_new_datasource(layer, name_feature, workspace, typeWorkspace, df_name=None, query=None):
+    # Mapa actual
+    mxd = arcpy.mapping.MapDocument("CURRENT")
 
+    # Si no se ingresa un nombre de daraframe
+    if df_name:
+        dfs = arcpy.mapping.ListDataFrames(mxd, "*{}*".format(df_name))
+        if not len(dfs):
+            raise RuntimeError()
+        df = dfs[0]
+    else:
+        df = mxd.activeDataFrame
+    
+    # Obteniendo el nombre del layer
+    name = os.path.basename(layer).split('.')[0]
+
+    # Obteniendo las capas actuales en el mapa con el nombre del layer 
+    layers = arcpy.mapping.ListLayers(mxd, "*{}*".format(name), df)
+    arcpy.AddMessage(layers)
+
+    # Si el layer ya existe en el mapa
+    if len(layers):
+        lyr = layers[0]
+    else:
+        # Si el layer no existe, crear un layer
+        lyr = arcpy.mapping.Layer(layer)
+
+    # Reemplaza el datasource
+    # if replace:
+    lyr.replaceDataSource(workspace, typeWorkspace, name_feature, False)
+    
+    # Si es necesario aplicar un filtro
+    if query:
+        lyr.definitionQuery = query
+    
+    # Se agrega si el layer no esta en el mapa
+    if not len(layers):
+        arcpy.mapping.AddLayer(df, lyr)
+
+    arcpy.RefreshTOC()
+    arcpy.RefreshActiveView()
+    
 def split_line_at_points(geometry_line, geometry_points):
     p_ini = geometry_line.firstPoint
     p_end = geometry_line.firstPoint

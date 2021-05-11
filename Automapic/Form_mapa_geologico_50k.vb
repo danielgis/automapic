@@ -60,6 +60,7 @@ Public Class Form_mapa_geologico_50k
         params.Add(path_geodatabase)
         params.Add(zona)
         params.Add(nud_mg_tolerancia.Value.ToString)
+        params.Add(nud_mg_altura.Value.ToString)
         Dim response = ExecuteGP(_tool_generateProfile, params, _toolboxPath_mapa_geologico)
         Dim responseJson = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(response)
         If responseJson.Item("status") = 0 Then

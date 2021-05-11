@@ -226,6 +226,42 @@
     <None Include="scripts\layers\cuadriculas.lyr">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="scripts\layers\GPL_MG_PERFIL_17S.lyr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="scripts\layers\GPL_MG_PERFIL_18S.lyr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="scripts\layers\GPL_MG_PERFIL_19S.lyr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="scripts\layers\GPO_DGR_ULITO_17S.lyr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="scripts\layers\GPO_DGR_ULITO_17S_G.lyr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="scripts\layers\GPO_DGR_ULITO_18S.lyr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="scripts\layers\GPO_DGR_ULITO_18S_G.lyr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="scripts\layers\GPO_DGR_ULITO_19S.lyr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="scripts\layers\GPO_DGR_ULITO_19S_G.lyr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="scripts\layers\GPT_MG_PERFIL_17S.lyr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="scripts\layers\GPT_MG_PERFIL_18S.lyr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="scripts\layers\GPT_MG_PERFIL_19S.lyr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="scripts\layers\pog.lyr">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
