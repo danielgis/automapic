@@ -56,7 +56,11 @@ Public Class Modulos
         ElseIf (modulo = 3) Then
             Dim mapa_geologico_50k = New Form_mapa_geologico_50k()
             openFormByName(mapa_geologico_50k, pnl_modulos_form)
+        ElseIf (modulo = 4) Then
+            Dim mapa_hidrogeologico = New Form_mapa_hidrogeologico()
+            openFormByName(mapa_hidrogeologico, pnl_modulos_form)
         End If
+
     End Sub
 
     Private Sub pbx_add_Click(sender As Object, e As EventArgs) Handles pbx_add.Click

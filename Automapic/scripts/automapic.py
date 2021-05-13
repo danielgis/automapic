@@ -1,7 +1,7 @@
 import arcpy
 import os
 
-def check_layer_inside_data_frame(features, symbols, df_name=None, query=None):
+def check_layer_inside_data_frame(features, symbols, df_name=None, query=None, zoom=False):
     mxd = arcpy.mapping.MapDocument("CURRENT")
     if df_name :
         dfs = arcpy.mapping.ListDataFrames(mxd, '*{}*'.format(df_name))
@@ -29,6 +29,9 @@ def check_layer_inside_data_frame(features, symbols, df_name=None, query=None):
 
         if not len(lyrs):
             arcpy.mapping.AddLayer(df, lyr)
+        
+        if zoom:
+            mxd.activeDataFrame.extent = lyr.getExtent()
         
         arcpy.RefreshTOC()
         arcpy.RefreshActiveView()

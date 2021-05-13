@@ -24,7 +24,9 @@ _SET_CONFIG_MXD_PT_19 = u'Configuración del documento de mapa en zona 19 para e
 _SET_CONFIG_MXD_PG_17 = u'Configuración del documento de mapa en zona 17 para el módulo de Peligros Geológicos'
 _SET_CONFIG_MXD_PG_18 = u'Configuración del documento de mapa en zona 18 para el módulo de Peligros Geológicos'
 _SET_CONFIG_MXD_PG_19 = u'Configuración del documento de mapa en zona 19 para el módulo de Peligros Geológicos'
+_SET_GDB_MHIDROGEO = u'Configuración de la geodatabase de archivos para el módulo de Mapas Hidrogeológicos'
 _PROCESS_FINISHED = 'Proceso finalizado correctamente'
 _SET_CONFIG_GDB_PG = 'Configuración de la geodatabase de archivos para el módulo de Peligros Geológicos'
 
 _ERROR_FEATURE_CUADRICULAS_MG = 'El feature class de hojas a escala 500000 no se encuentra en la geodatabase'
+_ERROR_FEATURE_CUENCAS_HG = u'El feature class de Cuencas no existe, o no se declaro la geodatabase en la sección de configuración'

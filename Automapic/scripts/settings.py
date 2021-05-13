@@ -40,12 +40,6 @@ _SCALE_MAPA_TOPOGRAFICO_25K = 25000
 # ---------------------------------------------------------------------------------------------------
 # Mapas DGAR
 
-# _GDB_DIR_DGAR = pkg.get_config_param_value('GDB_PATH_PG', one=True)
-
-# _FC_PO_AREA_INTERES_17 = os.path.join(_GDB_DIR_DGAR, 'PO_area_interes_17')
-# _FC_PO_AREA_INTERES_18 = os.path.join(_GDB_DIR_DGAR, 'PO_area_interes_18')
-# _FC_PO_AREA_INTERES_19 = os.path.join(_GDB_DIR_DGAR, 'PO_area_interes_19')
-
 # MXD
 _MXD_PG_17 = os.path.join(_MXD_DIR, 'T01PG17.mxd')
 _MXD_PG_18 = os.path.join(_MXD_DIR, 'T01PG18.mxd')
@@ -77,3 +71,14 @@ _POG_MG_PATH = r'DS06_GEOLOGIA_{}S\GPT_DGR_POG_{}S'
 _POG_MG_PERFIL_PATH = r'DS12_PERFIL_{}S\GPT_MG_PERFIL_{}S'
 _GPL_MG_PERFIL_PATH = r'DS12_PERFIL_{}S\GPL_MG_PERFIL_{}S'
 _TB_MG_BUZAMIENTO_APARENTE_PATH = 'TB_MG_BUZAMIENTO_APARENTE'
+
+
+# ---------------------------------------------------------------------------------------------------
+# :Mapa HidroGeologico
+# :PATHS
+_GDB_PATH_HG = pkg.get_config_param_value('GDB_PATH_HG', one=True)
+_PL_01_CUENCAS_HIDROGRAFICAS_PATH = os.path.join(_GDB_PATH_HG if _GDB_PATH_HG else '', 'PL_01_cuencas_hidrograficas')
+
+# :FIELDS
+_CD_CUENCA = 'cd_cuenca'
+_NM_CUENCA = 'nm_cuenca'

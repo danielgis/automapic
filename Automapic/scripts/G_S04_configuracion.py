@@ -7,6 +7,7 @@ usuario = arcpy.GetParameterAsText(0)
 temp_folder = arcpy.GetParameterAsText(1)
 gdb_pt25000 = arcpy.GetParameterAsText(2)
 bdgeocat_conn = arcpy.GetParameterAsText(3)
+gdb_mhidrogeo = arcpy.GetParameterAsText(4)
 
 arcpy.AddMessage(msg._SET_CONFIG_TEMP_FOLDER)
 pkg.set_config_param(1, temp_folder, iscommit=True)
@@ -56,5 +57,8 @@ if bdgeocat_conn:
     mxd19_pg.replaceWorkspaces("", "", bdgeocat_conn, SDE_WORKSPACE, False)
     mxd19_pg.save()
     del mxd19_pg
+
+arcpy.AddMessage(msg._SET_GDB_MHIDROGEO)
+pkg.set_config_param(4, gdb_mhidrogeo, iscommit=True)
 
 arcpy.AddMessage(msg._PROCESS_FINISHED)
