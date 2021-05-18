@@ -46,7 +46,7 @@ Public Class Form_mapa_hidrogeologico
         clb_mh_autores.DisplayMember = "Value"
         clb_mh_autores.ValueMember = "Key"
 
-
+        tc_mh_tools.Enabled = False
         'tbx_mh_title2.Text = "MAPA HIDROGEOLÓGICO"
         Cursor.Current = Cursors.Default
         runProgressBar("ini")
@@ -87,6 +87,10 @@ Public Class Form_mapa_hidrogeologico
             Return
         End If
 
+        If cuencasDictSelected.Count > 0 Then
+            tc_mh_tools.Enabled = True
+        End If
+
         lbx_mh_cuencas.DataSource = New BindingSource(cuencasDictSelected, Nothing)
         lbx_mh_cuencas.DisplayMember = "Value"
         lbx_mh_cuencas.ValueMember = "Key"
@@ -114,6 +118,10 @@ Public Class Form_mapa_hidrogeologico
         lbx_mh_cuencas.DataSource = New BindingSource(cuencasDictSelected, Nothing)
         lbx_mh_cuencas.DisplayMember = "Value"
         lbx_mh_cuencas.ValueMember = "Key"
+
+        If cuencasDictSelected.Count = 0 Then
+            tc_mh_tools.Enabled = False
+        End If
 
         Dim codcuencasArray As New List(Of Object)
         Dim nomcuencasArray As New List(Of String)
@@ -159,5 +167,9 @@ Public Class Form_mapa_hidrogeologico
     Private Sub clb_mh_autores_ItemCheck(sender As Object, e As EventArgs) Handles clb_mh_autores.ItemCheck
         Dim Objects As Object() = {clb_mh_autores}
         BeginInvoke(New ProcessItemCheck(AddressOf ProcessItemCheckSub), Objects)
+    End Sub
+
+    Private Sub btn_mh_grotulo_Click(sender As Object, e As EventArgs) Handles btn_mh_grotulo.Click
+
     End Sub
 End Class

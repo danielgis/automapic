@@ -64,6 +64,13 @@ Public Class Modulos
     End Sub
 
     Private Sub pbx_add_Click(sender As Object, e As EventArgs) Handles pbx_add.Click
-        GPToolDialog(_tool_updateSettings, False, _toolboxPath_automapic)
+        Dim mgs As String = "¿Está seguro que desea realizar una nueva configuración? Es posible que los cambios realizados se pierdan."
+        Dim r As DialogResult = MessageBox.Show(mgs, __title__, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        If r = DialogResult.No Then
+            Return
+        End If
+        GPToolDialog(_tool_updateSettings, True, _toolboxPath_automapic)
+        Call cbx_modulos_SelectedIndexChanged(sender, e)
+        'Me.Refresh()
     End Sub
 End Class

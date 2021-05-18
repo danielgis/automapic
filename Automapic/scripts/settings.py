@@ -6,6 +6,9 @@ _BASE_DIR = os.path.dirname(__file__)
 _TEMP_FOLDER = pkg.get_config_param_value('TEMP_FOLDER', one=True)
 _REQUIREMENTS_DIR = os.path.join(_BASE_DIR, 'require')
 
+_IMG_DIR = os.path.join(_BASE_DIR, 'img')
+_IMG_LOGO_INGEMMET = os.path.join(_IMG_DIR, 'logo_ingemmet.png')
+
 _ZONAS_GEOGRAFICAS = [17, 18, 19]
 _EPSG_W17S = 32717
 _EPSG_W18S = 32718

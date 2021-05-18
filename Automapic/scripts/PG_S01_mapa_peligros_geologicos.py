@@ -91,7 +91,7 @@ def set_SSM(mxd):
     return mxd
 
 
-def set_detalle(text, max_character_by_line):
+def set_detalle(text, max_character_by_line, first_line=False):
     nlist = list()
     textList = text.split(' ')
     ini, end, tx = 0, 0, str()
@@ -103,6 +103,8 @@ def set_detalle(text, max_character_by_line):
             nlist.append(tx)
             ini = end
     nlist.append(' '.join(textList[end:]))
+    if first_line:
+        return nlist[0] + '\n' + ' '.join(nlist[1:])
     return '\n'.join(nlist)
 
 def generate_map():
