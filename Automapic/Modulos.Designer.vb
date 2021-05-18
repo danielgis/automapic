@@ -22,6 +22,7 @@ Partial Class Modulos
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Modulos))
         Me.tlp_modulos = New System.Windows.Forms.TableLayoutPanel()
         Me.tlp_modulos_controles = New System.Windows.Forms.TableLayoutPanel()
@@ -31,6 +32,7 @@ Partial Class Modulos
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.btn_cerrar_sesion = New System.Windows.Forms.Button()
         Me.pgb_modulos = New System.Windows.Forms.ProgressBar()
+        Me.img_list_modulos = New System.Windows.Forms.ImageList(Me.components)
         Me.pbx_search = New System.Windows.Forms.PictureBox()
         Me.pbx_add = New System.Windows.Forms.PictureBox()
         Me.tlp_modulos.SuspendLayout()
@@ -126,6 +128,7 @@ Partial Class Modulos
         'btn_cerrar_sesion
         '
         Me.btn_cerrar_sesion.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btn_cerrar_sesion.ImageList = Me.img_list_modulos
         Me.btn_cerrar_sesion.Location = New System.Drawing.Point(351, 3)
         Me.btn_cerrar_sesion.Name = "btn_cerrar_sesion"
         Me.btn_cerrar_sesion.Size = New System.Drawing.Size(94, 28)
@@ -141,6 +144,14 @@ Partial Class Modulos
         Me.pgb_modulos.Size = New System.Drawing.Size(342, 28)
         Me.pgb_modulos.TabIndex = 2
         '
+        'img_list_modulos
+        '
+        Me.img_list_modulos.ImageStream = CType(resources.GetObject("img_list_modulos.ImageStream"), System.Windows.Forms.ImageListStreamer)
+        Me.img_list_modulos.TransparentColor = System.Drawing.Color.Transparent
+        Me.img_list_modulos.Images.SetKeyName(0, "ConfigureInfographics32.png")
+        Me.img_list_modulos.Images.SetKeyName(1, "SearchWindowShow32.png")
+        Me.img_list_modulos.Images.SetKeyName(2, "PopupCancel16.png")
+        '
         'pbx_search
         '
         Me.pbx_search.BackgroundImage = CType(resources.GetObject("pbx_search.BackgroundImage"), System.Drawing.Image)
@@ -154,7 +165,7 @@ Partial Class Modulos
         '
         'pbx_add
         '
-        Me.pbx_add.BackgroundImage = Global.Automapic.My.Resources.Resources.TaskUpdate32
+        Me.pbx_add.BackgroundImage = Global.Automapic.My.Resources.Resources.ConfigureInfographics32
         Me.pbx_add.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.pbx_add.Cursor = System.Windows.Forms.Cursors.Hand
         Me.pbx_add.Dock = System.Windows.Forms.DockStyle.Fill
@@ -194,4 +205,5 @@ Partial Class Modulos
     Friend WithEvents pgb_modulos As System.Windows.Forms.ProgressBar
     Friend WithEvents pbx_search As System.Windows.Forms.PictureBox
     Friend WithEvents pbx_add As System.Windows.Forms.PictureBox
+    Friend WithEvents img_list_modulos As System.Windows.Forms.ImageList
 End Class

@@ -22,12 +22,33 @@ Partial Class Form_mapa_hidrogeologico
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form_mapa_hidrogeologico))
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.cbx_mh_cuencas = New System.Windows.Forms.ComboBox()
         Me.lbx_mh_cuencas = New System.Windows.Forms.ListBox()
         Me.lbl_mh_nota1 = New System.Windows.Forms.Label()
         Me.lbl_mh_cuenca = New System.Windows.Forms.Label()
+        Me.tc_mh_tools = New System.Windows.Forms.TabControl()
+        Me.tp_mh_rotulo = New System.Windows.Forms.TabPage()
+        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.clb_mh_autores = New System.Windows.Forms.CheckedListBox()
+        Me.lbl_mh_autor = New System.Windows.Forms.Label()
+        Me.img_list_mh = New System.Windows.Forms.ImageList(Me.components)
+        Me.rbt_mh_pequenio = New System.Windows.Forms.RadioButton()
+        Me.rbt_mh_grande = New System.Windows.Forms.RadioButton()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.tbx_mh_autores = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.tbx_mh_title1 = New System.Windows.Forms.TextBox()
+        Me.tbx_mh_title2 = New System.Windows.Forms.TextBox()
+        Me.btn_mh_g_rotulo = New System.Windows.Forms.Button()
+        Me.tp_mh_leyenda = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel1.SuspendLayout()
+        Me.tc_mh_tools.SuspendLayout()
+        Me.tp_mh_rotulo.SuspendLayout()
+        Me.TableLayoutPanel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'TableLayoutPanel1
@@ -38,6 +59,7 @@ Partial Class Form_mapa_hidrogeologico
         Me.TableLayoutPanel1.Controls.Add(Me.lbx_mh_cuencas, 0, 3)
         Me.TableLayoutPanel1.Controls.Add(Me.lbl_mh_nota1, 0, 4)
         Me.TableLayoutPanel1.Controls.Add(Me.lbl_mh_cuenca, 0, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.tc_mh_tools, 0, 5)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
@@ -94,6 +116,214 @@ Partial Class Form_mapa_hidrogeologico
         Me.lbl_mh_cuenca.TabIndex = 4
         Me.lbl_mh_cuenca.Text = "Seleccionar cuenca"
         '
+        'tc_mh_tools
+        '
+        Me.tc_mh_tools.Controls.Add(Me.tp_mh_rotulo)
+        Me.tc_mh_tools.Controls.Add(Me.tp_mh_leyenda)
+        Me.tc_mh_tools.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tc_mh_tools.ImageList = Me.img_list_mh
+        Me.tc_mh_tools.Location = New System.Drawing.Point(3, 158)
+        Me.tc_mh_tools.Name = "tc_mh_tools"
+        Me.tc_mh_tools.SelectedIndex = 0
+        Me.tc_mh_tools.Size = New System.Drawing.Size(457, 540)
+        Me.tc_mh_tools.TabIndex = 5
+        '
+        'tp_mh_rotulo
+        '
+        Me.tp_mh_rotulo.Controls.Add(Me.TableLayoutPanel2)
+        Me.tp_mh_rotulo.ImageIndex = 3
+        Me.tp_mh_rotulo.Location = New System.Drawing.Point(4, 25)
+        Me.tp_mh_rotulo.Name = "tp_mh_rotulo"
+        Me.tp_mh_rotulo.Padding = New System.Windows.Forms.Padding(3)
+        Me.tp_mh_rotulo.Size = New System.Drawing.Size(449, 511)
+        Me.tp_mh_rotulo.TabIndex = 0
+        Me.tp_mh_rotulo.Text = "Rótulo"
+        Me.tp_mh_rotulo.UseVisualStyleBackColor = True
+        '
+        'TableLayoutPanel2
+        '
+        Me.TableLayoutPanel2.ColumnCount = 2
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.Controls.Add(Me.clb_mh_autores, 0, 4)
+        Me.TableLayoutPanel2.Controls.Add(Me.lbl_mh_autor, 0, 3)
+        Me.TableLayoutPanel2.Controls.Add(Me.rbt_mh_pequenio, 0, 1)
+        Me.TableLayoutPanel2.Controls.Add(Me.rbt_mh_grande, 1, 1)
+        Me.TableLayoutPanel2.Controls.Add(Me.Label1, 0, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.tbx_mh_autores, 0, 5)
+        Me.TableLayoutPanel2.Controls.Add(Me.Label2, 0, 7)
+        Me.TableLayoutPanel2.Controls.Add(Me.Label3, 0, 10)
+        Me.TableLayoutPanel2.Controls.Add(Me.tbx_mh_title1, 0, 8)
+        Me.TableLayoutPanel2.Controls.Add(Me.tbx_mh_title2, 0, 11)
+        Me.TableLayoutPanel2.Controls.Add(Me.btn_mh_g_rotulo, 0, 12)
+        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 3)
+        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
+        Me.TableLayoutPanel2.RowCount = 13
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(443, 505)
+        Me.TableLayoutPanel2.TabIndex = 0
+        '
+        'clb_mh_autores
+        '
+        Me.TableLayoutPanel2.SetColumnSpan(Me.clb_mh_autores, 2)
+        Me.clb_mh_autores.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.clb_mh_autores.FormattingEnabled = True
+        Me.clb_mh_autores.Location = New System.Drawing.Point(3, 73)
+        Me.clb_mh_autores.MultiColumn = True
+        Me.clb_mh_autores.Name = "clb_mh_autores"
+        Me.clb_mh_autores.Size = New System.Drawing.Size(437, 144)
+        Me.clb_mh_autores.TabIndex = 1
+        '
+        'lbl_mh_autor
+        '
+        Me.lbl_mh_autor.AutoSize = True
+        Me.TableLayoutPanel2.SetColumnSpan(Me.lbl_mh_autor, 2)
+        Me.lbl_mh_autor.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lbl_mh_autor.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lbl_mh_autor.ImageIndex = 7
+        Me.lbl_mh_autor.ImageList = Me.img_list_mh
+        Me.lbl_mh_autor.Location = New System.Drawing.Point(3, 53)
+        Me.lbl_mh_autor.Name = "lbl_mh_autor"
+        Me.lbl_mh_autor.Size = New System.Drawing.Size(437, 17)
+        Me.lbl_mh_autor.TabIndex = 0
+        Me.lbl_mh_autor.Text = "Seleccione los autores"
+        '
+        'img_list_mh
+        '
+        Me.img_list_mh.ImageStream = CType(resources.GetObject("img_list_mh.ImageStream"), System.Windows.Forms.ImageListStreamer)
+        Me.img_list_mh.TransparentColor = System.Drawing.Color.Transparent
+        Me.img_list_mh.Images.SetKeyName(0, "GeoprocessingFunction32.png")
+        Me.img_list_mh.Images.SetKeyName(1, "ServiceProcessing16.png")
+        Me.img_list_mh.Images.SetKeyName(2, "TabletPC32.png")
+        Me.img_list_mh.Images.SetKeyName(3, "Apply_to_View16.png")
+        Me.img_list_mh.Images.SetKeyName(4, "Apply_to_View24.png")
+        Me.img_list_mh.Images.SetKeyName(5, "Apply_to_View32.png")
+        Me.img_list_mh.Images.SetKeyName(6, "Legend16.png")
+        Me.img_list_mh.Images.SetKeyName(7, "GenericCheckMarkSmall16.png")
+        '
+        'rbt_mh_pequenio
+        '
+        Me.rbt_mh_pequenio.AutoSize = True
+        Me.rbt_mh_pequenio.Checked = True
+        Me.rbt_mh_pequenio.Location = New System.Drawing.Point(3, 23)
+        Me.rbt_mh_pequenio.Name = "rbt_mh_pequenio"
+        Me.rbt_mh_pequenio.Size = New System.Drawing.Size(190, 19)
+        Me.rbt_mh_pequenio.TabIndex = 2
+        Me.rbt_mh_pequenio.TabStop = True
+        Me.rbt_mh_pequenio.Text = "Pequeño (escala grande)"
+        Me.rbt_mh_pequenio.UseVisualStyleBackColor = True
+        '
+        'rbt_mh_grande
+        '
+        Me.rbt_mh_grande.AutoSize = True
+        Me.rbt_mh_grande.Location = New System.Drawing.Point(203, 23)
+        Me.rbt_mh_grande.Name = "rbt_mh_grande"
+        Me.rbt_mh_grande.Size = New System.Drawing.Size(192, 19)
+        Me.rbt_mh_grande.TabIndex = 3
+        Me.rbt_mh_grande.Text = "Grande (escala pequeña)"
+        Me.rbt_mh_grande.UseVisualStyleBackColor = True
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.TableLayoutPanel2.SetColumnSpan(Me.Label1, 2)
+        Me.Label1.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.Label1.Location = New System.Drawing.Point(3, 3)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(437, 17)
+        Me.Label1.TabIndex = 4
+        Me.Label1.Text = "Seleccione tamaño de rotulo"
+        '
+        'tbx_mh_autores
+        '
+        Me.TableLayoutPanel2.SetColumnSpan(Me.tbx_mh_autores, 2)
+        Me.tbx_mh_autores.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tbx_mh_autores.Location = New System.Drawing.Point(3, 223)
+        Me.tbx_mh_autores.Name = "tbx_mh_autores"
+        Me.tbx_mh_autores.Size = New System.Drawing.Size(437, 22)
+        Me.tbx_mh_autores.TabIndex = 5
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.TableLayoutPanel2.SetColumnSpan(Me.Label2, 2)
+        Me.Label2.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.Label2.Location = New System.Drawing.Point(3, 253)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(437, 17)
+        Me.Label2.TabIndex = 6
+        Me.Label2.Text = "Título 1 (cuencas)"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.TableLayoutPanel2.SetColumnSpan(Me.Label3, 2)
+        Me.Label3.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.Label3.Location = New System.Drawing.Point(3, 308)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(437, 17)
+        Me.Label3.TabIndex = 7
+        Me.Label3.Text = "Título 2 (tipo de mapa)"
+        '
+        'tbx_mh_title1
+        '
+        Me.tbx_mh_title1.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TableLayoutPanel2.SetColumnSpan(Me.tbx_mh_title1, 2)
+        Me.tbx_mh_title1.Location = New System.Drawing.Point(3, 274)
+        Me.tbx_mh_title1.Name = "tbx_mh_title1"
+        Me.tbx_mh_title1.Size = New System.Drawing.Size(437, 22)
+        Me.tbx_mh_title1.TabIndex = 8
+        '
+        'tbx_mh_title2
+        '
+        Me.tbx_mh_title2.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TableLayoutPanel2.SetColumnSpan(Me.tbx_mh_title2, 2)
+        Me.tbx_mh_title2.Location = New System.Drawing.Point(3, 329)
+        Me.tbx_mh_title2.Name = "tbx_mh_title2"
+        Me.tbx_mh_title2.Size = New System.Drawing.Size(437, 22)
+        Me.tbx_mh_title2.TabIndex = 9
+        Me.tbx_mh_title2.Text = "Mapa Hidrogeológico"
+        '
+        'btn_mh_g_rotulo
+        '
+        Me.TableLayoutPanel2.SetColumnSpan(Me.btn_mh_g_rotulo, 2)
+        Me.btn_mh_g_rotulo.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btn_mh_g_rotulo.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.btn_mh_g_rotulo.ImageIndex = 3
+        Me.btn_mh_g_rotulo.ImageList = Me.img_list_mh
+        Me.btn_mh_g_rotulo.Location = New System.Drawing.Point(3, 468)
+        Me.btn_mh_g_rotulo.Name = "btn_mh_g_rotulo"
+        Me.btn_mh_g_rotulo.Size = New System.Drawing.Size(437, 34)
+        Me.btn_mh_g_rotulo.TabIndex = 10
+        Me.btn_mh_g_rotulo.Text = "Generar rótulo"
+        Me.btn_mh_g_rotulo.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.btn_mh_g_rotulo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btn_mh_g_rotulo.UseVisualStyleBackColor = True
+        '
+        'tp_mh_leyenda
+        '
+        Me.tp_mh_leyenda.ImageIndex = 6
+        Me.tp_mh_leyenda.Location = New System.Drawing.Point(4, 25)
+        Me.tp_mh_leyenda.Name = "tp_mh_leyenda"
+        Me.tp_mh_leyenda.Padding = New System.Windows.Forms.Padding(3)
+        Me.tp_mh_leyenda.Size = New System.Drawing.Size(449, 511)
+        Me.tp_mh_leyenda.TabIndex = 1
+        Me.tp_mh_leyenda.Text = "Leyenda"
+        Me.tp_mh_leyenda.UseVisualStyleBackColor = True
+        '
         'Form_mapa_hidrogeologico
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -105,6 +335,10 @@ Partial Class Form_mapa_hidrogeologico
         Me.Text = "Form_mapa_hidrogeologico"
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
+        Me.tc_mh_tools.ResumeLayout(False)
+        Me.tp_mh_rotulo.ResumeLayout(False)
+        Me.TableLayoutPanel2.ResumeLayout(False)
+        Me.TableLayoutPanel2.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -114,4 +348,20 @@ Partial Class Form_mapa_hidrogeologico
     Friend WithEvents lbx_mh_cuencas As System.Windows.Forms.ListBox
     Friend WithEvents lbl_mh_nota1 As System.Windows.Forms.Label
     Friend WithEvents lbl_mh_cuenca As System.Windows.Forms.Label
+    Friend WithEvents tc_mh_tools As System.Windows.Forms.TabControl
+    Friend WithEvents tp_mh_rotulo As System.Windows.Forms.TabPage
+    Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents lbl_mh_autor As System.Windows.Forms.Label
+    Friend WithEvents tp_mh_leyenda As System.Windows.Forms.TabPage
+    Friend WithEvents clb_mh_autores As System.Windows.Forms.CheckedListBox
+    Friend WithEvents rbt_mh_pequenio As System.Windows.Forms.RadioButton
+    Friend WithEvents rbt_mh_grande As System.Windows.Forms.RadioButton
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents tbx_mh_autores As System.Windows.Forms.TextBox
+    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents tbx_mh_title1 As System.Windows.Forms.TextBox
+    Friend WithEvents tbx_mh_title2 As System.Windows.Forms.TextBox
+    Friend WithEvents btn_mh_g_rotulo As System.Windows.Forms.Button
+    Friend WithEvents img_list_mh As System.Windows.Forms.ImageList
 End Class

@@ -381,6 +381,7 @@
     <AddInContent Include="Images\DrawLine.png" />
     <None Include="Resources\select.png" />
     <None Include="Resources\TableRecordsDelete32.png" />
+    <None Include="Resources\ConfigureInfographics32.png" />
     <Content Include="scripts\arcobjects.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -433,6 +434,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\MHG_S02_listado_cuencas.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="scripts\MHG_S03_listado_autores.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\packages.py">

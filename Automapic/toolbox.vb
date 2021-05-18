@@ -41,6 +41,7 @@ Module toolbox
     ':HERRAMIENTAS DEL MODULO DE MAPAS HIDROGEOLOGICOS
     Public _tool_addFeatureWatershedsToMapMhg As String = "addFeatureWatershedsToMapMhg"
     Public _tool_getCodewatershedsMhg As String = "getCodewatershedsMhg"
+    Public _tool_getAutoresMgh As String = "getAutoresMgh"
 
 
 

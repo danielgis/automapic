@@ -22,10 +22,13 @@ Partial Class Login
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Login))
         Me.tlp_login = New System.Windows.Forms.TableLayoutPanel()
         Me.tbx_user = New System.Windows.Forms.TextBox()
         Me.tbx_pass = New System.Windows.Forms.TextBox()
         Me.lbl_user = New System.Windows.Forms.Label()
+        Me.img_list_login = New System.Windows.Forms.ImageList(Me.components)
         Me.lbl_pass = New System.Windows.Forms.Label()
         Me.btn_login = New System.Windows.Forms.Button()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
@@ -88,16 +91,29 @@ Partial Class Login
         '
         Me.lbl_user.AutoSize = True
         Me.lbl_user.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lbl_user.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lbl_user.ImageIndex = 0
+        Me.lbl_user.ImageList = Me.img_list_login
         Me.lbl_user.Location = New System.Drawing.Point(143, 203)
         Me.lbl_user.Name = "lbl_user"
         Me.lbl_user.Size = New System.Drawing.Size(244, 17)
         Me.lbl_user.TabIndex = 2
         Me.lbl_user.Text = "Usuario"
         '
+        'img_list_login
+        '
+        Me.img_list_login.ImageStream = CType(resources.GetObject("img_list_login.ImageStream"), System.Windows.Forms.ImageListStreamer)
+        Me.img_list_login.TransparentColor = System.Drawing.Color.Transparent
+        Me.img_list_login.Images.SetKeyName(0, "UserBlue16.png")
+        Me.img_list_login.Images.SetKeyName(1, "CarKey_B_16.png")
+        '
         'lbl_pass
         '
         Me.lbl_pass.AutoSize = True
         Me.lbl_pass.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lbl_pass.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lbl_pass.ImageIndex = 1
+        Me.lbl_pass.ImageList = Me.img_list_login
         Me.lbl_pass.Location = New System.Drawing.Point(143, 253)
         Me.lbl_pass.Name = "lbl_pass"
         Me.lbl_pass.Size = New System.Drawing.Size(244, 17)
@@ -154,4 +170,5 @@ Partial Class Login
     Friend WithEvents lbl_pass As System.Windows.Forms.Label
     Friend WithEvents btn_login As System.Windows.Forms.Button
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
+    Friend WithEvents img_list_login As System.Windows.Forms.ImageList
 End Class

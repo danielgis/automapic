@@ -78,7 +78,11 @@ _TB_MG_BUZAMIENTO_APARENTE_PATH = 'TB_MG_BUZAMIENTO_APARENTE'
 # :PATHS
 _GDB_PATH_HG = pkg.get_config_param_value('GDB_PATH_HG', one=True)
 _PL_01_CUENCAS_HIDROGRAFICAS_PATH = os.path.join(_GDB_PATH_HG if _GDB_PATH_HG else '', 'PL_01_cuencas_hidrograficas')
+_TB_01_AUTOR_PATH = os.path.join(_GDB_PATH_HG if _GDB_PATH_HG else '', 'TB_01_autor')
 
 # :FIELDS
 _CD_CUENCA = 'cd_cuenca'
 _NM_CUENCA = 'nm_cuenca'
+
+_ID_AUTOR = "id_autor"
+_ABREV = "abrev"

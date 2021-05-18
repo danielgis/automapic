@@ -34,7 +34,6 @@ Public Class DrawLine
         simpleLineSymbol.Width = 1
 
 
-
         Dim symbol As ISymbol = TryCast(simpleLineSymbol, ISymbol) ' Dynamic Cast
         Dim rubberBand As IRubberBand = New RubberLineClass()
         Dim geometry As IGeometry = rubberBand.TrackNew(screenDisplay, symbol)
@@ -59,7 +58,6 @@ Public Class DrawLine
             element.Geometry = geometry
             Dim LineElement As ILineElement = element
             LineElement.Symbol = simpleLineSymbol
-
 
             graphicsContainer.AddElement(LineElement, 0)
             activeView.Refresh()

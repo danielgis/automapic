@@ -462,3 +462,105 @@ def ArcCatalog_GetSelectedTable(bStandalone=False):
     pDS = pGxDS.Dataset
     pTable = CType(pDS, esriGeoDatabase.ITable)
     print "Selected table: " + pDS.Name
+
+def ArcMap_AddPictureElement(bStandalone=False):
+    GetDesktopModules()
+    import comtypes.gen.esriFramework as esriFramework
+    if bStandalone:
+        InitStandalone()
+        pApp = GetApp()
+        pFact = CType(pApp, esriFramework.IObjectFactory)
+    else:
+        pApp = GetCurrentApp()
+
+	import comtypes.gen.esriCarto as esriCarto
+	import comtypes.gen.esriArcMapUI as esriArcMapUI
+    import comtypes.gen.esriGeometry as esriGeometry
+    import comtypes.gen.esriDisplay as esriDisplay
+    import arcpy
+    arcpy.mapping.MapDocument("current").activeView = "PAGE_LAYOUT"
+    pDoc = pApp.Document
+    pMxDoc = CType(pDoc, esriArcMapUI.IMxDocument)
+	# app = CreateObject(esriFramework.AppROT, interface=esriFramework.IAppROT)
+	# mxDoc = CType(app.Item(0).Document,modArcMapUI.IMxDocument)
+	# layout = mxDoc.PageLayout
+    # pMap = pMxDoc.FocusMap
+    pMap = pMxDoc.PageLayout
+
+    # pAV = CType(pMap, esriCarto.IPageLayout)
+    # arcpy.AddMessage(dir(pAV))
+    # pSD = pAV.ScreenDisplay
+    # pEnv = pAV.Extent
+    # dX = (pEnv.XMin + pEnv.XMax) / 2
+    # dY = (pEnv.YMin + pEnv.YMax) / 2
+
+    # import arcpy
+    # if bStandalone:
+    #     pUnk = pFact.Create(CLSID(esriDisplay.BalloonCallout))
+    #     pTextBackground = CType(pUnk, esriDisplay.ITextBackground)
+    # else:
+    # pBackground = NewObj(esriCarto.SymbolBackground, esriCarto.ISymbolBackground)
+
+    # pFormattedTS = CType(pTextSymbol, esriDisplay.IFormattedTextSymbol)
+    # pFormattedTS.Background = pTextBackground
+
+
+
+
+    # arcpy.AddMessage(dir(esriCarto))
+    
+    if bStandalone:
+        pUnk = pFact.Create(CLSID(esriCarto.JpgPictureElement))
+        pictureElement = CType(pUnk, esriCarto.IPictureElement)
+    else:
+        pictureElement = NewObj(esriCarto.JpgPictureElement, esriCarto.IPictureElement)
+    
+    graphicContainer = CType(pMap, esriCarto.IGraphicsContainer)
+
+    # @@@
+    # pictureElement = graphicContainer.FindFrame(pictureElement)
+
+    # Make some new objects..
+    pSymBack = NewObj(esriCarto.SymbolBackground, esriCarto.ISymbolBackground)
+    pFillSym = NewObj(esriDisplay.SimpleFillSymbol, esriDisplay.IFillSymbol)
+    pRGBcol  = NewObj(esriDisplay.RgbColor, esriDisplay.IRgbColor)
+
+    pSymLine = NewObj(esriDisplay.SimpleLineSymbol , esriDisplay.ILineSymbol)
+    pRGBcol.Red = 255
+    # pRGBcol.Green = 255
+    # pRGBcol.Blue = 0
+    pSymLine.Color = pRGBcol
+    pSymLine.Width = 1
+    # pSymLine.Style = esriDisplay.esriSimpleLineStyle.esriSLSSolid
+    # esriDisplay.esriSimpleLineStyle.esriSLSSolid
+    # esriDisplay.esriSimpleLineStyle.esriSLSDash
+
+    # setup and apply objects
+    # pRGBcol.Blue = 0
+    # pRGBcol.Green = 255
+    # pRGBcol.Red = 0                                 # set to bright red for this example
+    # pFillSym.Color = CType(pRGBcol, esriDisplay.IColor) # set the color for the fill symbol
+    pFillSym.Color = pRGBcol
+    
+    # arcpy.AddMessage(dir(pSymBack))
+    pSymBack.FillSymbol = pFillSym                     # apply the new fill symbol to the background
+    pSymBack.Outline = pSymLine
+    
+    # @@@
+
+
+
+    pEnv = NewObj(esriGeometry.Envelope, esriGeometry.IEnvelope)
+    pEnv.PutCoords(0, 0, 5, 5)
+    # pictureElement.ImportPictureFromFile(r'C:\Users\daniel\Documents\ArcGIS\img.jpg')
+    iElement = CType(pictureElement, esriCarto.IElement)
+    iElement.Geometry = pEnv
+    # iElement.Symbol = ""
+    # iElement.Background = CType(pSymBack, esriCarto.IBackground)
+    # iElement.Background = pSymBack
+    # iElement.QueryBounds(pSD, pEnv)
+    graphicContainer.AddElement(iElement, 0)
+    arcpy.RefreshActiveView()
+
+    m = pictureElement.QueryInterface(esriCarto.JpgPictureElement)
+    arcpy.AddMessage(dir(m))

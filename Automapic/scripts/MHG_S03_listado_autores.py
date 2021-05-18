@@ -9,14 +9,14 @@ response['message'] = 'success'
 
 
 try:
-    feature = st._PL_01_CUENCAS_HIDROGRAFICAS_PATH
+    feature = st._TB_01_AUTOR_PATH
     if not arcpy.Exists(feature):
-        raise RuntimeError(msg._ERROR_FEATURE_CUENCAS_HG)
-    cursor = arcpy.da.SearchCursor(feature, [st._CD_CUENCA, st._NM_CUENCA])
-    response["response"] = list(map(lambda i: [i[0], i[1] + " - " +  str(i[0])], cursor))
+        raise RuntimeError(msg._ERROR_FEATURE_AUTORES_HG)
+    cursor = arcpy.da.SearchCursor(feature, [st._ID_AUTOR, st._ABREV])
+    response["response"] = list(map(lambda i: [i[0], i[1]], cursor))
 except Exception as e:
     response['status'] = 0
-    response['message'] = e.message
+    response['message'] = e.messages
 finally:
     response = json.dumps(response, encoding='windows-1252', ensure_ascii=False)
     arcpy.SetParameterAsText(0, response)
