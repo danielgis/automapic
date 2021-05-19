@@ -36,7 +36,6 @@ Partial Class Form_mapa_hidrogeologico
         Me.lbl_mh_autor = New System.Windows.Forms.Label()
         Me.img_list_mh = New System.Windows.Forms.ImageList(Me.components)
         Me.rbt_mh_pequenio = New System.Windows.Forms.RadioButton()
-        Me.rbt_mh_grande = New System.Windows.Forms.RadioButton()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.tbx_mh_autores = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -44,9 +43,10 @@ Partial Class Form_mapa_hidrogeologico
         Me.tbx_mh_title1 = New System.Windows.Forms.TextBox()
         Me.tbx_mh_title2 = New System.Windows.Forms.TextBox()
         Me.btn_mh_grotulo = New System.Windows.Forms.Button()
-        Me.tp_mh_leyenda = New System.Windows.Forms.TabPage()
         Me.nud_mh_numero = New System.Windows.Forms.NumericUpDown()
         Me.lbl_mh_numero = New System.Windows.Forms.Label()
+        Me.rbt_mh_grande = New System.Windows.Forms.RadioButton()
+        Me.tp_mh_leyenda = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.tc_mh_tools.SuspendLayout()
         Me.tp_mh_rotulo.SuspendLayout()
@@ -233,18 +233,6 @@ Partial Class Form_mapa_hidrogeologico
         Me.rbt_mh_pequenio.Text = "Pequeño (escala grande)"
         Me.rbt_mh_pequenio.UseVisualStyleBackColor = True
         '
-        'rbt_mh_grande
-        '
-        Me.rbt_mh_grande.AutoSize = True
-        Me.TableLayoutPanel2.SetColumnSpan(Me.rbt_mh_grande, 2)
-        Me.rbt_mh_grande.Dock = System.Windows.Forms.DockStyle.Left
-        Me.rbt_mh_grande.Location = New System.Drawing.Point(203, 23)
-        Me.rbt_mh_grande.Name = "rbt_mh_grande"
-        Me.rbt_mh_grande.Size = New System.Drawing.Size(192, 19)
-        Me.rbt_mh_grande.TabIndex = 3
-        Me.rbt_mh_grande.Text = "Grande (escala pequeña)"
-        Me.rbt_mh_grande.UseVisualStyleBackColor = True
-        '
         'Label1
         '
         Me.Label1.AutoSize = True
@@ -322,17 +310,6 @@ Partial Class Form_mapa_hidrogeologico
         Me.btn_mh_grotulo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btn_mh_grotulo.UseVisualStyleBackColor = True
         '
-        'tp_mh_leyenda
-        '
-        Me.tp_mh_leyenda.ImageIndex = 6
-        Me.tp_mh_leyenda.Location = New System.Drawing.Point(4, 25)
-        Me.tp_mh_leyenda.Name = "tp_mh_leyenda"
-        Me.tp_mh_leyenda.Padding = New System.Windows.Forms.Padding(3)
-        Me.tp_mh_leyenda.Size = New System.Drawing.Size(449, 511)
-        Me.tp_mh_leyenda.TabIndex = 1
-        Me.tp_mh_leyenda.Text = "Leyenda"
-        Me.tp_mh_leyenda.UseVisualStyleBackColor = True
-        '
         'nud_mh_numero
         '
         Me.nud_mh_numero.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -351,7 +328,30 @@ Partial Class Form_mapa_hidrogeologico
         Me.lbl_mh_numero.Name = "lbl_mh_numero"
         Me.lbl_mh_numero.Size = New System.Drawing.Size(376, 17)
         Me.lbl_mh_numero.TabIndex = 12
-        Me.lbl_mh_numero.Text = "Especifique el númer de mapa"
+        Me.lbl_mh_numero.Text = "Especifique el número de mapa"
+        '
+        'rbt_mh_grande
+        '
+        Me.rbt_mh_grande.AutoSize = True
+        Me.TableLayoutPanel2.SetColumnSpan(Me.rbt_mh_grande, 2)
+        Me.rbt_mh_grande.Dock = System.Windows.Forms.DockStyle.Left
+        Me.rbt_mh_grande.Location = New System.Drawing.Point(203, 23)
+        Me.rbt_mh_grande.Name = "rbt_mh_grande"
+        Me.rbt_mh_grande.Size = New System.Drawing.Size(192, 19)
+        Me.rbt_mh_grande.TabIndex = 3
+        Me.rbt_mh_grande.Text = "Grande (escala pequeña)"
+        Me.rbt_mh_grande.UseVisualStyleBackColor = True
+        '
+        'tp_mh_leyenda
+        '
+        Me.tp_mh_leyenda.ImageIndex = 6
+        Me.tp_mh_leyenda.Location = New System.Drawing.Point(4, 25)
+        Me.tp_mh_leyenda.Name = "tp_mh_leyenda"
+        Me.tp_mh_leyenda.Padding = New System.Windows.Forms.Padding(3)
+        Me.tp_mh_leyenda.Size = New System.Drawing.Size(449, 511)
+        Me.tp_mh_leyenda.TabIndex = 1
+        Me.tp_mh_leyenda.Text = "Leyenda"
+        Me.tp_mh_leyenda.UseVisualStyleBackColor = True
         '
         'Form_mapa_hidrogeologico
         '

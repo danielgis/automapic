@@ -412,6 +412,9 @@
     <Content Include="scripts\G_S05_instalar_librerias.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="scripts\img\logo_ingemmet.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="scripts\messages.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -437,6 +440,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\MHG_S03_listado_autores.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="scripts\MHG_S04_generar_rotulo.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\packages.py">

@@ -92,6 +92,8 @@ def set_SSM(mxd):
 
 
 def set_detalle(text, max_character_by_line, first_line=False):
+    if len(text) <= max_character_by_line:
+        return text
     nlist = list()
     textList = text.split(' ')
     ini, end, tx = 0, 0, str()

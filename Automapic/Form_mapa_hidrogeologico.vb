@@ -1,4 +1,7 @@
 ﻿Imports System.Windows.Forms
+Imports ESRI.ArcGIS.ArcMapUI
+Imports ESRI.ArcGIS.Geometry
+Imports ESRI.ArcGIS.Carto
 Imports Newtonsoft.Json
 
 Public Class Form_mapa_hidrogeologico
@@ -170,6 +173,56 @@ Public Class Form_mapa_hidrogeologico
     End Sub
 
     Private Sub btn_mh_grotulo_Click(sender As Object, e As EventArgs) Handles btn_mh_grotulo.Click
+        runProgressBar()
+        Cursor.Current = Cursors.WaitCursor
+        params.Clear()
+        Dim tamanio As String
+        If rbt_mh_pequenio.Checked Then
+            tamanio = "1"
+        Else
+            tamanio = "2"
+        End If
+        params.Add(tamanio)
+        params.Add(tbx_mh_autores.Text)
+        params.Add(tbx_mh_title1.Text)
+        params.Add(tbx_mh_title2.Text)
+        params.Add(nud_mh_numero.Value)
+        Dim response = ExecuteGP(_tool_generateRotuloMhg, params, _toolboxPath_mapa_hidrogeologico)
+        Dim responseJson = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(response)
+        If responseJson.Item("status") = 0 Then
+            RuntimeError.PythonError = responseJson.Item("message")
+            MessageBox.Show(RuntimeError.PythonError, __title__, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Cursor.Current = Cursors.Default
+            runProgressBar("ini")
+            Return
+        End If
 
+        Dim pMxDoc As IMxDocument
+        pMxDoc = My.ArcMap.Application.Document
+        If TypeOf pMxDoc.ActiveView IsNot IPageLayout Then
+            pMxDoc.ActiveView = pMxDoc.PageLayout
+        End If
+
+        pMxDoc.PageLayout.Page.Units = ESRI.ArcGIS.esriSystem.esriUnits.esriCentimeters
+        pMxDoc.ActivatedView.Refresh()
+
+        Dim graphicsContainer As IGraphicsContainer = pMxDoc.PageLayout
+        Dim PictureElement As IPictureElement = New JpgPictureElement()
+
+        Dim pEnv As IEnvelope = New Envelope()
+        If tamanio = "1" Then
+            pEnv.PutCoords(0, 0, 7.1, 3.6)
+        Else
+            pEnv.PutCoords(0, 0, 14.1, 9.1)
+        End If
+
+        PictureElement.ImportPictureFromFile(responseJson("response"))
+        Dim IElement As IElement = PictureElement
+        IElement.Geometry = pEnv
+        graphicsContainer.AddElement(IElement, 0)
+
+        pMxDoc.ActivatedView.Refresh()
+        Cursor.Current = Cursors.Default
+        runProgressBar("ini")
     End Sub
 End Class

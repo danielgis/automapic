@@ -42,6 +42,7 @@ Module toolbox
     Public _tool_addFeatureWatershedsToMapMhg As String = "addFeatureWatershedsToMapMhg"
     Public _tool_getCodewatershedsMhg As String = "getCodewatershedsMhg"
     Public _tool_getAutoresMgh As String = "getAutoresMgh"
+    Public _tool_generateRotuloMhg As String = "generateRotuloMhg"
 
 
 

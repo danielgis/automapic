@@ -1,4 +1,7 @@
 # -*-coding: utf-8-*-
+
+from datetime import datetime
+
 _ERROR_MXD_PATH_NOT_EXISTS = 'La ubicacion del archivo mxd especificado no existe'
 _ERROR_CODE_NOT_EXISTS = 'El codigo de cuadricula especificado no existe'
 _ERROR_NOT_LAYER_CUADRICULAS = 'El layer de cuadriculas no exista o no se encuentra presente en el mapa'
@@ -31,3 +34,10 @@ _SET_CONFIG_GDB_PG = 'Configuración de la geodatabase de archivos para el módu
 _ERROR_FEATURE_CUADRICULAS_MG = 'El feature class de hojas a escala 500000 no se encuentra en la geodatabase'
 _ERROR_FEATURE_CUENCAS_HG = u'El feature class de Cuencas no existe, o no se declaro la geodatabase en la sección de configuración'
 _ERROR_FEATURE_AUTORES_HG = u'El feature table de Autores no existe, o no se declaro la geodatabase en la sección de configuración'
+
+_NAME_DGAR = u'Dirección de Geología Ambiental y Riesgo Geológico'
+_NAME_INGEMMET = u'INSTITUTO GEOLÓGICO MINERO Y METALÚRGICO'
+_NAME_SECTOR = u'SECTOR ENERGÍA Y MINAS'
+
+year = datetime.today().year
+_DETALLE_ROTULO = u'Versión digital: Año {} Lima - Perú'.format(year)
