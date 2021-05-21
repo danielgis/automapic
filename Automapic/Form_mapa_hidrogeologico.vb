@@ -3,6 +3,8 @@ Imports ESRI.ArcGIS.ArcMapUI
 Imports ESRI.ArcGIS.Geometry
 Imports ESRI.ArcGIS.Carto
 Imports Newtonsoft.Json
+Imports System.Drawing
+Imports System.ComponentModel
 
 Public Class Form_mapa_hidrogeologico
     'Dim controller As Integer = 0
@@ -56,9 +58,13 @@ Public Class Form_mapa_hidrogeologico
     End Sub
 
     Private Sub cbx_mh_cuencas_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbx_mh_cuencas.SelectionChangeCommitted
+        runProgressBar()
+        Cursor.Current = Cursors.WaitCursor
         Dim cuenca_sel_key As String = (CType(cbx_mh_cuencas.SelectedItem, KeyValuePair(Of String, String))).Key
         Dim cuenca_sel_value As String = (CType(cbx_mh_cuencas.SelectedItem, KeyValuePair(Of String, String))).Value
         If cbx_mh_cuencas.SelectedIndex = -1 Then
+            Cursor.Current = Cursors.Default
+            runProgressBar("ini")
             Return
         End If
         'controller = controller + 1
@@ -66,6 +72,8 @@ Public Class Form_mapa_hidrogeologico
         'cbx_mh_cuencas.Items(idx).Enabled = False
         If cuencasDictSelected.ContainsKey(cuenca_sel_key) Then
             MessageBox.Show("La cuenca ya fue seleccionada", __title__, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Cursor.Current = Cursors.Default
+            runProgressBar("ini")
             Return
         End If
         cuencasDictSelected.Add(cuenca_sel_key, cuenca_sel_value)
@@ -87,17 +95,22 @@ Public Class Form_mapa_hidrogeologico
         If responseJson.Item("status") = 0 Then
             RuntimeError.PythonError = responseJson.Item("message")
             MessageBox.Show(RuntimeError.PythonError, __title__, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Cursor.Current = Cursors.Default
+            runProgressBar("ini")
             Return
         End If
 
         If cuencasDictSelected.Count > 0 Then
             tc_mh_tools.Enabled = True
+            loadFormacionesHidrogeologicas()
         End If
 
         lbx_mh_cuencas.DataSource = New BindingSource(cuencasDictSelected, Nothing)
         lbx_mh_cuencas.DisplayMember = "Value"
         lbx_mh_cuencas.ValueMember = "Key"
         cbx_mh_cuencas.SelectedIndex = -1
+        Cursor.Current = Cursors.Default
+        runProgressBar("ini")
     End Sub
 
     Private Function SetTitle1(arrayCuencas As IList(Of String))
@@ -124,6 +137,8 @@ Public Class Form_mapa_hidrogeologico
 
         If cuencasDictSelected.Count = 0 Then
             tc_mh_tools.Enabled = False
+        Else
+            loadFormacionesHidrogeologicas()
         End If
 
         Dim codcuencasArray As New List(Of Object)
@@ -225,4 +240,69 @@ Public Class Form_mapa_hidrogeologico
         Cursor.Current = Cursors.Default
         runProgressBar("ini")
     End Sub
+
+    Private Sub loadFormacionesHidrogeologicas()
+        params.Clear()
+        Dim codcuencasArray As New List(Of Object)
+        For Each ikey As String In cuencasDictSelected.Keys
+            codcuencasArray.Add(ikey)
+        Next
+        Dim cuencas As String = String.Join(",", codcuencasArray)
+        params.Add(cuencas)
+        params.Add("19")
+        Dim response = ExecuteGP(_tool_getListFormHidrogMgh, params, _toolboxPath_mapa_hidrogeologico)
+        Dim responseJson = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(response)
+        If responseJson.Item("status") = 0 Then
+            RuntimeError.PythonError = responseJson.Item("message")
+            MessageBox.Show(RuntimeError.PythonError, __title__, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Cursor.Current = Cursors.Default
+            runProgressBar("ini")
+            Return
+        End If
+
+        dgv_mh_leyenda.Rows.Clear()
+        dgv_mh_leyenda.ColumnCount = 5
+        dgv_mh_leyenda.Columns(0).Name = "Leyenda"
+        dgv_mh_leyenda.Columns(0).ReadOnly = True
+        dgv_mh_leyenda.Columns(1).Name = "ID"
+        dgv_mh_leyenda.Columns(1).ReadOnly = True
+        dgv_mh_leyenda.Columns(2).Name = "Nombre"
+        dgv_mh_leyenda.Columns(3).Name = "Descripción"
+        dgv_mh_leyenda.Columns(4).Name = "Litología"
+
+        For Each kvp In responseJson.Item("response")
+            Dim row As String() = New String() {"", kvp.item("id_fhidrog"), kvp.item("n_fhidrog"), kvp.item("d_fhidrog"), kvp.item("litologia_g")}
+            dgv_mh_leyenda.Rows.Add(row)
+            dgv_mh_leyenda.Rows(dgv_mh_leyenda.RowCount - 1).Cells(0).Style.BackColor = Color.FromArgb(kvp.item("red"), kvp.item("green"), kvp.item("blue"))
+        Next
+
+        dgv_mh_leyenda.Columns(0).AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
+        dgv_mh_leyenda.Columns(1).AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
+        dgv_mh_leyenda.Columns(2).AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
+        dgv_mh_leyenda.Columns(3).AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
+        dgv_mh_leyenda.Columns(4).AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
+        dgv_mh_leyenda.Sort(dgv_mh_leyenda.Columns(1), ListSortDirection.Ascending)
+        dgv_mh_leyenda.Columns(2).Frozen = True
+
+        lbl_mh_uhcount.Text = String.Format("Se encontraron {0} formaciones hidrogeológicas únicas", dgv_mh_leyenda.RowCount)
+    End Sub
+    'Private Sub tc_mh_leyenda_tools_SelectedIndexChanged(sender As Object, e As EventArgs) Handles tc_mh_leyenda_tools.SelectedIndexChanged
+    '    If tc_mh_leyenda_tools.SelectedTab.Name = "tp_mh_classif" Then
+    '        loadFormacionesHidrogeologicas()
+    '    End If
+
+    'End Sub
+    Private Sub dgv_mh_leyenda_deletingrow(sender As Object, e As DataGridViewRowCancelEventArgs) Handles dgv_mh_leyenda.UserDeletingRow
+        Dim mgs As String = "¿Está seguro que desea eliminar este registro?"
+        Dim r As DialogResult = MessageBox.Show(mgs, __title__, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        If r = DialogResult.No Then
+            e.Cancel = True
+            Return
+        End If
+    End Sub
+
+    Private Sub dgv_mh_leyenda_deleterow(sender As Object, e As EventArgs) Handles dgv_mh_leyenda.UserDeletedRow
+        lbl_mh_uhcount.Text = String.Format("Se encontraron {0} formaciones hidrogeológicas únicas", dgv_mh_leyenda.RowCount)
+    End Sub
+
 End Class

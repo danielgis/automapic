@@ -47,11 +47,29 @@ Partial Class Form_mapa_hidrogeologico
         Me.lbl_mh_numero = New System.Windows.Forms.Label()
         Me.rbt_mh_grande = New System.Windows.Forms.RadioButton()
         Me.tp_mh_leyenda = New System.Windows.Forms.TabPage()
+        Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.tc_mh_leyenda_tools = New System.Windows.Forms.TabControl()
+        Me.tp_mh_classif = New System.Windows.Forms.TabPage()
+        Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
+        Me.dgv_mh_leyenda = New System.Windows.Forms.DataGridView()
+        Me.lbl_mh_uhcount = New System.Windows.Forms.Label()
+        Me.tp_mh_dhidrog = New System.Windows.Forms.TabPage()
+        Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.WebBrowser1 = New System.Windows.Forms.WebBrowser()
+        Me.UserControl_ComboBoxDatarames1 = New Automapic.UserControl_ComboBoxDatarames()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.tc_mh_tools.SuspendLayout()
         Me.tp_mh_rotulo.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         CType(Me.nud_mh_numero, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tp_mh_leyenda.SuspendLayout()
+        Me.TableLayoutPanel3.SuspendLayout()
+        Me.tc_mh_leyenda_tools.SuspendLayout()
+        Me.tp_mh_classif.SuspendLayout()
+        Me.TableLayoutPanel4.SuspendLayout()
+        CType(Me.dgv_mh_leyenda, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPage1.SuspendLayout()
         Me.SuspendLayout()
         '
         'TableLayoutPanel1
@@ -344,6 +362,7 @@ Partial Class Form_mapa_hidrogeologico
         '
         'tp_mh_leyenda
         '
+        Me.tp_mh_leyenda.Controls.Add(Me.TableLayoutPanel3)
         Me.tp_mh_leyenda.ImageIndex = 6
         Me.tp_mh_leyenda.Location = New System.Drawing.Point(4, 25)
         Me.tp_mh_leyenda.Name = "tp_mh_leyenda"
@@ -352,6 +371,138 @@ Partial Class Form_mapa_hidrogeologico
         Me.tp_mh_leyenda.TabIndex = 1
         Me.tp_mh_leyenda.Text = "Leyenda"
         Me.tp_mh_leyenda.UseVisualStyleBackColor = True
+        '
+        'TableLayoutPanel3
+        '
+        Me.TableLayoutPanel3.ColumnCount = 1
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel3.Controls.Add(Me.Button1, 0, 2)
+        Me.TableLayoutPanel3.Controls.Add(Me.tc_mh_leyenda_tools, 0, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.UserControl_ComboBoxDatarames1, 0, 1)
+        Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel3.Location = New System.Drawing.Point(3, 3)
+        Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
+        Me.TableLayoutPanel3.RowCount = 3
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(443, 505)
+        Me.TableLayoutPanel3.TabIndex = 1
+        '
+        'Button1
+        '
+        Me.Button1.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Button1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Button1.ImageIndex = 6
+        Me.Button1.ImageList = Me.img_list_mh
+        Me.Button1.Location = New System.Drawing.Point(3, 468)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(437, 34)
+        Me.Button1.TabIndex = 0
+        Me.Button1.Text = "Generar Leyenda"
+        Me.Button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'tc_mh_leyenda_tools
+        '
+        Me.tc_mh_leyenda_tools.Controls.Add(Me.tp_mh_classif)
+        Me.tc_mh_leyenda_tools.Controls.Add(Me.tp_mh_dhidrog)
+        Me.tc_mh_leyenda_tools.Controls.Add(Me.TabPage1)
+        Me.tc_mh_leyenda_tools.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tc_mh_leyenda_tools.Location = New System.Drawing.Point(3, 3)
+        Me.tc_mh_leyenda_tools.Name = "tc_mh_leyenda_tools"
+        Me.tc_mh_leyenda_tools.SelectedIndex = 0
+        Me.tc_mh_leyenda_tools.Size = New System.Drawing.Size(437, 399)
+        Me.tc_mh_leyenda_tools.TabIndex = 0
+        '
+        'tp_mh_classif
+        '
+        Me.tp_mh_classif.Controls.Add(Me.TableLayoutPanel4)
+        Me.tp_mh_classif.Location = New System.Drawing.Point(4, 25)
+        Me.tp_mh_classif.Name = "tp_mh_classif"
+        Me.tp_mh_classif.Padding = New System.Windows.Forms.Padding(3)
+        Me.tp_mh_classif.Size = New System.Drawing.Size(429, 370)
+        Me.tp_mh_classif.TabIndex = 0
+        Me.tp_mh_classif.Text = "Clasificación"
+        Me.tp_mh_classif.UseVisualStyleBackColor = True
+        '
+        'TableLayoutPanel4
+        '
+        Me.TableLayoutPanel4.ColumnCount = 1
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel4.Controls.Add(Me.dgv_mh_leyenda, 0, 0)
+        Me.TableLayoutPanel4.Controls.Add(Me.lbl_mh_uhcount, 0, 1)
+        Me.TableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel4.Location = New System.Drawing.Point(3, 3)
+        Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
+        Me.TableLayoutPanel4.RowCount = 2
+        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(423, 364)
+        Me.TableLayoutPanel4.TabIndex = 1
+        '
+        'dgv_mh_leyenda
+        '
+        Me.dgv_mh_leyenda.AllowUserToAddRows = False
+        Me.dgv_mh_leyenda.BackgroundColor = System.Drawing.SystemColors.ButtonFace
+        Me.dgv_mh_leyenda.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgv_mh_leyenda.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgv_mh_leyenda.Location = New System.Drawing.Point(3, 3)
+        Me.dgv_mh_leyenda.Name = "dgv_mh_leyenda"
+        Me.dgv_mh_leyenda.RowTemplate.Height = 24
+        Me.dgv_mh_leyenda.Size = New System.Drawing.Size(417, 333)
+        Me.dgv_mh_leyenda.TabIndex = 0
+        '
+        'lbl_mh_uhcount
+        '
+        Me.lbl_mh_uhcount.AutoSize = True
+        Me.lbl_mh_uhcount.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lbl_mh_uhcount.Location = New System.Drawing.Point(3, 347)
+        Me.lbl_mh_uhcount.Name = "lbl_mh_uhcount"
+        Me.lbl_mh_uhcount.Size = New System.Drawing.Size(417, 17)
+        Me.lbl_mh_uhcount.TabIndex = 1
+        Me.lbl_mh_uhcount.Text = "..."
+        Me.lbl_mh_uhcount.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'tp_mh_dhidrog
+        '
+        Me.tp_mh_dhidrog.Location = New System.Drawing.Point(4, 25)
+        Me.tp_mh_dhidrog.Name = "tp_mh_dhidrog"
+        Me.tp_mh_dhidrog.Padding = New System.Windows.Forms.Padding(3)
+        Me.tp_mh_dhidrog.Size = New System.Drawing.Size(429, 370)
+        Me.tp_mh_dhidrog.TabIndex = 1
+        Me.tp_mh_dhidrog.Text = "Descripción Hidrogeológica"
+        Me.tp_mh_dhidrog.UseVisualStyleBackColor = True
+        '
+        'TabPage1
+        '
+        Me.TabPage1.Controls.Add(Me.WebBrowser1)
+        Me.TabPage1.Location = New System.Drawing.Point(4, 25)
+        Me.TabPage1.Name = "TabPage1"
+        Me.TabPage1.Size = New System.Drawing.Size(429, 370)
+        Me.TabPage1.TabIndex = 2
+        Me.TabPage1.Text = "TabPage1"
+        Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'WebBrowser1
+        '
+        Me.WebBrowser1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.WebBrowser1.Location = New System.Drawing.Point(0, 0)
+        Me.WebBrowser1.MinimumSize = New System.Drawing.Size(20, 20)
+        Me.WebBrowser1.Name = "WebBrowser1"
+        Me.WebBrowser1.Size = New System.Drawing.Size(429, 370)
+        Me.WebBrowser1.TabIndex = 0
+        Me.WebBrowser1.Url = New System.Uri("https://www.chartjs.org/docs/latest/samples/line/styling.html", System.UriKind.Absolute)
+        '
+        'UserControl_ComboBoxDatarames1
+        '
+        Me.UserControl_ComboBoxDatarames1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.UserControl_ComboBoxDatarames1.Location = New System.Drawing.Point(3, 408)
+        Me.UserControl_ComboBoxDatarames1.Name = "UserControl_ComboBoxDatarames1"
+        Me.UserControl_ComboBoxDatarames1.Size = New System.Drawing.Size(437, 54)
+        Me.UserControl_ComboBoxDatarames1.TabIndex = 1
         '
         'Form_mapa_hidrogeologico
         '
@@ -369,6 +520,14 @@ Partial Class Form_mapa_hidrogeologico
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.TableLayoutPanel2.PerformLayout()
         CType(Me.nud_mh_numero, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tp_mh_leyenda.ResumeLayout(False)
+        Me.TableLayoutPanel3.ResumeLayout(False)
+        Me.tc_mh_leyenda_tools.ResumeLayout(False)
+        Me.tp_mh_classif.ResumeLayout(False)
+        Me.TableLayoutPanel4.ResumeLayout(False)
+        Me.TableLayoutPanel4.PerformLayout()
+        CType(Me.dgv_mh_leyenda, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabPage1.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -396,4 +555,15 @@ Partial Class Form_mapa_hidrogeologico
     Friend WithEvents img_list_mh As System.Windows.Forms.ImageList
     Friend WithEvents nud_mh_numero As System.Windows.Forms.NumericUpDown
     Friend WithEvents lbl_mh_numero As System.Windows.Forms.Label
+    Friend WithEvents TableLayoutPanel3 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents tc_mh_leyenda_tools As System.Windows.Forms.TabControl
+    Friend WithEvents tp_mh_classif As System.Windows.Forms.TabPage
+    Friend WithEvents tp_mh_dhidrog As System.Windows.Forms.TabPage
+    Friend WithEvents UserControl_ComboBoxDatarames1 As UserControl_ComboBoxDatarames
+    Friend WithEvents TableLayoutPanel4 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents dgv_mh_leyenda As System.Windows.Forms.DataGridView
+    Friend WithEvents lbl_mh_uhcount As System.Windows.Forms.Label
+    Friend WithEvents TabPage1 As System.Windows.Forms.TabPage
+    Friend WithEvents WebBrowser1 As System.Windows.Forms.WebBrowser
 End Class

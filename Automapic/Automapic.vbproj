@@ -188,6 +188,12 @@
     </Compile>
     <Compile Include="settings.vb" />
     <Compile Include="toolbox.vb" />
+    <Compile Include="UserControl_ComboBoxDatarames.Designer.vb">
+      <DependentUpon>UserControl_ComboBoxDatarames.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl_ComboBoxDatarames.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AutomapicDock.resx">
@@ -216,6 +222,9 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControl_ComboBoxDatarames.resx">
+      <DependentUpon>UserControl_ComboBoxDatarames.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -361,7 +370,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Resources\search1.png" />
     <None Include="Resources\user1.png" />
@@ -443,6 +454,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\MHG_S04_generar_rotulo.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="scripts\MHG_S05_formaciones_hidrogeologicas_unicas.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\packages.py">
