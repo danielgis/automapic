@@ -159,6 +159,12 @@
     <Compile Include="Form_plano_topografico_25k.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Form_sincronizacion_geodatabase.Designer.vb">
+      <DependentUpon>Form_sincronizacion_geodatabase.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form_sincronizacion_geodatabase.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Login.Designer.vb">
       <DependentUpon>Login.vb</DependentUpon>
     </Compile>
@@ -204,6 +210,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_plano_topografico_25k.resx">
       <DependentUpon>Form_plano_topografico_25k.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_sincronizacion_geodatabase.resx">
+      <DependentUpon>Form_sincronizacion_geodatabase.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.vb</DependentUpon>

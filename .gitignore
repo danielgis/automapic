@@ -5,3 +5,5 @@ Automapic/obj
 _ReSharper.*
 *.sln.cache
 *.pyc
+.idea
+descarga.pdf
