@@ -34,6 +34,8 @@ _SET_CONFIG_GDB_PG = 'Configuración de la geodatabase de archivos para el módu
 _ERROR_FEATURE_CUADRICULAS_MG = 'El feature class de hojas a escala 500000 no se encuentra en la geodatabase'
 _ERROR_FEATURE_CUENCAS_HG = u'El feature class de Cuencas no existe, o no se declaro la geodatabase en la sección de configuración'
 _ERROR_FEATURE_AUTORES_HG = u'El feature table de Autores no existe, o no se declaro la geodatabase en la sección de configuración'
+_ERROR_FEATURE_FHIDROGEO_HG = u'El feature class de Formaciones hidrogeológicas no existe, o no se declaro la geodatabase en la sección de configuración'
+_ERROR_FEATURE_UHIDROGEO_HG = u'El feature class de Unidades hidrogeológicas no existe, o no se declaro la geodatabase en la sección de configuración'
 
 _NAME_DGAR = u'Dirección de Geología Ambiental y Riesgo Geológico'
 _NAME_INGEMMET = u'INSTITUTO GEOLÓGICO MINERO Y METALÚRGICO'
