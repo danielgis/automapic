@@ -56,7 +56,6 @@ Partial Class Form_mapa_hidrogeologico
         Me.lbl_mh_uhcount = New System.Windows.Forms.Label()
         Me.tp_mh_dhidrog = New System.Windows.Forms.TabPage()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
-        Me.WebBrowser1 = New System.Windows.Forms.WebBrowser()
         Me.UserControl_ComboBoxDatarames1 = New Automapic.UserControl_ComboBoxDatarames()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.tc_mh_tools.SuspendLayout()
@@ -69,7 +68,6 @@ Partial Class Form_mapa_hidrogeologico
         Me.tp_mh_classif.SuspendLayout()
         Me.TableLayoutPanel4.SuspendLayout()
         CType(Me.dgv_mh_leyenda, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TabPage1.SuspendLayout()
         Me.SuspendLayout()
         '
         'TableLayoutPanel1
@@ -478,23 +476,12 @@ Partial Class Form_mapa_hidrogeologico
         '
         'TabPage1
         '
-        Me.TabPage1.Controls.Add(Me.WebBrowser1)
         Me.TabPage1.Location = New System.Drawing.Point(4, 25)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Size = New System.Drawing.Size(429, 370)
         Me.TabPage1.TabIndex = 2
         Me.TabPage1.Text = "TabPage1"
         Me.TabPage1.UseVisualStyleBackColor = True
-        '
-        'WebBrowser1
-        '
-        Me.WebBrowser1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.WebBrowser1.Location = New System.Drawing.Point(0, 0)
-        Me.WebBrowser1.MinimumSize = New System.Drawing.Size(20, 20)
-        Me.WebBrowser1.Name = "WebBrowser1"
-        Me.WebBrowser1.Size = New System.Drawing.Size(429, 370)
-        Me.WebBrowser1.TabIndex = 0
-        Me.WebBrowser1.Url = New System.Uri("https://www.chartjs.org/docs/latest/samples/line/styling.html", System.UriKind.Absolute)
         '
         'UserControl_ComboBoxDatarames1
         '
@@ -527,7 +514,6 @@ Partial Class Form_mapa_hidrogeologico
         Me.TableLayoutPanel4.ResumeLayout(False)
         Me.TableLayoutPanel4.PerformLayout()
         CType(Me.dgv_mh_leyenda, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TabPage1.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -565,5 +551,4 @@ Partial Class Form_mapa_hidrogeologico
     Friend WithEvents dgv_mh_leyenda As System.Windows.Forms.DataGridView
     Friend WithEvents lbl_mh_uhcount As System.Windows.Forms.Label
     Friend WithEvents TabPage1 As System.Windows.Forms.TabPage
-    Friend WithEvents WebBrowser1 As System.Windows.Forms.WebBrowser
 End Class

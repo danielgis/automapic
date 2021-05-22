@@ -5,6 +5,8 @@ Imports ESRI.ArcGIS.Carto
 Imports Newtonsoft.Json
 Imports System.Drawing
 Imports System.ComponentModel
+Imports CefSharp.WinForms
+Imports CefSharp
 
 Public Class Form_mapa_hidrogeologico
     'Dim controller As Integer = 0
@@ -53,6 +55,12 @@ Public Class Form_mapa_hidrogeologico
 
         tc_mh_tools.Enabled = False
         'tbx_mh_title2.Text = "MAPA HIDROGEOLÓGICO"
+
+        Dim browser = New ChromiumWebBrowser("https://rstudio-pubs-static.s3.amazonaws.com/542159_ae160ba405044883a58ba3a53e4f7e6d.html")
+        tc_mh_leyenda_tools.TabPages.Item(2).Controls.Add(browser)
+        'Dim script_1 As String = "alert('pollito')"
+        'browser.ExecuteScriptAsync(script_1)
+
         Cursor.Current = Cursors.Default
         runProgressBar("ini")
     End Sub

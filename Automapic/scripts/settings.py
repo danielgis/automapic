@@ -101,3 +101,5 @@ _ID = "id"
 _GREEN = "green"
 _RED = "red"
 _BLUE = "blue"
+
+_POLLITO = 'pollito'
