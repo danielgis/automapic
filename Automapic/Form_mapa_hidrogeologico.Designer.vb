@@ -48,15 +48,22 @@ Partial Class Form_mapa_hidrogeologico
         Me.rbt_mh_grande = New System.Windows.Forms.RadioButton()
         Me.tp_mh_leyenda = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.btn_mh_leyenda = New System.Windows.Forms.Button()
         Me.tc_mh_leyenda_tools = New System.Windows.Forms.TabControl()
         Me.tp_mh_classif = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
         Me.dgv_mh_leyenda = New System.Windows.Forms.DataGridView()
         Me.lbl_mh_uhcount = New System.Windows.Forms.Label()
         Me.tp_mh_dhidrog = New System.Windows.Forms.TabPage()
-        Me.TabPage1 = New System.Windows.Forms.TabPage()
-        Me.WebBrowser1 = New System.Windows.Forms.WebBrowser()
+        Me.tlp_mh_dhidrog = New System.Windows.Forms.TableLayoutPanel()
+        Me.lbl_mh_acuiferos = New System.Windows.Forms.Label()
+        Me.lbl_mh_acuitardos = New System.Windows.Forms.Label()
+        Me.lbl_mh_acuicludo = New System.Windows.Forms.Label()
+        Me.lbl_mh___acuifugo = New System.Windows.Forms.Label()
+        Me.tbx_mh_acuiferos = New System.Windows.Forms.TextBox()
+        Me.tbx_mh_acuitardos = New System.Windows.Forms.TextBox()
+        Me.tbx_mh_acuicludo = New System.Windows.Forms.TextBox()
+        Me.tbx_mh_acuifugo = New System.Windows.Forms.TextBox()
         Me.UserControl_ComboBoxDatarames1 = New Automapic.UserControl_ComboBoxDatarames()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.tc_mh_tools.SuspendLayout()
@@ -69,7 +76,8 @@ Partial Class Form_mapa_hidrogeologico
         Me.tp_mh_classif.SuspendLayout()
         Me.TableLayoutPanel4.SuspendLayout()
         CType(Me.dgv_mh_leyenda, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TabPage1.SuspendLayout()
+        Me.tp_mh_dhidrog.SuspendLayout()
+        Me.tlp_mh_dhidrog.SuspendLayout()
         Me.SuspendLayout()
         '
         'TableLayoutPanel1
@@ -362,6 +370,7 @@ Partial Class Form_mapa_hidrogeologico
         '
         'tp_mh_leyenda
         '
+        Me.tp_mh_leyenda.AutoScroll = True
         Me.tp_mh_leyenda.Controls.Add(Me.TableLayoutPanel3)
         Me.tp_mh_leyenda.ImageIndex = 6
         Me.tp_mh_leyenda.Location = New System.Drawing.Point(4, 25)
@@ -376,7 +385,7 @@ Partial Class Form_mapa_hidrogeologico
         '
         Me.TableLayoutPanel3.ColumnCount = 1
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel3.Controls.Add(Me.Button1, 0, 2)
+        Me.TableLayoutPanel3.Controls.Add(Me.btn_mh_leyenda, 0, 2)
         Me.TableLayoutPanel3.Controls.Add(Me.tc_mh_leyenda_tools, 0, 0)
         Me.TableLayoutPanel3.Controls.Add(Me.UserControl_ComboBoxDatarames1, 0, 1)
         Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
@@ -390,26 +399,25 @@ Partial Class Form_mapa_hidrogeologico
         Me.TableLayoutPanel3.Size = New System.Drawing.Size(443, 505)
         Me.TableLayoutPanel3.TabIndex = 1
         '
-        'Button1
+        'btn_mh_leyenda
         '
-        Me.Button1.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Button1.ImageIndex = 6
-        Me.Button1.ImageList = Me.img_list_mh
-        Me.Button1.Location = New System.Drawing.Point(3, 468)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(437, 34)
-        Me.Button1.TabIndex = 0
-        Me.Button1.Text = "Generar Leyenda"
-        Me.Button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.btn_mh_leyenda.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btn_mh_leyenda.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btn_mh_leyenda.ImageIndex = 6
+        Me.btn_mh_leyenda.ImageList = Me.img_list_mh
+        Me.btn_mh_leyenda.Location = New System.Drawing.Point(3, 468)
+        Me.btn_mh_leyenda.Name = "btn_mh_leyenda"
+        Me.btn_mh_leyenda.Size = New System.Drawing.Size(437, 34)
+        Me.btn_mh_leyenda.TabIndex = 0
+        Me.btn_mh_leyenda.Text = "Generar Leyenda"
+        Me.btn_mh_leyenda.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.btn_mh_leyenda.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btn_mh_leyenda.UseVisualStyleBackColor = True
         '
         'tc_mh_leyenda_tools
         '
         Me.tc_mh_leyenda_tools.Controls.Add(Me.tp_mh_classif)
         Me.tc_mh_leyenda_tools.Controls.Add(Me.tp_mh_dhidrog)
-        Me.tc_mh_leyenda_tools.Controls.Add(Me.TabPage1)
         Me.tc_mh_leyenda_tools.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tc_mh_leyenda_tools.Location = New System.Drawing.Point(3, 3)
         Me.tc_mh_leyenda_tools.Name = "tc_mh_leyenda_tools"
@@ -468,6 +476,9 @@ Partial Class Form_mapa_hidrogeologico
         '
         'tp_mh_dhidrog
         '
+        Me.tp_mh_dhidrog.AutoScroll = True
+        Me.tp_mh_dhidrog.AutoScrollMinSize = New System.Drawing.Size(0, 500)
+        Me.tp_mh_dhidrog.Controls.Add(Me.tlp_mh_dhidrog)
         Me.tp_mh_dhidrog.Location = New System.Drawing.Point(4, 25)
         Me.tp_mh_dhidrog.Name = "tp_mh_dhidrog"
         Me.tp_mh_dhidrog.Padding = New System.Windows.Forms.Padding(3)
@@ -476,25 +487,110 @@ Partial Class Form_mapa_hidrogeologico
         Me.tp_mh_dhidrog.Text = "Descripción Hidrogeológica"
         Me.tp_mh_dhidrog.UseVisualStyleBackColor = True
         '
-        'TabPage1
+        'tlp_mh_dhidrog
         '
-        Me.TabPage1.Controls.Add(Me.WebBrowser1)
-        Me.TabPage1.Location = New System.Drawing.Point(4, 25)
-        Me.TabPage1.Name = "TabPage1"
-        Me.TabPage1.Size = New System.Drawing.Size(429, 370)
-        Me.TabPage1.TabIndex = 2
-        Me.TabPage1.Text = "TabPage1"
-        Me.TabPage1.UseVisualStyleBackColor = True
+        Me.tlp_mh_dhidrog.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.tlp_mh_dhidrog.ColumnCount = 1
+        Me.tlp_mh_dhidrog.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlp_mh_dhidrog.Controls.Add(Me.lbl_mh_acuiferos, 0, 0)
+        Me.tlp_mh_dhidrog.Controls.Add(Me.lbl_mh_acuitardos, 0, 2)
+        Me.tlp_mh_dhidrog.Controls.Add(Me.lbl_mh_acuicludo, 0, 4)
+        Me.tlp_mh_dhidrog.Controls.Add(Me.lbl_mh___acuifugo, 0, 6)
+        Me.tlp_mh_dhidrog.Controls.Add(Me.tbx_mh_acuiferos, 0, 1)
+        Me.tlp_mh_dhidrog.Controls.Add(Me.tbx_mh_acuitardos, 0, 3)
+        Me.tlp_mh_dhidrog.Controls.Add(Me.tbx_mh_acuicludo, 0, 5)
+        Me.tlp_mh_dhidrog.Controls.Add(Me.tbx_mh_acuifugo, 0, 7)
+        Me.tlp_mh_dhidrog.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tlp_mh_dhidrog.Location = New System.Drawing.Point(3, 3)
+        Me.tlp_mh_dhidrog.Name = "tlp_mh_dhidrog"
+        Me.tlp_mh_dhidrog.RowCount = 9
+        Me.tlp_mh_dhidrog.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlp_mh_dhidrog.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.tlp_mh_dhidrog.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlp_mh_dhidrog.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.tlp_mh_dhidrog.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlp_mh_dhidrog.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.tlp_mh_dhidrog.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlp_mh_dhidrog.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.tlp_mh_dhidrog.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlp_mh_dhidrog.Size = New System.Drawing.Size(402, 494)
+        Me.tlp_mh_dhidrog.TabIndex = 0
         '
-        'WebBrowser1
+        'lbl_mh_acuiferos
         '
-        Me.WebBrowser1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.WebBrowser1.Location = New System.Drawing.Point(0, 0)
-        Me.WebBrowser1.MinimumSize = New System.Drawing.Size(20, 20)
-        Me.WebBrowser1.Name = "WebBrowser1"
-        Me.WebBrowser1.Size = New System.Drawing.Size(429, 370)
-        Me.WebBrowser1.TabIndex = 0
-        Me.WebBrowser1.Url = New System.Uri("https://www.chartjs.org/docs/latest/samples/line/styling.html", System.UriKind.Absolute)
+        Me.lbl_mh_acuiferos.AutoSize = True
+        Me.lbl_mh_acuiferos.Location = New System.Drawing.Point(3, 0)
+        Me.lbl_mh_acuiferos.Name = "lbl_mh_acuiferos"
+        Me.lbl_mh_acuiferos.Size = New System.Drawing.Size(83, 17)
+        Me.lbl_mh_acuiferos.TabIndex = 0
+        Me.lbl_mh_acuiferos.Text = "1. Acuíferos"
+        '
+        'lbl_mh_acuitardos
+        '
+        Me.lbl_mh_acuitardos.AutoSize = True
+        Me.lbl_mh_acuitardos.Location = New System.Drawing.Point(3, 120)
+        Me.lbl_mh_acuitardos.Name = "lbl_mh_acuitardos"
+        Me.lbl_mh_acuitardos.Size = New System.Drawing.Size(91, 17)
+        Me.lbl_mh_acuitardos.TabIndex = 1
+        Me.lbl_mh_acuitardos.Text = "2. Acuitardos"
+        '
+        'lbl_mh_acuicludo
+        '
+        Me.lbl_mh_acuicludo.AutoSize = True
+        Me.lbl_mh_acuicludo.Location = New System.Drawing.Point(3, 240)
+        Me.lbl_mh_acuicludo.Name = "lbl_mh_acuicludo"
+        Me.lbl_mh_acuicludo.Size = New System.Drawing.Size(85, 17)
+        Me.lbl_mh_acuicludo.TabIndex = 2
+        Me.lbl_mh_acuicludo.Text = "3. Acuicludo"
+        '
+        'lbl_mh___acuifugo
+        '
+        Me.lbl_mh___acuifugo.AutoSize = True
+        Me.lbl_mh___acuifugo.Location = New System.Drawing.Point(3, 360)
+        Me.lbl_mh___acuifugo.Name = "lbl_mh___acuifugo"
+        Me.lbl_mh___acuifugo.Size = New System.Drawing.Size(79, 17)
+        Me.lbl_mh___acuifugo.TabIndex = 3
+        Me.lbl_mh___acuifugo.Text = "4. Acuifugo"
+        '
+        'tbx_mh_acuiferos
+        '
+        Me.tbx_mh_acuiferos.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tbx_mh_acuiferos.Enabled = False
+        Me.tbx_mh_acuiferos.Location = New System.Drawing.Point(3, 23)
+        Me.tbx_mh_acuiferos.Multiline = True
+        Me.tbx_mh_acuiferos.Name = "tbx_mh_acuiferos"
+        Me.tbx_mh_acuiferos.Size = New System.Drawing.Size(396, 94)
+        Me.tbx_mh_acuiferos.TabIndex = 4
+        '
+        'tbx_mh_acuitardos
+        '
+        Me.tbx_mh_acuitardos.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tbx_mh_acuitardos.Enabled = False
+        Me.tbx_mh_acuitardos.Location = New System.Drawing.Point(3, 143)
+        Me.tbx_mh_acuitardos.Multiline = True
+        Me.tbx_mh_acuitardos.Name = "tbx_mh_acuitardos"
+        Me.tbx_mh_acuitardos.Size = New System.Drawing.Size(396, 94)
+        Me.tbx_mh_acuitardos.TabIndex = 5
+        '
+        'tbx_mh_acuicludo
+        '
+        Me.tbx_mh_acuicludo.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tbx_mh_acuicludo.Enabled = False
+        Me.tbx_mh_acuicludo.Location = New System.Drawing.Point(3, 263)
+        Me.tbx_mh_acuicludo.Multiline = True
+        Me.tbx_mh_acuicludo.Name = "tbx_mh_acuicludo"
+        Me.tbx_mh_acuicludo.Size = New System.Drawing.Size(396, 94)
+        Me.tbx_mh_acuicludo.TabIndex = 6
+        '
+        'tbx_mh_acuifugo
+        '
+        Me.tbx_mh_acuifugo.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tbx_mh_acuifugo.Enabled = False
+        Me.tbx_mh_acuifugo.Location = New System.Drawing.Point(3, 383)
+        Me.tbx_mh_acuifugo.Multiline = True
+        Me.tbx_mh_acuifugo.Name = "tbx_mh_acuifugo"
+        Me.tbx_mh_acuifugo.Size = New System.Drawing.Size(396, 94)
+        Me.tbx_mh_acuifugo.TabIndex = 7
         '
         'UserControl_ComboBoxDatarames1
         '
@@ -527,7 +623,9 @@ Partial Class Form_mapa_hidrogeologico
         Me.TableLayoutPanel4.ResumeLayout(False)
         Me.TableLayoutPanel4.PerformLayout()
         CType(Me.dgv_mh_leyenda, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TabPage1.ResumeLayout(False)
+        Me.tp_mh_dhidrog.ResumeLayout(False)
+        Me.tlp_mh_dhidrog.ResumeLayout(False)
+        Me.tlp_mh_dhidrog.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -556,7 +654,7 @@ Partial Class Form_mapa_hidrogeologico
     Friend WithEvents nud_mh_numero As System.Windows.Forms.NumericUpDown
     Friend WithEvents lbl_mh_numero As System.Windows.Forms.Label
     Friend WithEvents TableLayoutPanel3 As System.Windows.Forms.TableLayoutPanel
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents btn_mh_leyenda As System.Windows.Forms.Button
     Friend WithEvents tc_mh_leyenda_tools As System.Windows.Forms.TabControl
     Friend WithEvents tp_mh_classif As System.Windows.Forms.TabPage
     Friend WithEvents tp_mh_dhidrog As System.Windows.Forms.TabPage
@@ -564,6 +662,13 @@ Partial Class Form_mapa_hidrogeologico
     Friend WithEvents TableLayoutPanel4 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents dgv_mh_leyenda As System.Windows.Forms.DataGridView
     Friend WithEvents lbl_mh_uhcount As System.Windows.Forms.Label
-    Friend WithEvents TabPage1 As System.Windows.Forms.TabPage
-    Friend WithEvents WebBrowser1 As System.Windows.Forms.WebBrowser
+    Friend WithEvents tlp_mh_dhidrog As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents lbl_mh_acuiferos As System.Windows.Forms.Label
+    Friend WithEvents lbl_mh_acuitardos As System.Windows.Forms.Label
+    Friend WithEvents lbl_mh_acuicludo As System.Windows.Forms.Label
+    Friend WithEvents lbl_mh___acuifugo As System.Windows.Forms.Label
+    Friend WithEvents tbx_mh_acuiferos As System.Windows.Forms.TextBox
+    Friend WithEvents tbx_mh_acuitardos As System.Windows.Forms.TextBox
+    Friend WithEvents tbx_mh_acuicludo As System.Windows.Forms.TextBox
+    Friend WithEvents tbx_mh_acuifugo As System.Windows.Forms.TextBox
 End Class

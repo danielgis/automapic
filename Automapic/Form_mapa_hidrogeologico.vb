@@ -14,10 +14,13 @@ Public Class Form_mapa_hidrogeologico
     Dim cuencasDictByCombobox As New Dictionary(Of String, String)
     Dim autoresDictByCheckListBox As New Dictionary(Of String, String)
     Delegate Sub ProcessItemCheck(ByRef ListBoxObject As CheckedListBox)
+    Dim dset As New DataSet
+    Dim dtable As New DataTable
 
     Private Sub Form_mapa_hidrogeologico_load(sender As Object, e As EventArgs) Handles Me.Load
         runProgressBar()
         Cursor.Current = Cursors.WaitCursor
+        RemoveHandler cbx_mh_cuencas.SelectedIndexChanged, AddressOf cbx_mh_cuencas_SelectedIndexChanged
         params.Clear()
         Dim response = ExecuteGP(_tool_getCodewatershedsMhg, params, _toolboxPath_mapa_hidrogeologico)
         Dim responseJson = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(response)
@@ -47,17 +50,20 @@ Public Class Form_mapa_hidrogeologico
         For Each current In responseJson2.Item("response")
             autoresDictByCheckListBox.Add(current(0), current(1))
         Next
+
         clb_mh_autores.DataSource = New BindingSource(autoresDictByCheckListBox, Nothing)
         clb_mh_autores.DisplayMember = "Value"
         clb_mh_autores.ValueMember = "Key"
 
+
         tc_mh_tools.Enabled = False
         'tbx_mh_title2.Text = "MAPA HIDROGEOLÓGICO"
+        AddHandler cbx_mh_cuencas.SelectedIndexChanged, AddressOf cbx_mh_cuencas_SelectedIndexChanged
         Cursor.Current = Cursors.Default
         runProgressBar("ini")
     End Sub
 
-    Private Sub cbx_mh_cuencas_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbx_mh_cuencas.SelectionChangeCommitted
+    Private Sub cbx_mh_cuencas_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbx_mh_cuencas.SelectedIndexChanged
         runProgressBar()
         Cursor.Current = Cursors.WaitCursor
         Dim cuenca_sel_key As String = (CType(cbx_mh_cuencas.SelectedItem, KeyValuePair(Of String, String))).Key
@@ -261,16 +267,34 @@ Public Class Form_mapa_hidrogeologico
         End If
 
         dgv_mh_leyenda.Rows.Clear()
+        tbx_mh_acuiferos.Text = ""
+        tbx_mh_acuiferos.Enabled = False
+        tbx_mh_acuitardos.Text = ""
+        tbx_mh_acuitardos.Enabled = False
+        tbx_mh_acuicludo.Text = ""
+        tbx_mh_acuicludo.Enabled = False
+        tbx_mh_acuifugo.Text = ""
+        tbx_mh_acuifugo.Enabled = False
+
+
+        If responseJson.Item("response").count = 0 Then
+            Return
+        End If
+
         dgv_mh_leyenda.ColumnCount = 5
         dgv_mh_leyenda.Columns(0).Name = "Leyenda"
         dgv_mh_leyenda.Columns(0).ReadOnly = True
         dgv_mh_leyenda.Columns(1).Name = "ID"
+        dgv_mh_leyenda.Columns(1).ValueType = GetType(String)
         dgv_mh_leyenda.Columns(1).ReadOnly = True
         dgv_mh_leyenda.Columns(2).Name = "Nombre"
-        dgv_mh_leyenda.Columns(3).Name = "Descripción"
-        dgv_mh_leyenda.Columns(4).Name = "Litología"
+        dgv_mh_leyenda.Columns(2).ValueType = GetType(String)
+        dgv_mh_leyenda.Columns(3).Name = "Descripcion"
+        dgv_mh_leyenda.Columns(3).ValueType = GetType(String)
+        dgv_mh_leyenda.Columns(4).Name = "Litologia"
+        dgv_mh_leyenda.Columns(4).ValueType = GetType(String)
 
-        For Each kvp In responseJson.Item("response")
+        For Each kvp In responseJson.Item("response").Item("fhidrog")
             Dim row As String() = New String() {"", kvp.item("id_fhidrog"), kvp.item("n_fhidrog"), kvp.item("d_fhidrog"), kvp.item("litologia_g")}
             dgv_mh_leyenda.Rows.Add(row)
             dgv_mh_leyenda.Rows(dgv_mh_leyenda.RowCount - 1).Cells(0).Style.BackColor = Color.FromArgb(kvp.item("red"), kvp.item("green"), kvp.item("blue"))
@@ -285,6 +309,21 @@ Public Class Form_mapa_hidrogeologico
         dgv_mh_leyenda.Columns(2).Frozen = True
 
         lbl_mh_uhcount.Text = String.Format("Se encontraron {0} formaciones hidrogeológicas únicas", dgv_mh_leyenda.RowCount)
+
+        'dgv_mh_leyenda.DataSource = dtable
+
+        For Each kvp In responseJson.Item("response").Item("uhidrog")
+            If kvp = "1" Then
+                tbx_mh_acuiferos.Enabled = True
+            ElseIf kvp = "2" Then
+                tbx_mh_acuitardos.Enabled = True
+            ElseIf kvp = "3" Then
+                tbx_mh_acuicludo.Enabled = True
+            ElseIf kvp = "4" Then
+                tbx_mh_acuifugo.Enabled = True
+            End If
+        Next
+
     End Sub
     'Private Sub tc_mh_leyenda_tools_SelectedIndexChanged(sender As Object, e As EventArgs) Handles tc_mh_leyenda_tools.SelectedIndexChanged
     '    If tc_mh_leyenda_tools.SelectedTab.Name = "tp_mh_classif" Then
@@ -305,4 +344,36 @@ Public Class Form_mapa_hidrogeologico
         lbl_mh_uhcount.Text = String.Format("Se encontraron {0} formaciones hidrogeológicas únicas", dgv_mh_leyenda.RowCount)
     End Sub
 
+    Private Sub btn_mh_leyenda_Click(sender As Object, e As EventArgs) Handles btn_mh_leyenda.Click
+        dtable.Clear()
+        For Each column As DataGridViewColumn In dgv_mh_leyenda.Columns
+            If column.Name = "Leyenda" Then
+                Continue For
+            End If
+            dtable.Columns.Add(column.HeaderText, column.ValueType)
+        Next
+        For Each row As DataGridViewRow In dgv_mh_leyenda.Rows
+            dtable.Rows.Add()
+            For Each cell As DataGridViewCell In row.Cells
+                If cell.ColumnIndex = 0 Then
+                    Continue For
+                End If
+                dtable.Rows(dtable.Rows.Count - 1)(cell.ColumnIndex - 1) = cell.Value.ToString()
+            Next
+        Next
+        dset.Tables.Add(dtable)
+        Dim jsonstring As String = JsonConvert.SerializeObject(dset)
+        params.Clear()
+        params.Add(jsonstring)
+        ExecuteGP(_tool_generateLegendMhg, params, _toolboxPath_mapa_hidrogeologico, getresult:=False)
+        'Dim response = ExecuteGP(_tool_generateLegendMhg, params, _toolboxPath_mapa_hidrogeologico)
+        'Dim responseJson = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(response)
+        'If responseJson.Item("status") = 0 Then
+        '    RuntimeError.PythonError = responseJson.Item("message")
+        '    MessageBox.Show(RuntimeError.PythonError, __title__, MessageBoxButtons.OK, MessageBoxIcon.Error)
+        '    Cursor.Current = Cursors.Default
+        '    runProgressBar("ini")
+        '    Return
+        'End If
+    End Sub
 End Class

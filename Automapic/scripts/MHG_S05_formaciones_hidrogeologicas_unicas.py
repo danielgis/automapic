@@ -13,7 +13,7 @@ zona = arcpy.GetParameterAsText(1)
 response = dict()
 response['status'] = 1
 response['message'] = 'success'
-data = list()
+data = dict()
 
 try:
     feature = st._PO_01_FORMACION_HIDROGEOLOGICA_PATH.format(zona)
@@ -26,7 +26,7 @@ try:
 
     cuencas = "('{}')".format("', '".join(cuencas.split(',')))
 
-    fields = [st._ID_FHIDROG, st._N_FHIDROG, st._D_FHIDROG, st._LITOLOGIA_G]
+    fields = [st._ID_FHIDROG, st._N_FHIDROG, st._D_FHIDROG, st._LITOLOGIA_G, st._UHIDROG]
     query = '{} in {} and {} NOT IN (3, 193, 194, 462, 2024, 2600)'.format(st._CD_CUENCA, cuencas, st._CODI_FIELD)
     n_arr = arcpy.da.FeatureClassToNumPyArray(feature, fields, query, null_value=999)
     df_ini = pd.DataFrame(n_arr)
@@ -35,16 +35,22 @@ try:
     	df = df_ini.groupby(by=[st._ID_FHIDROG]).max().reset_index()
     	df['id_m'] = df[st._ID_FHIDROG].str[:3]
 
-    	fields_uh = [st._ID, st._GREEN, st._RED, st._BLUE]
+    	fields_uh = [st._ID, st._GREEN, st._RED, st._BLUE, st._NOMBRE_FIELD]
     	n_arr_uh = arcpy.da.FeatureClassToNumPyArray(table, fields_uh, null_value=999)
     	df_uh = pd.DataFrame(n_arr_uh)
 
     	df_uh[st._ID] = df_uh[st._ID].str.ljust(3, '0')
     	df_uh = df_uh.fillna(0)
 
-    	df_response = pd.merge(df, df_uh, how='left', left_on=['id_m'], right_on= [st._ID] )
+    	df_fhidrog = pd.merge(df, df_uh, how='left', left_on=['id_m'], right_on= [st._ID])
 
-    	data = df_response.to_dict('records')
+        chidrog = list(df_ini[st._CL_HIDROG].unique())
+        chidrog.sort()
+
+        data["fhidrog"] = df_fhidrog.to_dict('records')
+        data["chidrog"] = chidrog
+
+    	# data = df_response.to_dict('records')
         
     response["response"] = data
 except Exception as e:

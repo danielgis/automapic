@@ -459,6 +459,9 @@
     <Content Include="scripts\MHG_S05_formaciones_hidrogeologicas_unicas.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="scripts\MHG_S06_generar_leyenda.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="scripts\packages.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
