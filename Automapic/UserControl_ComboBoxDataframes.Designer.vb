@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class UserControl_ComboBoxDatarames
+Partial Class UserControl_ComboBoxDataframes
     Inherits System.Windows.Forms.UserControl
 
     'UserControl overrides dispose to clean up the component list.

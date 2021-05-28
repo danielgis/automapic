@@ -91,7 +91,7 @@ def set_SSM(mxd):
     return mxd
 
 
-def set_detalle(text, max_character_by_line, first_line=False):
+def set_detalle(text, max_character_by_line, first_line=False, sep='\n'):
     if len(text) <= max_character_by_line:
         return text
     nlist = list()
@@ -106,8 +106,8 @@ def set_detalle(text, max_character_by_line, first_line=False):
             ini = end
     nlist.append(' '.join(textList[end:]))
     if first_line:
-        return nlist[0] + '\n' + ' '.join(nlist[1:])
-    return '\n'.join(nlist)
+        return nlist[0] + sep + ' '.join(nlist[1:])
+    return sep.join(nlist)
 
 def generate_map():
     global titulo, autor, escala, numero, detalle

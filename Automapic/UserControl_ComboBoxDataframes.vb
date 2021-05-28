@@ -1,10 +1,10 @@
 ﻿Imports System.Windows.Forms
 Imports ESRI.ArcGIS.ArcMapUI
 
-Public Class UserControl_ComboBoxDatarames
+Public Class UserControl_ComboBoxDataframes
     Dim name_data_frame As String = Nothing
     Private Sub cbx_uc_dataframes_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbx_uc_dataframes.SelectedIndexChanged
-        name_data_frame = cbx_uc_dataframes.SelectedValue()
+        name_data_frame = cbx_uc_dataframes.SelectedItem()
     End Sub
     Public Function getDataframeSelected()
         Return name_data_frame

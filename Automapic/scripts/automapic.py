@@ -36,7 +36,7 @@ def check_layer_inside_data_frame(features, symbols, df_name=None, query=None, z
         arcpy.RefreshTOC()
         arcpy.RefreshActiveView()
 
-def add_layer_with_new_datasource(layer, name_feature, workspace, typeWorkspace, df_name=None, query=None):
+def add_layer_with_new_datasource(layer, name_feature, workspace, typeWorkspace, df_name=None, query=None, zoom=False, scale=None):
     # Mapa actual
     mxd = arcpy.mapping.MapDocument("CURRENT")
 
@@ -74,6 +74,12 @@ def add_layer_with_new_datasource(layer, name_feature, workspace, typeWorkspace,
     # Se agrega si el layer no esta en el mapa
     if not len(layers):
         arcpy.mapping.AddLayer(df, lyr)
+    
+    if zoom:
+        df.extent = lyr.getExtent()
+    
+    if scale:
+        df.scale = scale
 
     arcpy.RefreshTOC()
     arcpy.RefreshActiveView()

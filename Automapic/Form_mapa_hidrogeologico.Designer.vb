@@ -55,16 +55,10 @@ Partial Class Form_mapa_hidrogeologico
         Me.dgv_mh_leyenda = New System.Windows.Forms.DataGridView()
         Me.lbl_mh_uhcount = New System.Windows.Forms.Label()
         Me.tp_mh_dhidrog = New System.Windows.Forms.TabPage()
-        Me.tlp_mh_dhidrog = New System.Windows.Forms.TableLayoutPanel()
-        Me.lbl_mh_acuiferos = New System.Windows.Forms.Label()
-        Me.lbl_mh_acuitardos = New System.Windows.Forms.Label()
-        Me.lbl_mh_acuicludo = New System.Windows.Forms.Label()
-        Me.lbl_mh___acuifugo = New System.Windows.Forms.Label()
-        Me.tbx_mh_acuiferos = New System.Windows.Forms.TextBox()
-        Me.tbx_mh_acuitardos = New System.Windows.Forms.TextBox()
-        Me.tbx_mh_acuicludo = New System.Windows.Forms.TextBox()
-        Me.tbx_mh_acuifugo = New System.Windows.Forms.TextBox()
-        Me.UserControl_ComboBoxDatarames1 = New Automapic.UserControl_ComboBoxDatarames()
+        Me.TableLayoutPanel5 = New System.Windows.Forms.TableLayoutPanel()
+        Me.tbx_mh_descriph = New System.Windows.Forms.TextBox()
+        Me.tvw_mh_descriph = New System.Windows.Forms.TreeView()
+        Me.UserControl_ComboBoxDataframes1 = New Automapic.UserControl_ComboBoxDataframes()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.tc_mh_tools.SuspendLayout()
         Me.tp_mh_rotulo.SuspendLayout()
@@ -77,7 +71,7 @@ Partial Class Form_mapa_hidrogeologico
         Me.TableLayoutPanel4.SuspendLayout()
         CType(Me.dgv_mh_leyenda, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tp_mh_dhidrog.SuspendLayout()
-        Me.tlp_mh_dhidrog.SuspendLayout()
+        Me.TableLayoutPanel5.SuspendLayout()
         Me.SuspendLayout()
         '
         'TableLayoutPanel1
@@ -387,7 +381,7 @@ Partial Class Form_mapa_hidrogeologico
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel3.Controls.Add(Me.btn_mh_leyenda, 0, 2)
         Me.TableLayoutPanel3.Controls.Add(Me.tc_mh_leyenda_tools, 0, 0)
-        Me.TableLayoutPanel3.Controls.Add(Me.UserControl_ComboBoxDatarames1, 0, 1)
+        Me.TableLayoutPanel3.Controls.Add(Me.UserControl_ComboBoxDataframes1, 0, 1)
         Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel3.Location = New System.Drawing.Point(3, 3)
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
@@ -476,9 +470,7 @@ Partial Class Form_mapa_hidrogeologico
         '
         'tp_mh_dhidrog
         '
-        Me.tp_mh_dhidrog.AutoScroll = True
-        Me.tp_mh_dhidrog.AutoScrollMinSize = New System.Drawing.Size(0, 500)
-        Me.tp_mh_dhidrog.Controls.Add(Me.tlp_mh_dhidrog)
+        Me.tp_mh_dhidrog.Controls.Add(Me.TableLayoutPanel5)
         Me.tp_mh_dhidrog.Location = New System.Drawing.Point(4, 25)
         Me.tp_mh_dhidrog.Name = "tp_mh_dhidrog"
         Me.tp_mh_dhidrog.Padding = New System.Windows.Forms.Padding(3)
@@ -487,118 +479,46 @@ Partial Class Form_mapa_hidrogeologico
         Me.tp_mh_dhidrog.Text = "Descripción Hidrogeológica"
         Me.tp_mh_dhidrog.UseVisualStyleBackColor = True
         '
-        'tlp_mh_dhidrog
+        'TableLayoutPanel5
         '
-        Me.tlp_mh_dhidrog.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.tlp_mh_dhidrog.ColumnCount = 1
-        Me.tlp_mh_dhidrog.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlp_mh_dhidrog.Controls.Add(Me.lbl_mh_acuiferos, 0, 0)
-        Me.tlp_mh_dhidrog.Controls.Add(Me.lbl_mh_acuitardos, 0, 2)
-        Me.tlp_mh_dhidrog.Controls.Add(Me.lbl_mh_acuicludo, 0, 4)
-        Me.tlp_mh_dhidrog.Controls.Add(Me.lbl_mh___acuifugo, 0, 6)
-        Me.tlp_mh_dhidrog.Controls.Add(Me.tbx_mh_acuiferos, 0, 1)
-        Me.tlp_mh_dhidrog.Controls.Add(Me.tbx_mh_acuitardos, 0, 3)
-        Me.tlp_mh_dhidrog.Controls.Add(Me.tbx_mh_acuicludo, 0, 5)
-        Me.tlp_mh_dhidrog.Controls.Add(Me.tbx_mh_acuifugo, 0, 7)
-        Me.tlp_mh_dhidrog.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlp_mh_dhidrog.Location = New System.Drawing.Point(3, 3)
-        Me.tlp_mh_dhidrog.Name = "tlp_mh_dhidrog"
-        Me.tlp_mh_dhidrog.RowCount = 9
-        Me.tlp_mh_dhidrog.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlp_mh_dhidrog.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
-        Me.tlp_mh_dhidrog.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlp_mh_dhidrog.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
-        Me.tlp_mh_dhidrog.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlp_mh_dhidrog.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
-        Me.tlp_mh_dhidrog.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlp_mh_dhidrog.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
-        Me.tlp_mh_dhidrog.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlp_mh_dhidrog.Size = New System.Drawing.Size(402, 494)
-        Me.tlp_mh_dhidrog.TabIndex = 0
+        Me.TableLayoutPanel5.ColumnCount = 1
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel5.Controls.Add(Me.tbx_mh_descriph, 0, 1)
+        Me.TableLayoutPanel5.Controls.Add(Me.tvw_mh_descriph, 0, 0)
+        Me.TableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel5.Location = New System.Drawing.Point(3, 3)
+        Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
+        Me.TableLayoutPanel5.RowCount = 2
+        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
+        Me.TableLayoutPanel5.Size = New System.Drawing.Size(423, 364)
+        Me.TableLayoutPanel5.TabIndex = 0
         '
-        'lbl_mh_acuiferos
+        'tbx_mh_descriph
         '
-        Me.lbl_mh_acuiferos.AutoSize = True
-        Me.lbl_mh_acuiferos.Location = New System.Drawing.Point(3, 0)
-        Me.lbl_mh_acuiferos.Name = "lbl_mh_acuiferos"
-        Me.lbl_mh_acuiferos.Size = New System.Drawing.Size(83, 17)
-        Me.lbl_mh_acuiferos.TabIndex = 0
-        Me.lbl_mh_acuiferos.Text = "1. Acuíferos"
+        Me.tbx_mh_descriph.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tbx_mh_descriph.Location = New System.Drawing.Point(3, 247)
+        Me.tbx_mh_descriph.Multiline = True
+        Me.tbx_mh_descriph.Name = "tbx_mh_descriph"
+        Me.tbx_mh_descriph.Size = New System.Drawing.Size(417, 114)
+        Me.tbx_mh_descriph.TabIndex = 0
         '
-        'lbl_mh_acuitardos
+        'tvw_mh_descriph
         '
-        Me.lbl_mh_acuitardos.AutoSize = True
-        Me.lbl_mh_acuitardos.Location = New System.Drawing.Point(3, 120)
-        Me.lbl_mh_acuitardos.Name = "lbl_mh_acuitardos"
-        Me.lbl_mh_acuitardos.Size = New System.Drawing.Size(91, 17)
-        Me.lbl_mh_acuitardos.TabIndex = 1
-        Me.lbl_mh_acuitardos.Text = "2. Acuitardos"
+        Me.tvw_mh_descriph.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tvw_mh_descriph.Location = New System.Drawing.Point(3, 3)
+        Me.tvw_mh_descriph.Name = "tvw_mh_descriph"
+        Me.tvw_mh_descriph.Size = New System.Drawing.Size(417, 238)
+        Me.tvw_mh_descriph.TabIndex = 1
         '
-        'lbl_mh_acuicludo
+        'UserControl_ComboBoxDataframes1
         '
-        Me.lbl_mh_acuicludo.AutoSize = True
-        Me.lbl_mh_acuicludo.Location = New System.Drawing.Point(3, 240)
-        Me.lbl_mh_acuicludo.Name = "lbl_mh_acuicludo"
-        Me.lbl_mh_acuicludo.Size = New System.Drawing.Size(85, 17)
-        Me.lbl_mh_acuicludo.TabIndex = 2
-        Me.lbl_mh_acuicludo.Text = "3. Acuicludo"
-        '
-        'lbl_mh___acuifugo
-        '
-        Me.lbl_mh___acuifugo.AutoSize = True
-        Me.lbl_mh___acuifugo.Location = New System.Drawing.Point(3, 360)
-        Me.lbl_mh___acuifugo.Name = "lbl_mh___acuifugo"
-        Me.lbl_mh___acuifugo.Size = New System.Drawing.Size(79, 17)
-        Me.lbl_mh___acuifugo.TabIndex = 3
-        Me.lbl_mh___acuifugo.Text = "4. Acuifugo"
-        '
-        'tbx_mh_acuiferos
-        '
-        Me.tbx_mh_acuiferos.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tbx_mh_acuiferos.Enabled = False
-        Me.tbx_mh_acuiferos.Location = New System.Drawing.Point(3, 23)
-        Me.tbx_mh_acuiferos.Multiline = True
-        Me.tbx_mh_acuiferos.Name = "tbx_mh_acuiferos"
-        Me.tbx_mh_acuiferos.Size = New System.Drawing.Size(396, 94)
-        Me.tbx_mh_acuiferos.TabIndex = 4
-        '
-        'tbx_mh_acuitardos
-        '
-        Me.tbx_mh_acuitardos.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tbx_mh_acuitardos.Enabled = False
-        Me.tbx_mh_acuitardos.Location = New System.Drawing.Point(3, 143)
-        Me.tbx_mh_acuitardos.Multiline = True
-        Me.tbx_mh_acuitardos.Name = "tbx_mh_acuitardos"
-        Me.tbx_mh_acuitardos.Size = New System.Drawing.Size(396, 94)
-        Me.tbx_mh_acuitardos.TabIndex = 5
-        '
-        'tbx_mh_acuicludo
-        '
-        Me.tbx_mh_acuicludo.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tbx_mh_acuicludo.Enabled = False
-        Me.tbx_mh_acuicludo.Location = New System.Drawing.Point(3, 263)
-        Me.tbx_mh_acuicludo.Multiline = True
-        Me.tbx_mh_acuicludo.Name = "tbx_mh_acuicludo"
-        Me.tbx_mh_acuicludo.Size = New System.Drawing.Size(396, 94)
-        Me.tbx_mh_acuicludo.TabIndex = 6
-        '
-        'tbx_mh_acuifugo
-        '
-        Me.tbx_mh_acuifugo.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tbx_mh_acuifugo.Enabled = False
-        Me.tbx_mh_acuifugo.Location = New System.Drawing.Point(3, 383)
-        Me.tbx_mh_acuifugo.Multiline = True
-        Me.tbx_mh_acuifugo.Name = "tbx_mh_acuifugo"
-        Me.tbx_mh_acuifugo.Size = New System.Drawing.Size(396, 94)
-        Me.tbx_mh_acuifugo.TabIndex = 7
-        '
-        'UserControl_ComboBoxDatarames1
-        '
-        Me.UserControl_ComboBoxDatarames1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.UserControl_ComboBoxDatarames1.Location = New System.Drawing.Point(3, 408)
-        Me.UserControl_ComboBoxDatarames1.Name = "UserControl_ComboBoxDatarames1"
-        Me.UserControl_ComboBoxDatarames1.Size = New System.Drawing.Size(437, 54)
-        Me.UserControl_ComboBoxDatarames1.TabIndex = 1
+        Me.UserControl_ComboBoxDataframes1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.UserControl_ComboBoxDataframes1.Location = New System.Drawing.Point(3, 408)
+        Me.UserControl_ComboBoxDataframes1.Name = "UserControl_ComboBoxDataframes1"
+        Me.UserControl_ComboBoxDataframes1.Size = New System.Drawing.Size(437, 54)
+        Me.UserControl_ComboBoxDataframes1.TabIndex = 1
         '
         'Form_mapa_hidrogeologico
         '
@@ -624,8 +544,8 @@ Partial Class Form_mapa_hidrogeologico
         Me.TableLayoutPanel4.PerformLayout()
         CType(Me.dgv_mh_leyenda, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tp_mh_dhidrog.ResumeLayout(False)
-        Me.tlp_mh_dhidrog.ResumeLayout(False)
-        Me.tlp_mh_dhidrog.PerformLayout()
+        Me.TableLayoutPanel5.ResumeLayout(False)
+        Me.TableLayoutPanel5.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -658,17 +578,12 @@ Partial Class Form_mapa_hidrogeologico
     Friend WithEvents tc_mh_leyenda_tools As System.Windows.Forms.TabControl
     Friend WithEvents tp_mh_classif As System.Windows.Forms.TabPage
     Friend WithEvents tp_mh_dhidrog As System.Windows.Forms.TabPage
-    Friend WithEvents UserControl_ComboBoxDatarames1 As UserControl_ComboBoxDatarames
+    'Friend WithEvents UserControl_ComboBoxDataframes As UserControl_ComboBoxDataframes
     Friend WithEvents TableLayoutPanel4 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents dgv_mh_leyenda As System.Windows.Forms.DataGridView
     Friend WithEvents lbl_mh_uhcount As System.Windows.Forms.Label
-    Friend WithEvents tlp_mh_dhidrog As System.Windows.Forms.TableLayoutPanel
-    Friend WithEvents lbl_mh_acuiferos As System.Windows.Forms.Label
-    Friend WithEvents lbl_mh_acuitardos As System.Windows.Forms.Label
-    Friend WithEvents lbl_mh_acuicludo As System.Windows.Forms.Label
-    Friend WithEvents lbl_mh___acuifugo As System.Windows.Forms.Label
-    Friend WithEvents tbx_mh_acuiferos As System.Windows.Forms.TextBox
-    Friend WithEvents tbx_mh_acuitardos As System.Windows.Forms.TextBox
-    Friend WithEvents tbx_mh_acuicludo As System.Windows.Forms.TextBox
-    Friend WithEvents tbx_mh_acuifugo As System.Windows.Forms.TextBox
+    Friend WithEvents UserControl_ComboBoxDataframes1 As UserControl_ComboBoxDataframes
+    Friend WithEvents TableLayoutPanel5 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents tbx_mh_descriph As System.Windows.Forms.TextBox
+    Friend WithEvents tvw_mh_descriph As System.Windows.Forms.TreeView
 End Class

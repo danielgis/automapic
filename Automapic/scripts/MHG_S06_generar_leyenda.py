@@ -4,13 +4,20 @@ import settings as st
 import messages as msg
 import pandas as pd
 import automapic_template_json as auttmp
+import automapic as aut
+import os
+import PG_S01_mapa_peligros_geologicos as pgeo
+
+arcpy.env.overwriteOutput = True
 
 response = dict()
 response['status'] = 1
 response['message'] = 'success'
 
 data = arcpy.GetParameterAsText(0)
-id_mapa = "1"
+clasificacion = arcpy.GetParameterAsText(1)
+id_mapa = arcpy.GetParameterAsText(2)
+df_nombre = arcpy.GetParameterAsText(3)
 # data = auttmp._LALA
 
 
@@ -31,7 +38,7 @@ def get_coords_container(*args):
     return extent_pol_json["rings"]
 
 def generate_row(objectid, descrip, id_mapa, coords):
-    row = {"attributes": {"OBJECTID": objectid, "descrip": descrip, "id_mapa": id_mapa}, "geometry": {"rings": coords}}
+    row = {"attributes": {"OBJECTID": objectid, "tipo": descrip, "id_mapa": id_mapa}, "geometry": {"rings": coords}}
     return row
 
 def get_coords_point(container, xmin, ymin, xmax, ymax):
@@ -82,10 +89,14 @@ def set_text(text, case=None, strip=True):
     return text
     
 # try:
+
+query = "{} = '{}'".format(st._ID_MAPA, id_mapa)
 y_controller = 0
 
 data = json.loads(data)
 df = pd.DataFrame(data["Table1"])
+
+clasificacion = json.loads(clasificacion)
 
 # Obteniendo la tabla de datos auxiliares 
 df_aux = get_df_legend_aux()
@@ -108,6 +119,7 @@ fhidrog_desc_p = df_aux.loc[df_aux["nombre"] == "bx_fhidrog_desc"]
 df[st._UHIDROG] = df["ID"].str[0]
 df[st._CL_HIDROG] = df["ID"].str[:2]
 df[st._SCL_HIDROG] = df["ID"].str[2]
+df["CLASE"] = df.apply(lambda row: row[st._CL_HIDROG] if row[st._SCL_HIDROG] == "0" else row["ID"][:3], axis=1)
 
 
 # Obteniendo el numero de formaciones hidrogeologicas
@@ -184,7 +196,7 @@ contador = 0
 # Container
 contador += 1
 coords = get_coords_container(x_ini, y_fin - uhidrog_p["height"].item(), x_fin_uh, y_fin)
-row = generate_row(contador, "header", id_mapa, coords)
+row = generate_row(contador, "border", id_mapa, coords)
 po_data.append(row)
 # Etiqueta
 contador += 1
@@ -198,7 +210,7 @@ pt_data.append(row)
 # Container
 contador += 1
 coords = get_coords_container(x_ini_chidrog, y_fin - chidrog_p["height"].item(), x_fin_chidrog, y_fin)
-row = generate_row(contador, "header", id_mapa, coords)
+row = generate_row(contador, "border", id_mapa, coords)
 po_data.append(row)
 # Etiqueta
 contador += 1
@@ -212,7 +224,7 @@ pt_data.append(row)
 # Container
 contador += 1
 coords = get_coords_container(x_ini_box_litologia, y_fin - litologia_p["height"].item(), x_fin_box_litologia, y_fin)
-row = generate_row(contador, "header", id_mapa, coords)
+row = generate_row(contador, "border", id_mapa, coords)
 po_data.append(row)
 # Etiqueta
 contador += 1
@@ -226,7 +238,7 @@ pt_data.append(row)
 # Container
 contador += 1
 coords = get_coords_container(x_ini_box_descrip, y_fin - descrip_p["height"].item(), x_fin_box_descrip, y_fin)
-row = generate_row(contador, "header", id_mapa, coords)
+row = generate_row(contador, "border", id_mapa, coords)
 po_data.append(row)
 # Etiqueta
 contador += 1
@@ -240,7 +252,6 @@ y_controller = y_fin - uhidrog_p["height"].item()
 
 
 for uh in uhidrog:
-    arcpy.AddMessage(uh)
     chidrog = df.loc[df[st._UHIDROG] == uh]
     chidrog = chidrog[st._CL_HIDROG].unique()
     chidrog.sort()
@@ -254,7 +265,7 @@ for uh in uhidrog:
             contador += 1
             y_abs = y_controller - space
             coords = get_coords_container(x_ini_box_hfidrog_s, y_abs - h_fhidrog, x_fin_box_hfidrog_s, y_abs)
-            row = generate_row(contador, val[st._CL_HIDROG], id_mapa, coords)
+            row = generate_row(contador, val["CLASE"], id_mapa, coords)
             po_data.append(row)
             y_controller = y_abs - h_fhidrog
 
@@ -267,7 +278,6 @@ for uh in uhidrog:
             # Construccion de etiquetas de descripcion de formaciones hidrogeologicas
             contador += 1
             coord = {'x': x_fin_cl_name + fhidrog_desc_p["width"].item(), 'y': y_abs - (h_fhidrog*0.5)}
-            arcpy.AddMessage(val)
             etiqueta = set_text(val["Descripcion"], case=fhidrog_desc_p["casetext"].item(), strip=True)
             row = {"attributes": {"OBJECTID": contador, "etiqueta": etiqueta, "tipo": "descripcion", "id_mapa": id_mapa}, "geometry": coord}
             pt_data.append(row)
@@ -276,6 +286,7 @@ for uh in uhidrog:
             contador += 1
             coord = {'x': x_ini_box_litologia + litologia_name_p["spaceh"].item(), 'y': y_abs - (h_fhidrog*0.5)}
             etiqueta = set_text(val["Litologia"], case=None, strip=True)
+            etiqueta = pgeo.set_detalle(etiqueta, litologia_name_p["ncharts"].item(), sep='|')
             row = {"attributes": {"OBJECTID": contador, "etiqueta": etiqueta, "tipo": "litologia", "id_mapa": id_mapa}, "geometry": coord}
             pt_data.append(row)
 
@@ -318,7 +329,9 @@ for uh in uhidrog:
         # Construccion de etiquetas de descripcion de las clasificaciones hidrogeologicas
         contador += 1
         coord = get_coords_point(descrip_name_p, x_ini_box_descrip, y_controller, x_fin_box_descrip, y_top_cl)
-        row = {"attributes": {"OBJECTID": contador, "etiqueta": "asdasdasd", "tipo": "descripcion hidrogeologica", "id_mapa": id_mapa}, "geometry": coord}
+        # arcpy.AddMessage(clasificacion[ch])
+        etiqueta = pgeo.set_detalle(clasificacion[ch], descrip_name_p["ncharts"].item(), sep='|')
+        row = {"attributes": {"OBJECTID": contador, "etiqueta": etiqueta, "tipo": "descripcion hidrogeologica", "id_mapa": id_mapa}, "geometry": coord}
         pt_data.append(row)
 
 
@@ -335,17 +348,30 @@ for uh in uhidrog:
     row = {"attributes": {"OBJECTID": contador, "etiqueta": etiqueta, "tipo": "unidad hidrogeolica", "id_mapa": id_mapa}, "geometry": coord}
     pt_data.append(row)
 
+
 auttmp._PO_LEYENDA_TEMPLATE_MHG["features"] = po_data
 po_feature = arcpy.AsShape(auttmp._PO_LEYENDA_TEMPLATE_MHG, True)
+po_leyenda_mfl = arcpy.MakeFeatureLayer_management(st._PO_01_LEYENDA_DIVISIONES_PATH, 'po_leyenda_path_{}'.format(id_mapa), query)
+arcpy.DeleteRows_management(po_leyenda_mfl)
 arcpy.Append_management(po_feature, st._PO_01_LEYENDA_DIVISIONES_PATH, "NO_TEST")
 
 auttmp._PT_LEYENDA_TEMPLATE_MHG["features"] = pt_data
-po_feature = arcpy.AsShape(auttmp._PT_LEYENDA_TEMPLATE_MHG, True)
-arcpy.Append_management(po_feature, st._PT_01_LEYENDA_ETIQUETAS_PATH, "NO_TEST")
+pt_feature = arcpy.AsShape(auttmp._PT_LEYENDA_TEMPLATE_MHG, True)
+pt_leyenda_mfl = arcpy.MakeFeatureLayer_management(st._PT_01_LEYENDA_ETIQUETAS_PATH, 'pt_leyenda_path_{}'.format(id_mapa), query)
+arcpy.DeleteRows_management(pt_leyenda_mfl)
+arcpy.Append_management(pt_feature, st._PT_01_LEYENDA_ETIQUETAS_PATH, "NO_TEST")
+
+name_pt_leyenda = os.path.basename(st._PT_01_LEYENDA_ETIQUETAS_PATH)
+lyer_pt = os.path.join(st._BASE_DIR, 'layers/{}.lyr'.format(name_pt_leyenda))
+aut.add_layer_with_new_datasource(lyer_pt, name_pt_leyenda, st._GDB_PATH_HG, "FILEGDB_WORKSPACE", df_name=df_nombre, query=query)
+
+name_po_leyenda = os.path.basename(st._PO_01_LEYENDA_DIVISIONES_PATH)
+lyer_po = os.path.join(st._BASE_DIR, 'layers/{}.lyr'.format(name_po_leyenda))
+aut.add_layer_with_new_datasource(lyer_po, name_po_leyenda, st._GDB_PATH_HG, "FILEGDB_WORKSPACE", df_name=df_nombre, query=query, zoom=True, scale=2500)
 
 # except Exception as e:
 #     response['status'] = 0
 #     response['message'] = e.message
 # finally:
 response = json.dumps(response, encoding='windows-1252', ensure_ascii=False)
-# arcpy.SetParameterAsText(0, response)
+arcpy.SetParameterAsText(4, response)

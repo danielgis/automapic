@@ -96,6 +96,9 @@
     <Reference Include="ESRI.ArcGIS.GeoprocessingUI, Version=10.4.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="ESRI.ArcGIS.Maplex, Version=10.4.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="ESRI.ArcGIS.System">
       <Private>False</Private>
     </Reference>
@@ -188,10 +191,10 @@
     </Compile>
     <Compile Include="settings.vb" />
     <Compile Include="toolbox.vb" />
-    <Compile Include="UserControl_ComboBoxDatarames.Designer.vb">
-      <DependentUpon>UserControl_ComboBoxDatarames.vb</DependentUpon>
+    <Compile Include="UserControl_ComboBoxDataframes.Designer.vb">
+      <DependentUpon>UserControl_ComboBoxDataframes.vb</DependentUpon>
     </Compile>
-    <Compile Include="UserControl_ComboBoxDatarames.vb">
+    <Compile Include="UserControl_ComboBoxDataframes.vb">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>
@@ -223,8 +226,8 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl_ComboBoxDatarames.resx">
-      <DependentUpon>UserControl_ComboBoxDatarames.vb</DependentUpon>
+    <EmbeddedResource Include="UserControl_ComboBoxDataframes.resx">
+      <DependentUpon>UserControl_ComboBoxDataframes.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -281,6 +284,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="scripts\layers\pog.lyr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="scripts\layers\PO_01_LEYENDA.lyr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="scripts\layers\PT_01_LEYENDA_ETIQUETAS.lyr">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="scripts\mxd\T0117.mxd">
