@@ -369,6 +369,10 @@ Public Class Form_mapa_hidrogeologico
                 End If
             Next
         Next
+
+        UC_CheckBoxAddLayers1.LoadOptions(1, parent:=True)
+
+
         ''To iterate through all the rows in the DataSet
         'For Each row As DataRow In dtableTv.GetChildRows("TreeParentChild")
         '    'Creating a TreeNode for each row

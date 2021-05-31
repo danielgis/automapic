@@ -191,6 +191,12 @@
     </Compile>
     <Compile Include="settings.vb" />
     <Compile Include="toolbox.vb" />
+    <Compile Include="UserControl_CheckBoxAddLayers.Designer.vb">
+      <DependentUpon>UserControl_CheckBoxAddLayers.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl_CheckBoxAddLayers.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="UserControl_ComboBoxDataframes.Designer.vb">
       <DependentUpon>UserControl_ComboBoxDataframes.vb</DependentUpon>
     </Compile>
@@ -225,6 +231,9 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControl_CheckBoxAddLayers.resx">
+      <DependentUpon>UserControl_CheckBoxAddLayers.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControl_ComboBoxDataframes.resx">
       <DependentUpon>UserControl_ComboBoxDataframes.vb</DependentUpon>
@@ -430,6 +439,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\G_S05_instalar_librerias.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="scripts\G_S06_obtener_arbol_capas.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\img\logo_ingemmet.png">

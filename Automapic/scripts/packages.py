@@ -12,6 +12,10 @@ cursor = conn.cursor()
 def packageDecore(func):
     def decorator(*args, **kwargs):
         global conn, cursor
+        if kwargs.get('as_dataframe'):
+            import pandas as pd
+            df = pd.read_sql(*args, conn)
+            return df            
         package = func(*args, **kwargs)
         cursor.execute(package)
         if kwargs.get('iscommit'):
@@ -62,6 +66,10 @@ def get_config_by_user(user):
 @packageDecore
 def set_config_param(id_parameter, value, iscommit=True):
     return "UPDATE TB_CONFIG SET VALUE = '{}' WHERE ID = {}".format(value, id_parameter)
+
+@packageDecore
+def set_config_param(category, as_dataframe=True):
+    return "SELECT * FROM TB_LAYERS WHERE CATEGORY = {}".format(category)
 
 
 # @packageDecore
