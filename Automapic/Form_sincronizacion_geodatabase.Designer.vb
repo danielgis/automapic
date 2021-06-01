@@ -57,7 +57,7 @@ Partial Class Form_sincronizacion_geodatabase
         Me.TableLayoutPanel1.Controls.Add(Me.rbtn_sg_estds, 0, 6)
         Me.TableLayoutPanel1.Controls.Add(Me.rbtn_sg_estraiz, 0, 7)
         Me.TableLayoutPanel1.Controls.Add(Me.dg_sg_capas, 0, 11)
-        Me.TableLayoutPanel1.Controls.Add(Me.btn_sg_enviar, 1, 13)
+        Me.TableLayoutPanel1.Controls.Add(Me.btn_sg_enviar, 0, 13)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
@@ -160,6 +160,7 @@ Partial Class Form_sincronizacion_geodatabase
         '
         'cbx_sg_filtrocapas
         '
+        Me.cbx_sg_filtrocapas.Enabled = False
         Me.cbx_sg_filtrocapas.FormattingEnabled = True
         Me.cbx_sg_filtrocapas.Location = New System.Drawing.Point(3, 228)
         Me.cbx_sg_filtrocapas.Name = "cbx_sg_filtrocapas"
@@ -203,10 +204,11 @@ Partial Class Form_sincronizacion_geodatabase
         '
         'btn_sg_enviar
         '
+        Me.TableLayoutPanel1.SetColumnSpan(Me.btn_sg_enviar, 2)
         Me.btn_sg_enviar.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btn_sg_enviar.Location = New System.Drawing.Point(333, 650)
+        Me.btn_sg_enviar.Location = New System.Drawing.Point(3, 650)
         Me.btn_sg_enviar.Name = "btn_sg_enviar"
-        Me.btn_sg_enviar.Size = New System.Drawing.Size(74, 24)
+        Me.btn_sg_enviar.Size = New System.Drawing.Size(404, 24)
         Me.btn_sg_enviar.TabIndex = 16
         Me.btn_sg_enviar.Text = "Enviar"
         Me.btn_sg_enviar.UseVisualStyleBackColor = True

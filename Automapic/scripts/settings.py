@@ -101,3 +101,11 @@ _ID = "id"
 _GREEN = "green"
 _RED = "red"
 _BLUE = "blue"
+
+
+# ---------------------------------------------------------------------------------------------------
+# :Sincronizacion geodatabase
+# :Tipos de Filtrado para lista de capas
+_ORIGEN = "Todas las capas de la fuente"
+_EXTFILE = "Archivo CSV"
+_MXD_ACTUAL = "Capas del MXD Actual"
