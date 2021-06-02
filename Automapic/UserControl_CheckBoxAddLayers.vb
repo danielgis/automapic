@@ -31,11 +31,17 @@ Public Class UserControl_CheckBoxAddLayers
             If kvp.item("parent") = "999" Then
                 arrayParents.Add(treeNode)
                 tvw_layers.Nodes.Add(treeNode)
+                treeNode.Checked = True
+                'tvw_layers.Checked = e.Node.Checked
                 Continue For
+            End If
+            If kvp.item("state") = 1 Then
+                treeNode.Checked = True
             End If
             For Each prn In arrayParents
                 If prn.Name = kvp.item("parent") Then
                     prn.Nodes.Add(treeNode)
+                    Continue For
                 End If
             Next
         Next

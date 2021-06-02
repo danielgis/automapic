@@ -11,22 +11,24 @@ cursor = conn.cursor()
 
 def packageDecore(func):
     def decorator(*args, **kwargs):
-        global conn, cursor
-        if kwargs.get('as_dataframe'):
-            import pandas as pd
-            df = pd.read_sql(*args, conn)
-            return df            
+        global conn, cursor    
         package = func(*args, **kwargs)
-        cursor.execute(package)
         if kwargs.get('iscommit'):
             return
         elif kwargs.get('getcursor'):
+            cursor.execute(package)
             return cursor
         elif kwargs.get('returnsql'):
             return package
         elif kwargs.get('one'):
+            cursor.execute(package)
             return cursor.fetchone()[0]
-        return cursor.fetchall()
+        elif kwargs.get('as_dataframe'):
+            import pandas as pd
+            return pd.read_sql(package, conn)
+        else:
+            cursor.execute(package)
+            return cursor.fetchall()
 
     return decorator
 
