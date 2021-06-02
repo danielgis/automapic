@@ -30,6 +30,7 @@ Public Class Form_sincronizacion_geodatabase
     Dim RuntimeError As AutomapicExceptions = New AutomapicExceptions()
     Dim ruta_origen As String
     Dim ruta_destino As String
+    Dim csv_result As String
     Dim params As New List(Of Object)
     Dim dataset As String
     Private HeaderCheckBox As CheckBox = Nothing
@@ -289,8 +290,6 @@ Public Class Form_sincronizacion_geodatabase
 
     Private Sub btn_sg_enviar_Click(sender As Object, e As EventArgs) Handles btn_sg_enviar.Click
         If dg_sg_capas.Rows.Count > 0 Then
-            'Dim sfd As SaveFileDialog = New SaveFileDialog()
-            'sfd.Filter = "CSV (*.csv)|*.csv"
             Dim FileName As String = "D:\prueba1\file_dgrid.csv"
             'sfd.FileName = "Output.csv"
             Dim fileError As Boolean = False
@@ -304,7 +303,7 @@ Public Class Form_sincronizacion_geodatabase
                         File.Delete(FileName)
                     Catch ex As IOException
                         fileError = True
-                        MessageBox.Show("It wasn't possible to write the data to the disk." & ex.Message)
+                        MessageBox.Show("No fue posible escribir el archivo csv resultado" & ex.Message)
                     End Try
                 End If
 
@@ -332,7 +331,28 @@ Public Class Form_sincronizacion_geodatabase
                         End While
 
                         File.WriteAllLines(FileName, outputCsv, Encoding.UTF8)
-                        MessageBox.Show("Data Exported Successfully !!!", "Info")
+                        csv_result = FileName
+
+                        params.Clear()
+                        params.Add(ruta_origen)
+                        params.Add(ruta_destino)
+                        params.Add(csv_result)
+                        Dim response = ExecuteGP(_tool_sendFilesToGDB, params, _toolboxPath_sincronizacion_geodatabase)
+                        Dim responseJson = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(response)
+                        If responseJson.Item("status") = 0 Then
+                            RuntimeError.PythonError = responseJson.Item("message")
+                            MessageBox.Show(RuntimeError.PythonError, __title__, MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+                            runProgressBar("ini")
+                            'Cursor.Current = Cursors.Default
+                            Return
+                        End If
+
+                        Dim numeroCapasExportadas = responseJson.Item("response")
+                        Dim mensaje_exportadas As String = "Se exportaron satisfactoriamente " & numeroCapasExportadas & "capas"
+
+
+                        MessageBox.Show(mensaje_exportadas, "Info")
                     Catch ex As Exception
                         MessageBox.Show("Error :" & ex.Message)
                     End Try
@@ -341,5 +361,7 @@ Public Class Form_sincronizacion_geodatabase
         Else
             MessageBox.Show("No Record To Export !!!", "Info")
         End If
+
+
     End Sub
 End Class

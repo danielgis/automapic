@@ -49,6 +49,7 @@ Module toolbox
     ':HERRAMIENTAS DEL MODULO DE SINCRONIZACION DE GEODATABASE
     Public _tool_getFilterModeOptions As String = "getFilterModeOptions"
     Public _tool_getListOfLayers As String = "getListOfLayers"
+    Public _tool_sendFilesToGDB As String = "sendFilesToGDB"
 
 
 

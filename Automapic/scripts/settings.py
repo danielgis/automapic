@@ -109,3 +109,6 @@ _BLUE = "blue"
 _ORIGEN = "Todas las capas de la fuente"
 _EXTFILE = "Archivo CSV"
 _MXD_ACTUAL = "Capas del MXD Actual"
+
+# Escritorio del usuario
+_DESKTOP_PATH = u'c:/users/%userprofile/desktop'

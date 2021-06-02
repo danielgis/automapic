@@ -9,6 +9,8 @@ import messages as msg
 import traceback
 import json
 import pandas as pd
+import pythonaddins
+import Tkinter, tkFileDialog
 
 gdb_origen = arcpy.GetParameterAsText(0)
 gdb_destino = arcpy.GetParameterAsText(1)
@@ -106,19 +108,27 @@ def get_tabla(gdbini, gdbfin, filtro=None, ds=None):
     if not filtro:
         pass
 
-    elif filtro.lower() == "mxd actual":
+    elif filtro == _MXD_ACTUAL:
         mxd = arcpy.mapping.MapDocument("current")
         listafiltro = arcpy.mapping.ListLayers(mxd)
-        for capa in listafiltro:
-            source = capa.dataSource
-            name = source.split('.gdb\\')[1]
-            lista_filtro.append(name)
+        if len(listafiltro) >0:
+            for capa in listafiltro:
+                source = capa.dataSource
+                name = source.split('.gdb\\')[1]
+                lista_filtro.append(name)
+        else:
+            pythonaddins.MessageBox(_ERROR_EMPTY_MXD, _ERROR_DIALOG,0)
 
-    elif filtro.lower() == 'file':
-        if filtro.endswith('.csv'):
-            dataf = pd.read_csv(filtro)
-        elif filtro.endswith('.xls') or filtro.endswith('.xlsx'):
-            dataf = pd.read_excel(filtro)
+
+    elif filtro == _EXTFILE:
+        # filtrofile = pythonaddins.OpenDialog(_OPEN_DIALOG_TITLE, False,_DESKTOP_PATH, _OPEN_DIALOG_BUTTON_TITLE)
+        root = Tkinter.Tk()
+        root.withdraw()
+        filtrofile = tkFileDialog.askopenfilename(initialdir = "/",title = _OPEN_DIALOG_TITLE ,filetypes = (("Archivos CSV","*.csv"),("Archivos EXCEL","*.xls*"),("Todos los archivos","*.*")))
+        if filtrofile.endswith('.csv'):
+            dataf = pd.read_csv(filtrofile)
+        elif filtrofile.endswith('.xls') or filtrofile.endswith('.xlsx'):
+            dataf = pd.read_excel(filtrofile)
         firstcolumn = dataf.iloc[:, 0]
         listafiltro = firstcolumn.tolist()
         lista_filtro = listafiltro
@@ -147,7 +157,6 @@ def get_tabla(gdbini, gdbfin, filtro=None, ds=None):
     return resultado
 
 try:
-    arcpy.AddWarning("hola")
     if dataset.lower() == 'no':
         dataset= None
     dataframeAsJson = get_tabla(gdb_origen, gdb_destino, filtro, dataset)
