@@ -44,7 +44,7 @@ def add_layer_with_new_datasource(layer, name_feature, workspace, typeWorkspace,
     if df_name:
         dfs = arcpy.mapping.ListDataFrames(mxd, "*{}*".format(df_name))
         if not len(dfs):
-            raise RuntimeError()
+            raise RuntimeError("El data frame ingresado no existe")
         df = dfs[0]
     else:
         df = mxd.activeDataFrame

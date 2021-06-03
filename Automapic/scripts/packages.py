@@ -14,6 +14,7 @@ def packageDecore(func):
         global conn, cursor    
         package = func(*args, **kwargs)
         if kwargs.get('iscommit'):
+            cursor.execute(package)
             return
         elif kwargs.get('getcursor'):
             cursor.execute(package)
@@ -70,8 +71,12 @@ def set_config_param(id_parameter, value, iscommit=True):
     return "UPDATE TB_CONFIG SET VALUE = '{}' WHERE ID = {}".format(value, id_parameter)
 
 @packageDecore
-def set_config_param(category, as_dataframe=True):
+def get_tree_layers(category, as_dataframe=True):
     return "SELECT * FROM TB_LAYERS WHERE CATEGORY = {}".format(category)
+
+@packageDecore
+def set_datasources_tree_layers(datasource, category, settable, iscommit=True):
+    return "UPDATE TB_LAYERS SET DATASOURCE = '{}' WHERE CATEGORY = {} AND SETTABLE = {}".format(datasource, category, settable)
 
 
 # @packageDecore

@@ -28,6 +28,8 @@ Module toolbox
     Public _tool_updateSettings As String = "updateSettings"
     Public _tool_installPackages As String = "installPackages"
     Public _tool_treeLayers As String = "treeLayers"
+    Public _tool_addLayerToDataFrame As String = "addLayerToDataFrame"
+    Public _tool_removeFeatureOfTOC As String = "removeFeatureOfTOC"
 
     ':HERRAMIENTAS DEL MODULO DE MAPAS DE PELIGROS GEOLOGICOS
     Public _tool_mapGeologicalHazards As String = "mapGeologicalHazards"

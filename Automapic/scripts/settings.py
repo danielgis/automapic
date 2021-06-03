@@ -9,6 +9,8 @@ _REQUIREMENTS_DIR = os.path.join(_BASE_DIR, 'require')
 _IMG_DIR = os.path.join(_BASE_DIR, 'img')
 _IMG_LOGO_INGEMMET = os.path.join(_IMG_DIR, 'logo_ingemmet.png')
 
+_BDGEOCAT_SDE = os.path.join(_BASE_DIR, 'bdgeocat.sde')
+
 _ZONAS_GEOGRAFICAS = [17, 18, 19]
 _EPSG_W17S = 32717
 _EPSG_W18S = 32718
@@ -22,7 +24,7 @@ _EXT_LAYER = '.lyr'     # Extension de archivos Layer
 # Plano topografico 25000
 
 _GDB_DIR = pkg.get_config_param_value('GDB_PATH_PT', one=True)
-_CUADRICULAS_PATH = os.path.join(_GDB_DIR, 'PO_00_cuadriculas')
+_CUADRICULAS_PATH = os.path.join(_GDB_DIR if _GDB_DIR else '', 'PO_00_cuadriculas')
 _MXD_DIR = os.path.join(_BASE_DIR, 'mxd')
 _MXD_17 = os.path.join(_MXD_DIR, 'T0117.mxd')
 _MXD_18 = os.path.join(_MXD_DIR, 'T0218.mxd')

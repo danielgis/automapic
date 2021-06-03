@@ -58,7 +58,13 @@ if bdgeocat_conn:
     mxd19_pg.save()
     del mxd19_pg
 
+    pkg.set_datasources_tree_layers(bdgeocat_conn, 1, 9, iscommit=True)
+else:
+    pkg.set_datasources_tree_layers(st._BDGEOCAT_SDE, 1, 9, iscommit=True)
+
 arcpy.AddMessage(msg._SET_GDB_MHIDROGEO)
-pkg.set_config_param(4, gdb_mhidrogeo, iscommit=True)
+if gdb_mhidrogeo:
+    pkg.set_config_param(4, gdb_mhidrogeo, iscommit=True)
+    pkg.set_datasources_tree_layers(gdb_mhidrogeo, 1, 1, iscommit=True)
 
 arcpy.AddMessage(msg._PROCESS_FINISHED)

@@ -108,7 +108,7 @@ Partial Class Form_mapa_hidrogeologico
         Me.cbx_mh_cuencas.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cbx_mh_cuencas.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cbx_mh_cuencas.FormattingEnabled = True
-        Me.cbx_mh_cuencas.Location = New System.Drawing.Point(3, 28)
+        Me.cbx_mh_cuencas.Location = New System.Drawing.Point(3, 27)
         Me.cbx_mh_cuencas.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.cbx_mh_cuencas.Name = "cbx_mh_cuencas"
         Me.cbx_mh_cuencas.Size = New System.Drawing.Size(457, 24)
@@ -166,7 +166,7 @@ Partial Class Form_mapa_hidrogeologico
         Me.tp_mh_capas.Controls.Add(Me.TableLayoutPanel6)
         Me.tp_mh_capas.ImageIndex = 8
         Me.tp_mh_capas.Location = New System.Drawing.Point(4, 25)
-        Me.tp_mh_capas.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tp_mh_capas.Margin = New System.Windows.Forms.Padding(4)
         Me.tp_mh_capas.Name = "tp_mh_capas"
         Me.tp_mh_capas.Size = New System.Drawing.Size(449, 514)
         Me.tp_mh_capas.TabIndex = 2
@@ -180,10 +180,11 @@ Partial Class Form_mapa_hidrogeologico
         Me.TableLayoutPanel6.Controls.Add(Me.UC_CheckBoxAddLayers1, 0, 0)
         Me.TableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel6.Location = New System.Drawing.Point(0, 0)
-        Me.TableLayoutPanel6.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TableLayoutPanel6.Margin = New System.Windows.Forms.Padding(4)
         Me.TableLayoutPanel6.Name = "TableLayoutPanel6"
         Me.TableLayoutPanel6.RowCount = 1
         Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 514.0!))
         Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel6.Size = New System.Drawing.Size(449, 514)
         Me.TableLayoutPanel6.TabIndex = 0
@@ -192,7 +193,7 @@ Partial Class Form_mapa_hidrogeologico
         '
         Me.UC_CheckBoxAddLayers1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.UC_CheckBoxAddLayers1.Location = New System.Drawing.Point(5, 5)
-        Me.UC_CheckBoxAddLayers1.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.UC_CheckBoxAddLayers1.Margin = New System.Windows.Forms.Padding(5)
         Me.UC_CheckBoxAddLayers1.Name = "UC_CheckBoxAddLayers1"
         Me.UC_CheckBoxAddLayers1.Size = New System.Drawing.Size(439, 504)
         Me.UC_CheckBoxAddLayers1.TabIndex = 1
@@ -538,7 +539,7 @@ Partial Class Form_mapa_hidrogeologico
         Me.tp_mh_dhidrog.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.tp_mh_dhidrog.Name = "tp_mh_dhidrog"
         Me.tp_mh_dhidrog.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.tp_mh_dhidrog.Size = New System.Drawing.Size(428, 371)
+        Me.tp_mh_dhidrog.Size = New System.Drawing.Size(429, 376)
         Me.tp_mh_dhidrog.TabIndex = 1
         Me.tp_mh_dhidrog.Text = "Descripción Hidrogeológica"
         Me.tp_mh_dhidrog.UseVisualStyleBackColor = True
@@ -557,17 +558,17 @@ Partial Class Form_mapa_hidrogeologico
         Me.TableLayoutPanel5.RowCount = 2
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 121.0!))
-        Me.TableLayoutPanel5.Size = New System.Drawing.Size(422, 367)
+        Me.TableLayoutPanel5.Size = New System.Drawing.Size(423, 372)
         Me.TableLayoutPanel5.TabIndex = 0
         '
         'tbx_mh_descriph
         '
         Me.tbx_mh_descriph.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tbx_mh_descriph.Location = New System.Drawing.Point(3, 248)
+        Me.tbx_mh_descriph.Location = New System.Drawing.Point(3, 253)
         Me.tbx_mh_descriph.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.tbx_mh_descriph.Multiline = True
         Me.tbx_mh_descriph.Name = "tbx_mh_descriph"
-        Me.tbx_mh_descriph.Size = New System.Drawing.Size(416, 117)
+        Me.tbx_mh_descriph.Size = New System.Drawing.Size(417, 117)
         Me.tbx_mh_descriph.TabIndex = 0
         '
         'tvw_mh_descriph
@@ -576,7 +577,7 @@ Partial Class Form_mapa_hidrogeologico
         Me.tvw_mh_descriph.Location = New System.Drawing.Point(3, 2)
         Me.tvw_mh_descriph.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.tvw_mh_descriph.Name = "tvw_mh_descriph"
-        Me.tvw_mh_descriph.Size = New System.Drawing.Size(416, 242)
+        Me.tvw_mh_descriph.Size = New System.Drawing.Size(417, 247)
         Me.tvw_mh_descriph.TabIndex = 1
         '
         'UserControl_ComboBoxDataframes1
