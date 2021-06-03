@@ -96,6 +96,9 @@
     <Reference Include="ESRI.ArcGIS.GeoprocessingUI, Version=10.4.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="ESRI.ArcGIS.Maplex, Version=10.4.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="ESRI.ArcGIS.System">
       <Private>False</Private>
     </Reference>
@@ -194,10 +197,16 @@
     </Compile>
     <Compile Include="settings.vb" />
     <Compile Include="toolbox.vb" />
-    <Compile Include="UserControl_ComboBoxDatarames.Designer.vb">
-      <DependentUpon>UserControl_ComboBoxDatarames.vb</DependentUpon>
+    <Compile Include="UserControl_CheckBoxAddLayers.Designer.vb">
+      <DependentUpon>UserControl_CheckBoxAddLayers.vb</DependentUpon>
     </Compile>
-    <Compile Include="UserControl_ComboBoxDatarames.vb">
+    <Compile Include="UserControl_CheckBoxAddLayers.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControl_ComboBoxDataframes.Designer.vb">
+      <DependentUpon>UserControl_ComboBoxDataframes.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl_ComboBoxDataframes.vb">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>
@@ -232,8 +241,11 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl_ComboBoxDatarames.resx">
-      <DependentUpon>UserControl_ComboBoxDatarames.vb</DependentUpon>
+    <EmbeddedResource Include="UserControl_CheckBoxAddLayers.resx">
+      <DependentUpon>UserControl_CheckBoxAddLayers.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControl_ComboBoxDataframes.resx">
+      <DependentUpon>UserControl_ComboBoxDataframes.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -247,7 +259,7 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="packages.config" />
-    <None Include="scripts\arc_danielgis.sde">
+    <None Include="scripts\bdgeocat.sde">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="scripts\layers\cuadriculas.lyr">
@@ -290,6 +302,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="scripts\layers\pog.lyr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="scripts\layers\PO_01_LEYENDA.lyr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="scripts\layers\PT_01_LEYENDA_ETIQUETAS.lyr">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="scripts\mxd\T0117.mxd">
@@ -435,6 +453,15 @@
     <Content Include="scripts\G_S05_instalar_librerias.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="scripts\G_S06_obtener_arbol_capas.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="scripts\G_S07_cargar_layer.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="scripts\G_S08_remover_feature.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="scripts\img\logo_ingemmet.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -469,6 +496,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\MHG_S05_formaciones_hidrogeologicas_unicas.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="scripts\MHG_S06_generar_leyenda.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\packages.py">

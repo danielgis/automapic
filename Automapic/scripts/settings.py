@@ -9,6 +9,8 @@ _REQUIREMENTS_DIR = os.path.join(_BASE_DIR, 'require')
 _IMG_DIR = os.path.join(_BASE_DIR, 'img')
 _IMG_LOGO_INGEMMET = os.path.join(_IMG_DIR, 'logo_ingemmet.png')
 
+_BDGEOCAT_SDE = os.path.join(_BASE_DIR, 'bdgeocat.sde')
+
 _ZONAS_GEOGRAFICAS = [17, 18, 19]
 _EPSG_W17S = 32717
 _EPSG_W18S = 32718
@@ -22,7 +24,7 @@ _EXT_LAYER = '.lyr'     # Extension de archivos Layer
 # Plano topografico 25000
 
 _GDB_DIR = pkg.get_config_param_value('GDB_PATH_PT', one=True)
-_CUADRICULAS_PATH = os.path.join(_GDB_DIR, 'PO_00_cuadriculas')
+_CUADRICULAS_PATH = os.path.join(_GDB_DIR if _GDB_DIR else '', 'PO_00_cuadriculas')
 _MXD_DIR = os.path.join(_BASE_DIR, 'mxd')
 _MXD_17 = os.path.join(_MXD_DIR, 'T0117.mxd')
 _MXD_18 = os.path.join(_MXD_DIR, 'T0218.mxd')
@@ -83,7 +85,10 @@ _GDB_PATH_HG = pkg.get_config_param_value('GDB_PATH_HG', one=True)
 _PL_01_CUENCAS_HIDROGRAFICAS_PATH = os.path.join(_GDB_PATH_HG if _GDB_PATH_HG else '', 'PL_01_cuencas_hidrograficas')
 _TB_01_AUTOR_PATH = os.path.join(_GDB_PATH_HG if _GDB_PATH_HG else '', 'TB_01_autor')
 _PO_01_FORMACION_HIDROGEOLOGICA_PATH = os.path.join(_GDB_PATH_HG if _GDB_PATH_HG else '', 'PO_01_formacion_hidrogeologica_{}s')
-_TB_01_UNIDAD_HIDROGEOLOGICA_PATH = os.path.join(_GDB_PATH_HG if _GDB_PATH_HG else '', 'TB_01_unidadad_hidrogeologica')
+_TB_01_UNIDAD_HIDROGEOLOGICA_PATH = os.path.join(_GDB_PATH_HG if _GDB_PATH_HG else '', 'TB_01_unidad_hidrogeologica')
+_TB_01_LEYENDA_AUX_PATH = os.path.join(_GDB_PATH_HG if _GDB_PATH_HG else '', 'TB_01_leyenda_aux')
+_PO_01_LEYENDA_DIVISIONES_PATH = os.path.join(_GDB_PATH_HG if _GDB_PATH_HG else '', 'PO_01_leyenda')
+_PT_01_LEYENDA_ETIQUETAS_PATH = os.path.join(_GDB_PATH_HG if _GDB_PATH_HG else '', 'PT_01_leyenda_etiquetas')
 
 # :FIELDS
 _CD_CUENCA = 'cd_cuenca'
@@ -96,6 +101,8 @@ _ID_FHIDROG = "id_fhidrog"
 _N_FHIDROG = "n_fhidrog"
 _D_FHIDROG = "d_fhidrog"
 _LITOLOGIA_G = "litologia_g"
+_ORDEN = "orden"
+_UHIDROG = "uhidrog"
 
 _ID = "id"
 _GREEN = "green"
@@ -112,3 +119,7 @@ _MXD_ACTUAL = "Capas del MXD Actual"
 
 # Escritorio del usuario
 _DESKTOP_PATH = u'c:/users/%userprofile/desktop'
+_CL_HIDROG = "cl_hidrog"
+_SCL_HIDROG = "scl_hidrog"
+_ID_MAPA = "id_mapa"
+_ID_PADRE = "id_padre"

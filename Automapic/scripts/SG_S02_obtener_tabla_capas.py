@@ -54,9 +54,9 @@ def get_filtrados(valor, lista):
     Si el valor no existe, devuelve el nombre del valor y el indicador 0
     """
     for i in lista:
-        if valor in i:
-            return [1, i]
-    return [0, valor]
+        if valor in i[0]:
+            return [1, i[0],i[1]]
+    return [0, valor,i[1]]
 
 
 def get_nombre_destino(valor, ds):
@@ -99,48 +99,65 @@ def getnum(capa, gdb):
                 num = int(arcpy.GetCount_management(fc).getOutput(0))
     return num
 
-
+def getboolean(numero):
+    if numero<=0:
+        return 0
+    else:
+        return 1
 def get_tabla(gdbini, gdbfin, filtro=None, ds=None):
     lista_ini = getcapas(gdbini, ds='si')
     # lista_fin = getcapas(ini, ds)
     lista_filtro = []
 
-    if not filtro:
+    if filtro == st._ORIGEN:
         pass
-
-    elif filtro == _MXD_ACTUAL:
+    elif filtro == st._MXD_ACTUAL:
         mxd = arcpy.mapping.MapDocument("current")
-        listafiltro = arcpy.mapping.ListLayers(mxd)
-        if len(listafiltro) >0:
-            for capa in listafiltro:
+        listalayers = arcpy.mapping.ListLayers(mxd)
+        listatablas = arcpy.mapping.ListTableViews(mxd)
+        if len(listalayers) >0:
+            for capa in listalayers:
                 source = capa.dataSource
-                name = source.split('.gdb\\')[1]
+                if '.gdb' in source:
+                    name = source.split('.gdb')[1][1:]
+                elif '.sde' in source:
+                    name = source.split('.sde')[1][1:]
+                else:
+                    name =os.path.basename(source)
                 lista_filtro.append(name)
-        else:
+        if len(listatablas)>0:
+            for tabla in listatablas:
+                source = tabla.dataSource
+                if '.gdb' in source:
+                    name = source.split('.gdb')[1][1:]
+                elif '.sde' in source:
+                    name = source.split('.sde')[1][1:]
+                else:
+                    name =os.path.basename(source)
+                lista_filtro.append([name,source])
+        
+        if len(listalayers)==0 and len(listatablas)==0:
             pythonaddins.MessageBox(_ERROR_EMPTY_MXD, _ERROR_DIALOG,0)
 
 
-    elif filtro == _EXTFILE:
-        # filtrofile = pythonaddins.OpenDialog(_OPEN_DIALOG_TITLE, False,_DESKTOP_PATH, _OPEN_DIALOG_BUTTON_TITLE)
-        root = Tkinter.Tk()
-        root.withdraw()
-        filtrofile = tkFileDialog.askopenfilename(initialdir = "/",title = _OPEN_DIALOG_TITLE ,filetypes = (("Archivos CSV","*.csv"),("Archivos EXCEL","*.xls*"),("Todos los archivos","*.*")))
-        if filtrofile.endswith('.csv'):
+    else:
+        if filtro.endswith('.csv'):
             dataf = pd.read_csv(filtrofile)
-        elif filtrofile.endswith('.xls') or filtrofile.endswith('.xlsx'):
+        elif filtro.endswith('.xls') or filtro.endswith('.xlsx'):
             dataf = pd.read_excel(filtrofile)
         firstcolumn = dataf.iloc[:, 0]
         listafiltro = firstcolumn.tolist()
-        lista_filtro = listafiltro
+        lista_filtro = [[x,0] for x in listafiltro]
 
     if len(lista_filtro) == 0:
-        lista_ini_ = [[1,x] for x in lista_ini] 
+        # Agregamos nuevo elemnto para source
+        lista_ini_ = [[1,x, os.path.join(gdbini,x)] for x in lista_ini] 
     else:
         lista_ini_ = list(
             map(lambda x: get_filtrados(x, lista_ini), lista_filtro))
 
     dff = pd.DataFrame(lista_ini_)
-    dff.columns = ["existe_origen", "origen"]    
+    dff.columns = ["existe_origen", "origen","source"]    
     dff["existe_destino"] = dff.apply(
         lambda x: existe_destino(x["origen"], gdbfin), axis=1)
     dff["nombre_destino"] = dff.apply(
@@ -150,7 +167,8 @@ def get_tabla(gdbini, gdbfin, filtro=None, ds=None):
     dff["num_destino"] = dff.apply(
         lambda x: getnum(x["nombre_destino"], gdbfin), axis=1)
     
-    dff["enviar"] = dff["existe_origen"]
+    dff["enviar"] = dff["existe_origen"] +dff["num_origen"] -dff["existe_destino"] - dff["num_destino"]
+    dff["enviar"] = dff.apply(lambda x :getboolean(x["enviar"]), axis=1)
 
     resultado =dff.to_dict('records')
 

@@ -104,6 +104,7 @@ Public Class Form_sincronizacion_geodatabase
         dg_sg_capas.Columns("num_origen").HeaderText = "REG. ORIGEN"
         dg_sg_capas.Columns("num_destino").DisplayIndex = 4
         dg_sg_capas.Columns("num_destino").HeaderText = "REG. DESTINO"
+        dg_sg_capas.Columns("source").DisplayIndex = 5
 
 
 
@@ -118,9 +119,34 @@ Public Class Form_sincronizacion_geodatabase
         dg_sg_capas.Columns("enviar").Width = 48
         dg_sg_capas.Columns("origen").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
         dg_sg_capas.Columns("nombre_destino").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-        dg_sg_capas.Columns("num_origen").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
+        dg_sg_capas.Columns("num_origen").Width = 75
+        'dg_sg_capas.Columns("num_origen").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
         dg_sg_capas.Columns("num_destino").MinimumWidth = 80
         dg_sg_capas.Columns("num_destino").AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+
+        For Each row As DataGridViewRow In dg_sg_capas.Rows
+
+            If Convert.ToInt32(row.Cells("num_destino").Value) < Convert.ToInt32(row.Cells("num_origen").Value) Then
+                row.DefaultCellStyle.ForeColor = Color.DarkOrange
+            End If
+
+            If Convert.ToInt32(row.Cells("existe_destino").Value) = 0 Then
+                row.DefaultCellStyle.ForeColor = Color.Green
+            End If
+
+            If Convert.ToInt32(row.Cells("existe_origen").Value) = 0 Then
+                row.ReadOnly = True
+                row.DefaultCellStyle.ForeColor = Color.FromArgb(160, 160, 160)
+                row.DefaultCellStyle.BackColor = Color.FromArgb(240, 240, 240)
+            End If
+
+            If Convert.ToString(row.Cells("source").Value) = "0" Then
+                row.ReadOnly = True
+                row.DefaultCellStyle.ForeColor = Color.FromArgb(250, 0, 250)
+
+            End If
+
+        Next
 
     End Sub
 
@@ -135,7 +161,9 @@ Public Class Form_sincronizacion_geodatabase
         ElseIf rbtn_sg_estraiz.Checked = True Then
             dataset = "no"
         End If
-
+        If filtro_value = "Archivo CSV" Then
+            filtro_value = openDialogBoxESRI(f_table)
+        End If
         params.Clear()
         params.Add(ruta_origen)
         params.Add(ruta_destino)

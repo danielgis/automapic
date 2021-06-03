@@ -11,18 +11,25 @@ cursor = conn.cursor()
 
 def packageDecore(func):
     def decorator(*args, **kwargs):
-        global conn, cursor
+        global conn, cursor    
         package = func(*args, **kwargs)
-        cursor.execute(package)
         if kwargs.get('iscommit'):
+            cursor.execute(package)
             return
         elif kwargs.get('getcursor'):
+            cursor.execute(package)
             return cursor
         elif kwargs.get('returnsql'):
             return package
         elif kwargs.get('one'):
+            cursor.execute(package)
             return cursor.fetchone()[0]
-        return cursor.fetchall()
+        elif kwargs.get('as_dataframe'):
+            import pandas as pd
+            return pd.read_sql(package, conn)
+        else:
+            cursor.execute(package)
+            return cursor.fetchall()
 
     return decorator
 
@@ -62,6 +69,14 @@ def get_config_by_user(user):
 @packageDecore
 def set_config_param(id_parameter, value, iscommit=True):
     return "UPDATE TB_CONFIG SET VALUE = '{}' WHERE ID = {}".format(value, id_parameter)
+
+@packageDecore
+def get_tree_layers(category, as_dataframe=True):
+    return "SELECT * FROM TB_LAYERS WHERE CATEGORY = {}".format(category)
+
+@packageDecore
+def set_datasources_tree_layers(datasource, category, settable, iscommit=True):
+    return "UPDATE TB_LAYERS SET DATASOURCE = '{}' WHERE CATEGORY = {} AND SETTABLE = {}".format(datasource, category, settable)
 
 
 # @packageDecore

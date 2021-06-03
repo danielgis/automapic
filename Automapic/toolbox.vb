@@ -28,6 +28,9 @@ Module toolbox
     Public _tool_validateUser As String = "validateUser"
     Public _tool_updateSettings As String = "updateSettings"
     Public _tool_installPackages As String = "installPackages"
+    Public _tool_treeLayers As String = "treeLayers"
+    Public _tool_addLayerToDataFrame As String = "addLayerToDataFrame"
+    Public _tool_removeFeatureOfTOC As String = "removeFeatureOfTOC"
 
     ':HERRAMIENTAS DEL MODULO DE MAPAS DE PELIGROS GEOLOGICOS
     Public _tool_mapGeologicalHazards As String = "mapGeologicalHazards"
@@ -45,6 +48,7 @@ Module toolbox
     Public _tool_getAutoresMgh As String = "getAutoresMgh"
     Public _tool_generateRotuloMhg As String = "generateRotuloMhg"
     Public _tool_getListFormHidrogMgh As String = "getListFormHidrogMgh"
+    Public _tool_generateLegendMhg As String = "generateLegendMhg"
 
     ':HERRAMIENTAS DEL MODULO DE SINCRONIZACION DE GEODATABASE
     Public _tool_getFilterModeOptions As String = "getFilterModeOptions"
