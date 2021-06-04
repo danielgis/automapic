@@ -295,6 +295,9 @@
     <None Include="scripts\layers\pog.lyr">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="scripts\layers\PO_01_formacion_hidrogeologica.lyr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="scripts\layers\PO_01_LEYENDA.lyr">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

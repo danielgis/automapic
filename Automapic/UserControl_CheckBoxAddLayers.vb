@@ -6,14 +6,18 @@ Public Class UserControl_CheckBoxAddLayers
     Dim arrayParents As New List(Of Object)
     Dim arrayChilds As New List(Of Object)
     Dim RuntimeError As AutomapicExceptions = New AutomapicExceptions()
+    Dim zona_geografica_ui_cbox As String
+    Dim query_ui_cbox As String
     Private Sub UserControl_CheckBoxAddLayers_Load(sender As Object, e As EventArgs) Handles Me.Load
 
     End Sub
-    Public Sub LoadOptions(category As String, Optional parent As Boolean = False)
+    Public Sub LoadOptions(category As String, Optional zona As String = Nothing, Optional query As String = Nothing)
         params_ui_cbox.Clear()
         params_ui_cbox.Add(category)
         tvw_layers.Nodes.Clear()
         arrayChilds.Clear()
+        zona_geografica_ui_cbox = zona
+        query_ui_cbox = query
         Dim response = ExecuteGP(_tool_treeLayers, params_ui_cbox, _toolboxPath_automapic)
         Dim responseJson = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(response)
         If responseJson.Item("status") = 0 Then
@@ -45,7 +49,7 @@ Public Class UserControl_CheckBoxAddLayers
             'End If
             For Each prn In arrayParents
                 If prn.Name = kvp.item("parent") Then
-                    'treeNode.Tag = kvp.item("datasource") & "\" & kvp.item("feature")
+                    treeNode.Tag = kvp.item("datasource") & "\" & kvp.item("feature")
                     prn.Nodes.Add(treeNode)
                     arrayChilds.Add(kvp)
                     Continue For
@@ -80,6 +84,9 @@ Public Class UserControl_CheckBoxAddLayers
                         Return
                     End If
                     Dim feature = kvp.item("datasource") & "\" & kvp.item("feature")
+                    If kvp.item("withzone").value = 1 Then
+                        feature = String.Format(feature, zona_geografica_ui_cbox, zona_geografica_ui_cbox)
+                    End If
                     params_ui_cbox.Add(feature)
                     Dim lyer = kvp.item("layer").value
                     If lyer Is Nothing Or lyer = "" Then
@@ -90,28 +97,48 @@ Public Class UserControl_CheckBoxAddLayers
                     params_ui_cbox.Add(kvp.item("datasource"))
                     params_ui_cbox.Add(kvp.item("typedatasource"))
                     params_ui_cbox.Add(df)
-                    Dim query = kvp.item("query").value
-                    params_ui_cbox.Add(query)
+                    Dim query = kvp.item("query").Value
+                    If query Is Nothing Then
+                        params_ui_cbox.Add(Nothing)
+                    Else
+                        params_ui_cbox.Add(query_ui_cbox)
+                    End If
+
 
 
                     ExecuteGP(_tool_addLayerToDataFrame, params_ui_cbox, _toolboxPath_automapic, getresult:=False)
                 Else
                     Dim lyer_n = kvp.item("layer_name").value
-                    If lyer_n Is Nothing Or lyer_n = "" Then
-                        Return
+                    If kvp.item("withzone").value = 1 Then
+                        lyer_n = String.Format(lyer_n, zona_geografica_ui_cbox)
                     End If
-                    params_ui_cbox.Add(lyer_n)
-                    params_ui_cbox.Add(df)
-                    ExecuteGP(_tool_removeFeatureOfTOC, params_ui_cbox, _toolboxPath_automapic, getresult:=False)
-                End If
+
+                    If lyer_n Is Nothing Or lyer_n = "" Then
+                            Return
+                        End If
+                        params_ui_cbox.Add(lyer_n)
+                        params_ui_cbox.Add(df)
+                        ExecuteGP(_tool_removeFeatureOfTOC, params_ui_cbox, _toolboxPath_automapic, getresult:=False)
+                    End If
 
                 Exit For
             End If
+
+
         Next
 
         'tbx_mh_descriph.Enabled = True
         'Dim text = clasificacionDescriptDict.Item(clickedNode)
         'tbx_mh_descriph.Text = text
     End Sub
+    Public Function getLayerSelected()
+        Dim nodes_checked As New List(Of Object)
+        For Each treenode In tvw_layers.Nodes
+            If treenode.Checked And treenode.tag <> "999" Then
+                nodes_checked.Add(treenode.Name)
+            End If
+        Next
+        Return nodes_checked
+    End Function
 
 End Class

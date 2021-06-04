@@ -84,7 +84,7 @@ _TB_MG_BUZAMIENTO_APARENTE_PATH = 'TB_MG_BUZAMIENTO_APARENTE'
 _GDB_PATH_HG = pkg.get_config_param_value('GDB_PATH_HG', one=True)
 _PL_01_CUENCAS_HIDROGRAFICAS_PATH = os.path.join(_GDB_PATH_HG if _GDB_PATH_HG else '', 'PL_01_cuencas_hidrograficas')
 _TB_01_AUTOR_PATH = os.path.join(_GDB_PATH_HG if _GDB_PATH_HG else '', 'TB_01_autor')
-_PO_01_FORMACION_HIDROGEOLOGICA_PATH = os.path.join(_GDB_PATH_HG if _GDB_PATH_HG else '', 'PO_01_formacion_hidrogeologica_{}s')
+_PO_01_FORMACION_HIDROGEOLOGICA_PATH = os.path.join(_GDB_PATH_HG if _GDB_PATH_HG else '', 'DS_01_hidrogeologia_{}s\PO_01_formacion_hidrogeologica_{}s')
 _TB_01_UNIDAD_HIDROGEOLOGICA_PATH = os.path.join(_GDB_PATH_HG if _GDB_PATH_HG else '', 'TB_01_unidad_hidrogeologica')
 _TB_01_LEYENDA_AUX_PATH = os.path.join(_GDB_PATH_HG if _GDB_PATH_HG else '', 'TB_01_leyenda_aux')
 _PO_01_LEYENDA_DIVISIONES_PATH = os.path.join(_GDB_PATH_HG if _GDB_PATH_HG else '', 'PO_01_leyenda')

@@ -72,7 +72,7 @@ def set_config_param(id_parameter, value, iscommit=True):
 
 @packageDecore
 def get_tree_layers(category, as_dataframe=True):
-    return "SELECT * FROM TB_LAYERS WHERE CATEGORY = {}".format(category)
+    return "SELECT * FROM TB_LAYERS WHERE CATEGORY = {} ORDER BY ID".format(category)
 
 @packageDecore
 def set_datasources_tree_layers(datasource, category, settable, iscommit=True):

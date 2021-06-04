@@ -23,7 +23,7 @@ def get_name_component(code):
     return response
 
 try:
-    feature = st._PO_01_FORMACION_HIDROGEOLOGICA_PATH.format(zona)
+    feature = st._PO_01_FORMACION_HIDROGEOLOGICA_PATH.format(zona, zona)
     if not arcpy.Exists(feature):
         raise RuntimeError(msg._ERROR_FEATURE_FHIDROGEO_HG)
 

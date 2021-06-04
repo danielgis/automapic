@@ -32,7 +32,7 @@ Partial Class Form_mapa_hidrogeologico
         Me.tc_mh_tools = New System.Windows.Forms.TabControl()
         Me.tp_mh_capas = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel6 = New System.Windows.Forms.TableLayoutPanel()
-        Me.UC_CheckBoxAddLayers1 = New Automapic.UserControl_CheckBoxAddLayers()
+        Me.TableLayoutPanel7 = New System.Windows.Forms.TableLayoutPanel()
         Me.tp_mh_rotulo = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.clb_mh_autores = New System.Windows.Forms.CheckedListBox()
@@ -62,10 +62,13 @@ Partial Class Form_mapa_hidrogeologico
         Me.tbx_mh_descriph = New System.Windows.Forms.TextBox()
         Me.tvw_mh_descriph = New System.Windows.Forms.TreeView()
         Me.UserControl_ComboBoxDataframes1 = New Automapic.UserControl_ComboBoxDataframes()
+        Me.UserControl_CheckBoxAddLayers1 = New Automapic.UserControl_CheckBoxAddLayers()
+        Me.btn_mgh_extrerdatos = New System.Windows.Forms.Button()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.tc_mh_tools.SuspendLayout()
         Me.tp_mh_capas.SuspendLayout()
         Me.TableLayoutPanel6.SuspendLayout()
+        Me.TableLayoutPanel7.SuspendLayout()
         Me.tp_mh_rotulo.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         CType(Me.nud_mh_numero, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -177,7 +180,7 @@ Partial Class Form_mapa_hidrogeologico
         '
         Me.TableLayoutPanel6.ColumnCount = 1
         Me.TableLayoutPanel6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel6.Controls.Add(Me.UC_CheckBoxAddLayers1, 0, 0)
+        Me.TableLayoutPanel6.Controls.Add(Me.TableLayoutPanel7, 0, 0)
         Me.TableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel6.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel6.Margin = New System.Windows.Forms.Padding(4)
@@ -185,18 +188,25 @@ Partial Class Form_mapa_hidrogeologico
         Me.TableLayoutPanel6.RowCount = 1
         Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 514.0!))
-        Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 514.0!))
         Me.TableLayoutPanel6.Size = New System.Drawing.Size(449, 514)
         Me.TableLayoutPanel6.TabIndex = 0
         '
-        'UC_CheckBoxAddLayers1
+        'TableLayoutPanel7
         '
-        Me.UC_CheckBoxAddLayers1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.UC_CheckBoxAddLayers1.Location = New System.Drawing.Point(5, 5)
-        Me.UC_CheckBoxAddLayers1.Margin = New System.Windows.Forms.Padding(5)
-        Me.UC_CheckBoxAddLayers1.Name = "UC_CheckBoxAddLayers1"
-        Me.UC_CheckBoxAddLayers1.Size = New System.Drawing.Size(439, 504)
-        Me.UC_CheckBoxAddLayers1.TabIndex = 1
+        Me.TableLayoutPanel7.ColumnCount = 2
+        Me.TableLayoutPanel7.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65.91422!))
+        Me.TableLayoutPanel7.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.08578!))
+        Me.TableLayoutPanel7.Controls.Add(Me.UserControl_CheckBoxAddLayers1, 0, 0)
+        Me.TableLayoutPanel7.Controls.Add(Me.btn_mgh_extrerdatos, 1, 1)
+        Me.TableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel7.Location = New System.Drawing.Point(3, 3)
+        Me.TableLayoutPanel7.Name = "TableLayoutPanel7"
+        Me.TableLayoutPanel7.RowCount = 2
+        Me.TableLayoutPanel7.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel7.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 37.0!))
+        Me.TableLayoutPanel7.Size = New System.Drawing.Size(443, 508)
+        Me.TableLayoutPanel7.TabIndex = 0
         '
         'tp_mh_rotulo
         '
@@ -589,6 +599,26 @@ Partial Class Form_mapa_hidrogeologico
         Me.UserControl_ComboBoxDataframes1.Size = New System.Drawing.Size(437, 58)
         Me.UserControl_ComboBoxDataframes1.TabIndex = 1
         '
+        'UserControl_CheckBoxAddLayers1
+        '
+        Me.TableLayoutPanel7.SetColumnSpan(Me.UserControl_CheckBoxAddLayers1, 2)
+        Me.UserControl_CheckBoxAddLayers1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.UserControl_CheckBoxAddLayers1.Location = New System.Drawing.Point(4, 4)
+        Me.UserControl_CheckBoxAddLayers1.Margin = New System.Windows.Forms.Padding(4)
+        Me.UserControl_CheckBoxAddLayers1.Name = "UserControl_CheckBoxAddLayers1"
+        Me.UserControl_CheckBoxAddLayers1.Size = New System.Drawing.Size(435, 463)
+        Me.UserControl_CheckBoxAddLayers1.TabIndex = 0
+        '
+        'btn_mgh_extrerdatos
+        '
+        Me.btn_mgh_extrerdatos.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btn_mgh_extrerdatos.Location = New System.Drawing.Point(295, 474)
+        Me.btn_mgh_extrerdatos.Name = "btn_mgh_extrerdatos"
+        Me.btn_mgh_extrerdatos.Size = New System.Drawing.Size(145, 31)
+        Me.btn_mgh_extrerdatos.TabIndex = 1
+        Me.btn_mgh_extrerdatos.Text = "Extraer datos"
+        Me.btn_mgh_extrerdatos.UseVisualStyleBackColor = True
+        '
         'Form_mapa_hidrogeologico
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -604,6 +634,7 @@ Partial Class Form_mapa_hidrogeologico
         Me.tc_mh_tools.ResumeLayout(False)
         Me.tp_mh_capas.ResumeLayout(False)
         Me.TableLayoutPanel6.ResumeLayout(False)
+        Me.TableLayoutPanel7.ResumeLayout(False)
         Me.tp_mh_rotulo.ResumeLayout(False)
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.TableLayoutPanel2.PerformLayout()
@@ -660,5 +691,7 @@ Partial Class Form_mapa_hidrogeologico
     Friend WithEvents tvw_mh_descriph As System.Windows.Forms.TreeView
     Friend WithEvents tp_mh_capas As System.Windows.Forms.TabPage
     Friend WithEvents TableLayoutPanel6 As System.Windows.Forms.TableLayoutPanel
-    Friend WithEvents UC_CheckBoxAddLayers1 As UserControl_CheckBoxAddLayers
+    Friend WithEvents TableLayoutPanel7 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents UserControl_CheckBoxAddLayers1 As UserControl_CheckBoxAddLayers
+    Friend WithEvents btn_mgh_extrerdatos As System.Windows.Forms.Button
 End Class

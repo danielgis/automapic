@@ -21,6 +21,9 @@ Public Class Form_mapa_hidrogeologico
     Dim dtableTv As New DataTable
     Dim clasificacionDescriptDict As New Dictionary(Of String, String)
     Dim clickedNode As String
+    Dim zona_geografica As String
+    Dim queryCuencas As String
+    Dim FIELD_CD_CUENCA As String = "cd_cuenca"
 
     Private Sub Form_mapa_hidrogeologico_load(sender As Object, e As EventArgs) Handles Me.Load
         runProgressBar()
@@ -115,6 +118,7 @@ Public Class Form_mapa_hidrogeologico
             runProgressBar("ini")
             Return
         End If
+        zona_geografica = responseJson.Item("response")
 
         If cuencasDictSelected.Count > 0 Then
             tc_mh_tools.Enabled = True
@@ -263,9 +267,10 @@ Public Class Form_mapa_hidrogeologico
         For Each ikey As String In cuencasDictSelected.Keys
             codcuencasArray.Add(ikey)
         Next
-        Dim cuencas As String = String.Join(",", codcuencasArray)
+        Dim cuencas As String = String.Join("', '", codcuencasArray)
+        queryCuencas = String.Format("{0} in ('{1}')", FIELD_CD_CUENCA, cuencas)
         params.Add(cuencas)
-        params.Add("19")
+        params.Add(zona_geografica)
         Dim response = ExecuteGP(_tool_getListFormHidrogMgh, params, _toolboxPath_mapa_hidrogeologico)
         Dim responseJson = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(response)
         If responseJson.Item("status") = 0 Then
@@ -275,16 +280,6 @@ Public Class Form_mapa_hidrogeologico
             runProgressBar("ini")
             Return
         End If
-
-        'dgv_mh_leyenda.Rows.Clear()
-        'tbx_mh_acuiferos.Text = ""
-        'tbx_mh_acuiferos.Enabled = False
-        'tbx_mh_acuitardos.Text = ""
-        'tbx_mh_acuitardos.Enabled = False
-        'tbx_mh_acuicludo.Text = ""
-        'tbx_mh_acuicludo.Enabled = False
-        'tbx_mh_acuifugo.Text = ""
-        'tbx_mh_acuifugo.Enabled = False
 
 
         If responseJson.Item("response").count = 0 Then
@@ -320,31 +315,6 @@ Public Class Form_mapa_hidrogeologico
 
         lbl_mh_uhcount.Text = String.Format("Se encontraron {0} formaciones hidrogeológicas únicas", dgv_mh_leyenda.RowCount)
 
-        'dgv_mh_leyenda.DataSource = dtable
-
-        'For Each kvp In responseJson.Item("response").Item("chidrog")
-        '    If kvp = "1" Then
-        '        tbx_mh_acuiferos.Enabled = True
-        '    ElseIf kvp = "2" Then
-        '        tbx_mh_acuitardos.Enabled = True
-        '    ElseIf kvp = "3" Then
-        '        tbx_mh_acuicludo.Enabled = True
-        '    ElseIf kvp = "4" Then
-        '        tbx_mh_acuifugo.Enabled = True
-        '    End If
-        'Next
-        'dtableTv.Clear()
-        'Dim dict = responseJson.Item("response").Item("chidrog")
-        'For i As Integer = 0 To dict.Values.Max(Function(item) item.Count()) - 1
-        '    Dim dataRow As DataRow = dtableTv.NewRow()
-
-        '    For Each key In dict.Keys
-        '        If dict(key).Count > i Then dataRow(key) = dict(key)(i)
-        '    Next
-
-        '    dtableTv.Rows.Add(dataRow)
-        'Next
-
         tvw_mh_descriph.Nodes.Clear()
         uharray.Clear()
         clasificacionDescriptDict.Clear()
@@ -370,28 +340,10 @@ Public Class Form_mapa_hidrogeologico
             Next
         Next
 
-        UC_CheckBoxAddLayers1.LoadOptions(1, parent:=True)
-
-
-        ''To iterate through all the rows in the DataSet
-        'For Each row As DataRow In dtableTv.GetChildRows("TreeParentChild")
-        '    'Creating a TreeNode for each row
-        '    Dim cChild As New TreeNodeAdv(row("Name").ToString())
-        '    'Add cChild node to the pNode
-        '    pNode.Nodes.Add(cChild)
-        '    'Recursively build the tree
-        '    PopulateTree(row, cChild)
-        'Next row
-
+        UserControl_CheckBoxAddLayers1.LoadOptions(1, zona:=zona_geografica, query:=queryCuencas)
 
 
     End Sub
-    'Private Sub tc_mh_leyenda_tools_SelectedIndexChanged(sender As Object, e As EventArgs) Handles tc_mh_leyenda_tools.SelectedIndexChanged
-    '    If tc_mh_leyenda_tools.SelectedTab.Name = "tp_mh_classif" Then
-    '        loadFormacionesHidrogeologicas()
-    '    End If
-
-    'End Sub
     Private Sub dgv_mh_leyenda_deletingrow(sender As Object, e As DataGridViewRowCancelEventArgs) Handles dgv_mh_leyenda.UserDeletingRow
         Dim mgs As String = "¿Está seguro que desea eliminar este registro?"
         Dim r As DialogResult = MessageBox.Show(mgs, __title__, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
@@ -460,15 +412,6 @@ Public Class Form_mapa_hidrogeologico
         Cursor.Current = Cursors.Default
         runProgressBar("ini")
 
-        'Dim response = ExecuteGP(_tool_generateLegendMhg, params, _toolboxPath_mapa_hidrogeologico)
-        'Dim responseJson = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(response)
-        'If responseJson.Item("status") = 0 Then
-        '    RuntimeError.PythonError = responseJson.Item("message")
-        '    MessageBox.Show(RuntimeError.PythonError, __title__, MessageBoxButtons.OK, MessageBoxIcon.Error)
-        '    Cursor.Current = Cursors.Default
-        '    runProgressBar("ini")
-        '    Return
-        'End If
     End Sub
     Private Sub tvw_mh_descriph_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles tvw_mh_descriph.AfterSelect
         clickedNode = tvw_mh_descriph.SelectedNode.Name
@@ -483,5 +426,9 @@ Public Class Form_mapa_hidrogeologico
 
     Private Sub tbx_mh_descriph_TextChanged(sender As Object, e As EventArgs) Handles tbx_mh_descriph.TextChanged
         clasificacionDescriptDict(clickedNode) = tbx_mh_descriph.Text
+    End Sub
+
+    Private Sub btn_mgh_extrerdatos_Click(sender As Object, e As EventArgs) Handles btn_mgh_extrerdatos.Click
+        Dim features = UserControl_CheckBoxAddLayers1.getLayerSelected()
     End Sub
 End Class

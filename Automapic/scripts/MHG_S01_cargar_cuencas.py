@@ -22,8 +22,11 @@ try:
     features = [st._PL_01_CUENCAS_HIDROGRAFICAS_PATH]
     symbols = [None]
 
+    zonas = arcpy.da.SearchCursor(st._PL_01_CUENCAS_HIDROGRAFICAS_PATH, [st._ZONA_FIELD], query)
+    zona = map(lambda i: i[0], zonas)[0]
+
     aut.check_layer_inside_data_frame(features, symbols, df_name=None, query=query, zoom=True)
-    response['response'] = True
+    response['response'] = zona
     
 except Exception as e:
     response['status'] = 0
