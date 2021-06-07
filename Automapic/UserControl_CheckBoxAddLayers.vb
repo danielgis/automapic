@@ -49,7 +49,7 @@ Public Class UserControl_CheckBoxAddLayers
             'End If
             For Each prn In arrayParents
                 If prn.Name = kvp.item("parent") Then
-                    treeNode.Tag = kvp.item("datasource") & "\" & kvp.item("feature")
+                    treeNode.Tag = kvp.item("datasource").value & "\" & kvp.item("feature").value
                     prn.Nodes.Add(treeNode)
                     arrayChilds.Add(kvp)
                     Continue For
@@ -140,5 +140,7 @@ Public Class UserControl_CheckBoxAddLayers
         Next
         Return nodes_checked
     End Function
-
+    'Public Function getListChildsByState(checked As Boolean)
+    '    For i in 
+    'End Function
 End Class

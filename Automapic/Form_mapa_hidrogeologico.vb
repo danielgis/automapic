@@ -430,5 +430,6 @@ Public Class Form_mapa_hidrogeologico
 
     Private Sub btn_mgh_extrerdatos_Click(sender As Object, e As EventArgs) Handles btn_mgh_extrerdatos.Click
         Dim features = UserControl_CheckBoxAddLayers1.getLayerSelected()
+        'MessageBox.Show()
     End Sub
 End Class

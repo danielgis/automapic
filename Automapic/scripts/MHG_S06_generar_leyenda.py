@@ -149,10 +149,20 @@ height_tot = (n_form * space_v) + (n_form * height_fhidrog) + (n_class * space_v
 
 # Obteniendo las coordenadas que definen el extent de la leyenda
 mxd = arcpy.mapping.MapDocument("CURRENT")
-dframe = mxd.activeDataFrame
+dframes = arcpy.mapping.ListDataFrames(mxd, "*{}*".format(df_nombre))
+if not len(dframes):
+    raise RuntimeError(msg._ERROR_NO_SUCH_DATAFRAME)
+dframe = dframes[0]
+dframe.spatialReference = arcpy.SpatialReference(4326)
 extent_proj = dframe.extent.polygon.projectAs(arcpy.SpatialReference(32718))
 x_ini, y_ini = extent_proj.extent.XMin, extent_proj.extent.YMin
 x_fin, y_fin = x_ini + width_tot, y_ini + height_tot
+
+dframe.spatialReference = arcpy.SpatialReference(32718)
+arcpy.RefreshActiveView()
+arcpy.RefreshTOC()
+
+arcpy.AddMessage("{} {} {} {}".format(x_ini, y_ini, x_fin, y_fin))
 
 
 pt_data = list()
@@ -363,12 +373,15 @@ arcpy.Append_management(pt_feature, st._PT_01_LEYENDA_ETIQUETAS_PATH, "NO_TEST")
 
 name_pt_leyenda = os.path.basename(st._PT_01_LEYENDA_ETIQUETAS_PATH)
 lyer_pt = os.path.join(st._BASE_DIR, 'layers/{}.lyr'.format(name_pt_leyenda))
-aut.add_layer_with_new_datasource(lyer_pt, name_pt_leyenda, st._GDB_PATH_HG, "FILEGDB_WORKSPACE", df_name=df_nombre, query=query)
 
 name_po_leyenda = os.path.basename(st._PO_01_LEYENDA_DIVISIONES_PATH)
 lyer_po = os.path.join(st._BASE_DIR, 'layers/{}.lyr'.format(name_po_leyenda))
+
+aut.add_layer_with_new_datasource(lyer_pt, name_pt_leyenda, st._GDB_PATH_HG, "FILEGDB_WORKSPACE", df_name=df_nombre, query=query)
 aut.add_layer_with_new_datasource(lyer_po, name_po_leyenda, st._GDB_PATH_HG, "FILEGDB_WORKSPACE", df_name=df_nombre, query=query, zoom=True, scale=2500)
 
+
+# dframe.spatialReference = arcpy.SpatialReference(32718)
 # except Exception as e:
 #     response['status'] = 0
 #     response['message'] = e.message
