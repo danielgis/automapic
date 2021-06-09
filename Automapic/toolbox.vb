@@ -48,6 +48,7 @@ Module toolbox
     Public _tool_generateRotuloMhg As String = "generateRotuloMhg"
     Public _tool_getListFormHidrogMgh As String = "getListFormHidrogMgh"
     Public _tool_generateLegendMhg As String = "generateLegendMhg"
+    Public _tool_clipLayerSelectedByCuenca As String = "clipLayerSelectedByCuenca"
 
 
 

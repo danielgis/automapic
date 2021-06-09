@@ -46,6 +46,8 @@ Partial Class UserControl_ComboBoxDataframes
         'cbx_uc_dataframes
         '
         Me.cbx_uc_dataframes.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cbx_uc_dataframes.BackColor = System.Drawing.SystemColors.Control
+        Me.cbx_uc_dataframes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbx_uc_dataframes.FormattingEnabled = True
         Me.cbx_uc_dataframes.Location = New System.Drawing.Point(3, 23)
         Me.cbx_uc_dataframes.Name = "cbx_uc_dataframes"
@@ -62,12 +64,12 @@ Partial Class UserControl_ComboBoxDataframes
         Me.lbl_uc_dataframes.TabIndex = 1
         Me.lbl_uc_dataframes.Text = "Seleccione dataframe"
         '
-        'UserControl_ComboBoxDatarames
+        'UserControl_ComboBoxDataframes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.tlp_uc_dataframe)
-        Me.Name = "UserControl_ComboBoxDatarames"
+        Me.Name = "UserControl_ComboBoxDataframes"
         Me.Size = New System.Drawing.Size(400, 50)
         Me.tlp_uc_dataframe.ResumeLayout(False)
         Me.tlp_uc_dataframe.PerformLayout()

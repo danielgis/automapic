@@ -429,7 +429,19 @@ Public Class Form_mapa_hidrogeologico
     End Sub
 
     Private Sub btn_mgh_extrerdatos_Click(sender As Object, e As EventArgs) Handles btn_mgh_extrerdatos.Click
-        Dim features = UserControl_CheckBoxAddLayers1.getLayerSelected()
-        'MessageBox.Show()
+        Dim features As List(Of String) = UserControl_CheckBoxAddLayers1.getLayerSelected()
+        Dim features_as_string As String = String.Join(",", features)
+        Dim codcuencasArray As New List(Of Object)
+        For Each ikey As String In cuencasDictSelected.Keys
+            codcuencasArray.Add(ikey)
+        Next
+        Dim cuencas As String = String.Join(", ", codcuencasArray)
+        params.Clear()
+        params.Add(features_as_string)
+        params.Add(cuencas)
+        Dim dataframe As String = UserControl_CheckBoxAddLayers1.getNameDataFrame()
+        params.Add(dataframe)
+        ExecuteGP(_tool_clipLayerSelectedByCuenca, params, _toolboxPath_automapic, getresult:=False)
+        'MessageBox.Show(features_as_string, __title__, MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 End Class

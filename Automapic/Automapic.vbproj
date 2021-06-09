@@ -492,6 +492,9 @@
     <Content Include="scripts\MHG_S06_generar_leyenda.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="scripts\MHG_S07_cortar_features_por_cuencas.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="scripts\packages.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

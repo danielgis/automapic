@@ -83,7 +83,7 @@ Public Class UserControl_CheckBoxAddLayers
                         MessageBox.Show("El feature no existe", __title__, MessageBoxButtons.OK, MessageBoxIcon.Information)
                         Return
                     End If
-                    Dim feature = kvp.item("datasource") & "\" & kvp.item("feature")
+                    Dim feature = kvp.item("datasource").value & "\" & kvp.item("feature").value
                     If kvp.item("withzone").value = 1 Then
                         feature = String.Format(feature, zona_geografica_ui_cbox, zona_geografica_ui_cbox)
                     End If
@@ -98,7 +98,7 @@ Public Class UserControl_CheckBoxAddLayers
                     params_ui_cbox.Add(kvp.item("typedatasource"))
                     params_ui_cbox.Add(df)
                     Dim query = kvp.item("query").Value
-                    If query Is Nothing Then
+                    If query <> 1 Then
                         params_ui_cbox.Add(Nothing)
                     Else
                         params_ui_cbox.Add(query_ui_cbox)
@@ -114,12 +114,12 @@ Public Class UserControl_CheckBoxAddLayers
                     End If
 
                     If lyer_n Is Nothing Or lyer_n = "" Then
-                            Return
-                        End If
-                        params_ui_cbox.Add(lyer_n)
-                        params_ui_cbox.Add(df)
-                        ExecuteGP(_tool_removeFeatureOfTOC, params_ui_cbox, _toolboxPath_automapic, getresult:=False)
+                        Return
                     End If
+                    params_ui_cbox.Add(lyer_n)
+                    params_ui_cbox.Add(df)
+                    ExecuteGP(_tool_removeFeatureOfTOC, params_ui_cbox, _toolboxPath_automapic, getresult:=False)
+                End If
 
                 Exit For
             End If
@@ -131,14 +131,26 @@ Public Class UserControl_CheckBoxAddLayers
         'Dim text = clasificacionDescriptDict.Item(clickedNode)
         'tbx_mh_descriph.Text = text
     End Sub
+    Public Function getChildsLayerSelected(parentNode As TreeNode, nodes_checked As List(Of String))
+        For Each childNode As TreeNode In parentNode.Nodes
+            If childNode.Checked = True Then
+                nodes_checked.Add(childNode.Name)
+                getChildsLayerSelected(childNode, nodes_checked)
+            End If
+        Next
+    End Function
     Public Function getLayerSelected()
-        Dim nodes_checked As New List(Of Object)
+        Dim nodes_checked As New List(Of String)
         For Each treenode In tvw_layers.Nodes
-            If treenode.Checked And treenode.tag <> "999" Then
-                nodes_checked.Add(treenode.Name)
+            If treenode.tag = "999" Then
+                getChildsLayerSelected(treenode, nodes_checked)
             End If
         Next
         Return nodes_checked
+    End Function
+    Public Function getNameDataFrame()
+        Dim nameDataFrame = UserControl_ComboBoxDataframes1.getDataframeSelected()
+        Return nameDataFrame
     End Function
     'Public Function getListChildsByState(checked As Boolean)
     '    For i in 

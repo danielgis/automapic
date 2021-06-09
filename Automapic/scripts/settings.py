@@ -1,6 +1,15 @@
 import os
 import packages as pkg
 
+__author__ = 'Daniel Fernando Aguado Huaccharaqui'
+__copyright__ = 'INGEMMET 2021'
+__credits__ = ['Daniel Aguado H.', 'Jorge Yupanqui H.']
+__version__ = '1.0.1'
+__maintainer__ = 'Daniel Aguado H.'
+__mail__ = 'autonomoosi02@ingemmet.gob.pe'
+__title__ = 'Automapic'
+# __status__ = 'Development'
+# __status__ = 'Production'
 
 _BASE_DIR = os.path.dirname(__file__)
 _TEMP_FOLDER = pkg.get_config_param_value('TEMP_FOLDER', one=True)

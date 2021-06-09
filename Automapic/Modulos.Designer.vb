@@ -85,6 +85,7 @@ Partial Class Modulos
         'cbx_modulos
         '
         Me.cbx_modulos.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cbx_modulos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbx_modulos.FormattingEnabled = True
         Me.cbx_modulos.Location = New System.Drawing.Point(3, 23)
         Me.cbx_modulos.Name = "cbx_modulos"

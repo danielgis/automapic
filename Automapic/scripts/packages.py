@@ -78,7 +78,9 @@ def get_tree_layers(category, as_dataframe=True):
 def set_datasources_tree_layers(datasource, category, settable, iscommit=True):
     return "UPDATE TB_LAYERS SET DATASOURCE = '{}' WHERE CATEGORY = {} AND SETTABLE = {}".format(datasource, category, settable)
 
-
+@packageDecore
+def get_layers_selected(where, as_dataframe=True):
+    return "SELECT * FROM TB_LAYERS WHERE {}".format(where)
 # @packageDecore
 # def get_log_data(getcursor=True, returnsql=False):
 #     return 'SELECT * FROM TB_LOG'
