@@ -70,7 +70,7 @@ Public Class UserControl_CheckBoxAddLayers
         'If clickedNode Is Nothing Then
         '    Return
         'End If
-        Dim df = UserControl_ComboBoxDataframes1.getDataframeSelected()
+        Dim df As String = UserControl_ComboBoxDataframes1.getDataframeSelected()
         If df Is Nothing Then
             MessageBox.Show("Seleccione un DataFrame", __title__, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
@@ -79,44 +79,49 @@ Public Class UserControl_CheckBoxAddLayers
             If kvp.item("id") = Integer.Parse(clickedNode.Name) Then
                 params_ui_cbox.Clear()
                 If clickedNode.Checked Then
-                    If kvp.item("feature").value Is Nothing Or kvp.item("feature").value = "" Then
-                        MessageBox.Show("El feature no existe", __title__, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        Return
-                    End If
-                    Dim feature = kvp.item("datasource").value & "\" & kvp.item("feature").value
-                    If kvp.item("withzone").value = 1 Then
-                        feature = String.Format(feature, zona_geografica_ui_cbox, zona_geografica_ui_cbox)
-                    End If
-                    params_ui_cbox.Add(feature)
-                    Dim lyer = kvp.item("layer").value
-                    If lyer Is Nothing Or lyer = "" Then
-                        params_ui_cbox.Add(feature)
-                    Else
-                        params_ui_cbox.Add(lyer)
-                    End If
-                    params_ui_cbox.Add(kvp.item("datasource"))
-                    params_ui_cbox.Add(kvp.item("typedatasource"))
+                    params_ui_cbox.Add(clickedNode.Name)
+                    params_ui_cbox.Add(zona_geografica_ui_cbox)
                     params_ui_cbox.Add(df)
-                    Dim query = kvp.item("query").Value
-                    If query <> 1 Then
-                        params_ui_cbox.Add(Nothing)
-                    Else
-                        params_ui_cbox.Add(query_ui_cbox)
-                    End If
+                    params_ui_cbox.Add(query_ui_cbox)
+
+                    'If kvp.item("feature").value Is Nothing Or kvp.item("feature").value = "" Then
+                    '    MessageBox.Show("El feature no existe", __title__, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    '    Return
+                    'End If
+                    'Dim feature = kvp.item("datasource").value & "\" & kvp.item("feature").value
+                    'If kvp.item("withzone").value = 1 Then
+                    '    feature = String.Format(feature, zona_geografica_ui_cbox, zona_geografica_ui_cbox)
+                    'End If
+                    'params_ui_cbox.Add(feature)
+                    'Dim lyer = kvp.item("layer").value
+                    'If lyer Is Nothing Or lyer = "" Then
+                    '    params_ui_cbox.Add(feature)
+                    'Else
+                    '    params_ui_cbox.Add(lyer)
+                    'End If
+                    'params_ui_cbox.Add(kvp.item("datasource"))
+                    'params_ui_cbox.Add(kvp.item("typedatasource"))
+                    'params_ui_cbox.Add(df)
+                    'Dim query = kvp.item("query").Value
+                    'If query <> 1 Then
+                    '    params_ui_cbox.Add(Nothing)
+                    'Else
+                    '    params_ui_cbox.Add(query_ui_cbox)
+                    'End If
 
 
 
                     ExecuteGP(_tool_addLayerToDataFrame, params_ui_cbox, _toolboxPath_automapic, getresult:=False)
                 Else
-                    Dim lyer_n = kvp.item("layer_name").value
-                    If kvp.item("withzone").value = 1 Then
-                        lyer_n = String.Format(lyer_n, zona_geografica_ui_cbox)
-                    End If
+                    'Dim lyer_n = kvp.item("layer_name").value
+                    'If kvp.item("withzone").value = 1 Then
+                    '    lyer_n = String.Format(lyer_n, zona_geografica_ui_cbox)
+                    'End If
 
-                    If lyer_n Is Nothing Or lyer_n = "" Then
-                        Return
-                    End If
-                    params_ui_cbox.Add(lyer_n)
+                    'If lyer_n Is Nothing Or lyer_n = "" Then
+                    '    Return
+                    'End If
+                    params_ui_cbox.Add(clickedNode.Name)
                     params_ui_cbox.Add(df)
                     ExecuteGP(_tool_removeFeatureOfTOC, params_ui_cbox, _toolboxPath_automapic, getresult:=False)
                 End If

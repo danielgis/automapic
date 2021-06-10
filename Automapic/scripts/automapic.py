@@ -71,6 +71,8 @@ def add_layer_with_new_datasource(layer, name_feature, workspace, typeWorkspace,
     # Si es necesario aplicar un filtro
     if query:
         lyr.definitionQuery = query
+
+    lyr.visible = True
     
     # Se agrega si el layer no esta en el mapa
     if not len(layers):
