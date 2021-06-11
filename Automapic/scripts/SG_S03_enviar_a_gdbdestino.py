@@ -26,8 +26,18 @@ def enviardatos(gdbini, gdbfin, rutacsv):
         if row["enviar"]== True:
             fc_inicial = os.path.join(gdb_origen, row["origen"])
             fc_destino = os.path.join(gdb_destino, row["nombre_destino"])
-            arcpy.CopyRows_management(fc_inicial,fc_destino)
-            # arcpy.CopyFeatures_management(fc_inicial,fc_destino)
+
+            desc = arcpy.Describe(fc_inicial)
+            if desc.dataType in [u'FeatureClass', u'ShapeFile']:
+                arcpy.CopyFeatures_management(fc_inicial,fc_destino)
+            elif desc.dataType == u'Table':
+                arcpy.CopyRows_management(fc_inicial,fc_destino)
+            elif des.dataType in [u'TextFile',u'File']:
+                path, file = os.path.split(fc_destino)
+                arcpy.TableToTable_conversion(fc_inicial, path, file)
+            else:
+                pass
+            
             contador +=1
     return contador
 

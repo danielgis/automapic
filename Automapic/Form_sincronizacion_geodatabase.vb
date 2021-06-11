@@ -105,6 +105,7 @@ Public Class Form_sincronizacion_geodatabase
         dg_sg_capas.Columns("num_destino").DisplayIndex = 4
         dg_sg_capas.Columns("num_destino").HeaderText = "REG. DESTINO"
         dg_sg_capas.Columns("source").DisplayIndex = 5
+        dg_sg_capas.Columns("source").Visible = False
 
 
 
@@ -151,7 +152,6 @@ Public Class Form_sincronizacion_geodatabase
     End Sub
 
     Private Sub cbx_sg_filtrocapas_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbx_sg_filtrocapas.SelectedIndexChanged
-        runProgressBar()
         'dg_sg_capas.DataSource = vbNull
         dg_sg_capas.Columns.Clear()
 
@@ -163,7 +163,12 @@ Public Class Form_sincronizacion_geodatabase
         End If
         If filtro_value = "Archivo CSV" Then
             filtro_value = openDialogBoxESRI(f_table)
+            If filtro_value Is Nothing Then
+                Return
+            End If
         End If
+        runProgressBar()
+
         params.Clear()
         params.Add(ruta_origen)
         params.Add(ruta_destino)
