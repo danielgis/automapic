@@ -13,6 +13,7 @@ Module toolbox
     Public _toolboxPath_automapic As String = _path & "\scripts\T00_automapic.tbx"
     Public _toolboxPath_mapa_geologico As String = _path & "\scripts\T03_mapa_geologico_50k.tbx"
     Public _toolboxPath_mapa_hidrogeologico As String = _path & "\scripts\T04_mapa_hidrogeologico.tbx"
+    Public _toolboxPath_sincronizacion_geodatabase As String = _path & "\scripts\T06_sincronizacion_geodatabase.tbx"
 
     '* Nombre de herramientas del tbx _toolboxPath
 
@@ -50,6 +51,11 @@ Module toolbox
     Public _tool_generateLegendMhg As String = "generateLegendMhg"
     Public _tool_clipLayerSelectedByCuenca As String = "clipLayerSelectedByCuenca"
     Public _tool_generateMapLocation As String = "generateMapLocation"
+
+    ':HERRAMIENTAS DEL MODULO DE SINCRONIZACION DE GEODATABASE
+    Public _tool_getFilterModeOptions As String = "getFilterModeOptions"
+    Public _tool_getListOfLayers As String = "getListOfLayers"
+    Public _tool_sendFilesToGDB As String = "sendFilesToGDB"
 
 
 

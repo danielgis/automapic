@@ -44,3 +44,6 @@ _NAME_SECTOR = u'SECTOR ENERGÍA Y MINAS'
 
 year = datetime.today().year
 _DETALLE_ROTULO = u'Versión digital: Año {} Lima - Perú'.format(year)
+
+_ERROR_EMPTY_MXD = 'El MXD Actual no contiene capas'
+_ERROR_DIALOG = u'¡ERROR!'

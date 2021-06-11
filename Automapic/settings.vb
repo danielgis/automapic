@@ -54,6 +54,7 @@ Module settings
     Public f_geodatabase As String = "geodatabase"
     Public f_raster As String = "raster"
     Public f_workspace As String = "workspace"
+    Public f_table As String = "table"
 
     '6. Funciones globales
     '   - Funciones que devuelven resultados y que puedes ser usados en cualquier parte del proceso
@@ -113,6 +114,8 @@ Module settings
                 objfilter = New GxFilterRasterDatasets()
             Case f_workspace
                 objfilter = New GxFilterWorkspaces()
+            Case f_table
+                objfilter = New GxFilterTables()
         End Select
         Return objfilter
     End Function

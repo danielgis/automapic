@@ -162,6 +162,12 @@
     <Compile Include="Form_plano_topografico_25k.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Form_sincronizacion_geodatabase.Designer.vb">
+      <DependentUpon>Form_sincronizacion_geodatabase.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form_sincronizacion_geodatabase.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Login.Designer.vb">
       <DependentUpon>Login.vb</DependentUpon>
     </Compile>
@@ -219,6 +225,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_plano_topografico_25k.resx">
       <DependentUpon>Form_plano_topografico_25k.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_sincronizacion_geodatabase.resx">
+      <DependentUpon>Form_sincronizacion_geodatabase.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.vb</DependentUpon>
@@ -409,6 +418,9 @@
     <None Include="scripts\T04_mapa_hidrogeologico.tbx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="scripts\T06_sincronizacion_geodatabase.tbx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <AddInContent Include="Config.esriaddinx">
@@ -583,6 +595,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\settings.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="scripts\SG_S01_opciones_filtro.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="scripts\SG_S02_obtener_tabla_capas.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="scripts\SG_S03_enviar_a_gdbdestino.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\snippets.py">
