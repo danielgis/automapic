@@ -135,7 +135,7 @@ Public Class Form_sincronizacion_geodatabase
             End If
 
             If Convert.ToInt32(row.Cells("existe_origen").Value) = 0 Then
-                row.ReadOnly = True
+                'row.ReadOnly = True
                 row.DefaultCellStyle.ForeColor = Color.FromArgb(160, 160, 160)
                 row.DefaultCellStyle.BackColor = Color.FromArgb(240, 240, 240)
             End If
@@ -212,87 +212,9 @@ Public Class Form_sincronizacion_geodatabase
         'reordenamos el datatable
         dg_sg_capas.DataSource = dt
         AdjustColumnOrder()
+        runProgressBar("ini")
 
 
-        ' Modo de agregar por Datagrid directo
-        ''dg_sg_capas.DataSource = TablaCapas
-        'dg_sg_capas.ColumnCount = 5
-        'dg_sg_capas.Columns(0).Name = "Origen"
-        'dg_sg_capas.Columns(0).ReadOnly = True
-        'dg_sg_capas.Columns(1).Name = "Num"
-        'dg_sg_capas.Columns(1).ReadOnly = True
-        'dg_sg_capas.Columns(2).Name = "Destino"
-        'dg_sg_capas.Columns(2).ReadOnly = True
-
-        'dg_sg_capas.Columns(3).Name = "Num D."
-        'dg_sg_capas.Columns(3).ReadOnly = True
-        'dg_sg_capas.Columns(4).Name = "Enviar"
-        'dg_sg_capas.Columns(4).Visible = False
-        ''dg_sg_capas.Columns(4).ValueType = GetType(Boolean)
-
-
-
-
-
-        'For Each valor In TablaCapas
-        '    Dim row As String() = New String() {valor.item("origen"), valor.item("num_origen"), valor.item("nombre_destino"), valor.item("num_destino"), valor.item("enviar")}
-        '    dg_sg_capas.Rows.Add(row)
-        '    If valor.item("existe_origen") = 1 Then
-        '        dg_sg_capas.Rows(dg_sg_capas.RowCount - 1).ReadOnly = True
-        '        dg_sg_capas.Rows(dg_sg_capas.RowCount - 1).DefaultCellStyle.BackColor = Color.Blue
-        '        dg_sg_capas.Rows(dg_sg_capas.RowCount - 1).DefaultCellStyle.ForeColor = Color.Blue
-        '    End If
-
-
-        'Next
-        'Dim checkboxcolumn As New DataGridViewCheckBoxColumn(Name = "checked")
-        ''Dim checkboxcolumn As New DataGridViewCheckBoxColumn(Name = "Enviar")
-
-        'dg_sg_capas.Columns.Insert(0, checkboxcolumn)
-
-        'For value As Integer = 0 To dg_sg_capas.RowCount - 1 Step 1
-        '    Dim varbooleana As Boolean
-        '    varbooleana = CBool(CInt(dg_sg_capas.Rows(value).Cells(5).Value))
-        '    'dg_sg_capas.Rows(value).Cells(5).Value = CBool(CInt(dg_sg_capas.Rows(value).Cells(4).Value))
-        '    dg_sg_capas.Rows(value).Cells(0).Value = varbooleana
-
-        'Next
-
-        ''Configuracion de la visualizacion de las celdas
-        'dg_sg_capas.Columns(0).ReadOnly = False
-        'dg_sg_capas.Columns(0).Width = 48
-        ''dg_sg_capas.Columns(0).AutoSizeMode = DataGridViewAutoSizeColumnMode.None
-        ''dg_sg_capas.Columns(0).AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-        'dg_sg_capas.Columns(1).AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-        'dg_sg_capas.Columns(2).AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-        'dg_sg_capas.Columns(3).AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-        'dg_sg_capas.Columns(4).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
-        ''dg_sg_capas.Columns(5).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
-
-        ''Configuracion de la visualizacion del datagrid
-        'dg_sg_capas.AllowUserToAddRows = False
-        'dg_sg_capas.RowHeadersVisible = False
-        'dg_sg_capas.BackgroundColor = Color.FromArgb(240, 240, 240)
-        'dg_sg_capas.Dock = DockStyle.Fill
-        'dg_sg_capas.Columns(0).Resizable = False
-        ''dg_sg_capas.AllowUserToResizeColumns = False
-
-
-        ''Agregamos el checkboxheader
-        'Dim HeaderCheckBox As CheckBox = New CheckBox()
-        'HeaderCheckBox.Size = New Size(15, 15)
-        'dg_sg_capas.Controls.Add(HeaderCheckBox)
-
-        'Dim oRectangle As Rectangle = dg_sg_capas.GetCellDisplayRectangle(0, -1, True)
-        'Dim oPoint As Point = New Point()
-        'oPoint.X = oRectangle.Location.X + (oRectangle.Width - HeaderCheckBox.Width) / 2 - 2
-        'oPoint.Y = oRectangle.Location.Y + (oRectangle.Height - HeaderCheckBox.Height) / 2 - 2
-        'HeaderCheckBox.Location = oPoint
-
-        ''Dim headerCellLocation As Drawing.Point = Me.dg_sg_capas.GetCellDisplayRectangle(0, -1, True).Location
-        ''headerCheckBox.Location = New Drawing.Point(headerCellLocation.X + 8, headerCellLocation.Y + 2)
-        ''headerCheckBox.BackColor = Drawing.Color.White
-        ''headerCheckBox.Size = New Drawing.Size(18, 18)
     End Sub
     Private Sub ResetHeaderCheckBoxLocation(ByVal ColumnIndex As Integer, ByVal RowIndex As Integer)
         Dim oRectangle As Rectangle = Me.dg_sg_capas.GetCellDisplayRectangle(ColumnIndex, RowIndex, True)

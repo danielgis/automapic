@@ -26,7 +26,8 @@ def enviardatos(gdbini, gdbfin, rutacsv):
         if row["enviar"]== True:
             fc_inicial = os.path.join(gdb_origen, row["origen"])
             fc_destino = os.path.join(gdb_destino, row["nombre_destino"])
-            arcpy.CopyFeatures_management(fc_inicial,fc_destino)
+            arcpy.CopyRows_management(fc_inicial,fc_destino)
+            # arcpy.CopyFeatures_management(fc_inicial,fc_destino)
             contador +=1
     return contador
 
