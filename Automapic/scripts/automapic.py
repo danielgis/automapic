@@ -1,6 +1,6 @@
 import arcpy
 import os
-import messages as msg
+import messages_aut as msg
 
 def check_layer_inside_data_frame(features, symbols, df_name=None, query=None, zoom=False):
     mxd = arcpy.mapping.MapDocument("CURRENT")

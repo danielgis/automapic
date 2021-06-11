@@ -1,5 +1,5 @@
 import os
-import packages as pkg
+import packages_aut as pkg
 
 __author__ = 'Daniel Fernando Aguado Huaccharaqui'
 __copyright__ = 'INGEMMET 2021'

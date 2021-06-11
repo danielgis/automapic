@@ -3,8 +3,8 @@ reload(sys)
 sys.setdefaultencoding("utf-8")
 
 import arcpy
-import settings as st
-import messages as msg
+import settings_aut as st
+import messages_aut as msg
 import arcobjects as arc
 import os
 from bisect import bisect

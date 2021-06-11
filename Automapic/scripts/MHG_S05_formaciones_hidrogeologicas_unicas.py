@@ -1,8 +1,8 @@
 # -*-coding:utf-8-*-
 
 import arcpy
-import settings as st
-import messages as msg
+import settings_aut as st
+import messages_aut as msg
 import pandas as pd
 import json
 

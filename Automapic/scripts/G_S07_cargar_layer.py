@@ -3,8 +3,8 @@ import arcpy
 import json
 import automapic as aut
 import os
-import settings as st
-import packages as pkg
+import settings_aut as st
+import packages_aut as pkg
 
 response = dict()
 response['status'] = 1

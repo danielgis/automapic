@@ -1,7 +1,7 @@
 import os
 from subprocess import call
 import sys
-import settings as st
+import settings_aut as st
 import glob
 
 # Install packages

@@ -1,7 +1,7 @@
 import arcpy
 import json
-import settings as st
-import messages as msg
+import settings_aut as st
+import messages_aut as msg
 
 response = dict()
 response['status'] = 1

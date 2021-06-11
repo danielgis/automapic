@@ -2,8 +2,8 @@ import sys
 
 
 import arcpy
-import settings as st
-import messages as msg
+import settings_aut as st
+import messages_aut as msg
 import traceback
 import os
 import json

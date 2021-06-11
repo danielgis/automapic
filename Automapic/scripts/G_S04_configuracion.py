@@ -1,7 +1,7 @@
 import arcpy
-import packages as pkg
-import settings as st
-import messages as msg
+import packages_aut as pkg
+import settings_aut as st
+import messages_aut as msg
 
 usuario = arcpy.GetParameterAsText(0)
 temp_folder = arcpy.GetParameterAsText(1)

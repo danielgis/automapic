@@ -1,7 +1,7 @@
 # -*-coding:utf-8-*-
 
 import arcpy
-import settings as st
+import settings_aut as st
 import traceback
 
 fila = arcpy.GetParameterAsText(0)

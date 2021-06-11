@@ -1,6 +1,6 @@
 import arcpy
 import json
-import packages as pkg
+import packages_aut as pkg
 
 arcpy.env.overwriteOutput = True
 

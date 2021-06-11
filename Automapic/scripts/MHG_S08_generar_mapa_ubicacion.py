@@ -2,7 +2,7 @@
 import arcpy
 import json
 import os
-import settings as st
+import settings_aut as st
 import automapic as aut
 
 response = dict()

@@ -1,6 +1,6 @@
 import arcpy
-import packages as pkg
-import messages as msg
+import packages_aut as pkg
+import messages_aut as msg
 import json
 
 user = arcpy.GetParameterAsText(0)

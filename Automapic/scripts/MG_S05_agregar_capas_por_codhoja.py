@@ -1,6 +1,6 @@
 # import arcpy
 import json
-import settings as st
+import settings_aut as st
 from automapic import *
 
 response = dict()

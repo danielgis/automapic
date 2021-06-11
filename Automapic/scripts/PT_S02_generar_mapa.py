@@ -1,6 +1,6 @@
 import arcpy
-import settings as st
-import messages as msg
+import settings_aut as st
+import messages_aut as msg
 from arcpy import mapping
 import os
 import uuid

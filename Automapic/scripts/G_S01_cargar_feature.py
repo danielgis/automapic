@@ -1,5 +1,5 @@
 import arcpy
-import settings as st
+import settings_aut as st
 import os
 import os
 

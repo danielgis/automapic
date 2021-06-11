@@ -1,8 +1,8 @@
 import arcpy
-import settings as st
+import settings_aut as st
 import os
 import json
-import messages as msg
+import messages_aut as msg
 
 codhoja = arcpy.GetParameterAsText(0)
 geodatabase = arcpy.GetParameterAsText(1)

@@ -1,7 +1,7 @@
 import arcpy
-import settings as st
+import settings_aut as st
 import os
-import messages as msg
+import messages_aut as msg
 
 mxd_path = arcpy.GetParameterAsText(0)
 

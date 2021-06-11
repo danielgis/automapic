@@ -537,7 +537,7 @@
     <Content Include="scripts\img\logo_ingemmet.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="scripts\messages.py">
+    <Content Include="scripts\messages_aut.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\MG_S01_obtener_codigos.py">
@@ -579,7 +579,7 @@
     <Content Include="scripts\MHG_S08_generar_mapa_ubicacion.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="scripts\packages.py">
+    <Content Include="scripts\packages_aut.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\PG_S01_mapa_peligros_geologicos.py">
@@ -594,7 +594,7 @@
     <Content Include="scripts\require\get-pip.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="scripts\settings.py">
+    <Content Include="scripts\settings_aut.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\SG_S01_opciones_filtro.py">

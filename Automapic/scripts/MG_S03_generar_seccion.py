@@ -14,7 +14,7 @@ import math
 import pandas as pd
 import numpy as np
 import uuid
-import settings as st
+import settings_aut as st
 import automapic_template_json as auttmp
 import automapic as aut
 

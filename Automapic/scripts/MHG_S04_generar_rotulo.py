@@ -4,8 +4,8 @@
 
 import arcpy
 import json
-import settings as st
-import messages as msg
+import settings_aut as st
+import messages_aut as msg
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 from matplotlib.offsetbox import TextArea, DrawingArea, OffsetImage, AnnotationBbox

@@ -1,8 +1,8 @@
 # Importar librerias
 import arcpy
 import json
-import settings as st
-import packages as pkg
+import settings_aut as st
+import packages_aut as pkg
 import automapic as aut
 import pythonaddins
 import os

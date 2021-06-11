@@ -3,8 +3,8 @@
 import sys
 import arcpy
 import os
-import settings as st
-import messages as msg
+import settings_aut as st
+import messages_aut as msg
 import traceback
 import json
 import pandas as pd
