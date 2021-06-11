@@ -8,7 +8,7 @@ __version__ = '1.0.1'
 __maintainer__ = 'Daniel Aguado H.'
 __mail__ = 'autonomoosi02@ingemmet.gob.pe'
 __title__ = 'Automapic'
-# __status__ = 'Development'
+__status__ = 'Development'
 # __status__ = 'Production'
 
 _BASE_DIR = os.path.dirname(__file__)
@@ -19,6 +19,7 @@ _IMG_DIR = os.path.join(_BASE_DIR, 'img')
 _IMG_LOGO_INGEMMET = os.path.join(_IMG_DIR, 'logo_ingemmet.png')
 
 _BDGEOCAT_SDE = os.path.join(_BASE_DIR, 'bdgeocat.sde')
+_BDGEOCAT_SDE_DEV = os.path.join(_BASE_DIR, 'bdgeocat_dev.sde')
 
 _ZONAS_GEOGRAFICAS = [17, 18, 19]
 _EPSG_W17S = 32717
@@ -98,6 +99,8 @@ _TB_01_UNIDAD_HIDROGEOLOGICA_PATH = os.path.join(_GDB_PATH_HG if _GDB_PATH_HG el
 _TB_01_LEYENDA_AUX_PATH = os.path.join(_GDB_PATH_HG if _GDB_PATH_HG else '', 'TB_01_leyenda_aux')
 _PO_01_LEYENDA_DIVISIONES_PATH = os.path.join(_GDB_PATH_HG if _GDB_PATH_HG else '', 'PO_01_leyenda')
 _PT_01_LEYENDA_ETIQUETAS_PATH = os.path.join(_GDB_PATH_HG if _GDB_PATH_HG else '', 'PT_01_leyenda_etiquetas')
+_TB_01_LEYENDA_PATH = os.path.join(_GDB_PATH_HG if _GDB_PATH_HG else '', "TB_01_leyenda")
+_TB_01_CLASIFICACION_DESCRIPCION = os.path.join(_GDB_PATH_HG if _GDB_PATH_HG else '', "TB_01_clasificacion_descripcion")
 
 # :FIELDS
 _CD_CUENCA = 'cd_cuenca'
@@ -112,6 +115,10 @@ _D_FHIDROG = "d_fhidrog"
 _LITOLOGIA_G = "litologia_g"
 _ORDEN = "orden"
 _UHIDROG = "uhidrog"
+_CODI_G = "codi_g"
+_ESTADO = "estado"
+
+_DESCRIP = "descrip"
 
 _ID = "id"
 _GREEN = "green"

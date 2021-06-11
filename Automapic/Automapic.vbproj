@@ -253,6 +253,9 @@
     <None Include="scripts\bdgeocat.sde">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="scripts\bdgeocat_dev.sde">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="scripts\layers\cuadriculas.lyr">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -284,6 +287,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="scripts\layers\GPO_DEP_DEPARTAMENTO.lyr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="scripts\layers\GPO_DEP_DEPARTAMENTO_CUENCA.lyr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="scripts\layers\GPO_DEP_DEPARTAMENTO_NACIONAL.lyr">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="scripts\layers\GPO_DEP_DISTRITO.lyr">
@@ -340,13 +349,25 @@
     <None Include="scripts\layers\GPT_MG_PERFIL_19S.lyr">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="scripts\layers\PL_01_seccion_hidrogeologica.lyr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="scripts\layers\pog.lyr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="scripts\layers\PO_01_cuencas_hidrograficas.lyr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="scripts\layers\PO_01_cuencas_hidrograficas_mu.lyr">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="scripts\layers\PO_01_formacion_hidrogeologica.lyr">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="scripts\layers\PO_01_LEYENDA.lyr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="scripts\layers\PT_01_inventario_fuentes.lyr">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="scripts\layers\PT_01_LEYENDA_ETIQUETAS.lyr">
@@ -541,6 +562,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\MHG_S07_cortar_features_por_cuencas.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="scripts\MHG_S08_generar_mapa_ubicacion.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\packages.py">

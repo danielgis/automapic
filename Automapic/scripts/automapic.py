@@ -56,7 +56,7 @@ def add_layer_with_new_datasource(layer, name_feature, workspace, typeWorkspace,
     # Obteniendo las capas actuales en el mapa con el nombre del layer 
     layers = arcpy.mapping.ListLayers(mxd, "*{}*".format(name), df)
     # arcpy.AddMessage(layers)
-
+    arcpy.AddMessage(layers)
     # Si el layer ya existe en el mapa
     if len(layers):
         lyr = layers[0]

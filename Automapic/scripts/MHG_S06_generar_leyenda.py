@@ -7,6 +7,8 @@ import automapic_template_json as auttmp
 import automapic as aut
 import os
 import PG_S01_mapa_peligros_geologicos as pgeo
+import numpy as np
+import uuid
 
 arcpy.env.overwriteOutput = True
 
@@ -18,6 +20,8 @@ data = arcpy.GetParameterAsText(0)
 clasificacion = arcpy.GetParameterAsText(1)
 id_mapa = arcpy.GetParameterAsText(2)
 df_nombre = arcpy.GetParameterAsText(3)
+
+guid = uuid.uuid4().hex
 
 
 def get_df_legend_aux():
@@ -42,11 +46,13 @@ def get_coords_point(container, xmin, ymin, xmax, ymax):
     elif container["haligntext"].item() == "right":
         x = xmax - container["spaceh"].item()
     elif container["haligntext"].item() == "middle":
-        x = xmin + (0.5 * (abs(xmax) - abs(xmin)))
+        # Corregido
+        x = xmin + (0.5 * abs(abs(xmax) - abs(xmin)))
     if container["valigntext"].item() == "top":
         y = ymax - container["spacev"].item()
     elif container["valigntext"].item() == "middle":
-        y = ymin + (0.5 * (abs(ymax) - abs(ymin)))
+        # corregido
+        y = ymin + (0.5 * abs(abs(ymax) - abs(ymin)))
     elif container["valigntext"].item() == "bottom":
         y = ymin + container["spacev"].item()
     return {"x": x, "y": y}
@@ -84,6 +90,8 @@ try:
 
     data = json.loads(data)
     df = pd.DataFrame(data["Table1"])
+
+    df[st._ID_MAPA] = id_mapa
 
     clasificacion = json.loads(clasificacion)
 
@@ -368,6 +376,50 @@ try:
 
     aut.add_layer_with_new_datasource(lyer_pt, name_pt_leyenda, st._GDB_PATH_HG, "FILEGDB_WORKSPACE", df_name=df_nombre, query=query)
     aut.add_layer_with_new_datasource(lyer_po, name_po_leyenda, st._GDB_PATH_HG, "FILEGDB_WORKSPACE", df_name=df_nombre, query=query, zoom=True, scale=2500)
+
+    # configurando dataframe pandas para almacenar datos
+    df[st._CODI_G] = df["ID"].str[-4:]
+    df[st._ESTADO] = 1
+
+    rename_columns = dict()
+    rename_columns["ID"] = st._ID_FHIDROG
+    rename_columns["Descripcion"] = st._D_FHIDROG
+    rename_columns["Litologia"] = st._LITOLOGIA_G
+    rename_columns["Nombre"] = st._N_FHIDROG
+    df.rename(columns=rename_columns, inplace=True)
+
+    df[st._CODI_G] = df[st._CODI_G].astype(int)
+
+    arr = df.to_records(index=False)
+    dt = arr.dtype
+    descr = dt.descr
+    # Es necesario reemplazar las columnas de tipo Object a unicode para ser legibles por numpy
+    for i in range(len(descr)):
+        if descr[i][1] == '|O':
+            descr[i] = (descr[i][0], '<U300')
+
+    dt = np.dtype(descr)
+    arr = arr.astype(dt)
+    output_table = os.path.join(arcpy.env.scratchGDB, "tb_leyenda_{}".format(guid))
+    arcpy.da.NumPyArrayToTable(arr, output_table)
+
+    # arcpy.env.overwriteOutput = True
+    arcpy.AddMessage(st._TB_01_LEYENDA_PATH)
+    tb_leyenda_tv = arcpy.MakeTableView_management(st._TB_01_LEYENDA_PATH, 'tb_leyenda_{}'.format(guid), query)
+    arcpy.DeleteRows_management(tb_leyenda_tv)
+    arcpy.Append_management(output_table, st._TB_01_LEYENDA_PATH, "NO_TEST")
+
+
+    # Cargando datos de clasificacion
+    tb_clasificacion = arcpy.MakeTableView_management(st._TB_01_CLASIFICACION_DESCRIPCION, 'tb_clasificacion_{}'.format(guid), query)
+    arcpy.DeleteRows_management(tb_clasificacion)
+
+    fields = [st._CL_HIDROG, st._DESCRIP, st._ID_MAPA]
+    cursor = arcpy.da.InsertCursor(st._TB_01_CLASIFICACION_DESCRIPCION, fields)
+
+    for k, v in clasificacion.items():
+        cursor.insertRow((k, v, id_mapa))
+    del cursor
 except Exception as e:
     response['status'] = 0
     response['message'] = e.message

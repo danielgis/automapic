@@ -286,6 +286,8 @@ Public Class Form_mapa_hidrogeologico
             Return
         End If
 
+        dgv_mh_leyenda.Rows.Clear()
+
         dgv_mh_leyenda.ColumnCount = 5
         dgv_mh_leyenda.Columns(0).Name = "Leyenda"
         dgv_mh_leyenda.Columns(0).ReadOnly = True
@@ -429,6 +431,8 @@ Public Class Form_mapa_hidrogeologico
     End Sub
 
     Private Sub btn_mgh_extrerdatos_Click(sender As Object, e As EventArgs) Handles btn_mgh_extrerdatos.Click
+        runProgressBar()
+        Cursor.Current = Cursors.WaitCursor
         Dim features As List(Of String) = UserControl_CheckBoxAddLayers1.getLayerSelected()
         Dim features_as_string As String = String.Join(",", features)
         Dim codcuencasArray As New List(Of Object)
@@ -442,6 +446,36 @@ Public Class Form_mapa_hidrogeologico
         Dim dataframe As String = UserControl_CheckBoxAddLayers1.getNameDataFrame()
         params.Add(dataframe)
         ExecuteGP(_tool_clipLayerSelectedByCuenca, params, _toolboxPath_automapic, getresult:=False)
+        Cursor.Current = Cursors.Default
+        runProgressBar("ini")
         'MessageBox.Show(features_as_string, __title__, MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    Private Sub btn_mgh_generar_mu_Click(sender As Object, e As EventArgs) Handles btn_mgh_generar_mu.Click
+        runProgressBar()
+        Cursor.Current = Cursors.WaitCursor
+        params.Clear()
+        If rbt_mhg_nacional.Checked = True Then
+            params.Add("1")
+        Else
+            params.Add("2")
+        End If
+        Dim codcuencasArray As New List(Of Object)
+        For Each ikey As String In cuencasDictSelected.Keys
+            codcuencasArray.Add(ikey)
+        Next
+        Dim cuencas As String = String.Join(", ", codcuencasArray)
+        params.Add(cuencas)
+        Dim dataframe As String = UserControl_ComboBoxDataframes2.getDataframeSelected()
+        If dataframe Is Nothing Then
+            Cursor.Current = Cursors.Default
+            runProgressBar("ini")
+            MessageBox.Show("Debe seleccionar un dataframe", __title__, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Return
+        End If
+        params.Add(dataframe)
+        ExecuteGP(_tool_generateMapLocation, params, _toolboxPath_automapic, getresult:=False)
+        Cursor.Current = Cursors.Default
+        runProgressBar("ini")
     End Sub
 End Class

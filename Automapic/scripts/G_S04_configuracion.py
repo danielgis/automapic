@@ -60,7 +60,10 @@ if bdgeocat_conn:
 
     pkg.set_datasources_tree_layers(bdgeocat_conn, 1, 9, iscommit=True)
 else:
-    pkg.set_datasources_tree_layers(st._BDGEOCAT_SDE, 1, 9, iscommit=True)
+    # Se asigna la geodatabase por defecto en la raiz de automapic
+    bdgeocat_conn = st._BDGEOCAT_SDE_DEV if st.__status__ == 'Development' else st._BDGEOCAT_SDE
+    pkg.set_config_param(3, bdgeocat_conn, iscommit=True)
+    pkg.set_datasources_tree_layers(bdgeocat_conn, 1, 9, iscommit=True)
 
 arcpy.AddMessage(msg._SET_GDB_MHIDROGEO)
 if gdb_mhidrogeo:
