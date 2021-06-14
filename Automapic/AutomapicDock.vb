@@ -55,7 +55,7 @@ Public Class AutomapicDock
 
 
     Private Sub AutomapicDock_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ExecuteGP(_tool_installPackages, params, _toolboxPath_automapic, False)
+        'ExecuteGP(_tool_installPackages, params, _toolboxPath_automapic, False)
         Dim loginForm As Form = New Login()
         openFormByName(loginForm, pnl_main)
         'If __status__ = "Development" Then

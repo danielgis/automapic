@@ -63,7 +63,7 @@ def set_all_user_logout(iscommit=True):
     return "UPDATE TB_USER SET LOGIN = 0"
 
 @packageDecore
-def get_config_by_user(user):
+def get_config_by_user(user, as_dataframe=False):
     return "select config, name from VW_USER_CONFIG WHERE USER = '{}'".format(user)
 
 @packageDecore

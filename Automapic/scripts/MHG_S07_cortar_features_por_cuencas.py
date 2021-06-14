@@ -23,10 +23,13 @@ def split_data_by_polygon(row, geom):
         return
     response = os.path.join(arcpy.env.scratchGDB, row['layer_name'])
     feature = os.path.join(row['datasource'], row['feature'])
-    arcpy.AddMessage(feature)
+    name_feature= os.path.basename(feature).split('.')[1]
+    # arcpy.AddMessage(feature)
+    # arcpy.AddMessage(response)
+    # arcpy.AddMessage("*"*20)
     try:
         arcpy.Clip_analysis(feature, geom, response)
-        aut.add_layer_with_new_datasource(feature, row['layer_name'], arcpy.env.scratchGDB, "FILEGDB_WORKSPACE", df_name=dataframe)
+        aut.add_layer_with_new_datasource(row['layer_name'], name_feature, arcpy.env.scratchGDB, "FILEGDB_WORKSPACE", df_name=dataframe)
     except Exception as e:
         pythonaddins.MessageBox("Ocurrio un error con el feature {}\n{}".format(row['feature'], e.message), st.__title__)
         return

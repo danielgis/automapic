@@ -48,6 +48,12 @@ Public Class Login
         '    Return
         'End If
         '------------------------------
+        ' Se instalan librerias necesarias
+        params.Clear()
+        ExecuteGP(_tool_installPackages, params, _toolboxPath_automapic, False)
+        ExecuteGP(_tool_updatePreSettings, params, _toolboxPath_automapic, False)
+
+        ' Se carga el modulo
         Dim ModulosForm = New Modulos()
         openFormByName(ModulosForm, Me.Parent)
     End Sub

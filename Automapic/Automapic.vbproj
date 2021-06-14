@@ -534,6 +534,9 @@
     <Content Include="scripts\G_S08_remover_feature.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="scripts\G_S09_pre_configuracion.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="scripts\img\logo_ingemmet.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

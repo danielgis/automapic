@@ -36,7 +36,9 @@ if gdb_pt25000:
     mxd19.save()
     del mxd19
 
-if bdgeocat_conn:
+df_user = pkg.get_config_by_user(usuario, as_dataframe=True)
+
+if ('SDE_CONN' in list(df_user['name'].unique())) and (bdgeocat_conn is not None):
     arcpy.AddMessage(msg._SET_CONFIG_GDB_PG)
     pkg.set_config_param(3, bdgeocat_conn, iscommit=True)
 
@@ -59,11 +61,11 @@ if bdgeocat_conn:
     del mxd19_pg
 
     pkg.set_datasources_tree_layers(bdgeocat_conn, 1, 9, iscommit=True)
-else:
-    # Se asigna la geodatabase por defecto en la raiz de automapic
-    bdgeocat_conn = st._BDGEOCAT_SDE_DEV if st.__status__ == 'Development' else st._BDGEOCAT_SDE
-    pkg.set_config_param(3, bdgeocat_conn, iscommit=True)
-    pkg.set_datasources_tree_layers(bdgeocat_conn, 1, 9, iscommit=True)
+# else:
+#     # Se asigna la geodatabase por defecto en la raiz de automapic
+#     bdgeocat_conn = st._BDGEOCAT_SDE_DEV if st.__status__ == 'Development' else st._BDGEOCAT_SDE
+#     pkg.set_config_param(3, bdgeocat_conn, iscommit=True)
+#     pkg.set_datasources_tree_layers(bdgeocat_conn, 1, 9, iscommit=True)
 
 arcpy.AddMessage(msg._SET_GDB_MHIDROGEO)
 if gdb_mhidrogeo:
