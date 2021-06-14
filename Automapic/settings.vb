@@ -85,6 +85,9 @@ Module settings
     End Function
 
     Public Function runProgressBar(Optional position As String = Nothing)
+        If _LOADER_CONTROL Is Nothing Then
+            Return Nothing
+        End If
         If (position = "ini") Then
             _LOADER_CONTROL.Value = 0
         ElseIf (position = "end") Then
