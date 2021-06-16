@@ -1,5 +1,8 @@
 ﻿Imports System.Windows.Forms
 Imports Newtonsoft.Json
+Imports ESRI.ArcGIS.Maplex
+Imports ESRI.ArcGIS.Carto
+Imports ESRI.ArcGIS.ArcMapUI
 
 Public Class UserControl_CheckBoxAddLayers
     Dim params_ui_cbox As New List(Of Object)
@@ -109,7 +112,11 @@ Public Class UserControl_CheckBoxAddLayers
                     '    params_ui_cbox.Add(query_ui_cbox)
                     'End If
 
-
+                    Dim maplexEngine As IAnnotateMap
+                    maplexEngine = New MaplexAnnotateMap()
+                    Dim pMxDoc As IMxDocument
+                    pMxDoc = My.ArcMap.Application.Document
+                    pMxDoc.FocusMap.AnnotationEngine = maplexEngine
 
                     ExecuteGP(_tool_addLayerToDataFrame, params_ui_cbox, _toolboxPath_automapic, getresult:=False)
                 Else
@@ -143,6 +150,7 @@ Public Class UserControl_CheckBoxAddLayers
                 getChildsLayerSelected(childNode, nodes_checked)
             End If
         Next
+        Return Nothing
     End Function
     Public Function getLayerSelected()
         Dim nodes_checked As New List(Of String)

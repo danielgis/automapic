@@ -403,6 +403,18 @@
     <None Include="scripts\require\comtypes-1.1.7-py2-none-any.whl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="scripts\require\cycler-0.10.0-py2.py3-none-any.whl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="scripts\require\functools32-3.2.3-2.tar.gz">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="scripts\require\matplotlib-2.0.0-cp27-cp27m-win32.whl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="scripts\require\six-1.16.0-py2.py3-none-any.whl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="scripts\T00_automapic.tbx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

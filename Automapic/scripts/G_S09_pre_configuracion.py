@@ -3,6 +3,7 @@ import arcpy
 import json
 import packages_aut as pkg
 import settings_aut as st
+import tempfile
 
 response = dict()
 response['status'] = 1
@@ -15,7 +16,7 @@ _TEMP_FOLDER = pkg.get_config_param_value('TEMP_FOLDER', one=True)
 # Si no se ha configurado
 if _TEMP_FOLDER is None:
     # Se agrega automaticamente el folder de archivos temporales por defecto de ArcMap
-    _TEMP_FOLDER = arcpy.env.scratchFolder
+    _TEMP_FOLDER = tempfile.gettempdir()
     pkg.set_config_param(1, _TEMP_FOLDER, iscommit=True)
 
 # Obtenemos la conexion a la base de datos coorporativa de ingemmet
