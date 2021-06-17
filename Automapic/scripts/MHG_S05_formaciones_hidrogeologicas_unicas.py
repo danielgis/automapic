@@ -31,6 +31,7 @@ try:
     if not arcpy.Exists(table):
         raise RuntimeError(msg._ERROR_FEATURE_UHIDROGEO_HG)
 
+    cuencas = cuencas.replace("'", '').replace(' ', '')
     cuencas = "('{}')".format("', '".join(cuencas.split(',')))
 
     fields = [st._ID_FHIDROG, st._N_FHIDROG, st._D_FHIDROG, st._LITOLOGIA_G, st._UHIDROG, st._CL_HIDROG]

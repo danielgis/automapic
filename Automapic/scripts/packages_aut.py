@@ -94,3 +94,5 @@ def get_layers_selected(where, as_dataframe=True):
 # @packageDecore
 # def deleteLogRows(iscommit=True):
 #     return 'DELETE FROM TB_LOG'
+
+
