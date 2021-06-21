@@ -24,6 +24,7 @@ Public Class Form_mapa_hidrogeologico
     Dim zona_geografica As String
     Dim queryCuencas As String
     Dim FIELD_CD_CUENCA As String = "cd_cuenca"
+    Dim cuencas As String
 
     Private Sub Form_mapa_hidrogeologico_load(sender As Object, e As EventArgs) Handles Me.Load
         runProgressBar()
@@ -81,21 +82,27 @@ Public Class Form_mapa_hidrogeologico
         Cursor.Current = Cursors.WaitCursor
         Dim cuenca_sel_key As String = (CType(cbx_mh_cuencas.SelectedItem, KeyValuePair(Of String, String))).Key
         Dim cuenca_sel_value As String = (CType(cbx_mh_cuencas.SelectedItem, KeyValuePair(Of String, String))).Value
+        'Cuando el control se carga por primera vez el index seleccionado es -1, 
+        'por tanto no deberia ejecutar proceso alguno
         If cbx_mh_cuencas.SelectedIndex = -1 Then
             Cursor.Current = Cursors.Default
             runProgressBar("ini")
             Return
         End If
-        'controller = controller + 1
+
         Dim idx = cbx_mh_cuencas.SelectedIndex
-        'cbx_mh_cuencas.Items(idx).Enabled = False
+        'Si se vuelve a seleccionar la misma cuenca, debe informar y cortar el proceso
+        'No se puede seleccionar una misma cuenca mas de una vez
         If cuencasDictSelected.ContainsKey(cuenca_sel_key) Then
             MessageBox.Show("La cuenca ya fue seleccionada", __title__, MessageBoxButtons.OK, MessageBoxIcon.Information)
             Cursor.Current = Cursors.Default
             runProgressBar("ini")
             Return
         End If
+        'Se agrega la cuenca seleccionada al diccionario de registqueryCuencasro
         cuencasDictSelected.Add(cuenca_sel_key, cuenca_sel_value)
+
+        'Se construye el titulo del mapa asociado solo a las cuencas, se omiten las intercuencas
         Dim codcuencasArray As New List(Of Object)
         Dim nomcuencasArray As New List(Of String)
         For Each ikey As String In cuencasDictSelected.Keys
@@ -106,9 +113,16 @@ Public Class Form_mapa_hidrogeologico
             End If
         Next
         tbx_mh_title1.Text = SetTitle1(nomcuencasArray)
-        Dim query As String = String.Join(",", codcuencasArray)
+
+        'Se construyen o reconstruyen algunos parametros para multiples funcion o geoprocesamiento
+        'Esto se realiza cada vez que hay cambios en la cuenca
+        cuencas = String.Join(",", codcuencasArray)
+        Dim cuencas_as_string As String = String.Join(",", codcuencasArray)
+        queryCuencas = String.Format("{0} in ('{1}')", FIELD_CD_CUENCA, cuencas_as_string)
+        'Dim query As String = String.Join(",", codcuencasArray)
+
         params.Clear()
-        params.Add(query)
+        params.Add(cuencas)
         Dim response = ExecuteGP(_tool_addFeatureWatershedsToMapMhg, params, _toolboxPath_mapa_hidrogeologico)
         Dim responseJson = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(response)
         If responseJson.Item("status") = 0 Then
@@ -173,12 +187,15 @@ Public Class Form_mapa_hidrogeologico
             End If
         Next
         tbx_mh_title1.Text = SetTitle1(nomcuencasArray)
-        Dim query As String = String.Join(",", codcuencasArray)
-        If query = "" Then
-            query = "6caa6007e67b4c05a3333fcce39ef2e6"
+        cuencas = String.Join(",", codcuencasArray)
+        Dim cuencas_as_string As String = String.Join("','", codcuencasArray)
+        If cuencas = "" Then
+            cuencas = "6caa6007e67b4c05a3333fcce39ef2e6"
+            cuencas_as_string = cuencas
         End If
+        queryCuencas = String.Format("{0} in ('{1}')", FIELD_CD_CUENCA, cuencas_as_string)
         params.Clear()
-        params.Add(query)
+        params.Add(cuencas)
         Dim response = ExecuteGP(_tool_addFeatureWatershedsToMapMhg, params, _toolboxPath_mapa_hidrogeologico)
         Dim responseJson = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(response)
         If responseJson.Item("status") = 0 Then
@@ -265,12 +282,12 @@ Public Class Form_mapa_hidrogeologico
 
     Private Sub loadFormacionesHidrogeologicas()
         params.Clear()
-        Dim codcuencasArray As New List(Of Object)
-        For Each ikey As String In cuencasDictSelected.Keys
-            codcuencasArray.Add(ikey)
-        Next
-        Dim cuencas As String = String.Join("', '", codcuencasArray)
-        queryCuencas = String.Format("{0} in ('{1}')", FIELD_CD_CUENCA, cuencas)
+        'Dim codcuencasArray As New List(Of Object)
+        'For Each ikey As String In cuencasDictSelected.Keys
+        '    codcuencasArray.Add(ikey)
+        'Next
+        'Dim cuencas As String = String.Join("','", codcuencasArray)
+        'queryCuencas = String.Format("{0} in ('{1}')", FIELD_CD_CUENCA, cuencas)
         params.Add(cuencas)
         params.Add(zona_geografica)
         Dim response = ExecuteGP(_tool_getListFormHidrogMgh, params, _toolboxPath_mapa_hidrogeologico)
@@ -441,7 +458,7 @@ Public Class Form_mapa_hidrogeologico
         For Each ikey As String In cuencasDictSelected.Keys
             codcuencasArray.Add(ikey)
         Next
-        Dim cuencas As String = String.Join(", ", codcuencasArray)
+        'Dim cuencas As String = String.Join(", ", codcuencasArray)
         params.Clear()
         params.Add(features_as_string)
         params.Add(cuencas)
@@ -466,7 +483,7 @@ Public Class Form_mapa_hidrogeologico
         For Each ikey As String In cuencasDictSelected.Keys
             codcuencasArray.Add(ikey)
         Next
-        Dim cuencas As String = String.Join(", ", codcuencasArray)
+        'Dim cuencas As String = String.Join(", ", codcuencasArray)
         params.Add(cuencas)
         Dim dataframe As String = UserControl_ComboBoxDataframes2.getDataframeSelected()
         If dataframe Is Nothing Then

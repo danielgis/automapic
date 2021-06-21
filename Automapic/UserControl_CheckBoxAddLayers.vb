@@ -15,6 +15,9 @@ Public Class UserControl_CheckBoxAddLayers
 
     End Sub
     Public Sub LoadOptions(category As String, Optional zona As String = Nothing, Optional query As String = Nothing)
+        If tvw_layers.Nodes.Count > 0 Then
+            Return
+        End If
         params_ui_cbox.Clear()
         params_ui_cbox.Add(category)
         tvw_layers.Nodes.Clear()

@@ -36,7 +36,9 @@ def split_data_by_polygon(row, geom):
 
 # try:
 # Obteniendo area geografica de las cuencas
-query_cuencas = "{} IN ('{}')".format(st._CD_CUENCA, "', '".join(cuencas.split(",")))
+cuencas = cuencas.replace("'", '').replace(' ', '')
+cuencas = "('{}')".format("', '".join(cuencas.split(',')))
+query_cuencas = "{} IN {}".format(st._CD_CUENCA, cuencas)
 cuencas_mfl = arcpy.MakeFeatureLayer_management(st._PL_01_CUENCAS_HIDROGRAFICAS_PATH, "cuencas_mfl", query_cuencas)
 cuencas_diss = arcpy.Dissolve_management(cuencas_mfl, 'in_memory\\cuencas_diss')
 
