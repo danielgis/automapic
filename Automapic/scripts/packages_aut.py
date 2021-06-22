@@ -81,6 +81,14 @@ def set_datasources_tree_layers(datasource, category, settable, iscommit=True):
 @packageDecore
 def get_layers_selected(where, as_dataframe=True):
     return "SELECT * FROM TB_LAYERS WHERE {}".format(where)
+
+@packageDecore
+def get_topology_items_by_module(id_modulo, as_dataframe=True):
+    return "SELECT ID, NAME FROM TB_TOPOLOGY WHERE ID_MODULO = {}".format(id_modulo)
+
+@packageDecore
+def get_topology_items(query, as_dataframe=True):
+    return "SELECT ID, NAME FROM TB_TOPOLOGY WHERE ID IN ({})".format(id_modulo)
 # @packageDecore
 # def get_log_data(getcursor=True, returnsql=False):
 #     return 'SELECT * FROM TB_LOG'

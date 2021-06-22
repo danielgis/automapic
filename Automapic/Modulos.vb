@@ -46,20 +46,20 @@ Public Class Modulos
     End Sub
 
     Private Sub cbx_modulos_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbx_modulos.SelectedIndexChanged
-        Dim modulo As Integer = (CType(cbx_modulos.SelectedItem, KeyValuePair(Of Integer, String))).Key
-        If (modulo = 1) Then
+        currentModule = (CType(cbx_modulos.SelectedItem, KeyValuePair(Of Integer, String))).Key
+        If (currentModule = 1) Then
             Dim plano_topografico_form = New Form_plano_topografico_25k()
             openFormByName(plano_topografico_form, pnl_modulos_form)
-        ElseIf (modulo = 2) Then
+        ElseIf (currentModule = 2) Then
             Dim mapa_peligros_geologicos = Form_mapa_peligros_geologicos.GetInstance()
             openFormByName(mapa_peligros_geologicos, pnl_modulos_form)
-        ElseIf (modulo = 3) Then
+        ElseIf (currentModule = 3) Then
             Dim mapa_geologico_50k = New Form_mapa_geologico_50k()
             openFormByName(mapa_geologico_50k, pnl_modulos_form)
-        ElseIf (modulo = 4) Then
+        ElseIf (currentModule = 4) Then
             Dim mapa_hidrogeologico = New Form_mapa_hidrogeologico()
             openFormByName(mapa_hidrogeologico, pnl_modulos_form)
-        ElseIf (modulo = 6) Then
+        ElseIf (currentModule = 6) Then
             Dim sincronizacion_gdb = New Form_sincronizacion_geodatabase()
             openFormByName(sincronizacion_gdb, pnl_modulos_form)
         End If

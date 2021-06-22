@@ -343,6 +343,12 @@
     <None Include="scripts\layers\GPO_IGN_HIDROGRAFIA_MASA_AGUA.lyr">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="scripts\layers\GPO_MG_HOLES.lyr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="scripts\layers\GPO_MG_OVERLAPS.lyr">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="scripts\layers\GPT_IGN_TOPONIMIA_CERROS_50K.lyr">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -549,6 +555,9 @@
     <Content Include="scripts\G_S09_pre_configuracion.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="scripts\G_S10_topologias.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="scripts\img\logo_ingemmet.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -568,6 +577,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\MG_S05_agregar_capas_por_codhoja.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="scripts\MG_S06_topologia.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\MHG_S01_cargar_cuencas.py">

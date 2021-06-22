@@ -32,6 +32,7 @@ Module toolbox
     Public _tool_treeLayers As String = "treeLayers"
     Public _tool_addLayerToDataFrame As String = "addLayerToDataFrame"
     Public _tool_removeFeatureOfTOC As String = "removeFeatureOfTOC"
+    Public _tool_getListTopologyByModule As String = "getListTopologyByModule"
 
     ':HERRAMIENTAS DEL MODULO DE MAPAS DE PELIGROS GEOLOGICOS
     Public _tool_mapGeologicalHazards As String = "mapGeologicalHazards"
@@ -42,6 +43,7 @@ Module toolbox
     Public _tool_generateProfile As String = "generateProfile"
     Public _tool_setSrcDataframeByCodHoja As String = "setSrcDataframeByCodHoja"
     Public _tool_addFeaturesByCodHoja As String = "addFeaturesByCodHoja"
+    Public _tool_applyTopology As String = "applyTopology"
 
     ':HERRAMIENTAS DEL MODULO DE MAPAS HIDROGEOLOGICOS
     Public _tool_addFeatureWatershedsToMapMhg As String = "addFeatureWatershedsToMapMhg"

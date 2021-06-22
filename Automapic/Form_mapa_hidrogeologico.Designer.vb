@@ -33,7 +33,6 @@ Partial Class Form_mapa_hidrogeologico
         Me.tp_mh_capas = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel6 = New System.Windows.Forms.TableLayoutPanel()
         Me.TableLayoutPanel7 = New System.Windows.Forms.TableLayoutPanel()
-        Me.UserControl_CheckBoxAddLayers1 = New Automapic.UserControl_CheckBoxAddLayers()
         Me.btn_mgh_extrerdatos = New System.Windows.Forms.Button()
         Me.tp_mh_rotulo = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
@@ -63,13 +62,14 @@ Partial Class Form_mapa_hidrogeologico
         Me.TableLayoutPanel5 = New System.Windows.Forms.TableLayoutPanel()
         Me.tbx_mh_descriph = New System.Windows.Forms.TextBox()
         Me.tvw_mh_descriph = New System.Windows.Forms.TreeView()
-        Me.UserControl_ComboBoxDataframes1 = New Automapic.UserControl_ComboBoxDataframes()
         Me.tp_mh_mapa_ubicacion = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel8 = New System.Windows.Forms.TableLayoutPanel()
-        Me.UserControl_ComboBoxDataframes2 = New Automapic.UserControl_ComboBoxDataframes()
         Me.rbt_mhg_nacional = New System.Windows.Forms.RadioButton()
         Me.rbt_mhg_cuenca = New System.Windows.Forms.RadioButton()
         Me.btn_mgh_generar_mu = New System.Windows.Forms.Button()
+        Me.UserControl_CheckBoxAddLayers1 = New Automapic.UserControl_CheckBoxAddLayers()
+        Me.UserControl_ComboBoxDataframes1 = New Automapic.UserControl_ComboBoxDataframes()
+        Me.UserControl_ComboBoxDataframes2 = New Automapic.UserControl_ComboBoxDataframes()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.tc_mh_tools.SuspendLayout()
         Me.tp_mh_capas.SuspendLayout()
@@ -217,15 +217,6 @@ Partial Class Form_mapa_hidrogeologico
         Me.TableLayoutPanel7.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 16.0!))
         Me.TableLayoutPanel7.Size = New System.Drawing.Size(331, 410)
         Me.TableLayoutPanel7.TabIndex = 0
-        '
-        'UserControl_CheckBoxAddLayers1
-        '
-        Me.TableLayoutPanel7.SetColumnSpan(Me.UserControl_CheckBoxAddLayers1, 2)
-        Me.UserControl_CheckBoxAddLayers1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.UserControl_CheckBoxAddLayers1.Location = New System.Drawing.Point(3, 3)
-        Me.UserControl_CheckBoxAddLayers1.Name = "UserControl_CheckBoxAddLayers1"
-        Me.UserControl_CheckBoxAddLayers1.Size = New System.Drawing.Size(325, 358)
-        Me.UserControl_CheckBoxAddLayers1.TabIndex = 0
         '
         'btn_mgh_extrerdatos
         '
@@ -628,15 +619,6 @@ Partial Class Form_mapa_hidrogeologico
         Me.tvw_mh_descriph.Size = New System.Drawing.Size(311, 192)
         Me.tvw_mh_descriph.TabIndex = 1
         '
-        'UserControl_ComboBoxDataframes1
-        '
-        Me.UserControl_ComboBoxDataframes1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.UserControl_ComboBoxDataframes1.Location = New System.Drawing.Point(2, 330)
-        Me.UserControl_ComboBoxDataframes1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.UserControl_ComboBoxDataframes1.Name = "UserControl_ComboBoxDataframes1"
-        Me.UserControl_ComboBoxDataframes1.Size = New System.Drawing.Size(327, 46)
-        Me.UserControl_ComboBoxDataframes1.TabIndex = 1
-        '
         'tp_mh_mapa_ubicacion
         '
         Me.tp_mh_mapa_ubicacion.Controls.Add(Me.TableLayoutPanel8)
@@ -666,16 +648,6 @@ Partial Class Form_mapa_hidrogeologico
         Me.TableLayoutPanel8.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.TableLayoutPanel8.Size = New System.Drawing.Size(335, 414)
         Me.TableLayoutPanel8.TabIndex = 0
-        '
-        'UserControl_ComboBoxDataframes2
-        '
-        Me.TableLayoutPanel8.SetColumnSpan(Me.UserControl_ComboBoxDataframes2, 2)
-        Me.UserControl_ComboBoxDataframes2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.UserControl_ComboBoxDataframes2.Location = New System.Drawing.Point(2, 2)
-        Me.UserControl_ComboBoxDataframes2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.UserControl_ComboBoxDataframes2.Name = "UserControl_ComboBoxDataframes2"
-        Me.UserControl_ComboBoxDataframes2.Size = New System.Drawing.Size(331, 46)
-        Me.UserControl_ComboBoxDataframes2.TabIndex = 0
         '
         'rbt_mhg_nacional
         '
@@ -715,6 +687,34 @@ Partial Class Form_mapa_hidrogeologico
         Me.btn_mgh_generar_mu.Text = "Generar mapa de ubicación"
         Me.btn_mgh_generar_mu.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btn_mgh_generar_mu.UseVisualStyleBackColor = True
+        '
+        'UserControl_CheckBoxAddLayers1
+        '
+        Me.TableLayoutPanel7.SetColumnSpan(Me.UserControl_CheckBoxAddLayers1, 2)
+        Me.UserControl_CheckBoxAddLayers1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.UserControl_CheckBoxAddLayers1.Location = New System.Drawing.Point(3, 3)
+        Me.UserControl_CheckBoxAddLayers1.Name = "UserControl_CheckBoxAddLayers1"
+        Me.UserControl_CheckBoxAddLayers1.Size = New System.Drawing.Size(325, 358)
+        Me.UserControl_CheckBoxAddLayers1.TabIndex = 0
+        '
+        'UserControl_ComboBoxDataframes1
+        '
+        Me.UserControl_ComboBoxDataframes1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.UserControl_ComboBoxDataframes1.Location = New System.Drawing.Point(2, 330)
+        Me.UserControl_ComboBoxDataframes1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.UserControl_ComboBoxDataframes1.Name = "UserControl_ComboBoxDataframes1"
+        Me.UserControl_ComboBoxDataframes1.Size = New System.Drawing.Size(327, 46)
+        Me.UserControl_ComboBoxDataframes1.TabIndex = 1
+        '
+        'UserControl_ComboBoxDataframes2
+        '
+        Me.TableLayoutPanel8.SetColumnSpan(Me.UserControl_ComboBoxDataframes2, 2)
+        Me.UserControl_ComboBoxDataframes2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.UserControl_ComboBoxDataframes2.Location = New System.Drawing.Point(2, 2)
+        Me.UserControl_ComboBoxDataframes2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.UserControl_ComboBoxDataframes2.Name = "UserControl_ComboBoxDataframes2"
+        Me.UserControl_ComboBoxDataframes2.Size = New System.Drawing.Size(331, 46)
+        Me.UserControl_ComboBoxDataframes2.TabIndex = 0
         '
         'Form_mapa_hidrogeologico
         '

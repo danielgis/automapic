@@ -15,6 +15,7 @@ Public Class Form_mapa_geologico_50k
     Dim cuadrante_selected As String
     Dim codhoja As String = Nothing
     Dim zona As String = Nothing
+    Dim topologyDict As New Dictionary(Of String, String)
     Private Sub btn_mg_loaddata_Click(sender As Object, e As EventArgs) Handles btn_mg_loaddata.Click
         Cursor.Current = Cursors.WaitCursor
         path_raster = openDialogBoxESRI(f_raster)
@@ -276,5 +277,77 @@ Public Class Form_mapa_geologico_50k
             params.Add(codhoja)
             ExecuteGP(_tool_addFeaturesByCodHoja, params, _toolboxPath_mapa_geologico, getresult:=False)
         End If
+
+        If clb_mg_topologias.Items.Count > 0 Then
+            Return
+        End If
+
+        params.Clear()
+        params.Add(currentModule)
+        Dim response2 As String = ExecuteGP(_tool_getListTopologyByModule, params, _toolboxPath_automapic)
+        Dim responseJson2 = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(response2)
+        If responseJson2.Item("status") = 0 Then
+            RuntimeError.PythonError = responseJson2.Item("message")
+            MessageBox.Show(RuntimeError.PythonError, __title__, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Cursor.Current = Cursors.Default
+            runProgressBar("ini")
+            Return
+        End If
+
+        For Each current In responseJson2.Item("response")
+            topologyDict.Add(current.Item("id").value, current.Item("name").value)
+        Next
+
+        clb_mg_topologias.DataSource = New BindingSource(topologyDict, Nothing)
+        clb_mg_topologias.DisplayMember = "Value"
+        clb_mg_topologias.ValueMember = "Key"
+
+    End Sub
+
+    Private Sub btn_mg_SelectlayerByLocation_Click(sender As Object, e As EventArgs) Handles btn_mg_SelectlayerByLocation.Click
+        Dim myUid As UID = New UID()
+        myUid.Value = "esriArcMapUI.SelectFeaturesTool"
+        Dim ThisDoc As IDocument = My.ArcMap.Application.Document
+        Dim CommandBars As ICommandBars = TryCast(ThisDoc.CommandBars, ICommandBars)
+        CommandBars.Find(myUid)
+        Dim myItem As ICommandItem = TryCast(CommandBars.Find(myUid), ICommandItem)
+        myItem.Execute()
+    End Sub
+
+    Private Sub rbt_mg_seleccion_CheckedChanged(sender As Object, e As EventArgs) Handles rbt_mg_seleccion.CheckedChanged
+        btn_mg_SelectlayerByLocation.Enabled = rbt_mg_seleccion.Checked
+    End Sub
+
+    Private Sub btn_mg_run_topology_Click(sender As Object, e As EventArgs) Handles btn_mg_run_topology.Click
+        runProgressBar()
+        Cursor.Current = Cursors.WaitCursor
+        Dim topologias As New List(Of String)
+        For i As Integer = 0 To clb_mg_topologias.Items.Count - 1
+            If i < 0 Then
+                Continue For
+            End If
+            Dim st As CheckState = clb_mg_topologias.GetItemCheckState(i)
+            Dim val As String = clb_mg_topologias.GetItemText(clb_mg_topologias.Items.Item(i))
+            If st = CheckState.Checked Then
+                topologias.Add(val)
+            End If
+        Next
+        Dim topologias_string As String = String.Join(" & ", topologias)
+        params.Clear()
+        params.Add(codhoja)
+        params.Add(topologias)
+        params.Add(zona)
+        params.Add(path_geodatabase)
+        Dim response = ExecuteGP(_tool_applyTopology, params, _toolboxPath_mapa_geologico)
+        Dim responseJson = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(response)
+        If responseJson.Item("status") = 0 Then
+            RuntimeError.PythonError = responseJson.Item("message")
+            MessageBox.Show(RuntimeError.PythonError, __title__, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Cursor.Current = Cursors.Default
+            runProgressBar("ini")
+            Return
+        End If
+        Cursor.Current = Cursors.Default
+        runProgressBar("ini")
     End Sub
 End Class

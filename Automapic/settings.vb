@@ -30,6 +30,7 @@ Module settings
     '* controller_sesion: Variable que toma valores de {0: "Sin incio de sesion, 1: "Usuario logeado"}
     Public user As String
     Public pass As String
+    Public currentModule As Integer
     Public modulosDict As New Dictionary(Of Integer, String)
     Public controller_sesion As Integer = 0
     Public python_path As String = ""
