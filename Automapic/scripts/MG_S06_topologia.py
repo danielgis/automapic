@@ -7,6 +7,8 @@ import messages_aut as msg
 import os
 import automapic as aut
 
+arcpy.env.overwriteOutput = True
+
 response = dict()
 response['status'] = 1
 response['message'] = 'success'
@@ -31,7 +33,8 @@ def topology_holes(geologia, hoja):
     shape_diss = map(lambda i: i[0], arcpy.da.SearchCursor(geologia_diss, ["SHAPE@"]))[0]
     hojas_diss = arcpy.Dissolve_management(hoja, 'in_memory\\hojas_diss')
     shape_hoja = map(lambda i: i[0], arcpy.da.SearchCursor(hojas_diss, ["SHAPE@"]))[0]
-    symdif = shape_diss.symmetricDifference(shape_hoja)
+    shape_hoja = shape_hoja.projectAs(shape_diss.spatialReference)
+    symdif = shape_hoja.symmetricDifference(shape_diss)
     symdif_feature = arcpy.CopyFeatures_management(symdif, 'in_memory\\symdif')
     response = os.path.join(workspace, 'Holes')
     arcpy.MultipartToSinglepart_management(symdif_feature, response)
@@ -41,33 +44,42 @@ try:
     # Se construye la consulta de hojas seleccionadas
     hojas = hojas.replace("'", '').replace(" ", '')
     query = "{} in ('{}')".format(st._CODHOJA_FIELD, "', '".join(hojas.split(',')))
-    
+
     # Se construye la consulta de topologias seleccionadas
     topologias = topologias.replace("'", '').replace(" ", '')
 
     # Se obtiene el makefeaturelayer de las hojas seleccionadas
-    feature_path = os.path.join(geodatabase, _ULITO_MG_PATH.format(zona, zona))
+    feature_path = os.path.join(geodatabase, st._ULITO_MG_PATH.format(zona, zona))
     feature_mfl = arcpy.MakeFeatureLayer_management(feature_path, 'ulitomfl', query)
 
     # Evaluando topologias
     df = pkg.get_topology_items(topologias, as_dataframe=True)
+    container_response = list()
     for idx, row in df.iterrows():
-        if row['ID'] == 1:
+        if row['id'] == 1:
             # Topologias overlaps
-            response = topology_overlaps(feature_mfl)
+            result = topology_overlaps(feature_mfl)
             layer = os.path.join(st._LAYERS_DIR, 'GPO_MG_OVERLAPS.lyr')
-        elif row['ID'] == 2:
+        elif row['id'] == 2:
             # Topologia holes
-            hojas = arcpy.MakeFeatureLayer_managementst.(st._CUADRICULAS_MG_PATH, 'hojas', query)
-            response = topology_holes(feature_mfl, hojas)
+            cuadriculas = os.path.join(geodatabase, st._CUADRICULAS_MG_PATH)
+            hojas = arcpy.MakeFeatureLayer_management(cuadriculas, 'hojas', query)
+            result = topology_holes(feature_mfl, hojas)
             layer = os.path.join(st._LAYERS_DIR, 'GPO_MG_HOLES.lyr')
-
-        name_feature = os.path.basename(response)
-        aut.add_layer_with_new_datasource(layer, response, workspace, 'FILEGDB_WORKSPACE', zoom=True)
+        
+        count = arcpy.GetCount_management(result).getOutput(0)
+        text = "{}: se encontraron {} resultados".format(row['name'], count)
+        container_response.append(text)
+        name_feature = os.path.basename(result)
+        aut.add_layer_with_new_datasource(layer, name_feature, workspace, 'FILEGDB_WORKSPACE', zoom=False)
+        
+    
+    text_response = '\n'.join(container_response)
+    response["response"] = text_response
 
 except Exception as e:
     response['status'] = 0
     response['message'] = e.message
 finally:
-    response = json.dumps(response, encoding='windows-1252', ensure_ascii=False)
+    response = json.dumps(response, encoding='utf-8', ensure_ascii=False)
     arcpy.SetParameterAsText(4, response)

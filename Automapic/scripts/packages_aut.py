@@ -88,7 +88,7 @@ def get_topology_items_by_module(id_modulo, as_dataframe=True):
 
 @packageDecore
 def get_topology_items(query, as_dataframe=True):
-    return "SELECT ID, NAME FROM TB_TOPOLOGY WHERE ID IN ({})".format(id_modulo)
+    return "SELECT ID, NAME FROM TB_TOPOLOGY WHERE ID IN ({})".format(query)
 # @packageDecore
 # def get_log_data(getcursor=True, returnsql=False):
 #     return 'SELECT * FROM TB_LOG'

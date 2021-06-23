@@ -327,26 +327,34 @@ Public Class Form_mapa_geologico_50k
                 Continue For
             End If
             Dim st As CheckState = clb_mg_topologias.GetItemCheckState(i)
-            Dim val As String = clb_mg_topologias.GetItemText(clb_mg_topologias.Items.Item(i))
+            Dim val As String = clb_mg_topologias.Items.Item(i).key
             If st = CheckState.Checked Then
                 topologias.Add(val)
             End If
         Next
-        Dim topologias_string As String = String.Join(" & ", topologias)
+        If topologias.Count = 0 Then
+            Cursor.Current = Cursors.Default
+            runProgressBar("ini")
+            MessageBox.Show("Debe seleccionar al menos un tipo de análisis topológico", __title__, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Return
+        End If
+        Dim topologias_string As String = String.Join(",", topologias)
         params.Clear()
         params.Add(codhoja)
-        params.Add(topologias)
+        params.Add(topologias_string)
         params.Add(zona)
         params.Add(path_geodatabase)
         Dim response = ExecuteGP(_tool_applyTopology, params, _toolboxPath_mapa_geologico)
         Dim responseJson = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(response)
         If responseJson.Item("status") = 0 Then
-            RuntimeError.PythonError = responseJson.Item("message")
-            MessageBox.Show(RuntimeError.PythonError, __title__, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Cursor.Current = Cursors.Default
             runProgressBar("ini")
+            RuntimeError.PythonError = responseJson.Item("message")
+            MessageBox.Show(RuntimeError.PythonError, __title__, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
         End If
+        lbl_mg_topology_res.Text = responseJson.Item("response")
+
         Cursor.Current = Cursors.Default
         runProgressBar("ini")
     End Sub

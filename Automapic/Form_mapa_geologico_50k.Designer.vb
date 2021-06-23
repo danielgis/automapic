@@ -57,6 +57,7 @@ Partial Class Form_mapa_geologico_50k
         Me.lbl_mg_cuad = New System.Windows.Forms.Label()
         Me.btn_load_code = New System.Windows.Forms.Button()
         Me.btn_load_gdb = New System.Windows.Forms.Button()
+        Me.lbl_mg_topology_res = New System.Windows.Forms.Label()
         Me.tc_mg_50k.SuspendLayout()
         Me.tab_mg_topologia.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
@@ -104,17 +105,19 @@ Partial Class Form_mapa_geologico_50k
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 39.0!))
         Me.TableLayoutPanel3.Controls.Add(Me.Label2, 0, 0)
         Me.TableLayoutPanel3.Controls.Add(Me.clb_mg_topologias, 0, 1)
-        Me.TableLayoutPanel3.Controls.Add(Me.rbt_mg_seleccion, 0, 4)
-        Me.TableLayoutPanel3.Controls.Add(Me.btn_mg_run_topology, 0, 7)
-        Me.TableLayoutPanel3.Controls.Add(Me.rbt_mg_actual, 0, 3)
-        Me.TableLayoutPanel3.Controls.Add(Me.btn_mg_SelectlayerByLocation, 1, 4)
+        Me.TableLayoutPanel3.Controls.Add(Me.rbt_mg_seleccion, 0, 5)
+        Me.TableLayoutPanel3.Controls.Add(Me.btn_mg_run_topology, 0, 8)
+        Me.TableLayoutPanel3.Controls.Add(Me.rbt_mg_actual, 0, 4)
+        Me.TableLayoutPanel3.Controls.Add(Me.btn_mg_SelectlayerByLocation, 1, 5)
+        Me.TableLayoutPanel3.Controls.Add(Me.lbl_mg_topology_res, 0, 3)
         Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel3.Location = New System.Drawing.Point(2, 2)
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
-        Me.TableLayoutPanel3.RowCount = 8
+        Me.TableLayoutPanel3.RowCount = 9
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5.0!))
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 23.0!))
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 23.0!))
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 12.0!))
@@ -141,14 +144,13 @@ Partial Class Form_mapa_geologico_50k
         Me.clb_mg_topologias.FormattingEnabled = True
         Me.clb_mg_topologias.Location = New System.Drawing.Point(3, 23)
         Me.clb_mg_topologias.Name = "clb_mg_topologias"
-        Me.clb_mg_topologias.SelectionMode = System.Windows.Forms.SelectionMode.None
         Me.clb_mg_topologias.Size = New System.Drawing.Size(347, 74)
         Me.clb_mg_topologias.TabIndex = 4
         '
         'rbt_mg_seleccion
         '
         Me.rbt_mg_seleccion.AutoSize = True
-        Me.rbt_mg_seleccion.Location = New System.Drawing.Point(3, 131)
+        Me.rbt_mg_seleccion.Location = New System.Drawing.Point(3, 231)
         Me.rbt_mg_seleccion.Name = "rbt_mg_seleccion"
         Me.rbt_mg_seleccion.Size = New System.Drawing.Size(180, 17)
         Me.rbt_mg_seleccion.TabIndex = 5
@@ -199,7 +201,7 @@ Partial Class Form_mapa_geologico_50k
         '
         Me.rbt_mg_actual.AutoSize = True
         Me.rbt_mg_actual.Checked = True
-        Me.rbt_mg_actual.Location = New System.Drawing.Point(3, 108)
+        Me.rbt_mg_actual.Location = New System.Drawing.Point(3, 208)
         Me.rbt_mg_actual.Name = "rbt_mg_actual"
         Me.rbt_mg_actual.Size = New System.Drawing.Size(138, 17)
         Me.rbt_mg_actual.TabIndex = 7
@@ -214,7 +216,7 @@ Partial Class Form_mapa_geologico_50k
         Me.btn_mg_SelectlayerByLocation.Enabled = False
         Me.btn_mg_SelectlayerByLocation.ImageIndex = 15
         Me.btn_mg_SelectlayerByLocation.ImageList = Me.ilist_mg_50k
-        Me.btn_mg_SelectlayerByLocation.Location = New System.Drawing.Point(317, 131)
+        Me.btn_mg_SelectlayerByLocation.Location = New System.Drawing.Point(317, 231)
         Me.btn_mg_SelectlayerByLocation.Name = "btn_mg_SelectlayerByLocation"
         Me.TableLayoutPanel3.SetRowSpan(Me.btn_mg_SelectlayerByLocation, 2)
         Me.btn_mg_SelectlayerByLocation.Size = New System.Drawing.Size(33, 29)
@@ -551,6 +553,17 @@ Partial Class Form_mapa_geologico_50k
         Me.btn_load_gdb.TabIndex = 10
         Me.btn_load_gdb.UseVisualStyleBackColor = True
         '
+        'lbl_mg_topology_res
+        '
+        Me.lbl_mg_topology_res.AutoSize = True
+        Me.TableLayoutPanel3.SetColumnSpan(Me.lbl_mg_topology_res, 2)
+        Me.lbl_mg_topology_res.Dock = System.Windows.Forms.DockStyle.Top
+        Me.lbl_mg_topology_res.Location = New System.Drawing.Point(3, 105)
+        Me.lbl_mg_topology_res.Name = "lbl_mg_topology_res"
+        Me.lbl_mg_topology_res.Size = New System.Drawing.Size(347, 13)
+        Me.lbl_mg_topology_res.TabIndex = 9
+        Me.lbl_mg_topology_res.Text = "..."
+        '
         'Form_mapa_geologico_50k
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -609,4 +622,5 @@ Partial Class Form_mapa_geologico_50k
     Friend WithEvents btn_mg_run_topology As System.Windows.Forms.Button
     Friend WithEvents rbt_mg_actual As System.Windows.Forms.RadioButton
     Friend WithEvents btn_mg_SelectlayerByLocation As System.Windows.Forms.Button
+    Friend WithEvents lbl_mg_topology_res As System.Windows.Forms.Label
 End Class
