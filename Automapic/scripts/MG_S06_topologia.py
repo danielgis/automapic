@@ -16,7 +16,7 @@ response['message'] = 'success'
 hojas = arcpy.GetParameterAsText(0)
 topologias = arcpy.GetParameterAsText(1)
 zona = arcpy.GetParameterAsText(2)
-geodatabase = arcpy.GetParameterAsText(3)
+# geodatabase = arcpy.GetParameterAsText(3)
 
 workspace = arcpy.env.scratchGDB
 
@@ -49,7 +49,7 @@ try:
     topologias = topologias.replace("'", '').replace(" ", '')
 
     # Se obtiene el makefeaturelayer de las hojas seleccionadas
-    feature_path = os.path.join(geodatabase, st._ULITO_MG_PATH.format(zona, zona))
+    feature_path = st._ULITO_MG_PATH.format(zona, zona)
     feature_mfl = arcpy.MakeFeatureLayer_management(feature_path, 'ulitomfl', query)
 
     # Evaluando topologias
@@ -62,8 +62,8 @@ try:
             layer = os.path.join(st._LAYERS_DIR, 'GPO_MG_OVERLAPS.lyr')
         elif row['id'] == 2:
             # Topologia holes
-            cuadriculas = os.path.join(geodatabase, st._CUADRICULAS_MG_PATH)
-            hojas = arcpy.MakeFeatureLayer_management(cuadriculas, 'hojas', query)
+            # cuadriculas = st._CUADRICULAS_MG_PATH
+            hojas = arcpy.MakeFeatureLayer_management(st._CUADRICULAS_MG_PATH, 'hojas', query)
             result = topology_holes(feature_mfl, hojas)
             layer = os.path.join(st._LAYERS_DIR, 'GPO_MG_HOLES.lyr')
         
@@ -82,4 +82,4 @@ except Exception as e:
     response['message'] = e.message
 finally:
     response = json.dumps(response, encoding='utf-8', ensure_ascii=False)
-    arcpy.SetParameterAsText(4, response)
+    arcpy.SetParameterAsText(3, response)

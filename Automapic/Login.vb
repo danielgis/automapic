@@ -19,8 +19,12 @@ Public Class Login
     End Sub
 
     Private Sub btn_login_Click(sender As Object, e As EventArgs) Handles btn_login.Click
+        Cursor.Current = Cursors.WaitCursor
         'Incluir proceso de validacion
         'LoginValidate(user, password)
+        tbx_user.Enabled = False
+        tbx_pass.Enabled = False
+        btn_login.Enabled = False
         params.Clear()
         user = tbx_user.Text
         pass = tbx_pass.Text
@@ -30,9 +34,12 @@ Public Class Login
 
         Dim responseJson = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(response)
         If responseJson.Item("status") = 0 Then
+            tbx_user.Enabled = True
+            tbx_pass.Enabled = True
+            btn_login.Enabled = True
+            Cursor.Current = Cursors.Default
             RuntimeError.PythonError = responseJson.Item("message")
             MessageBox.Show(RuntimeError.PythonError, __title__, MessageBoxButtons.OK, MessageBoxIcon.Information)
-            'runProgressBar("ini")
             Return
         End If
 
@@ -55,6 +62,7 @@ Public Class Login
 
         ' Se carga el modulo
         Dim ModulosForm = New Modulos()
+        Cursor.Current = Cursors.Default
         openFormByName(ModulosForm, Me.Parent)
     End Sub
 End Class

@@ -582,6 +582,9 @@
     <Content Include="scripts\MG_S06_topologia.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="scripts\MG_S07_consulta_por_hojas.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="scripts\MHG_S01_cargar_cuencas.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -29,7 +29,7 @@ _EPSG_W19S = 32719
 _LAYERS_DIR = os.path.join(_BASE_DIR, 'layers')
 _EXT_LAYER = '.lyr'     # Extension de archivos Layer
 
-
+# ---------------------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------------------
 # Plano topografico 25000
 
@@ -53,6 +53,7 @@ _RUMBO_FIELD = 'rumbo'
 _SCALE_MAPA_TOPOGRAFICO_25K = 25000
 
 # ---------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------------
 # Mapas DGAR
 
 # MXD
@@ -63,7 +64,7 @@ _MXD_PG_19 = os.path.join(_MXD_DIR, 'T01PG19.mxd')
 # GENERAL FIELDS
 _ID_AREA = 'id_area'
 
-
+# ---------------------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------------------
 # Mapa Geologico
 # PATHS
@@ -80,14 +81,16 @@ _P_SECC_FIELD = "P_SECC"
 _BZ_APAR_DD_FIELD = "BZ_APAR_DD"
 _BZ_APAR_FIELD = "BZ_APAR"
 
-_CUADRICULAS_MG_PATH = r'DS01_DATO_GEOGRAFICO\GPO_DG_HOJAS_50K'
-_ULITO_MG_PATH = r'DS06_GEOLOGIA_{}S\GPO_DGR_ULITO_{}S'
-_POG_MG_PATH = r'DS06_GEOLOGIA_{}S\GPT_DGR_POG_{}S'
-_POG_MG_PERFIL_PATH = r'DS12_PERFIL_{}S\GPT_MG_PERFIL_{}S'
-_GPL_MG_PERFIL_PATH = r'DS12_PERFIL_{}S\GPL_MG_PERFIL_{}S'
-_TB_MG_BUZAMIENTO_APARENTE_PATH = 'TB_MG_BUZAMIENTO_APARENTE'
+_GDB_PATH_MG = pkg.get_config_param_value('GDB_PATH_MG', one=True)
 
+_CUADRICULAS_MG_PATH = os.path.join(_GDB_PATH_MG if _GDB_PATH_MG else '', 'DS01_DATO_GEOGRAFICO\GPO_DG_HOJAS_50K')
+_ULITO_MG_PATH = os.path.join(_GDB_PATH_MG if _GDB_PATH_MG else '', 'DS06_GEOLOGIA_{}S\GPO_DGR_ULITO_{}S')
+_POG_MG_PATH = os.path.join(_GDB_PATH_MG if _GDB_PATH_MG else '', 'DS06_GEOLOGIA_{}S\GPT_DGR_POG_{}S')
+_POG_MG_PERFIL_PATH = os.path.join(_GDB_PATH_MG if _GDB_PATH_MG else '', 'DS12_PERFIL_{}S\GPT_MG_PERFIL_{}S')
+_GPL_MG_PERFIL_PATH = os.path.join(_GDB_PATH_MG if _GDB_PATH_MG else '', 'DS12_PERFIL_{}S\GPL_MG_PERFIL_{}S')
+_TB_MG_BUZAMIENTO_APARENTE_PATH = os.path.join(_GDB_PATH_MG if _GDB_PATH_MG else '', 'TB_MG_BUZAMIENTO_APARENTE')
 
+# ---------------------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------------------
 # :Mapa HidroGeologico
 # :PATHS
@@ -125,7 +128,7 @@ _GREEN = "green"
 _RED = "red"
 _BLUE = "blue"
 
-
+# ---------------------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------------------
 # :Sincronizacion geodatabase
 # :Tipos de Filtrado para lista de capas

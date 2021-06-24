@@ -44,6 +44,7 @@ Module toolbox
     Public _tool_setSrcDataframeByCodHoja As String = "setSrcDataframeByCodHoja"
     Public _tool_addFeaturesByCodHoja As String = "addFeaturesByCodHoja"
     Public _tool_applyTopology As String = "applyTopology"
+    Public _tool_filterFeaturesBySheets As String = "filterFeaturesBySheets"
 
     ':HERRAMIENTAS DEL MODULO DE MAPAS HIDROGEOLOGICOS
     Public _tool_addFeatureWatershedsToMapMhg As String = "addFeatureWatershedsToMapMhg"

@@ -24,12 +24,11 @@ arcpy.env.overwriteOutput = True
 # Definiendo parametros
 raster_dem = arcpy.GetParameterAsText(0)
 linestring_wkt = arcpy.GetParameterAsText(1)
-arcpy.AddMessage(linestring_wkt)
 codhoja = arcpy.GetParameterAsText(2)
-geodatabase = arcpy.GetParameterAsText(3)
-zona = arcpy.GetParameterAsText(4)
-tolerancia = arcpy.GetParameterAsText(5)
-h_ini = int(arcpy.GetParameterAsText(6))
+# geodatabase = arcpy.GetParameterAsText(3)
+zona = arcpy.GetParameterAsText(3)
+tolerancia = arcpy.GetParameterAsText(4)
+h_ini = int(arcpy.GetParameterAsText(5))
 
 _MARGEN_INFERIOR = 8000
 
@@ -169,11 +168,11 @@ try:
     raster_dem_src = arcpy.Describe(raster_dem).spatialReference
 
     # Ubicacion de features inputs
-    pog_path = os.path.join(geodatabase, st._POG_MG_PATH.format(zona, zona))
-    pog_seccion_path = os.path.join(geodatabase, st._POG_MG_PERFIL_PATH.format(zona, zona))
-    gpl_seccion_path = os.path.join(geodatabase, st._GPL_MG_PERFIL_PATH.format(zona, zona))
-    ulito_path = os.path.join(geodatabase, st._ULITO_MG_PATH.format(zona, zona))
-    cuadriculas_path = os.path.join(geodatabase, st._CUADRICULAS_MG_PATH)
+    pog_path = st._POG_MG_PATH.format(zona, zona)
+    pog_seccion_path = st._POG_MG_PERFIL_PATH.format(zona, zona)
+    gpl_seccion_path = st._GPL_MG_PERFIL_PATH.format(zona, zona)
+    ulito_path = st._ULITO_MG_PATH.format(zona, zona)
+    cuadriculas_path = st._CUADRICULAS_MG_PATH
 
     # Conversion de la linea de seccion de wkt a geometry
     linestring_geom = arcpy.FromWKT(linestring_wkt, mxd.activeDataFrame.spatialReference)
@@ -185,8 +184,8 @@ try:
     cuadricula_geom = map(lambda i: i[0], cuadricula)[0]
 
     # Transformacion del featureTable de buzamiento aparente a objeto pandas data frame
-    buzamiento_aparente_path = os.path.join(geodatabase, st._TB_MG_BUZAMIENTO_APARENTE_PATH)
-    np_buzamiento_aparente = arcpy.da.TableToNumPyArray(buzamiento_aparente_path, ["*"])
+    # buzamiento_aparente_path = st._TB_MG_BUZAMIENTO_APARENTE_PATH
+    np_buzamiento_aparente = arcpy.da.TableToNumPyArray(st._TB_MG_BUZAMIENTO_APARENTE_PATH, ["*"])
     df_buzamiento_aparente = pd.DataFrame(np_buzamiento_aparente)
 
     # xmin y ymin de la hoja
@@ -519,12 +518,12 @@ try:
     # Agregando capa de pog al mapa
     name_pog = os.path.basename(pog_seccion_path)
     lyer_pog = os.path.join(st._BASE_DIR, 'layers/{}.lyr'.format(name_pog))
-    aut.add_layer_with_new_datasource(lyer_pog, name_pog, geodatabase, "FILEGDB_WORKSPACE", df_name =None, query=query)
+    aut.add_layer_with_new_datasource(lyer_pog, name_pog, st._GDB_PATH_MG, "FILEGDB_WORKSPACE", df_name =None, query=query)
 
     # Agregando capa de seccion al mapa
     name_gpl = os.path.basename(gpl_seccion_path)
     lyer_gpl = os.path.join(st._BASE_DIR, 'layers/{}.lyr'.format(name_gpl))
-    aut.add_layer_with_new_datasource(lyer_gpl, name_gpl, geodatabase, "FILEGDB_WORKSPACE", df_name =None, query=query)
+    aut.add_layer_with_new_datasource(lyer_gpl, name_gpl, st._GDB_PATH_MG, "FILEGDB_WORKSPACE", df_name =None, query=query)
 
     response['response'] = True
 except Exception as e:
@@ -534,4 +533,4 @@ finally:
     response = json.dumps(response)
     arcpy.RefreshTOC()
     arcpy.RefreshActiveView()
-    arcpy.SetParameterAsText(7, response)
+    arcpy.SetParameterAsText(6, response)

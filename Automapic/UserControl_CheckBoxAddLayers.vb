@@ -11,13 +11,21 @@ Public Class UserControl_CheckBoxAddLayers
     Dim RuntimeError As AutomapicExceptions = New AutomapicExceptions()
     Dim zona_geografica_ui_cbox As String
     Dim query_ui_cbox As String
+    Dim enabledAddOrRemove As Boolean
+    'Dim enabledDataFrame As Boolean
     Private Sub UserControl_CheckBoxAddLayers_Load(sender As Object, e As EventArgs) Handles Me.Load
-
+        'UserControl_ComboBoxDataframes1.Enabled = False
     End Sub
-    Public Sub LoadOptions(category As String, Optional zona As String = Nothing, Optional query As String = Nothing)
+    Public Sub LoadOptions(category As String, Optional zona As String = Nothing, Optional query As String = Nothing, Optional addOrRemove As Boolean = True)
         If tvw_layers.Nodes.Count > 0 Then
             Return
         End If
+        enabledAddOrRemove = addOrRemove
+        'enabledDataFrame = selectDataFrame
+        'If enabledAddOrRemove = False Then
+        UserControl_ComboBoxDataframes1.Visible = enabledAddOrRemove
+        'End If
+        'UserControl_ComboBoxDataframes1.Enabled = enabledAddOrRemove
         params_ui_cbox.Clear()
         params_ui_cbox.Add(category)
         tvw_layers.Nodes.Clear()
@@ -76,6 +84,9 @@ Public Class UserControl_CheckBoxAddLayers
         'If clickedNode Is Nothing Then
         '    Return
         'End If
+        If enabledAddOrRemove = False Then
+            Return
+        End If
         Dim df As String = UserControl_ComboBoxDataframes1.getDataframeSelected()
         If df Is Nothing Then
             MessageBox.Show("Seleccione un DataFrame", __title__, MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -90,31 +101,6 @@ Public Class UserControl_CheckBoxAddLayers
                     params_ui_cbox.Add(df)
                     params_ui_cbox.Add(query_ui_cbox)
 
-                    'If kvp.item("feature").value Is Nothing Or kvp.item("feature").value = "" Then
-                    '    MessageBox.Show("El feature no existe", __title__, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    '    Return
-                    'End If
-                    'Dim feature = kvp.item("datasource").value & "\" & kvp.item("feature").value
-                    'If kvp.item("withzone").value = 1 Then
-                    '    feature = String.Format(feature, zona_geografica_ui_cbox, zona_geografica_ui_cbox)
-                    'End If
-                    'params_ui_cbox.Add(feature)
-                    'Dim lyer = kvp.item("layer").value
-                    'If lyer Is Nothing Or lyer = "" Then
-                    '    params_ui_cbox.Add(feature)
-                    'Else
-                    '    params_ui_cbox.Add(lyer)
-                    'End If
-                    'params_ui_cbox.Add(kvp.item("datasource"))
-                    'params_ui_cbox.Add(kvp.item("typedatasource"))
-                    'params_ui_cbox.Add(df)
-                    'Dim query = kvp.item("query").Value
-                    'If query <> 1 Then
-                    '    params_ui_cbox.Add(Nothing)
-                    'Else
-                    '    params_ui_cbox.Add(query_ui_cbox)
-                    'End If
-
                     Dim maplexEngine As IAnnotateMap
                     maplexEngine = New MaplexAnnotateMap()
                     Dim pMxDoc As IMxDocument
@@ -123,14 +109,6 @@ Public Class UserControl_CheckBoxAddLayers
 
                     ExecuteGP(_tool_addLayerToDataFrame, params_ui_cbox, _toolboxPath_automapic, getresult:=False)
                 Else
-                    'Dim lyer_n = kvp.item("layer_name").value
-                    'If kvp.item("withzone").value = 1 Then
-                    '    lyer_n = String.Format(lyer_n, zona_geografica_ui_cbox)
-                    'End If
-
-                    'If lyer_n Is Nothing Or lyer_n = "" Then
-                    '    Return
-                    'End If
                     params_ui_cbox.Add(clickedNode.Name)
                     params_ui_cbox.Add(df)
                     ExecuteGP(_tool_removeFeatureOfTOC, params_ui_cbox, _toolboxPath_automapic, getresult:=False)
@@ -141,10 +119,6 @@ Public Class UserControl_CheckBoxAddLayers
 
 
         Next
-
-        'tbx_mh_descriph.Enabled = True
-        'Dim text = clasificacionDescriptDict.Item(clickedNode)
-        'tbx_mh_descriph.Text = text
     End Sub
     Public Function getChildsLayerSelected(parentNode As TreeNode, nodes_checked As List(Of String))
         For Each childNode As TreeNode In parentNode.Nodes

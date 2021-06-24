@@ -16,6 +16,11 @@ Public Class Form_mapa_geologico_50k
     Dim codhoja As String = Nothing
     Dim zona As String = Nothing
     Dim topologyDict As New Dictionary(Of String, String)
+
+    Private Sub Form_mapa_geologico_50k_Load(sender As Object, e As EventArgs) Handles Me.Load
+        load_form_tabpage()
+    End Sub
+
     Private Sub btn_mg_loaddata_Click(sender As Object, e As EventArgs) Handles btn_mg_loaddata.Click
         Cursor.Current = Cursors.WaitCursor
         path_raster = openDialogBoxESRI(f_raster)
@@ -58,7 +63,7 @@ Public Class Form_mapa_geologico_50k
         params.Add(tbx_mg_pathdata.Text)
         params.Add(drawLine_wkt)
         params.Add(codhoja)
-        params.Add(path_geodatabase)
+        'params.Add(path_geodatabase)
         params.Add(zona)
         params.Add(nud_mg_tolerancia.Value.ToString)
         params.Add(nud_mg_altura.Value.ToString)
@@ -79,26 +84,26 @@ Public Class Form_mapa_geologico_50k
         runProgressBar("ini")
     End Sub
 
-    Private Sub btn_load_gdb_Click(sender As Object, e As EventArgs) Handles btn_load_gdb.Click
-        Dim response_open_dialog As String
-        If path_geodatabase IsNot Nothing Then
-            Dim r As DialogResult = MessageBox.Show(mgs_workspace, __title__, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-            If r = DialogResult.No Then
-                runProgressBar("ini")
-                Return
-            End If
-        End If
-        response_open_dialog = openDialogBoxESRI(f_geodatabase)
-        If response_open_dialog Is Nothing Then
-            runProgressBar("ini")
-            Return
-        End If
-        path_geodatabase = response_open_dialog
-        runProgressBar()
-        Cursor.Current = Cursors.WaitCursor
-        'Cargar cuadriculas
+    Private Sub load_form_tabpage()
+        'Dim response_open_dialog As String
+        'If path_geodatabase IsNot Nothing Then
+        '    Dim r As DialogResult = MessageBox.Show(mgs_workspace, __title__, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        '    If r = DialogResult.No Then
+        '        runProgressBar("ini")
+        '        Return
+        '    End If
+        'End If
+        'response_open_dialog = openDialogBoxESRI(f_geodatabase)
+        'If response_open_dialog Is Nothing Then
+        '    runProgressBar("ini")
+        '    Return
+        'End If
+        'path_geodatabase = response_open_dialog
+        'runProgressBar()
+        'Cursor.Current = Cursors.WaitCursor
+        ''Cargar cuadriculas
         params.Clear()
-        params.Add(path_geodatabase)
+        'params.Add(path_geodatabase)
         Dim response_load_cuad = ExecuteGP(_tool_addFeatureQuadsToMapMg, params, _toolboxPath_mapa_geologico)
         Dim response_load_cuad_split = Split(response_load_cuad, ";")
         Dim responseJson_load_cuad = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(response_load_cuad_split(1))
@@ -120,8 +125,8 @@ Public Class Form_mapa_geologico_50k
         cbx_mg_col.Items.Clear()
         cbx_mg_cuad.Items.Clear()
 
-        params.Add(path_geodatabase)
-        params.Add(True)
+        'params.Add(path_geodatabase)
+        'params.Add(True)
         Dim response = ExecuteGP(_tool_getComponentCodeSheetMg, params, _toolboxPath_mapa_geologico)
         Dim responseJson = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(response)
         If responseJson.Item("status") = 0 Then
@@ -152,6 +157,9 @@ Public Class Form_mapa_geologico_50k
         tc_mg_50k.Enabled = False
         codhoja = Nothing
 
+
+        UserControl_CheckBoxAddLayers1.LoadOptions(2, zona, addOrRemove:=False)
+
         'fin de proceso
         runProgressBar()
         Cursor.Current = Cursors.Default
@@ -164,9 +172,9 @@ Public Class Form_mapa_geologico_50k
         cbx_mg_col.Items.Clear()
         cbx_mg_cuad.Items.Clear()
         fila_selected = cbx_mg_fila.SelectedItem.ToString()
-        params.Add(path_geodatabase)
-        params.Add(True)
+        'params.Add(path_geodatabase)
         params.Add(fila_selected)
+        'params.Add(True)
         Dim response = ExecuteGP(_tool_getComponentCodeSheetMg, params, _toolboxPath_mapa_geologico)
         Dim responseJson = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(response)
         If responseJson.Item("status") = 0 Then
@@ -191,8 +199,8 @@ Public Class Form_mapa_geologico_50k
         params.Clear()
         cbx_mg_cuad.Items.Clear()
         columna_selected = cbx_mg_col.SelectedItem.ToString()
-        params.Add(path_geodatabase)
-        params.Add(True)
+        'params.Add(path_geodatabase)
+        'params.Add(True)
         params.Add(fila_selected)
         params.Add(columna_selected)
         Dim response = ExecuteGP(_tool_getComponentCodeSheetMg, params, _toolboxPath_mapa_geologico)
@@ -218,8 +226,8 @@ Public Class Form_mapa_geologico_50k
         params.Clear()
         'cbx_mg_cuad.Items.Clear()
         cuadrante_selected = cbx_mg_cuad.SelectedItem.ToString()
-        params.Add(path_geodatabase)
-        params.Add(True)
+        'params.Add(path_geodatabase)
+        'params.Add(True)
         params.Add(fila_selected)
         params.Add(columna_selected)
         params.Add(cuadrante_selected)
@@ -266,13 +274,13 @@ Public Class Form_mapa_geologico_50k
         codhoja = String.Concat(cbx_mg_fila.SelectedItem.ToString(), cbx_mg_col.SelectedItem.ToString(), cbx_mg_cuad.SelectedItem.ToString())
         params.Clear()
         params.Add(codhoja)
-        params.Add(path_geodatabase)
+        'params.Add(path_geodatabase)
         Dim response = ExecuteGP(_tool_setSrcDataframeByCodHoja, params, _toolboxPath_mapa_geologico)
         Dim responseJson = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(response)
         If responseJson.Item("status") = 1 Then
             zona = responseJson.Item("response")
             params.Clear()
-            params.Add(path_geodatabase)
+            'params.Add(path_geodatabase)
             params.Add(zona.ToString)
             params.Add(codhoja)
             ExecuteGP(_tool_addFeaturesByCodHoja, params, _toolboxPath_mapa_geologico, getresult:=False)
@@ -304,15 +312,15 @@ Public Class Form_mapa_geologico_50k
 
     End Sub
 
-    Private Sub btn_mg_SelectlayerByLocation_Click(sender As Object, e As EventArgs) Handles btn_mg_SelectlayerByLocation.Click
-        Dim myUid As UID = New UID()
-        myUid.Value = "esriArcMapUI.SelectFeaturesTool"
-        Dim ThisDoc As IDocument = My.ArcMap.Application.Document
-        Dim CommandBars As ICommandBars = TryCast(ThisDoc.CommandBars, ICommandBars)
-        CommandBars.Find(myUid)
-        Dim myItem As ICommandItem = TryCast(CommandBars.Find(myUid), ICommandItem)
-        myItem.Execute()
-    End Sub
+    'Private Sub btn_mg_SelectlayerByLocation_Click(sender As Object, e As EventArgs) Handles btn_mg_SelectlayerByLocation.Click
+    '    Dim myUid As UID = New UID()
+    '    myUid.Value = "esriArcMapUI.SelectFeaturesTool"
+    '    Dim ThisDoc As IDocument = My.ArcMap.Application.Document
+    '    Dim CommandBars As ICommandBars = TryCast(ThisDoc.CommandBars, ICommandBars)
+    '    CommandBars.Find(myUid)
+    '    Dim myItem As ICommandItem = TryCast(CommandBars.Find(myUid), ICommandItem)
+    '    myItem.Execute()
+    'End Sub
 
     Private Sub rbt_mg_seleccion_CheckedChanged(sender As Object, e As EventArgs) Handles rbt_mg_seleccion.CheckedChanged
         btn_mg_SelectlayerByLocation.Enabled = rbt_mg_seleccion.Checked
@@ -343,7 +351,7 @@ Public Class Form_mapa_geologico_50k
         params.Add(codhoja)
         params.Add(topologias_string)
         params.Add(zona)
-        params.Add(path_geodatabase)
+        'params.Add(path_geodatabase)
         Dim response = ExecuteGP(_tool_applyTopology, params, _toolboxPath_mapa_geologico)
         Dim responseJson = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(response)
         If responseJson.Item("status") = 0 Then
@@ -357,5 +365,37 @@ Public Class Form_mapa_geologico_50k
 
         Cursor.Current = Cursors.Default
         runProgressBar("ini")
+    End Sub
+
+    Private Sub btn_mg_filtro_Click(sender As Object, e As EventArgs) Handles btn_mg_filtro.Click
+        runProgressBar()
+        Cursor.Current = Cursors.WaitCursor
+        Dim features As List(Of String) = UserControl_CheckBoxAddLayers1.getLayerSelected()
+        Dim features_as_string As String = String.Join(",", features)
+        params.Clear()
+        params.Add(codhoja)
+        params.Add(features_as_string)
+        Dim response = ExecuteGP(_tool_filterFeaturesBySheets, params, _toolboxPath_mapa_geologico)
+        Dim responseJson = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(response)
+        If responseJson.Item("status") = 0 Then
+            Cursor.Current = Cursors.Default
+            runProgressBar("ini")
+            RuntimeError.PythonError = responseJson.Item("message")
+            MessageBox.Show(RuntimeError.PythonError, __title__, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
+        Cursor.Current = Cursors.Default
+        runProgressBar("ini")
+        'MessageBox.Show(features_as_string, __title__, MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    Private Sub btn_mg_seleccion_Click(sender As Object, e As EventArgs) Handles btn_mg_seleccion.Click
+        Dim myUid As UID = New UID()
+        myUid.Value = "esriArcMapUI.SelectFeaturesTool"
+        Dim ThisDoc As IDocument = My.ArcMap.Application.Document
+        Dim CommandBars As ICommandBars = TryCast(ThisDoc.CommandBars, ICommandBars)
+        CommandBars.Find(myUid)
+        Dim myItem As ICommandItem = TryCast(CommandBars.Find(myUid), ICommandItem)
+        myItem.Execute()
     End Sub
 End Class

@@ -139,7 +139,7 @@ Public Class Form_mapa_hidrogeologico
             loadFormacionesHidrogeologicas()
         End If
 
-        UserControl_CheckBoxAddLayers1.LoadOptions(1, zona:=zona_geografica, query:=queryCuencas)
+        UserControl_CheckBoxAddLayers1.LoadOptions(1, zona:=zona_geografica, query:=queryCuencas, addOrRemove:=True)
 
         lbx_mh_cuencas.DataSource = New BindingSource(cuencasDictSelected, Nothing)
         lbx_mh_cuencas.DisplayMember = "Value"

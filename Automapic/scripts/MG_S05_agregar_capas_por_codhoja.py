@@ -7,16 +7,16 @@ response = dict()
 response['status'] = 1
 response['message'] = 'success'
 
-geodatabase = arcpy.GetParameterAsText(0)
-zona = arcpy.GetParameterAsText(1)
-codhoja = arcpy.GetParameterAsText(2)
+# geodatabase = arcpy.GetParameterAsText(0)
+zona = arcpy.GetParameterAsText(0)
+codhoja = arcpy.GetParameterAsText(1)
 
 try:
     features = [
         st._ULITO_MG_PATH,
         st._POG_MG_PATH
     ]
-    features = map(lambda i: os.path.join(geodatabase, i.format(zona, zona)), features)
+    features = map(lambda i: i.format(zona, zona), features)
     query = "{} = '{}'".format(st._CODHOJA_FIELD, codhoja)
     name_ulito = os.path.basename(features[0])
     layers = [
@@ -30,4 +30,4 @@ except Exception as e:
     response['message'] = e.message
 finally:
     response = json.dumps(response)
-    arcpy.SetParameterAsText(3, response)
+    arcpy.SetParameterAsText(2, response)

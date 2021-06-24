@@ -9,11 +9,11 @@ import traceback
 import os
 import json
 
-gdb_path = arcpy.GetParameterAsText(0)
-zoom = arcpy.GetParameterAsText(1)
-fila = arcpy.GetParameterAsText(2)
-columna = arcpy.GetParameterAsText(3)
-cuadrante = arcpy.GetParameterAsText(4)
+# gdb_path = arcpy.GetParameterAsText(0)
+fila = arcpy.GetParameterAsText(0)
+columna = arcpy.GetParameterAsText(1)
+cuadrante = arcpy.GetParameterAsText(2)
+zoom = arcpy.GetParameterAsText(3)
 
 
 response = dict()
@@ -22,8 +22,8 @@ response['message'] = 'success'
 
 try:
 
-    path_feature = os.path.join(gdb_path, st._CUADRICULAS_MG_PATH)
-    if not arcpy.Exists(path_feature):
+    # st._CUADRICULAS_MG_PATH = os.path.join(gdb_path, st._CUADRICULAS_MG_PATH)
+    if not arcpy.Exists(st._CUADRICULAS_MG_PATH):
         raise RuntimeError(msg._ERROR_FEATURE_CUADRICULAS_MG)
     
     query = list()
@@ -41,7 +41,7 @@ try:
 
     query_string = ' AND '.join(query)
 
-    cursor = arcpy.da.SearchCursor(path_feature, field, query_string)
+    cursor = arcpy.da.SearchCursor(st._CUADRICULAS_MG_PATH, field, query_string)
     codigos = list(set(list(map(lambda i: i[0], cursor))))
     codigos.sort()
 
@@ -71,4 +71,4 @@ except Exception as e:
     response['message'] = e.message
 finally:
     response = json.dumps(response)
-    arcpy.SetParameterAsText(5, response)
+    arcpy.SetParameterAsText(4, response)

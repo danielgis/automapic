@@ -25,8 +25,6 @@ Partial Class Form_sincronizacion_geodatabase
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.lbl_sg_origen = New System.Windows.Forms.Label()
         Me.lbl_sg_destino = New System.Windows.Forms.Label()
-        Me.btn_sg_origen = New System.Windows.Forms.Button()
-        Me.btn_sg_destino = New System.Windows.Forms.Button()
         Me.tbx_origen = New System.Windows.Forms.TextBox()
         Me.tbx_destino = New System.Windows.Forms.TextBox()
         Me.lbl_sg_filtrocapas = New System.Windows.Forms.Label()
@@ -36,6 +34,8 @@ Partial Class Form_sincronizacion_geodatabase
         Me.rbtn_sg_estraiz = New System.Windows.Forms.RadioButton()
         Me.dg_sg_capas = New System.Windows.Forms.DataGridView()
         Me.btn_sg_enviar = New System.Windows.Forms.Button()
+        Me.btn_sg_origen = New System.Windows.Forms.Button()
+        Me.btn_sg_destino = New System.Windows.Forms.Button()
         Me.lbl_sg_legend = New System.Windows.Forms.Label()
         Me.lbl_sg_legend_s_nc = New System.Windows.Forms.Label()
         Me.lbl_sg_legend_s_nr = New System.Windows.Forms.Label()
@@ -95,7 +95,7 @@ Partial Class Form_sincronizacion_geodatabase
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(410, 677)
         Me.TableLayoutPanel1.TabIndex = 0
         '
@@ -120,24 +120,6 @@ Partial Class Form_sincronizacion_geodatabase
         Me.lbl_sg_destino.Size = New System.Drawing.Size(324, 17)
         Me.lbl_sg_destino.TabIndex = 2
         Me.lbl_sg_destino.Text = "Ruta de destino :"
-        '
-        'btn_sg_origen
-        '
-        Me.btn_sg_origen.Location = New System.Drawing.Point(333, 28)
-        Me.btn_sg_origen.Name = "btn_sg_origen"
-        Me.btn_sg_origen.Size = New System.Drawing.Size(74, 24)
-        Me.btn_sg_origen.TabIndex = 6
-        Me.btn_sg_origen.Text = "+"
-        Me.btn_sg_origen.UseVisualStyleBackColor = True
-        '
-        'btn_sg_destino
-        '
-        Me.btn_sg_destino.Location = New System.Drawing.Point(333, 78)
-        Me.btn_sg_destino.Name = "btn_sg_destino"
-        Me.btn_sg_destino.Size = New System.Drawing.Size(74, 24)
-        Me.btn_sg_destino.TabIndex = 3
-        Me.btn_sg_destino.Text = "+"
-        Me.btn_sg_destino.UseVisualStyleBackColor = True
         '
         'tbx_origen
         '
@@ -183,12 +165,14 @@ Partial Class Form_sincronizacion_geodatabase
         '
         'cbx_sg_filtrocapas
         '
-        Me.TableLayoutPanel1.SetColumnSpan(Me.cbx_sg_filtrocapas, 2)
+        Me.cbx_sg_filtrocapas.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TableLayoutPanel1.SetColumnSpan(Me.cbx_sg_filtrocapas, 3)
+        Me.cbx_sg_filtrocapas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbx_sg_filtrocapas.Enabled = False
         Me.cbx_sg_filtrocapas.FormattingEnabled = True
         Me.cbx_sg_filtrocapas.Location = New System.Drawing.Point(3, 228)
         Me.cbx_sg_filtrocapas.Name = "cbx_sg_filtrocapas"
-        Me.cbx_sg_filtrocapas.Size = New System.Drawing.Size(199, 24)
+        Me.cbx_sg_filtrocapas.Size = New System.Drawing.Size(404, 24)
         Me.cbx_sg_filtrocapas.TabIndex = 8
         '
         'rbtn_sg_estds
@@ -225,26 +209,44 @@ Partial Class Form_sincronizacion_geodatabase
         Me.dg_sg_capas.Location = New System.Drawing.Point(3, 268)
         Me.dg_sg_capas.Name = "dg_sg_capas"
         Me.dg_sg_capas.RowTemplate.Height = 24
-        Me.dg_sg_capas.Size = New System.Drawing.Size(404, 286)
+        Me.dg_sg_capas.Size = New System.Drawing.Size(404, 281)
         Me.dg_sg_capas.TabIndex = 15
         '
         'btn_sg_enviar
         '
-        Me.TableLayoutPanel1.SetColumnSpan(Me.btn_sg_enviar, 2)
+        Me.TableLayoutPanel1.SetColumnSpan(Me.btn_sg_enviar, 3)
         Me.btn_sg_enviar.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btn_sg_enviar.Location = New System.Drawing.Point(3, 650)
+        Me.btn_sg_enviar.Location = New System.Drawing.Point(3, 645)
         Me.btn_sg_enviar.Name = "btn_sg_enviar"
-        Me.btn_sg_enviar.Size = New System.Drawing.Size(324, 24)
+        Me.btn_sg_enviar.Size = New System.Drawing.Size(404, 29)
         Me.btn_sg_enviar.TabIndex = 16
         Me.btn_sg_enviar.Text = "Enviar"
         Me.btn_sg_enviar.UseVisualStyleBackColor = True
+        '
+        'btn_sg_origen
+        '
+        Me.btn_sg_origen.Location = New System.Drawing.Point(333, 28)
+        Me.btn_sg_origen.Name = "btn_sg_origen"
+        Me.btn_sg_origen.Size = New System.Drawing.Size(74, 24)
+        Me.btn_sg_origen.TabIndex = 6
+        Me.btn_sg_origen.Text = "+"
+        Me.btn_sg_origen.UseVisualStyleBackColor = True
+        '
+        'btn_sg_destino
+        '
+        Me.btn_sg_destino.Location = New System.Drawing.Point(333, 78)
+        Me.btn_sg_destino.Name = "btn_sg_destino"
+        Me.btn_sg_destino.Size = New System.Drawing.Size(74, 24)
+        Me.btn_sg_destino.TabIndex = 3
+        Me.btn_sg_destino.Text = "+"
+        Me.btn_sg_destino.UseVisualStyleBackColor = True
         '
         'lbl_sg_legend
         '
         Me.lbl_sg_legend.AutoSize = True
         Me.TableLayoutPanel1.SetColumnSpan(Me.lbl_sg_legend, 2)
         Me.lbl_sg_legend.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lbl_sg_legend.Location = New System.Drawing.Point(3, 562)
+        Me.lbl_sg_legend.Location = New System.Drawing.Point(3, 557)
         Me.lbl_sg_legend.Name = "lbl_sg_legend"
         Me.lbl_sg_legend.Size = New System.Drawing.Size(324, 20)
         Me.lbl_sg_legend.TabIndex = 17
@@ -255,7 +257,7 @@ Partial Class Form_sincronizacion_geodatabase
         Me.lbl_sg_legend_s_nc.AutoSize = True
         Me.lbl_sg_legend_s_nc.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.8!)
         Me.lbl_sg_legend_s_nc.ForeColor = System.Drawing.Color.Green
-        Me.lbl_sg_legend_s_nc.Location = New System.Drawing.Point(3, 582)
+        Me.lbl_sg_legend_s_nc.Location = New System.Drawing.Point(3, 577)
         Me.lbl_sg_legend_s_nc.Name = "lbl_sg_legend_s_nc"
         Me.lbl_sg_legend_s_nc.Size = New System.Drawing.Size(28, 15)
         Me.lbl_sg_legend_s_nc.TabIndex = 18
@@ -266,7 +268,7 @@ Partial Class Form_sincronizacion_geodatabase
         Me.lbl_sg_legend_s_nr.AutoSize = True
         Me.lbl_sg_legend_s_nr.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.8!)
         Me.lbl_sg_legend_s_nr.ForeColor = System.Drawing.Color.DarkOrange
-        Me.lbl_sg_legend_s_nr.Location = New System.Drawing.Point(3, 602)
+        Me.lbl_sg_legend_s_nr.Location = New System.Drawing.Point(3, 597)
         Me.lbl_sg_legend_s_nr.Name = "lbl_sg_legend_s_nr"
         Me.lbl_sg_legend_s_nr.Size = New System.Drawing.Size(28, 15)
         Me.lbl_sg_legend_s_nr.TabIndex = 19
@@ -277,7 +279,7 @@ Partial Class Form_sincronizacion_geodatabase
         Me.lbl_sg_legend_s_ne.AutoSize = True
         Me.lbl_sg_legend_s_ne.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.8!)
         Me.lbl_sg_legend_s_ne.ForeColor = System.Drawing.Color.FromArgb(CType(CType(160, Byte), Integer), CType(CType(160, Byte), Integer), CType(CType(160, Byte), Integer))
-        Me.lbl_sg_legend_s_ne.Location = New System.Drawing.Point(3, 622)
+        Me.lbl_sg_legend_s_ne.Location = New System.Drawing.Point(3, 617)
         Me.lbl_sg_legend_s_ne.Name = "lbl_sg_legend_s_ne"
         Me.lbl_sg_legend_s_ne.Size = New System.Drawing.Size(28, 15)
         Me.lbl_sg_legend_s_ne.TabIndex = 20
@@ -287,7 +289,7 @@ Partial Class Form_sincronizacion_geodatabase
         '
         Me.lbl_sg_legend_nc.AutoSize = True
         Me.lbl_sg_legend_nc.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.8!)
-        Me.lbl_sg_legend_nc.Location = New System.Drawing.Point(63, 582)
+        Me.lbl_sg_legend_nc.Location = New System.Drawing.Point(63, 577)
         Me.lbl_sg_legend_nc.Name = "lbl_sg_legend_nc"
         Me.lbl_sg_legend_nc.Size = New System.Drawing.Size(214, 15)
         Me.lbl_sg_legend_nc.TabIndex = 21
@@ -297,7 +299,7 @@ Partial Class Form_sincronizacion_geodatabase
         '
         Me.lbl_sg_legend_nr.AutoSize = True
         Me.lbl_sg_legend_nr.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.8!)
-        Me.lbl_sg_legend_nr.Location = New System.Drawing.Point(63, 602)
+        Me.lbl_sg_legend_nr.Location = New System.Drawing.Point(63, 597)
         Me.lbl_sg_legend_nr.Name = "lbl_sg_legend_nr"
         Me.lbl_sg_legend_nr.Size = New System.Drawing.Size(224, 15)
         Me.lbl_sg_legend_nr.TabIndex = 22
@@ -307,7 +309,7 @@ Partial Class Form_sincronizacion_geodatabase
         '
         Me.lbl_sg_legend_ne.AutoSize = True
         Me.lbl_sg_legend_ne.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.8!)
-        Me.lbl_sg_legend_ne.Location = New System.Drawing.Point(63, 622)
+        Me.lbl_sg_legend_ne.Location = New System.Drawing.Point(63, 617)
         Me.lbl_sg_legend_ne.Name = "lbl_sg_legend_ne"
         Me.lbl_sg_legend_ne.Size = New System.Drawing.Size(180, 15)
         Me.lbl_sg_legend_ne.TabIndex = 23

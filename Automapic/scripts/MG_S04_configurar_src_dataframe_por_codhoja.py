@@ -5,21 +5,18 @@ import json
 import messages_aut as msg
 
 codhoja = arcpy.GetParameterAsText(0)
-geodatabase = arcpy.GetParameterAsText(1)
+# geodatabase = arcpy.GetParameterAsText(1)
 
 response = dict()
 response['status'] = 1
 response['message'] = 'success'
 
 try:
-    params = arcpy.GetParameterInfo()
-
-    path_feature = os.path.join(geodatabase, st._CUADRICULAS_MG_PATH)
-    if not arcpy.Exists(path_feature):
+    if not arcpy.Exists(st._CUADRICULAS_MG_PATH):
         raise RuntimeError(msg._ERROR_FEATURE_CUADRICULAS_MG)
     
 
-    row = arcpy.da.SearchCursor(path_feature, ['ZONA'], "{} = '{}'".format(st._CODHOJA_FIELD, codhoja))
+    row = arcpy.da.SearchCursor(st._CUADRICULAS_MG_PATH, ['ZONA'], "{} = '{}'".format(st._CODHOJA_FIELD, codhoja))
     row = map(lambda i: i[0], row)[0]
 
     wkid = int('327{}'.format(row))
@@ -34,4 +31,4 @@ except Exception as e:
     response['message'] = e.message
 finally:
     response = json.dumps(response)
-    arcpy.SetParameterAsText(2, response)
+    arcpy.SetParameterAsText(1, response)
