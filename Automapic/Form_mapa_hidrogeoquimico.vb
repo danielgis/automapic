@@ -18,11 +18,10 @@
     Private Sub btn_mhq_excel_Click(sender As Object, e As EventArgs) Handles btn_mhq_excel.Click
 
         'OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
-        'OpenFileDialog1.ShowDialog()
+        Dim validador = OpenFileDialog1.ShowDialog()
+        ruta_xls_mhq = OpenFileDialog1.FileName
 
-
-        ruta_xls_mhq = openDialogBoxESRI(f_file)
-        If ruta_xls_mhq Is Nothing Then
+        If validador = 2 Then
             'Cursor.Current = Cursors.Default
             Return
         End If

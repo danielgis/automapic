@@ -129,7 +129,7 @@ Module settings
 
     Public Function openDialogBoxESRI(filetype As String, Optional textButton As String = "Agregar") As Object
         Dim pEnumGX As IEnumGxObject = Nothing
-        Dim pGxDialog As GxDialog = New GxDialogClass
+        Dim pGxDialog As IGxDialog = New GxDialogClass
         pGxDialog.AllowMultiSelect = False
         pGxDialog.Title = "Seleccionar"
         If filetype IsNot Nothing Then

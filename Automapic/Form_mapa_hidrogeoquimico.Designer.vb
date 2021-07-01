@@ -190,7 +190,8 @@ Partial Class Form_mapa_hidrogeoquimico
         '
         Me.OpenFileDialog1.DefaultExt = "xls"
         Me.OpenFileDialog1.FileName = "OpenFileDialog1"
-        Me.OpenFileDialog1.Filter = "Excel 97-2003| *.xls |Excel | *.xlsx |Todos los archivos| *.*"
+        Me.OpenFileDialog1.Filter = "Excel 97-2003|*.xls|Excel |*.xlsx|Todos los archivos|*.*"
+        Me.OpenFileDialog1.FilterIndex = 2
         Me.OpenFileDialog1.RestoreDirectory = True
         Me.OpenFileDialog1.Title = "Abrir"
         '
