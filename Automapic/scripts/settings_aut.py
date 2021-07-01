@@ -137,7 +137,7 @@ _EXTFILE = "Archivo CSV"
 _MXD_ACTUAL = "Capas del MXD Actual"
 
 # Escritorio del usuario
-_DESKTOP_PATH = u'c:/users/%userprofile/desktop'
+_DESKTOP_PATH = u'c:/users/%userprofile%/desktop'
 _CL_HIDROG = "cl_hidrog"
 _SCL_HIDROG = "scl_hidrog"
 _ID_MAPA = "id_mapa"

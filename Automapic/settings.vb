@@ -56,6 +56,7 @@ Module settings
     Public f_raster As String = "raster"
     Public f_workspace As String = "workspace"
     Public f_table As String = "table"
+    Public f_file As String = "file"
 
     '6. Funciones globales
     '   - Funciones que devuelven resultados y que puedes ser usados en cualquier parte del proceso
@@ -120,13 +121,15 @@ Module settings
                 objfilter = New GxFilterWorkspaces()
             Case f_table
                 objfilter = New GxFilterTables()
+            Case f_file
+                objfilter = New GxFilterFiles()
         End Select
         Return objfilter
     End Function
 
     Public Function openDialogBoxESRI(filetype As String, Optional textButton As String = "Agregar") As Object
         Dim pEnumGX As IEnumGxObject = Nothing
-        Dim pGxDialog As IGxDialog = New GxDialogClass
+        Dim pGxDialog As GxDialog = New GxDialogClass
         pGxDialog.AllowMultiSelect = False
         pGxDialog.Title = "Seleccionar"
         If filetype IsNot Nothing Then

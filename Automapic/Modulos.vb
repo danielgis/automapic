@@ -59,6 +59,9 @@ Public Class Modulos
         ElseIf (currentModule = 4) Then
             Dim mapa_hidrogeologico = New Form_mapa_hidrogeologico()
             openFormByName(mapa_hidrogeologico, pnl_modulos_form)
+        ElseIf (currentModule = 5) Then
+            Dim mapa_hidrogeoquimico = New Form_mapa_hidrogeoquimico()
+            openFormByName(mapa_hidrogeoquimico, pnl_modulos_form)
         ElseIf (currentModule = 6) Then
             Dim sincronizacion_gdb = New Form_sincronizacion_geodatabase()
             openFormByName(sincronizacion_gdb, pnl_modulos_form)

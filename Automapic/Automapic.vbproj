@@ -150,6 +150,12 @@
     <Compile Include="Form_mapa_hidrogeologico.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Form_mapa_hidrogeoquimico.Designer.vb">
+      <DependentUpon>Form_mapa_hidrogeoquimico.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form_mapa_hidrogeoquimico.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form_mapa_peligros_geologicos.Designer.vb">
       <DependentUpon>Form_mapa_peligros_geologicos.vb</DependentUpon>
     </Compile>
@@ -219,6 +225,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_mapa_hidrogeologico.resx">
       <DependentUpon>Form_mapa_hidrogeologico.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_mapa_hidrogeoquimico.resx">
+      <DependentUpon>Form_mapa_hidrogeoquimico.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_mapa_peligros_geologicos.resx">
       <DependentUpon>Form_mapa_peligros_geologicos.vb</DependentUpon>
@@ -513,6 +522,7 @@
     <None Include="Resources\select.png" />
     <None Include="Resources\TableRecordsDelete32.png" />
     <None Include="Resources\ConfigureInfographics32.png" />
+    <None Include="Resources\gdb.png" />
     <Content Include="scripts\arcobjects.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

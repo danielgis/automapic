@@ -33,12 +33,10 @@ Partial Class Form_mapa_hidrogeologico
         Me.tp_mh_capas = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel6 = New System.Windows.Forms.TableLayoutPanel()
         Me.TableLayoutPanel7 = New System.Windows.Forms.TableLayoutPanel()
-        Me.UserControl_CheckBoxAddLayers1 = New Automapic.UserControl_CheckBoxAddLayers()
         Me.btn_mgh_extrerdatos = New System.Windows.Forms.Button()
         Me.tp_mh_rotulo = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.clb_mh_autores = New System.Windows.Forms.CheckedListBox()
-        Me.lbl_mh_autor = New System.Windows.Forms.Label()
         Me.img_list_mh = New System.Windows.Forms.ImageList(Me.components)
         Me.rbt_mh_pequenio = New System.Windows.Forms.RadioButton()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -47,13 +45,11 @@ Partial Class Form_mapa_hidrogeologico
         Me.Label3 = New System.Windows.Forms.Label()
         Me.tbx_mh_title1 = New System.Windows.Forms.TextBox()
         Me.tbx_mh_title2 = New System.Windows.Forms.TextBox()
-        Me.btn_mh_grotulo = New System.Windows.Forms.Button()
         Me.nud_mh_numero = New System.Windows.Forms.NumericUpDown()
         Me.lbl_mh_numero = New System.Windows.Forms.Label()
         Me.rbt_mh_grande = New System.Windows.Forms.RadioButton()
         Me.tp_mh_leyenda = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
-        Me.btn_mh_leyenda = New System.Windows.Forms.Button()
         Me.tc_mh_leyenda_tools = New System.Windows.Forms.TabControl()
         Me.tp_mh_classif = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
@@ -63,13 +59,17 @@ Partial Class Form_mapa_hidrogeologico
         Me.TableLayoutPanel5 = New System.Windows.Forms.TableLayoutPanel()
         Me.tbx_mh_descriph = New System.Windows.Forms.TextBox()
         Me.tvw_mh_descriph = New System.Windows.Forms.TreeView()
-        Me.UserControl_ComboBoxDataframes1 = New Automapic.UserControl_ComboBoxDataframes()
         Me.tp_mh_mapa_ubicacion = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel8 = New System.Windows.Forms.TableLayoutPanel()
-        Me.UserControl_ComboBoxDataframes2 = New Automapic.UserControl_ComboBoxDataframes()
         Me.rbt_mhg_nacional = New System.Windows.Forms.RadioButton()
         Me.rbt_mhg_cuenca = New System.Windows.Forms.RadioButton()
+        Me.lbl_mh_autor = New System.Windows.Forms.Label()
+        Me.btn_mh_grotulo = New System.Windows.Forms.Button()
+        Me.btn_mh_leyenda = New System.Windows.Forms.Button()
         Me.btn_mgh_generar_mu = New System.Windows.Forms.Button()
+        Me.UserControl_CheckBoxAddLayers1 = New Automapic.UserControl_CheckBoxAddLayers()
+        Me.UserControl_ComboBoxDataframes1 = New Automapic.UserControl_ComboBoxDataframes()
+        Me.UserControl_ComboBoxDataframes2 = New Automapic.UserControl_ComboBoxDataframes()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.tc_mh_tools.SuspendLayout()
         Me.tp_mh_capas.SuspendLayout()
@@ -218,15 +218,6 @@ Partial Class Form_mapa_hidrogeologico
         Me.TableLayoutPanel7.Size = New System.Drawing.Size(331, 410)
         Me.TableLayoutPanel7.TabIndex = 0
         '
-        'UserControl_CheckBoxAddLayers1
-        '
-        Me.TableLayoutPanel7.SetColumnSpan(Me.UserControl_CheckBoxAddLayers1, 2)
-        Me.UserControl_CheckBoxAddLayers1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.UserControl_CheckBoxAddLayers1.Location = New System.Drawing.Point(3, 3)
-        Me.UserControl_CheckBoxAddLayers1.Name = "UserControl_CheckBoxAddLayers1"
-        Me.UserControl_CheckBoxAddLayers1.Size = New System.Drawing.Size(325, 358)
-        Me.UserControl_CheckBoxAddLayers1.TabIndex = 0
-        '
         'btn_mgh_extrerdatos
         '
         Me.btn_mgh_extrerdatos.Cursor = System.Windows.Forms.Cursors.Hand
@@ -304,21 +295,6 @@ Partial Class Form_mapa_hidrogeologico
         Me.clb_mh_autores.Name = "clb_mh_autores"
         Me.clb_mh_autores.Size = New System.Drawing.Size(327, 118)
         Me.clb_mh_autores.TabIndex = 1
-        '
-        'lbl_mh_autor
-        '
-        Me.lbl_mh_autor.AutoSize = True
-        Me.TableLayoutPanel2.SetColumnSpan(Me.lbl_mh_autor, 3)
-        Me.lbl_mh_autor.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.lbl_mh_autor.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.lbl_mh_autor.ImageIndex = 7
-        Me.lbl_mh_autor.ImageList = Me.img_list_mh
-        Me.lbl_mh_autor.Location = New System.Drawing.Point(2, 43)
-        Me.lbl_mh_autor.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.lbl_mh_autor.Name = "lbl_mh_autor"
-        Me.lbl_mh_autor.Size = New System.Drawing.Size(327, 13)
-        Me.lbl_mh_autor.TabIndex = 0
-        Me.lbl_mh_autor.Text = "Seleccione los autores"
         '
         'img_list_mh
         '
@@ -415,23 +391,6 @@ Partial Class Form_mapa_hidrogeologico
         Me.tbx_mh_title2.TabIndex = 9
         Me.tbx_mh_title2.Text = "Mapa Hidrogeológico"
         '
-        'btn_mh_grotulo
-        '
-        Me.TableLayoutPanel2.SetColumnSpan(Me.btn_mh_grotulo, 3)
-        Me.btn_mh_grotulo.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btn_mh_grotulo.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.btn_mh_grotulo.ImageIndex = 3
-        Me.btn_mh_grotulo.ImageList = Me.img_list_mh
-        Me.btn_mh_grotulo.Location = New System.Drawing.Point(2, 380)
-        Me.btn_mh_grotulo.Margin = New System.Windows.Forms.Padding(2)
-        Me.btn_mh_grotulo.Name = "btn_mh_grotulo"
-        Me.btn_mh_grotulo.Size = New System.Drawing.Size(327, 28)
-        Me.btn_mh_grotulo.TabIndex = 10
-        Me.btn_mh_grotulo.Text = "Generar rótulo"
-        Me.btn_mh_grotulo.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.btn_mh_grotulo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.btn_mh_grotulo.UseVisualStyleBackColor = True
-        '
         'nud_mh_numero
         '
         Me.nud_mh_numero.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -498,22 +457,6 @@ Partial Class Form_mapa_hidrogeologico
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32.0!))
         Me.TableLayoutPanel3.Size = New System.Drawing.Size(331, 410)
         Me.TableLayoutPanel3.TabIndex = 1
-        '
-        'btn_mh_leyenda
-        '
-        Me.btn_mh_leyenda.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btn_mh_leyenda.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btn_mh_leyenda.ImageIndex = 6
-        Me.btn_mh_leyenda.ImageList = Me.img_list_mh
-        Me.btn_mh_leyenda.Location = New System.Drawing.Point(2, 380)
-        Me.btn_mh_leyenda.Margin = New System.Windows.Forms.Padding(2)
-        Me.btn_mh_leyenda.Name = "btn_mh_leyenda"
-        Me.btn_mh_leyenda.Size = New System.Drawing.Size(327, 28)
-        Me.btn_mh_leyenda.TabIndex = 0
-        Me.btn_mh_leyenda.Text = "Generar Leyenda"
-        Me.btn_mh_leyenda.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.btn_mh_leyenda.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.btn_mh_leyenda.UseVisualStyleBackColor = True
         '
         'tc_mh_leyenda_tools
         '
@@ -628,15 +571,6 @@ Partial Class Form_mapa_hidrogeologico
         Me.tvw_mh_descriph.Size = New System.Drawing.Size(311, 192)
         Me.tvw_mh_descriph.TabIndex = 1
         '
-        'UserControl_ComboBoxDataframes1
-        '
-        Me.UserControl_ComboBoxDataframes1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.UserControl_ComboBoxDataframes1.Location = New System.Drawing.Point(2, 330)
-        Me.UserControl_ComboBoxDataframes1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.UserControl_ComboBoxDataframes1.Name = "UserControl_ComboBoxDataframes1"
-        Me.UserControl_ComboBoxDataframes1.Size = New System.Drawing.Size(327, 46)
-        Me.UserControl_ComboBoxDataframes1.TabIndex = 1
-        '
         'tp_mh_mapa_ubicacion
         '
         Me.tp_mh_mapa_ubicacion.Controls.Add(Me.TableLayoutPanel8)
@@ -667,16 +601,6 @@ Partial Class Form_mapa_hidrogeologico
         Me.TableLayoutPanel8.Size = New System.Drawing.Size(335, 414)
         Me.TableLayoutPanel8.TabIndex = 0
         '
-        'UserControl_ComboBoxDataframes2
-        '
-        Me.TableLayoutPanel8.SetColumnSpan(Me.UserControl_ComboBoxDataframes2, 2)
-        Me.UserControl_ComboBoxDataframes2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.UserControl_ComboBoxDataframes2.Location = New System.Drawing.Point(2, 2)
-        Me.UserControl_ComboBoxDataframes2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.UserControl_ComboBoxDataframes2.Name = "UserControl_ComboBoxDataframes2"
-        Me.UserControl_ComboBoxDataframes2.Size = New System.Drawing.Size(331, 46)
-        Me.UserControl_ComboBoxDataframes2.TabIndex = 0
-        '
         'rbt_mhg_nacional
         '
         Me.rbt_mhg_nacional.AutoSize = True
@@ -699,6 +623,54 @@ Partial Class Form_mapa_hidrogeologico
         Me.rbt_mhg_cuenca.Text = "Cuenca(s)"
         Me.rbt_mhg_cuenca.UseVisualStyleBackColor = True
         '
+        'lbl_mh_autor
+        '
+        Me.lbl_mh_autor.AutoSize = True
+        Me.TableLayoutPanel2.SetColumnSpan(Me.lbl_mh_autor, 3)
+        Me.lbl_mh_autor.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lbl_mh_autor.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lbl_mh_autor.ImageIndex = 7
+        Me.lbl_mh_autor.ImageList = Me.img_list_mh
+        Me.lbl_mh_autor.Location = New System.Drawing.Point(2, 43)
+        Me.lbl_mh_autor.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lbl_mh_autor.Name = "lbl_mh_autor"
+        Me.lbl_mh_autor.Size = New System.Drawing.Size(327, 13)
+        Me.lbl_mh_autor.TabIndex = 0
+        Me.lbl_mh_autor.Text = "Seleccione los autores"
+        '
+        'btn_mh_grotulo
+        '
+        Me.TableLayoutPanel2.SetColumnSpan(Me.btn_mh_grotulo, 3)
+        Me.btn_mh_grotulo.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btn_mh_grotulo.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.btn_mh_grotulo.ImageIndex = 3
+        Me.btn_mh_grotulo.ImageList = Me.img_list_mh
+        Me.btn_mh_grotulo.Location = New System.Drawing.Point(2, 380)
+        Me.btn_mh_grotulo.Margin = New System.Windows.Forms.Padding(2)
+        Me.btn_mh_grotulo.Name = "btn_mh_grotulo"
+        Me.btn_mh_grotulo.Size = New System.Drawing.Size(327, 28)
+        Me.btn_mh_grotulo.TabIndex = 10
+        Me.btn_mh_grotulo.Text = "Generar rótulo"
+        Me.btn_mh_grotulo.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.btn_mh_grotulo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btn_mh_grotulo.UseVisualStyleBackColor = True
+        '
+        'btn_mh_leyenda
+        '
+        Me.btn_mh_leyenda.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btn_mh_leyenda.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btn_mh_leyenda.ImageIndex = 6
+        Me.btn_mh_leyenda.ImageList = Me.img_list_mh
+        Me.btn_mh_leyenda.Location = New System.Drawing.Point(2, 380)
+        Me.btn_mh_leyenda.Margin = New System.Windows.Forms.Padding(2)
+        Me.btn_mh_leyenda.Name = "btn_mh_leyenda"
+        Me.btn_mh_leyenda.Size = New System.Drawing.Size(327, 28)
+        Me.btn_mh_leyenda.TabIndex = 0
+        Me.btn_mh_leyenda.Text = "Generar Leyenda"
+        Me.btn_mh_leyenda.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.btn_mh_leyenda.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btn_mh_leyenda.UseVisualStyleBackColor = True
+        '
         'btn_mgh_generar_mu
         '
         Me.TableLayoutPanel8.SetColumnSpan(Me.btn_mgh_generar_mu, 2)
@@ -715,6 +687,34 @@ Partial Class Form_mapa_hidrogeologico
         Me.btn_mgh_generar_mu.Text = "Generar mapa de ubicación"
         Me.btn_mgh_generar_mu.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btn_mgh_generar_mu.UseVisualStyleBackColor = True
+        '
+        'UserControl_CheckBoxAddLayers1
+        '
+        Me.TableLayoutPanel7.SetColumnSpan(Me.UserControl_CheckBoxAddLayers1, 2)
+        Me.UserControl_CheckBoxAddLayers1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.UserControl_CheckBoxAddLayers1.Location = New System.Drawing.Point(3, 3)
+        Me.UserControl_CheckBoxAddLayers1.Name = "UserControl_CheckBoxAddLayers1"
+        Me.UserControl_CheckBoxAddLayers1.Size = New System.Drawing.Size(325, 358)
+        Me.UserControl_CheckBoxAddLayers1.TabIndex = 0
+        '
+        'UserControl_ComboBoxDataframes1
+        '
+        Me.UserControl_ComboBoxDataframes1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.UserControl_ComboBoxDataframes1.Location = New System.Drawing.Point(2, 330)
+        Me.UserControl_ComboBoxDataframes1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.UserControl_ComboBoxDataframes1.Name = "UserControl_ComboBoxDataframes1"
+        Me.UserControl_ComboBoxDataframes1.Size = New System.Drawing.Size(327, 46)
+        Me.UserControl_ComboBoxDataframes1.TabIndex = 1
+        '
+        'UserControl_ComboBoxDataframes2
+        '
+        Me.TableLayoutPanel8.SetColumnSpan(Me.UserControl_ComboBoxDataframes2, 2)
+        Me.UserControl_ComboBoxDataframes2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.UserControl_ComboBoxDataframes2.Location = New System.Drawing.Point(2, 2)
+        Me.UserControl_ComboBoxDataframes2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.UserControl_ComboBoxDataframes2.Name = "UserControl_ComboBoxDataframes2"
+        Me.UserControl_ComboBoxDataframes2.Size = New System.Drawing.Size(331, 46)
+        Me.UserControl_ComboBoxDataframes2.TabIndex = 0
         '
         'Form_mapa_hidrogeologico
         '
