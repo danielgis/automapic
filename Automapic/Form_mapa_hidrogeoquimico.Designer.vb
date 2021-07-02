@@ -45,17 +45,18 @@ Partial Class Form_mapa_hidrogeoquimico
         '
         Me.TableLayoutPanel1.ColumnCount = 1
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 27.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 27.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.tc_mhq_procesos, 0, 1)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 3
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 6.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(308, 550)
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 6.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(411, 677)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'tc_mhq_procesos
@@ -63,19 +64,21 @@ Partial Class Form_mapa_hidrogeoquimico
         Me.tc_mhq_procesos.Controls.Add(Me.tp_mhq_procesos_ingreso)
         Me.tc_mhq_procesos.Controls.Add(Me.TabPage2)
         Me.tc_mhq_procesos.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tc_mhq_procesos.Location = New System.Drawing.Point(3, 8)
+        Me.tc_mhq_procesos.Location = New System.Drawing.Point(4, 10)
+        Me.tc_mhq_procesos.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tc_mhq_procesos.Name = "tc_mhq_procesos"
         Me.tc_mhq_procesos.SelectedIndex = 0
-        Me.tc_mhq_procesos.Size = New System.Drawing.Size(302, 534)
+        Me.tc_mhq_procesos.Size = New System.Drawing.Size(403, 657)
         Me.tc_mhq_procesos.TabIndex = 0
         '
         'tp_mhq_procesos_ingreso
         '
         Me.tp_mhq_procesos_ingreso.Controls.Add(Me.TableLayoutPanel2)
-        Me.tp_mhq_procesos_ingreso.Location = New System.Drawing.Point(4, 22)
+        Me.tp_mhq_procesos_ingreso.Location = New System.Drawing.Point(4, 25)
+        Me.tp_mhq_procesos_ingreso.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tp_mhq_procesos_ingreso.Name = "tp_mhq_procesos_ingreso"
-        Me.tp_mhq_procesos_ingreso.Padding = New System.Windows.Forms.Padding(3)
-        Me.tp_mhq_procesos_ingreso.Size = New System.Drawing.Size(294, 508)
+        Me.tp_mhq_procesos_ingreso.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tp_mhq_procesos_ingreso.Size = New System.Drawing.Size(395, 628)
         Me.tp_mhq_procesos_ingreso.TabIndex = 0
         Me.tp_mhq_procesos_ingreso.Text = "Ingreso de Datos"
         Me.tp_mhq_procesos_ingreso.UseVisualStyleBackColor = True
@@ -84,7 +87,7 @@ Partial Class Form_mapa_hidrogeoquimico
         '
         Me.TableLayoutPanel2.ColumnCount = 2
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.lml_mhq_gdb, 0, 1)
         Me.TableLayoutPanel2.Controls.Add(Me.btn_mhq_gdb, 1, 2)
         Me.TableLayoutPanel2.Controls.Add(Me.tbx_mhq_gdb, 0, 2)
@@ -93,36 +96,40 @@ Partial Class Form_mapa_hidrogeoquimico
         Me.TableLayoutPanel2.Controls.Add(Me.btn_mhq_excel, 1, 4)
         Me.TableLayoutPanel2.Controls.Add(Me.btn_mhq_cargar, 0, 6)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 3)
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(4, 4)
+        Me.TableLayoutPanel2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 8
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 4.0!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 16.0!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24.0!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 16.0!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24.0!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8.0!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(288, 502)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(387, 620)
         Me.TableLayoutPanel2.TabIndex = 0
         '
         'lml_mhq_gdb
         '
         Me.lml_mhq_gdb.AutoSize = True
         Me.lml_mhq_gdb.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lml_mhq_gdb.Location = New System.Drawing.Point(3, 4)
+        Me.lml_mhq_gdb.Location = New System.Drawing.Point(4, 5)
+        Me.lml_mhq_gdb.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lml_mhq_gdb.Name = "lml_mhq_gdb"
-        Me.lml_mhq_gdb.Size = New System.Drawing.Size(222, 16)
+        Me.lml_mhq_gdb.Size = New System.Drawing.Size(299, 20)
         Me.lml_mhq_gdb.TabIndex = 0
         Me.lml_mhq_gdb.Text = "Seleccione GDB"
         '
         'btn_mhq_gdb
         '
         Me.btn_mhq_gdb.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.btn_mhq_gdb.Location = New System.Drawing.Point(231, 23)
+        Me.btn_mhq_gdb.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btn_mhq_gdb.Location = New System.Drawing.Point(311, 29)
+        Me.btn_mhq_gdb.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btn_mhq_gdb.Name = "btn_mhq_gdb"
-        Me.btn_mhq_gdb.Size = New System.Drawing.Size(54, 18)
+        Me.btn_mhq_gdb.Size = New System.Drawing.Size(72, 22)
         Me.btn_mhq_gdb.TabIndex = 1
         Me.btn_mhq_gdb.Text = "+"
         Me.btn_mhq_gdb.UseVisualStyleBackColor = True
@@ -131,18 +138,20 @@ Partial Class Form_mapa_hidrogeoquimico
         '
         Me.tbx_mhq_gdb.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tbx_mhq_gdb.Enabled = False
-        Me.tbx_mhq_gdb.Location = New System.Drawing.Point(3, 23)
+        Me.tbx_mhq_gdb.Location = New System.Drawing.Point(4, 29)
+        Me.tbx_mhq_gdb.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tbx_mhq_gdb.Name = "tbx_mhq_gdb"
-        Me.tbx_mhq_gdb.Size = New System.Drawing.Size(222, 20)
+        Me.tbx_mhq_gdb.Size = New System.Drawing.Size(299, 22)
         Me.tbx_mhq_gdb.TabIndex = 2
         '
         'lbl_mhq_excel
         '
         Me.lbl_mhq_excel.AutoSize = True
         Me.lbl_mhq_excel.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lbl_mhq_excel.Location = New System.Drawing.Point(3, 44)
+        Me.lbl_mhq_excel.Location = New System.Drawing.Point(4, 55)
+        Me.lbl_mhq_excel.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lbl_mhq_excel.Name = "lbl_mhq_excel"
-        Me.lbl_mhq_excel.Size = New System.Drawing.Size(222, 16)
+        Me.lbl_mhq_excel.Size = New System.Drawing.Size(299, 20)
         Me.lbl_mhq_excel.TabIndex = 3
         Me.lbl_mhq_excel.Text = "Seleccione archivo excel"
         '
@@ -150,17 +159,20 @@ Partial Class Form_mapa_hidrogeoquimico
         '
         Me.tbx_mhq_excel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tbx_mhq_excel.Enabled = False
-        Me.tbx_mhq_excel.Location = New System.Drawing.Point(3, 63)
+        Me.tbx_mhq_excel.Location = New System.Drawing.Point(4, 79)
+        Me.tbx_mhq_excel.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tbx_mhq_excel.Name = "tbx_mhq_excel"
-        Me.tbx_mhq_excel.Size = New System.Drawing.Size(222, 20)
+        Me.tbx_mhq_excel.Size = New System.Drawing.Size(299, 22)
         Me.tbx_mhq_excel.TabIndex = 4
         '
         'btn_mhq_excel
         '
+        Me.btn_mhq_excel.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btn_mhq_excel.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btn_mhq_excel.Location = New System.Drawing.Point(231, 63)
+        Me.btn_mhq_excel.Location = New System.Drawing.Point(311, 79)
+        Me.btn_mhq_excel.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btn_mhq_excel.Name = "btn_mhq_excel"
-        Me.btn_mhq_excel.Size = New System.Drawing.Size(54, 18)
+        Me.btn_mhq_excel.Size = New System.Drawing.Size(72, 22)
         Me.btn_mhq_excel.TabIndex = 5
         Me.btn_mhq_excel.Text = "+"
         Me.btn_mhq_excel.UseVisualStyleBackColor = True
@@ -168,20 +180,23 @@ Partial Class Form_mapa_hidrogeoquimico
         'btn_mhq_cargar
         '
         Me.TableLayoutPanel2.SetColumnSpan(Me.btn_mhq_cargar, 2)
+        Me.btn_mhq_cargar.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btn_mhq_cargar.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btn_mhq_cargar.Location = New System.Drawing.Point(3, 95)
+        Me.btn_mhq_cargar.Location = New System.Drawing.Point(4, 119)
+        Me.btn_mhq_cargar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btn_mhq_cargar.Name = "btn_mhq_cargar"
-        Me.btn_mhq_cargar.Size = New System.Drawing.Size(282, 22)
+        Me.btn_mhq_cargar.Size = New System.Drawing.Size(379, 26)
         Me.btn_mhq_cargar.TabIndex = 6
         Me.btn_mhq_cargar.Text = "Cargar Datos a GDB"
         Me.btn_mhq_cargar.UseVisualStyleBackColor = True
         '
         'TabPage2
         '
-        Me.TabPage2.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage2.Location = New System.Drawing.Point(4, 25)
+        Me.TabPage2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(294, 508)
+        Me.TabPage2.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TabPage2.Size = New System.Drawing.Size(395, 628)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "TabPage2"
         Me.TabPage2.UseVisualStyleBackColor = True
@@ -197,12 +212,13 @@ Partial Class Form_mapa_hidrogeoquimico
         '
         'Form_mapa_hidrogeoquimico
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(308, 550)
+        Me.ClientSize = New System.Drawing.Size(411, 677)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "Form_mapa_hidrogeoquimico"
         Me.Text = "Form_mapa_hidrogeoquimico"
         Me.TableLayoutPanel1.ResumeLayout(False)

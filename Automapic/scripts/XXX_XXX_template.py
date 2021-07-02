@@ -9,7 +9,8 @@ response['message'] = 'success'
 param = arcpy.GetParameterAsText(0)
 
 try:
-    # Insertar procesos
+    # Insertar procesos 
+    response["response"]="response"
     arcpy.AddMessage("Hello World!")
 except Exception as e:
     response['status'] = 0

@@ -2,7 +2,6 @@
     Dim ruta_gdb_mhq As String
     Dim ruta_xls_mhq As String
 
-
     Private Sub btn_mhq_gdb_Click(sender As Object, e As EventArgs) Handles btn_mhq_gdb.Click
 
         ruta_gdb_mhq = openDialogBoxESRI(f_workspace)
