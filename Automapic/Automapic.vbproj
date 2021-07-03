@@ -445,6 +445,9 @@
     <None Include="scripts\T04_mapa_hidrogeologico.tbx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="scripts\T05_mapa_hidrogeoquimico.tbx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="scripts\T06_sincronizacion_geodatabase.tbx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -617,6 +620,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\MHG_S08_generar_mapa_ubicacion.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="scripts\MHQ_S01_ingresar_datos.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\packages_aut.py">
