@@ -4,6 +4,7 @@ Imports ESRI.ArcGIS.Framework
 Imports Newtonsoft.Json
 Imports System.Drawing
 
+
 Imports System.Runtime.CompilerServices
 Imports System.Text
 Imports System.IO
@@ -148,6 +149,9 @@ Public Class Form_sincronizacion_geodatabase
             End If
 
         Next
+        For Each column As DataGridViewColumn In dg_sg_capas.Columns
+            column.SortMode = DataGridViewColumnSortMode.NotSortable
+        Next
 
     End Sub
 
@@ -288,6 +292,7 @@ Public Class Form_sincronizacion_geodatabase
                         csv_result = FileName
                         Dim usuario = user
 
+                        runProgressBar()
                         params.Clear()
                         params.Add(ruta_origen)
                         params.Add(ruta_destino)
@@ -307,9 +312,11 @@ Public Class Form_sincronizacion_geodatabase
                         Dim numeroCapasExportadas = responseJson.Item("response")
                         Dim mensaje_exportadas As String = "Se exportaron satisfactoriamente " & numeroCapasExportadas & "capas"
 
-
+                        runProgressBar("end")
+                        runProgressBar("ini")
                         MessageBox.Show(mensaje_exportadas, "Sinc. Geodatabase")
                     Catch ex As Exception
+                        runProgressBar("ini")
                         MessageBox.Show("Error :" & ex.Message)
                     End Try
                 End If
