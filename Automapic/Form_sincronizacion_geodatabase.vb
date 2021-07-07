@@ -219,7 +219,6 @@ Public Class Form_sincronizacion_geodatabase
         AdjustColumnOrder()
         runProgressBar("ini")
 
-
     End Sub
     Private Sub ResetHeaderCheckBoxLocation(ByVal ColumnIndex As Integer, ByVal RowIndex As Integer)
         Dim oRectangle As Rectangle = Me.dg_sg_capas.GetCellDisplayRectangle(ColumnIndex, RowIndex, True)
@@ -287,11 +286,13 @@ Public Class Form_sincronizacion_geodatabase
 
                         File.WriteAllLines(FileName, outputCsv, Encoding.UTF8)
                         csv_result = FileName
+                        Dim usuario = user
 
                         params.Clear()
                         params.Add(ruta_origen)
                         params.Add(ruta_destino)
                         params.Add(csv_result)
+                        params.Add(usuario)
                         Dim response = ExecuteGP(_tool_sendFilesToGDB, params, _toolboxPath_sincronizacion_geodatabase)
                         Dim responseJson = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(response)
                         If responseJson.Item("status") = 0 Then
@@ -307,7 +308,7 @@ Public Class Form_sincronizacion_geodatabase
                         Dim mensaje_exportadas As String = "Se exportaron satisfactoriamente " & numeroCapasExportadas & "capas"
 
 
-                        MessageBox.Show(mensaje_exportadas, "Info")
+                        MessageBox.Show(mensaje_exportadas, "Sinc. Geodatabase")
                     Catch ex As Exception
                         MessageBox.Show("Error :" & ex.Message)
                     End Try
