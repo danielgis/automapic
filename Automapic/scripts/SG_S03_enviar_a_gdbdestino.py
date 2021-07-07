@@ -23,7 +23,7 @@ response['status'] = 1
 response['message'] = 'success'
 
 def enviardatos(gdbini, gdbfin, rutacsv, usuario):
-    df = pd.read_csv(rutacsv)
+    df = pd.read_csv(rutacsv, encoding='UTF-8-sig')
     contador = 0
     for index, row in df.iterrows():
         if row["enviar"]== True:
@@ -42,13 +42,13 @@ def enviardatos(gdbini, gdbfin, rutacsv, usuario):
                 pass
             
             contador +=1
-    
+    df = df.drop(df.columns[-1], axis=1)
     df["tipo"] = "UPDATE"
     df.loc[(df.existe_destino == 0) | (df.existe_origen == 0), "tipo"] = "INSERT"
     df["usuario"] = usuario
     df["fecha"] = datetime.datetime.now()
     df2 = df[df["enviar"]==True].copy()
-    df2.to_sql('tb_sinc_gdb', con=conn, if_exists='append')
+    df2.to_sql('tb_sinc_gdb', con=conn, if_exists='append', index=False)
 
     return contador
 

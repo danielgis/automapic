@@ -22,6 +22,19 @@ response = dict()
 response['status'] = 1
 response['message'] = 'success'
 
+def escribir_printeo(objeto):
+	ruta_archivo = r'C:\logfile.txt'
+	texto = str
+	if type(objeto) in (list, tuple) :
+		texto = ','.join([str(x) for x in objeto])
+	elif type(objeto) in (int, float):
+		texto = str(objeto)
+	else:
+		texto = objeto
+
+	with open(ruta_archivo, 'a') as f:
+		f.write(texto)
+        f.write('\n')
 
 def getcapas(gdb, ds=None):
     """
@@ -56,6 +69,7 @@ def get_filtrados(valor, lista, gdb):
     for i in lista:
         if valor[0] in i:
             return [1, i, os.path.join(gdb,i)]
+
     return [0, valor[0],valor[1]]
 
 
@@ -156,7 +170,7 @@ def get_tabla(gdbini, gdbfin, filtro=None, ds=None):
                 lista_filtro.append([name,source])
         
         if len(listalayers)==0 and len(listatablas)==0:
-            pythonaddins.MessageBox(_ERROR_EMPTY_MXD, _ERROR_DIALOG,0)
+            pythonaddins.MessageBox(msg._ERROR_EMPTY_MXD, msg._ERROR_DIALOG,0)
 
 
     else:
@@ -166,7 +180,7 @@ def get_tabla(gdbini, gdbfin, filtro=None, ds=None):
             dataf = pd.read_excel(filtro)
         firstcolumn = dataf.iloc[:, 0]
         listafiltro = firstcolumn.tolist()
-        lista_filtro = [[x,0] for x in listafiltro]
+        lista_filtro = [[x.strip(),0] for x in listafiltro]
 
     if len(lista_filtro) == 0:
         # Agregamos nuevo elemnto para source
