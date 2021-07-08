@@ -62,6 +62,9 @@ Public Class Modulos
         ElseIf (currentModule = 6) Then
             Dim sincronizacion_gdb = New Form_sincronizacion_geodatabase()
             openFormByName(sincronizacion_gdb, pnl_modulos_form)
+        ElseIf (currentModule = 7) Then
+            Dim mapa_neotectonica = New Form_mapa_neotectonica()
+            openFormByName(mapa_neotectonica, pnl_modulos_form)
         End If
 
     End Sub

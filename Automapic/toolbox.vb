@@ -33,6 +33,7 @@ Module toolbox
     Public _tool_addLayerToDataFrame As String = "addLayerToDataFrame"
     Public _tool_removeFeatureOfTOC As String = "removeFeatureOfTOC"
     Public _tool_getListTopologyByModule As String = "getListTopologyByModule"
+    Public _tool_preLoad As String = "preLoad"
 
     ':HERRAMIENTAS DEL MODULO DE MAPAS DE PELIGROS GEOLOGICOS
     Public _tool_mapGeologicalHazards As String = "mapGeologicalHazards"

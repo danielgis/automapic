@@ -150,6 +150,12 @@
     <Compile Include="Form_mapa_hidrogeologico.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Form_mapa_neotectonica.Designer.vb">
+      <DependentUpon>Form_mapa_neotectonica.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form_mapa_neotectonica.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form_mapa_peligros_geologicos.Designer.vb">
       <DependentUpon>Form_mapa_peligros_geologicos.vb</DependentUpon>
     </Compile>
@@ -209,6 +215,12 @@
     <Compile Include="UserControl_ComboBoxDataframes.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="UserControl_ComboBoxRegiones.Designer.vb">
+      <DependentUpon>UserControl_ComboBoxRegiones.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl_ComboBoxRegiones.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AutomapicDock.resx">
@@ -219,6 +231,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_mapa_hidrogeologico.resx">
       <DependentUpon>Form_mapa_hidrogeologico.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_mapa_neotectonica.resx">
+      <DependentUpon>Form_mapa_neotectonica.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_mapa_peligros_geologicos.resx">
       <DependentUpon>Form_mapa_peligros_geologicos.vb</DependentUpon>
@@ -246,6 +261,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControl_ComboBoxDataframes.resx">
       <DependentUpon>UserControl_ComboBoxDataframes.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControl_ComboBoxRegiones.resx">
+      <DependentUpon>UserControl_ComboBoxRegiones.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -523,6 +541,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\automapic_template_json.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="scripts\G_S00_load_scripts.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\G_S01_cargar_feature.py">
