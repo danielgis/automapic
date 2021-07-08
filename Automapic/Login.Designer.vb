@@ -34,6 +34,7 @@ Partial Class Login
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.pbx_login_loader = New System.Windows.Forms.PictureBox()
         Me.bgw_login = New System.ComponentModel.BackgroundWorker()
+        Me.lbl_login_log = New System.Windows.Forms.Label()
         Me.tlp_login.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbx_login_loader, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -42,11 +43,11 @@ Partial Class Login
         'tlp_login
         '
         Me.tlp_login.ColumnCount = 5
-        Me.tlp_login.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 11.0!))
+        Me.tlp_login.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 8.0!))
         Me.tlp_login.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tlp_login.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 251.0!))
+        Me.tlp_login.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 188.0!))
         Me.tlp_login.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tlp_login.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 11.0!))
+        Me.tlp_login.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 8.0!))
         Me.tlp_login.Controls.Add(Me.tbx_user, 2, 4)
         Me.tlp_login.Controls.Add(Me.tbx_pass, 2, 6)
         Me.tlp_login.Controls.Add(Me.lbl_user, 2, 3)
@@ -54,23 +55,25 @@ Partial Class Login
         Me.tlp_login.Controls.Add(Me.btn_login, 2, 7)
         Me.tlp_login.Controls.Add(Me.PictureBox1, 2, 1)
         Me.tlp_login.Controls.Add(Me.pbx_login_loader, 2, 9)
+        Me.tlp_login.Controls.Add(Me.lbl_login_log, 2, 10)
         Me.tlp_login.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tlp_login.Location = New System.Drawing.Point(0, 0)
-        Me.tlp_login.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.tlp_login.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.tlp_login.Name = "tlp_login"
-        Me.tlp_login.RowCount = 11
-        Me.tlp_login.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50.0!))
-        Me.tlp_login.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150.0!))
-        Me.tlp_login.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 12.0!))
-        Me.tlp_login.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlp_login.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.tlp_login.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlp_login.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.tlp_login.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34.0!))
+        Me.tlp_login.RowCount = 12
+        Me.tlp_login.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41.0!))
+        Me.tlp_login.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 122.0!))
         Me.tlp_login.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
-        Me.tlp_login.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlp_login.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
-        Me.tlp_login.Size = New System.Drawing.Size(531, 658)
+        Me.tlp_login.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 16.0!))
+        Me.tlp_login.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24.0!))
+        Me.tlp_login.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 16.0!))
+        Me.tlp_login.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24.0!))
+        Me.tlp_login.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28.0!))
+        Me.tlp_login.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8.0!))
+        Me.tlp_login.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45.0!))
+        Me.tlp_login.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 23.0!))
+        Me.tlp_login.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8.0!))
+        Me.tlp_login.Size = New System.Drawing.Size(398, 535)
         Me.tlp_login.TabIndex = 0
         '
         'tbx_user
@@ -78,10 +81,10 @@ Partial Class Login
         Me.tbx_user.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.tbx_user.Location = New System.Drawing.Point(143, 234)
-        Me.tbx_user.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.tbx_user.Location = New System.Drawing.Point(107, 191)
+        Me.tbx_user.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.tbx_user.Name = "tbx_user"
-        Me.tbx_user.Size = New System.Drawing.Size(245, 22)
+        Me.tbx_user.Size = New System.Drawing.Size(184, 20)
         Me.tbx_user.TabIndex = 0
         '
         'tbx_pass
@@ -89,10 +92,10 @@ Partial Class Login
         Me.tbx_pass.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.tbx_pass.Location = New System.Drawing.Point(143, 284)
-        Me.tbx_pass.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.tbx_pass.Location = New System.Drawing.Point(107, 231)
+        Me.tbx_pass.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.tbx_pass.Name = "tbx_pass"
-        Me.tbx_pass.Size = New System.Drawing.Size(245, 22)
+        Me.tbx_pass.Size = New System.Drawing.Size(184, 20)
         Me.tbx_pass.TabIndex = 1
         Me.tbx_pass.UseSystemPasswordChar = True
         '
@@ -103,9 +106,10 @@ Partial Class Login
         Me.lbl_user.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.lbl_user.ImageIndex = 0
         Me.lbl_user.ImageList = Me.img_list_login
-        Me.lbl_user.Location = New System.Drawing.Point(143, 215)
+        Me.lbl_user.Location = New System.Drawing.Point(107, 176)
+        Me.lbl_user.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lbl_user.Name = "lbl_user"
-        Me.lbl_user.Size = New System.Drawing.Size(245, 17)
+        Me.lbl_user.Size = New System.Drawing.Size(184, 13)
         Me.lbl_user.TabIndex = 2
         Me.lbl_user.Text = "Usuario"
         '
@@ -123,9 +127,10 @@ Partial Class Login
         Me.lbl_pass.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.lbl_pass.ImageIndex = 1
         Me.lbl_pass.ImageList = Me.img_list_login
-        Me.lbl_pass.Location = New System.Drawing.Point(143, 265)
+        Me.lbl_pass.Location = New System.Drawing.Point(107, 216)
+        Me.lbl_pass.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lbl_pass.Name = "lbl_pass"
-        Me.lbl_pass.Size = New System.Drawing.Size(245, 17)
+        Me.lbl_pass.Size = New System.Drawing.Size(184, 13)
         Me.lbl_pass.TabIndex = 3
         Me.lbl_pass.Text = "Contraseña"
         '
@@ -136,10 +141,10 @@ Partial Class Login
         Me.btn_login.Dock = System.Windows.Forms.DockStyle.Fill
         Me.btn_login.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(144, Byte), Integer), CType(CType(223, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.btn_login.ForeColor = System.Drawing.Color.Black
-        Me.btn_login.Location = New System.Drawing.Point(143, 314)
-        Me.btn_login.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.btn_login.Location = New System.Drawing.Point(107, 255)
+        Me.btn_login.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.btn_login.Name = "btn_login"
-        Me.btn_login.Size = New System.Drawing.Size(245, 30)
+        Me.btn_login.Size = New System.Drawing.Size(184, 24)
         Me.btn_login.TabIndex = 5
         Me.btn_login.Text = "Ingresar"
         Me.btn_login.UseVisualStyleBackColor = False
@@ -149,19 +154,20 @@ Partial Class Login
         Me.PictureBox1.BackgroundImage = Global.Automapic.My.Resources.Resources.user
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.PictureBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PictureBox1.Location = New System.Drawing.Point(143, 52)
-        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.PictureBox1.Location = New System.Drawing.Point(107, 43)
+        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(245, 146)
+        Me.PictureBox1.Size = New System.Drawing.Size(184, 118)
         Me.PictureBox1.TabIndex = 6
         Me.PictureBox1.TabStop = False
         '
         'pbx_login_loader
         '
         Me.pbx_login_loader.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.pbx_login_loader.Location = New System.Drawing.Point(242, 359)
+        Me.pbx_login_loader.Location = New System.Drawing.Point(181, 291)
+        Me.pbx_login_loader.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.pbx_login_loader.Name = "pbx_login_loader"
-        Me.pbx_login_loader.Size = New System.Drawing.Size(47, 47)
+        Me.pbx_login_loader.Size = New System.Drawing.Size(35, 38)
         Me.pbx_login_loader.TabIndex = 7
         Me.pbx_login_loader.TabStop = False
         Me.pbx_login_loader.Visible = False
@@ -171,16 +177,30 @@ Partial Class Login
         Me.bgw_login.WorkerReportsProgress = True
         Me.bgw_login.WorkerSupportsCancellation = True
         '
+        'lbl_login_log
+        '
+        Me.lbl_login_log.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.lbl_login_log.AutoSize = True
+        Me.lbl_login_log.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_login_log.ForeColor = System.Drawing.Color.DimGray
+        Me.lbl_login_log.Location = New System.Drawing.Point(191, 334)
+        Me.lbl_login_log.Name = "lbl_login_log"
+        Me.lbl_login_log.Size = New System.Drawing.Size(16, 13)
+        Me.lbl_login_log.TabIndex = 8
+        Me.lbl_login_log.Text = "..."
+        Me.lbl_login_log.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lbl_login_log.Visible = False
+        '
         'Login
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoScroll = True
-        Me.ClientSize = New System.Drawing.Size(531, 658)
+        Me.ClientSize = New System.Drawing.Size(398, 535)
         Me.Controls.Add(Me.tlp_login)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.KeyPreview = True
-        Me.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Name = "Login"
         Me.Text = "Login"
         Me.tlp_login.ResumeLayout(False)
@@ -201,4 +221,5 @@ Partial Class Login
     Friend WithEvents img_list_login As System.Windows.Forms.ImageList
     Friend WithEvents pbx_login_loader As System.Windows.Forms.PictureBox
     Friend WithEvents bgw_login As ComponentModel.BackgroundWorker
+    Friend WithEvents lbl_login_log As System.Windows.Forms.Label
 End Class

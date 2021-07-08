@@ -23,6 +23,9 @@ Module settings
     Public _path As String = __file__()
     Public _scripts_path As String = _path & "\scripts"
     Public _layer_path As String = _scripts_path & "\layers"
+    Public _image_path As String = _scripts_path & "\img"
+    Public _path_sqlite As String = _scripts_path & "\automapic.db"
+    Public _path_loader As String = _image_path & "\loader.gif"
 
     '3. Variables dinamicas alterables segun fin
     '   - Estas variables solo podran ser alteradas manejandolas dentro del contexto que fueron creados

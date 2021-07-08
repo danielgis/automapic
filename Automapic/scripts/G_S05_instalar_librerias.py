@@ -7,8 +7,8 @@ import glob
 
 name_packages = [
     'functools32-3.2.3-2.tar.gz',
-    'cycler-0.10.0-py2.py3-none-any.whl',
     'six-1.16.0-py2.py3-none-any.whl',
+    'cycler-0.10.0-py2.py3-none-any.whl',
     'matplotlib-2.0.0-cp27-cp27m-win32.whl',
     'comtypes-1.1.7-py2-none-any.whl',   
 ]

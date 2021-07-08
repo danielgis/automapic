@@ -104,3 +104,4 @@ def get_topology_items(query, as_dataframe=True):
 #     return 'DELETE FROM TB_LOG'
 
 
+# print get_perfil('daguado')

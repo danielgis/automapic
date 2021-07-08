@@ -1,15 +1,17 @@
 ﻿Imports System.Drawing
 Imports System.Windows.Forms
 Imports Newtonsoft.Json
+Imports System.Data.SQLite
 Imports System.Threading
 
 Public Class Login
     Dim params As New List(Of Object)
     Dim RuntimeError As AutomapicExceptions = New AutomapicExceptions()
+    Dim waitTime As Integer = 500
     Private Sub Login_load(sender As Object, e As EventArgs) Handles Me.Load
-        pbx_login_loader.Image = Image.FromFile("C:\Users\daniel\Downloads\icon-1.1s-47px.gif")
+        pbx_login_loader.Image = Image.FromFile(_path_loader)
         pbx_login_loader.SizeMode = PictureBoxSizeMode.StretchImage
-        Dim response As String = ExecuteGP(_tool_preLoad, params, _toolboxPath_automapic)
+        'Dim response As String = ExecuteGP(_tool_preLoad, params, _toolboxPath_automapic)
 
     End Sub
     Private Sub LoginValidate(user As String, password As String)
@@ -28,6 +30,7 @@ Public Class Login
         tbx_pass.Enabled = False
         btn_login.Enabled = False
         pbx_login_loader.Visible = True
+        lbl_login_log.Visible = True
         params.Clear()
         bgw_login.RunWorkerAsync()
     End Sub
@@ -35,51 +38,93 @@ Public Class Login
     Private Sub bgw_login_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw_login.DoWork
         Cursor.Current = Cursors.WaitCursor
         'Incluir proceso de validacion
-        params.Clear()
+        'params.Clear()
         user = tbx_user.Text
         pass = tbx_pass.Text
-        params.Add(user)
-        params.Add(pass)
-        Dim response As String = ExecuteGP(_tool_validateUser, params, _toolboxPath_automapic)
 
-        Dim responseJson = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(response)
-        e.Result = responseJson
-        If responseJson.Item("status") = 0 Then
-            'tbx_user.Enabled = True
-            'tbx_pass.Enabled = True
-            'btn_login.Enabled = True
-            'Cursor.Current = Cursors.Default
-            'RuntimeError.PythonError = responseJson.Item("message")
-            'MessageBox.Show(RuntimeError.PythonError, __title__, MessageBoxButtons.OK, MessageBoxIcon.Information)
+        bgw_login.ReportProgress(10, "Validando usuario...")
+
+        'Value to search as SQL Query - return first match
+        Dim SQLstr_validate As String = String.Format("SELECT COUNT(*) FROM TB_USER WHERE USER  ='{0}' AND PASSWORD = '{1}'", user, pass)
+        Dim SQLstr_modulos As String = String.Format("SELECT ID_MODULO, MODULO FROM VW_ACCESS WHERE USER = '{0}'", user)
+        Dim SQLstr_login As String = String.Format("UPDATE TB_USER SET LOGIN = 1 WHERE USER = '{0}'", user)
+        Dim SQLstr_logout As String = "UPDATE TB_USER SET LOGIN = 0"
+
+        'Define file to open - .path passed from parent form
+        Dim connection As String = "Data Source=" & _path_sqlite
+        Dim SQLConn As New SQLiteConnection(connection)
+        Dim SQLcmd As New SQLiteCommand(SQLConn)
+        Dim SQLdr As SQLiteDataReader
+        SQLConn.Open()
+
+        'Validacion de usuario
+        SQLcmd.Connection = SQLConn
+        SQLcmd.CommandText = SQLstr_validate
+        SQLdr = SQLcmd.ExecuteReader()
+        SQLdr.Read()
+        Dim conteo As Integer = SQLdr.GetValue(0)
+        SQLdr.Close()
+
+        'Modulos asociados al usuario
+        SQLcmd.CommandText = SQLstr_modulos
+        SQLdr = SQLcmd.ExecuteReader()
+        modulosDict.Clear()
+        While SQLdr.Read()
+            modulosDict.Add(SQLdr.GetValue(0), SQLdr.GetValue(1))
+        End While
+        SQLdr.Close()
+
+        Dim QueryString As String = String.Concat(SQLstr_logout, ";", SQLstr_login)
+        SQLcmd.CommandText = QueryString
+        SQLcmd.ExecuteNonQuery()
+
+        'Cierre de conexion
+        SQLConn.Close()
+
+        Dim responseJson As New Dictionary(Of String, Object)
+        responseJson.Add("status", conteo)
+        Dim _message As String
+
+        If conteo = 0 Then
+            _message = "Credenciales incorrectas!"
+            responseJson.Add("message", _message)
+            e.Result = responseJson
             Return
         End If
 
-        'For Each current In responseJson.Item("response")
-        '    modulosDict.Add(current(0), current(1))
-        'Next
+        _message = "success"
+        responseJson.Add("message", _message)
+        e.Result = responseJson
 
         ' Se instalan librerias necesarias
+        Thread.Sleep(waitTime)
         params.Clear()
+        bgw_login.ReportProgress(50, "Verificando dependencias...")
         ExecuteGP(_tool_installPackages, params, _toolboxPath_automapic, False)
+
+        bgw_login.ReportProgress(90, "Preconfiguración automática...")
         ExecuteGP(_tool_updatePreSettings, params, _toolboxPath_automapic, False)
+        Thread.Sleep(waitTime)
+
+        bgw_login.ReportProgress(100, "Bienvenido")
+        Thread.Sleep(waitTime)
 
     End Sub
     Private Sub bgw_login_ProgressChanged(sender As Object, e As System.ComponentModel.ProgressChangedEventArgs) Handles bgw_login.ProgressChanged
-
+        lbl_login_log.Text = DirectCast(e.UserState, String)
     End Sub
     Private Sub bgw_login_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw_login.RunWorkerCompleted
         If e.Result.Item("status") = 0 Then
             tbx_user.Enabled = True
             tbx_pass.Enabled = True
             btn_login.Enabled = True
+            pbx_login_loader.Visible = False
+            lbl_login_log.Visible = False
             Cursor.Current = Cursors.Default
             RuntimeError.PythonError = e.Result.Item("message")
             MessageBox.Show(RuntimeError.PythonError, __title__, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Return
         End If
-
-        For Each current In e.Result.Item("response")
-            modulosDict.Add(current(0), current(1))
-        Next
         ' Se carga el modulo
         Dim ModulosForm = New Modulos()
         Cursor.Current = Cursors.Default
