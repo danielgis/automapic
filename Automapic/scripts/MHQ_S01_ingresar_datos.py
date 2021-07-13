@@ -8,7 +8,7 @@ import pandas as pd
 import difflib as diff
 import traceback
 import settings_aut as st
-
+import numpy as np
 response = dict()
 response['status'] = 1
 response['message'] = 'success'
@@ -35,7 +35,7 @@ listadominios = [x[1] for x in campo_dominio]
 dic_equiv = dict()
 tabla_equivalencias = _tabla_relacion_campos
 
-with arcpy.da.SearchCursor(tabla_equivalencias, ['campo_lab', 'campo_fc']) as cursor:
+with arcpy.da.SearchCursor(tabla_equivalencias, ['campo_lab_2', 'campo_fc']) as cursor:
     for row in cursor:
         dic_equiv[row[0]] = row[1]
 
@@ -90,6 +90,16 @@ def sum_equiv(a,b):
     resta = a-b
     return (resta/suma)*100
 
+def get_max_ion(a,b,c, ion):
+    lista_valores = [a,b,c]
+    iones ={'cation' : [u'calcica', u'magnesica', u'sodica'],
+    'anion' : ['Bicarbonatada', 'Sulfatada', 'Clorurada']}
+    
+    max_value = max(lista_valores)
+    idx = lista_valores.index(max_value)
+    texto = iones[ion][idx]
+    return texto
+
 def preparar_datos_csv(excel_ingreso):
     xls = excel_ingreso
     # df=pd.read_excel(xls,'Avenida')
@@ -99,59 +109,84 @@ def preparar_datos_csv(excel_ingreso):
 
     df = pd.read_excel(xls, sheets[0])
     columnas_xls = df.columns
+    columnas_xls = [x.strip() for x in columnas_xls]
+    df.columns = columnas_xls
+
+    # strip para todos los valores dentro del xls
+    df=df.applymap(lambda x: x.strip() if isinstance(x, (str, unicode)) else x)
+
+    # eliminamos todos los na
+    df = df.dropna(subset = [st._CODIGO])
+
+
+    # Actualizamos el codigo con el sufijo de temporada
+    df[st._CODIGO] = df[st._CODIGO] + "_" + df[st._TEMPORADA].str[0]
+
+    # Calculamos valores para cationes
+    df["Ca_meq/l"] = df["Ca_dis"].apply(lambda x: x if str(x)[0] != "<" else 0)
+    df["Ca_meq/l"] = df["Ca_meq/l"].apply(lambda x: float(x)*2/40 if x != "-" else "-")
+
+    df["Mg_meq/l"] = df["Mg_dis"].apply(lambda x: x if str(x)[0] != "<" else 0)
+    df["Mg_meq/l"] = df["Mg_meq/l"].apply(lambda x: float(x)*2/24.3 if x != "-" else "-")
+
+    df["Na_meq/l"] = df["Na_dis"].apply(lambda x: x if str(x)[0] != "<" else 0)
+    df["Na_meq/l"] = df["Na_meq/l"].apply(lambda x: float(x)/23 if x != "-" else "-")
+
+    df["K_meq/l"] = df["K_dis"].apply(lambda x: x if str(x)[0] != "<" else 0)
+    df["K_meq/l"] = df["K_meq/l"].apply(lambda x: float(x)/39.1 if x != "-" else "-")
+
+    df["Total_meq/l_cat"] = df["Ca_meq/l"] + df["Mg_meq/l"] + df["Na_meq/l"] + df["K_meq/l"]
+    df["Total_meq/l_cat"] = df["Total_meq/l_cat"].apply(lambda x: x if type(x) in (int,float) else '-' )
+
+    # Calculamos valores para aniones
+    df["HCO3_meq/l"] = df["HCO3-"].apply(lambda x: x if str(x)[0] != "<" else 0)
+    df["HCO3_meq/l"] = df["HCO3_meq/l"].apply(lambda x: float(x)/61 if x != "-" else "-")
+
+    df["CO3_meq/l"] = df["CO3= (mg/L)"].apply(lambda x: x if str(x)[0] != "<" else 0)
+    df["CO3_meq/l"] = df["CO3_meq/l"].apply(lambda x: float(x)*2/60 if x != "-" else "-")
+
+    df["SO4_meq/l"] = df["SO4="].apply(lambda x: x if str(x)[0] != "<" else 0)
+    df["SO4_meq/l"] = df["SO4_meq/l"].apply(lambda x: float(x)*2/96 if x != "-" else "-")
+
+    df["Cl_meq/l"] = df["Cl-"].apply(lambda x: x if str(x)[0] != "<" else 0)
+    df["Cl_meq/l"] = df["Cl_meq/l"].apply(lambda x: float(x)/35.45 if x != "-" else "-")
+
+    df["Total_meq/l_an"] = df["HCO3_meq/l"] + df["CO3_meq/l"] + df["SO4_meq/l"] + df["Cl_meq/l"]
+    df["Total_meq/l_an"] = df["Total_meq/l_an"].apply(lambda x: x if type(x) in (int,float) else '-' )
+
+    # Calculos
+    df["BI_%"] = df.apply(lambda x: sum_equiv(x["Total_meq/l_cat"], x["Total_meq/l_an"]) if x["Total_meq/l_cat"]!='-' else '-', axis=1)
+    # Resumen cationes
+    df["Ca_%"] = df.apply(lambda x: 100 * x["Ca_meq/l"]/x["Total_meq/l_cat"] if x["Total_meq/l_cat"]!='-' else '-', axis=1)
+    df["Mg_%"] = df.apply(lambda x: 100 * x["Mg_meq/l"]/x["Total_meq/l_cat"] if x["Total_meq/l_cat"]!='-' else '-', axis=1)
+    df["Na+K_%"] = df.apply(lambda x: 100 * (x["Na_meq/l"] + x["K_meq/l"])/x["Total_meq/l_cat"] if x["Total_meq/l_cat"]!='-' else '-', axis=1)
+
+    # Resumen aniones
+    df["HCO3+CO3_%"] = df.apply(lambda x: 100 * (x["HCO3_meq/l"] + x["CO3_meq/l"])/x["Total_meq/l_an"] if x["Total_meq/l_an"]!='-' else '-', axis=1)
+    df["SO4_%"] = df.apply(lambda x: 100 * x["SO4_meq/l"]/x["Total_meq/l_an"] if x["Total_meq/l_an"]!='-' else '-', axis=1)
+    df["Cl_%"] = df.apply(lambda x: 100 * x["Cl_meq/l"] /x["Total_meq/l_an"] if x["Total_meq/l_an"]!='-' else '-', axis=1)
+
+    # Calculo de facie
+    df["HIDROTIPO"] = df.apply(lambda x: get_max_ion(x["HCO3+CO3_%"], x["SO4_%"], x["Cl_%"], 'anion') + " "+ get_max_ion(x["Ca_%"], x["Mg_%"], x["Na+K_%"], 'cation') if x["Cl_%"]!='-' else '-', axis=1 )
+    
+    dataframe =df.copy()
+    columnas_xls = df.columns
     columnasfc = [getequivalentfc(x) for x in columnas_xls]
     df.columns = columnasfc
     # Reemplazamos los guiones por vacios
     df = df.replace('-', '')
 
-    # Actualizamos el codigo con el sufijo de temporada
-    df[st._CODIGO] = df[st._CODIGO] + "_" + df["TEMPORADA"].str[0]
-
-    # Calculamos valores para cationes
-    df["Ca_meq/l"] = df["Ca_dis"].apply(lambda x: x if str(x)[0] != "<" else "0")
-    df["Ca_meq/l"] = df["Ca_meq/l"].apply(lambda x: x*2/40 if x != "-" else "-")
-
-    df["Mg_meq/l"] = df["Mg_dis"].apply(lambda x: x if str(x)[0] != "<" else "0")
-    df["Mg_meq/l"] = df["Mg_meq/l"].apply(lambda x: x*2/24.3 if x != "-" else "-")
-
-    df["Na_meq/l"] = df["Na_dis"].apply(lambda x: x if str(x)[0] != "<" else "0")
-    df["Na_meq/l"] = df["Na_meq/l"].apply(lambda x: x/23 if x != "-" else "-")
-
-    df["K_meq/l"] = df["K_dis"].apply(lambda x: x if str(x)[0] != "<" else "0")
-    df["K_meq/l"] = df["K_meq/l"].apply(lambda x: x/39.1 if x != "-" else "-")
-
-    df["Total_meq/l_cat"] = df["Ca_meq/l"] + df["Mg_meq/l"] + df["Na_meq/l"] + df["K_meq/l"]
-    df["Total_meq/l_cat"] = df["Total_meq/l_cat"].apply(lambda x:x if type(x) in (int,float) else '-' )
-
-    # Calculamos valores para aniones
-    df["HCO3_meq/l"] = df["HCO3-"].apply(lambda x: x if str(x)[0] != "<" else "0")
-    df["HCO3_meq/l"] = df["HCO3_meq/l"].apply(lambda x: x/61 if x != "-" else "-")
-
-    df["CO3_meq/l"] = df["CO3= (mg/L)"].apply(lambda x: x if str(x)[0] != "<" else "0")
-    df["CO3_meq/l"] = df["CO3_meq/l"].apply(lambda x: x*2/60 if x != "-" else "-")
-
-    df["SO4_meq/l"] = df["SO4="].apply(lambda x: x if str(x)[0] != "<" else "0")
-    df["SO4_meq/l"] = df["SO4_meq/l"].apply(lambda x: x*2/96 if x != "-" else "-")
-
-    df["Cl_meq/l"] = df["Cl-"].apply(lambda x: x if str(x)[0] != "<" else "0")
-    df["Cl_meq/l"] = df["Cl_meq/l"].apply(lambda x: x/35.45 if x != "-" else "-")
-
-    df["Total_meq/l_an"] = df["HCO3_meq/l"] + df["CO3_meq/l"] + df["SO4_meq/l"] + df["Cl_meq/l"]
-    df["Total_meq/l_an"] = df["Total_meq/l_an"].apply(lambda x:x if type(x) in (int,float) else '-' )
-
-    # Calculos
-    df["BI_%"] = df.apply(lambda x: sum_equiv(x["Total_meq/l_cat"], x["Total_meq/l_an"]) if x["Total_meq/l_cat"]!='-' else '-', axis=1)
-    df["Ca_%"] = df.apply(lambda x: 100 * x["Ca_meq/l"]/x["Total_meq/l_cat"] if x["Total_meq/l_cat"]!='-' else '-', axis=1)
-    df["Mg_%"] = df.apply(lambda x: 100 * x["Mg_meq/l"]/x["Total_meq/l_cat"] if x["Total_meq/l_cat"]!='-' else '-', axis=1)
-    df["Na+K_%"] = df.apply(lambda x: 100 * (x["Na_meq/l"] + x["K_meq/l"])/x["Total_meq/l_cat"] if x["Total_meq/l_cat"]!='-' else '-', axis=1)
-
-
-    df.to_csv(_cvs_temporal, index=False, encoding='utf-8-sig')
+    df.to_csv(_cvs_temporal, index=False, encoding='utf-8-sig', sep =';', escapechar="\n")
 
 
 
 
 ####
+def limpiar_tablas():
+    arcpy.TruncateTable_management(_nombre_tabla)
+    arcpy.TruncateTable_management(_nombre_tabla_corregida)
+    arcpy.TruncateTable_management(_nombre_fc)
+
 
 def csvtemp_to_tabla_base(csv, target):
     arcpy.Append_management(csv, target, "NO_TEST")
@@ -267,6 +302,7 @@ def insertar_capas_produccion():
 try:
     crear_capas_auxiliares(gdb_base)
     preparar_datos_csv(xls_file)
+    limpiar_tablas()
     csvtemp_to_tabla_base(_cvs_temporal, _nombre_tabla)
     insertar_de_base_a_capas_intermedias()
     insertar_capas_produccion()
