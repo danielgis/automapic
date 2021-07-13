@@ -85,34 +85,70 @@ def getequivalentfc(column_name):
         response = dic_equiv.get(column_name)
     return response
 
+def sum_equiv(a,b):
+    suma = a+b
+    resta = a-b
+    return (resta/suma)*100
 
-def ingresar_datos(excel_ingreso):
+def preparar_datos_csv(excel_ingreso):
     xls = excel_ingreso
     # df=pd.read_excel(xls,'Avenida')
     x = pd.ExcelFile(xls)
     sheets = x.sheet_names
     sheets.sort()
 
-    df_a = pd.read_excel(xls, sheets[0])
-    df_e = pd.read_excel(xls, sheets[1])
-
-    # Agregamos sufijos correspondientes a temporada de avenida y estiaje
-    df_a[st._CODIGO] = df_a[st._CODIGO] + "_A"
-    df_a["TEMPORADA"] = "Avenida"
-    df_e[st._CODIGO] = df_e[st._CODIGO] + "_E"
-    df_e["TEMPORADA"] = "Estiaje"
-
-    df_conjunto = pd.concat([df_a, df_e], ignore_index=True)
-    columnas_xls = df_conjunto.columns
+    df = pd.read_excel(xls, sheets[0])
+    columnas_xls = df.columns
     columnasfc = [getequivalentfc(x) for x in columnas_xls]
-    df_conjunto.columns = columnasfc
-    # print df_conjunto.head()
-    # print df_conjunto["CODIGO"]
+    df.columns = columnasfc
     # Reemplazamos los guiones por vacios
-    df_conjunto = df_conjunto.replace('-', '')
+    df = df.replace('-', '')
 
-    # df_conjunto.to_excel(salida_excel, index=False)
-    df_conjunto.to_csv(_cvs_temporal, index=False, encoding='utf-8-sig')
+    # Actualizamos el codigo con el sufijo de temporada
+    df[st._CODIGO] = df[st._CODIGO] + "_" + df["TEMPORADA"].str[0]
+
+    # Calculamos valores para cationes
+    df["Ca_meq/l"] = df["Ca_dis"].apply(lambda x: x if str(x)[0] != "<" else "0")
+    df["Ca_meq/l"] = df["Ca_meq/l"].apply(lambda x: x*2/40 if x != "-" else "-")
+
+    df["Mg_meq/l"] = df["Mg_dis"].apply(lambda x: x if str(x)[0] != "<" else "0")
+    df["Mg_meq/l"] = df["Mg_meq/l"].apply(lambda x: x*2/24.3 if x != "-" else "-")
+
+    df["Na_meq/l"] = df["Na_dis"].apply(lambda x: x if str(x)[0] != "<" else "0")
+    df["Na_meq/l"] = df["Na_meq/l"].apply(lambda x: x/23 if x != "-" else "-")
+
+    df["K_meq/l"] = df["K_dis"].apply(lambda x: x if str(x)[0] != "<" else "0")
+    df["K_meq/l"] = df["K_meq/l"].apply(lambda x: x/39.1 if x != "-" else "-")
+
+    df["Total_meq/l_cat"] = df["Ca_meq/l"] + df["Mg_meq/l"] + df["Na_meq/l"] + df["K_meq/l"]
+    df["Total_meq/l_cat"] = df["Total_meq/l_cat"].apply(lambda x:x if type(x) in (int,float) else '-' )
+
+    # Calculamos valores para aniones
+    df["HCO3_meq/l"] = df["HCO3-"].apply(lambda x: x if str(x)[0] != "<" else "0")
+    df["HCO3_meq/l"] = df["HCO3_meq/l"].apply(lambda x: x/61 if x != "-" else "-")
+
+    df["CO3_meq/l"] = df["CO3= (mg/L)"].apply(lambda x: x if str(x)[0] != "<" else "0")
+    df["CO3_meq/l"] = df["CO3_meq/l"].apply(lambda x: x*2/60 if x != "-" else "-")
+
+    df["SO4_meq/l"] = df["SO4="].apply(lambda x: x if str(x)[0] != "<" else "0")
+    df["SO4_meq/l"] = df["SO4_meq/l"].apply(lambda x: x*2/96 if x != "-" else "-")
+
+    df["Cl_meq/l"] = df["Cl-"].apply(lambda x: x if str(x)[0] != "<" else "0")
+    df["Cl_meq/l"] = df["Cl_meq/l"].apply(lambda x: x/35.45 if x != "-" else "-")
+
+    df["Total_meq/l_an"] = df["HCO3_meq/l"] + df["CO3_meq/l"] + df["SO4_meq/l"] + df["Cl_meq/l"]
+    df["Total_meq/l_an"] = df["Total_meq/l_an"].apply(lambda x:x if type(x) in (int,float) else '-' )
+
+    # Calculos
+    df["BI_%"] = df.apply(lambda x: sum_equiv(x["Total_meq/l_cat"], x["Total_meq/l_an"]) if x["Total_meq/l_cat"]!='-' else '-', axis=1)
+    df["Ca_%"] = df.apply(lambda x: 100 * x["Ca_meq/l"]/x["Total_meq/l_cat"] if x["Total_meq/l_cat"]!='-' else '-', axis=1)
+    df["Mg_%"] = df.apply(lambda x: 100 * x["Mg_meq/l"]/x["Total_meq/l_cat"] if x["Total_meq/l_cat"]!='-' else '-', axis=1)
+    df["Na+K_%"] = df.apply(lambda x: 100 * (x["Na_meq/l"] + x["K_meq/l"])/x["Total_meq/l_cat"] if x["Total_meq/l_cat"]!='-' else '-', axis=1)
+
+
+    df.to_csv(_cvs_temporal, index=False, encoding='utf-8-sig')
+
+
 
 
 ####
@@ -230,7 +266,7 @@ def insertar_capas_produccion():
 
 try:
     crear_capas_auxiliares(gdb_base)
-    ingresar_datos(xls_file)
+    preparar_datos_csv(xls_file)
     csvtemp_to_tabla_base(_cvs_temporal, _nombre_tabla)
     insertar_de_base_a_capas_intermedias()
     insertar_capas_produccion()
