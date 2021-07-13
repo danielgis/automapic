@@ -26,6 +26,7 @@ Module settings
     Public _image_path As String = _scripts_path & "\img"
     Public _path_sqlite As String = _scripts_path & "\automapic.db"
     Public _path_loader As String = _image_path & "\loader.gif"
+    Public _url_SWLoginService As String = "https://srvstd.ingemmet.gob.pe/WS_Seguridad/SWLogin.svc"
 
     '3. Variables dinamicas alterables segun fin
     '   - Estas variables solo podran ser alteradas manejandolas dentro del contexto que fueron creados

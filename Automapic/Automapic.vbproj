@@ -134,6 +134,8 @@
       <HintPath>..\packages\System.Data.SQLite.Linq.1.0.114.0\lib\net451\System.Data.SQLite.Linq.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
@@ -224,6 +226,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Service References\SWLoginService\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="settings.vb" />
     <Compile Include="toolbox.vb" />
@@ -482,6 +489,52 @@
     <None Include="scripts\T06_sincronizacion_geodatabase.tbx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Service References\SWLoginService\Automapic.SWLoginService.RespuestaAuditoria.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SWLoginService\Automapic.SWLoginService.RespuestaOficina.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SWLoginService\Automapic.SWLoginService.RespuestaPerfil.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SWLoginService\Automapic.SWLoginService.RespuestaSeguridadBool.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SWLoginService\Automapic.SWLoginService.RespuestaSeguridadID.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SWLoginService\Automapic.SWLoginService.RespuestaSeguridadM.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SWLoginService\Automapic.SWLoginService.RespuestaSeguridadU.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SWLoginService\Automapic.SWLoginService.RespuestaSolicitudLogin.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SWLoginService\Automapic.SWLoginService.RespuestaSolicitudLoginRegistro.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SWLoginService\Service1.wsdl" />
+    <None Include="Service References\SWLoginService\SWLogin.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SWLoginService\SWLogin1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SWLoginService\SWLogin2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SWLoginService\SWLogin3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SWLoginService\SWLogin4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SWLoginService\SWLogin5.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <AddInContent Include="Config.esriaddinx">
@@ -537,6 +590,12 @@
     <Service Include="{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Service References\SWLoginService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Service References\SWLoginService\configuration.svcinfo" />
+    <None Include="Service References\SWLoginService\configuration91.svcinfo" />
     <None Include="Resources\search1.png" />
     <None Include="Resources\user1.png" />
     <None Include="Resources\TaskUpdate32.png" />
@@ -688,6 +747,12 @@
     <Content Include="scripts\__init__.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\SWLoginService\" />
   </ItemGroup>
   <PropertyGroup>
     <ZipFileExtension>esriAddIn</ZipFileExtension>

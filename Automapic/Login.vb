@@ -3,6 +3,9 @@ Imports System.Windows.Forms
 Imports Newtonsoft.Json
 Imports System.Data.SQLite
 Imports System.Threading
+Imports Automapic.SWLoginService
+Imports System.ServiceModel
+
 
 Public Class Login
     Dim params As New List(Of Object)
@@ -39,13 +42,33 @@ Public Class Login
         Cursor.Current = Cursors.WaitCursor
         'Incluir proceso de validacion
         'params.Clear()
-        user = tbx_user.Text
-        pass = tbx_pass.Text
 
         bgw_login.ReportProgress(10, "Validando usuario...")
 
+        Dim responseJson As New Dictionary(Of String, Object)
+        Dim _message As String
+
+        user = tbx_user.Text
+        pass = tbx_pass.Text
+
+        Dim Binding As BasicHttpsBinding = New BasicHttpsBinding()
+        Dim endpoint As EndpointAddress = New EndpointAddress(_url_SWLoginService)
+        Dim client As SWLoginClient = New SWLoginClient(Binding, endpoint)
+
+        Dim response As RespuestaSeguridadU = client.UsuarioActiveDirectory_Login1(user, pass)
+
+        responseJson.Add("status", response.Usuario_Valido)
+        client.Close()
+
+        If Not response.Usuario_Valido Then
+            _message = "Credenciales incorrectas!"
+            responseJson.Add("message", _message)
+            e.Result = responseJson
+            Return
+        End If
+
         'Value to search as SQL Query - return first match
-        Dim SQLstr_validate As String = String.Format("SELECT COUNT(*) FROM TB_USER WHERE USER  ='{0}' AND PASSWORD = '{1}'", user, pass)
+        'Dim SQLstr_validate As String = String.Format("SELECT COUNT(*) FROM TB_USER WHERE USER  ='{0}' AND PASSWORD = '{1}'", user, pass)
         Dim SQLstr_modulos As String = String.Format("SELECT ID_MODULO, MODULO FROM VW_ACCESS WHERE USER = '{0}'", user)
         Dim SQLstr_login As String = String.Format("UPDATE TB_USER SET LOGIN = 1 WHERE USER = '{0}'", user)
         Dim SQLstr_logout As String = "UPDATE TB_USER SET LOGIN = 0"
@@ -59,11 +82,11 @@ Public Class Login
 
         'Validacion de usuario
         SQLcmd.Connection = SQLConn
-        SQLcmd.CommandText = SQLstr_validate
-        SQLdr = SQLcmd.ExecuteReader()
-        SQLdr.Read()
-        Dim conteo As Integer = SQLdr.GetValue(0)
-        SQLdr.Close()
+        'SQLcmd.CommandText = SQLstr_validate
+        'SQLdr = SQLcmd.ExecuteReader()
+        'SQLdr.Read()
+        'Dim conteo As Integer = SQLdr.GetValue(0)
+        'SQLdr.Close()
 
         'Modulos asociados al usuario
         SQLcmd.CommandText = SQLstr_modulos
@@ -81,23 +104,11 @@ Public Class Login
         'Cierre de conexion
         SQLConn.Close()
 
-        Dim responseJson As New Dictionary(Of String, Object)
-        responseJson.Add("status", conteo)
-        Dim _message As String
-
-        If conteo = 0 Then
-            _message = "Credenciales incorrectas!"
-            responseJson.Add("message", _message)
-            e.Result = responseJson
-            Return
-        End If
-
         _message = "success"
         responseJson.Add("message", _message)
         e.Result = responseJson
 
         ' Se instalan librerias necesarias
-        Thread.Sleep(waitTime)
         params.Clear()
         bgw_login.ReportProgress(50, "Verificando dependencias...")
         ExecuteGP(_tool_installPackages, params, _toolboxPath_automapic, False)
@@ -114,7 +125,7 @@ Public Class Login
         lbl_login_log.Text = DirectCast(e.UserState, String)
     End Sub
     Private Sub bgw_login_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw_login.RunWorkerCompleted
-        If e.Result.Item("status") = 0 Then
+        If e.Result.Item("status") = False Then
             tbx_user.Enabled = True
             tbx_pass.Enabled = True
             btn_login.Enabled = True
