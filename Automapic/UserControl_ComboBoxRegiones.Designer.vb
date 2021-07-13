@@ -36,20 +36,22 @@ Partial Class UserControl_ComboBoxRegiones
         Me.TableLayoutPanel1.Controls.Add(Me.cbx_ucr_region, 0, 1)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 2
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(400, 55)
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 16.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(300, 45)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'lbl_ucr_region
         '
         Me.lbl_ucr_region.AutoSize = True
         Me.lbl_ucr_region.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.lbl_ucr_region.Location = New System.Drawing.Point(3, 3)
+        Me.lbl_ucr_region.Location = New System.Drawing.Point(2, 3)
+        Me.lbl_ucr_region.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lbl_ucr_region.Name = "lbl_ucr_region"
-        Me.lbl_ucr_region.Size = New System.Drawing.Size(394, 17)
+        Me.lbl_ucr_region.Size = New System.Drawing.Size(296, 13)
         Me.lbl_ucr_region.TabIndex = 0
         Me.lbl_ucr_region.Text = "Seleccione una región"
         '
@@ -58,18 +60,20 @@ Partial Class UserControl_ComboBoxRegiones
         Me.cbx_ucr_region.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cbx_ucr_region.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbx_ucr_region.FormattingEnabled = True
-        Me.cbx_ucr_region.Location = New System.Drawing.Point(3, 25)
+        Me.cbx_ucr_region.Location = New System.Drawing.Point(2, 20)
+        Me.cbx_ucr_region.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.cbx_ucr_region.Name = "cbx_ucr_region"
-        Me.cbx_ucr_region.Size = New System.Drawing.Size(394, 24)
+        Me.cbx_ucr_region.Size = New System.Drawing.Size(296, 21)
         Me.cbx_ucr_region.TabIndex = 1
         '
         'UserControl_ComboBoxRegiones
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.TableLayoutPanel1)
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Name = "UserControl_ComboBoxRegiones"
-        Me.Size = New System.Drawing.Size(400, 55)
+        Me.Size = New System.Drawing.Size(300, 45)
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
         Me.ResumeLayout(False)

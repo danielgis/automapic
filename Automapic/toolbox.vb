@@ -14,6 +14,7 @@ Module toolbox
     Public _toolboxPath_mapa_geologico As String = _path & "\scripts\T03_mapa_geologico_50k.tbx"
     Public _toolboxPath_mapa_hidrogeologico As String = _path & "\scripts\T04_mapa_hidrogeologico.tbx"
     Public _toolboxPath_sincronizacion_geodatabase As String = _path & "\scripts\T06_sincronizacion_geodatabase.tbx"
+    Public _toolboxPath_mapa_neotectonica As String = _path & "\scripts\T07_mapa_neotectonico.tbx"
 
     '* Nombre de herramientas del tbx _toolboxPath
 
@@ -25,7 +26,7 @@ Module toolbox
     Public _tool_addFeatureToMap As String = "addFeatureToMap"
     Public _tool_addRasterToMap As String = "addRasterToMap"
     Public _tool_exportMXDToMPK As String = "exportMXDToMPK"
-    Public _tool_validateUser As String = "validateUser"
+    'Public _tool_validateUser As String = "validateUser"
     Public _tool_updateSettings As String = "updateSettings"
     Public _tool_updatePreSettings As String = "updatePreSettings"
     Public _tool_installPackages As String = "installPackages"
@@ -33,6 +34,7 @@ Module toolbox
     Public _tool_addLayerToDataFrame As String = "addLayerToDataFrame"
     Public _tool_removeFeatureOfTOC As String = "removeFeatureOfTOC"
     Public _tool_getListTopologyByModule As String = "getListTopologyByModule"
+    Public _tool_getRegions As String = "getRegions"
     'Public _tool_preLoad As String = "preLoad"
 
     ':HERRAMIENTAS DEL MODULO DE MAPAS DE PELIGROS GEOLOGICOS

@@ -489,6 +489,9 @@
     <None Include="scripts\T06_sincronizacion_geodatabase.tbx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="scripts\T07_mapa_neotectonico.tbx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Service References\SWLoginService\Automapic.SWLoginService.RespuestaAuditoria.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -633,9 +636,6 @@
     <Content Include="scripts\G_S01_cargar_raster.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="scripts\G_S02_validar_usuario.py">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="scripts\G_S03_exportar_mapa_a_mpk.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -658,6 +658,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\G_S10_topologias.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="scripts\G_S11_listar_regiones.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\img\loader.gif">
@@ -715,6 +718,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\packages_aut.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="scripts\packages_aut_arc.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\PG_S01_mapa_peligros_geologicos.py">

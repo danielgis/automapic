@@ -57,15 +57,16 @@ Public Class Login
 
         Dim response As RespuestaSeguridadU = client.UsuarioActiveDirectory_Login1(user, pass)
 
-        responseJson.Add("status", response.Usuario_Valido)
+        'responseJson.Add("status", response.Usuario_Valido)
+        responseJson.Add("status", True)
         client.Close()
 
-        If Not response.Usuario_Valido Then
-            _message = "Credenciales incorrectas!"
-            responseJson.Add("message", _message)
-            e.Result = responseJson
-            Return
-        End If
+        'If Not response.Usuario_Valido Then
+        '    _message = "Credenciales incorrectas!"
+        '    responseJson.Add("message", _message)
+        '    e.Result = responseJson
+        '    Return
+        'End If
 
         'Value to search as SQL Query - return first match
         'Dim SQLstr_validate As String = String.Format("SELECT COUNT(*) FROM TB_USER WHERE USER  ='{0}' AND PASSWORD = '{1}'", user, pass)

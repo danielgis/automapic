@@ -89,19 +89,3 @@ def get_topology_items_by_module(id_modulo, as_dataframe=True):
 @packageDecore
 def get_topology_items(query, as_dataframe=True):
     return "SELECT ID, NAME FROM TB_TOPOLOGY WHERE ID IN ({})".format(query)
-# @packageDecore
-# def get_log_data(getcursor=True, returnsql=False):
-#     return 'SELECT * FROM TB_LOG'
-
-
-# @packageDecore
-# def ins_log_data(url, state, error='', iscommit=True):
-#     return "INSERT INTO TB_LOG (URL, STATE, ERROR) VALUES ('{}', {}, '{}')".format(url, state, error)
-
-
-# @packageDecore
-# def deleteLogRows(iscommit=True):
-#     return 'DELETE FROM TB_LOG'
-
-
-# print get_perfil('daguado')
