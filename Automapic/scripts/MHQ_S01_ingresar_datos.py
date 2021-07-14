@@ -15,7 +15,6 @@ response['message'] = 'success'
 
 gdb_base = arcpy.GetParameterAsText(0)
 xls_file = arcpy.GetParameterAsText(1)
-arcpy.env.workspace = gdb_base
 
 ## Definimos las variables estaticas
 _scratch = arcpy.env.scratchFolder
@@ -26,18 +25,27 @@ _tabla_relacion_campos = r'SIS_RELACION_CAMPOS'
 _tabla_dominios = r'SIS_DOMAINS'
 _cvs_temporal = os.path.join(_scratch, r'datos_temp.csv')
 
-campo_dominio = [[x[0], x[3]] for x in
-                 arcpy.da.SearchCursor(_tabla_relacion_campos, ["campo_fc", "tipo", "largo", "dominio"])]
-listacampos = [x[0] for x in campo_dominio]
-listadominios = [x[1] for x in campo_dominio]
-
+campo_domino = list
+lista_campos = list
+lista_dominios = list
 # creamos el diccionario de equivalencias
 dic_equiv = dict()
 tabla_equivalencias = _tabla_relacion_campos
 
-with arcpy.da.SearchCursor(tabla_equivalencias, ['campo_lab_2', 'campo_fc']) as cursor:
-    for row in cursor:
-        dic_equiv[row[0]] = row[1]
+def obtenemos_variables_globales():
+    arcpy.env.workspace = gdb_base
+    global campo_domino
+    global lista_campos
+    global lista_dominios
+    global dic_equiv
+    campo_dominio = [[x[0], x[3]] for x in
+                    arcpy.da.SearchCursor(_tabla_relacion_campos, ["campo_fc", "tipo", "largo", "dominio"])]
+    listacampos = [x[0] for x in campo_dominio]
+    listadominios = [x[1] for x in campo_dominio]
+
+    with arcpy.da.SearchCursor(tabla_equivalencias, ['campo_lab_2', 'campo_fc']) as cursor:
+        for row in cursor:
+            dic_equiv[row[0]] = row[1]
 
 
 # definimos funciones
@@ -91,16 +99,13 @@ def sum_equiv(a,b):
     return (resta/suma)*100
 
 def get_max_ion(a,b,c, ion):
-    lista_valores = [a,b,c]
-    iones ={'cation' : [u'calcica', u'magnesica', u'sodica'],
-    'anion' : ['Bicarbonatada', 'Sulfatada', 'Clorurada']}
-    
+    lista_valores = [a,b,c]    
     max_value = max(lista_valores)
     idx = lista_valores.index(max_value)
-    texto = iones[ion][idx]
+    texto = st._IONES[ion][idx]
     return texto
 
-def preparar_datos_csv(excel_ingreso):
+def preparar_datos_csv(excel_ingreso,salida=None):
     xls = excel_ingreso
     # df=pd.read_excel(xls,'Avenida')
     x = pd.ExcelFile(xls)
@@ -170,13 +175,20 @@ def preparar_datos_csv(excel_ingreso):
     df["HIDROTIPO"] = df.apply(lambda x: get_max_ion(x["HCO3+CO3_%"], x["SO4_%"], x["Cl_%"], 'anion') + " "+ get_max_ion(x["Ca_%"], x["Mg_%"], x["Na+K_%"], 'cation') if x["Cl_%"]!='-' else '-', axis=1 )
     
     dataframe =df.copy()
-    columnas_xls = df.columns
-    columnasfc = [getequivalentfc(x) for x in columnas_xls]
-    df.columns = columnasfc
-    # Reemplazamos los guiones por vacios
-    df = df.replace('-', '')
+    if not salida:
+        return dataframe
+    else:
+        dataframe.to_csv(salida, index=False, encoding='utf-8-sig', sep =';', escapechar="\n")
+        return salida
 
-    df.to_csv(_cvs_temporal, index=False, encoding='utf-8-sig', sep =';', escapechar="\n")
+def datos_a_temporal(dataframe):
+    columnas_xls = dataframe.columns
+    columnasfc = [getequivalentfc(x) for x in columnas_xls]
+    dataframe.columns = columnasfc
+    # Reemplazamos los guiones por vacios
+    dataframe = dataframe.replace('-', '')
+
+    dataframe.to_csv(_cvs_temporal, index=False, encoding='utf-8-sig', sep =';', escapechar="\n")
 
 
 
@@ -282,34 +294,44 @@ def insertar_de_base_a_capas_intermedias():
     insertar_fc(_nombre_tabla_corregida)
     act_geometria(_nombre_fc)
 
+def insercion_nuevos_datos(capain, capafin, codes):
+    with arcpy.da.UpdateCursor(capafin, ["CODIGO"]) as cursoru:
+        for row in cursoru:
+            if row[0] in codes:
+                cursoru.deleteRow()
+    
+    arcpy.Append_management(capain, capafin, "NO_TEST")
 
 def insertar_capas_produccion():
-    arcpy.Append_management(_nombre_fc, r'DS_LINEABASEGEOAMBIENTAL\GPT_LINEA_BASE_GEOAMBIENTAL', "NO_TEST")
-    arcpy.Append_management(_nombre_fc, r'DS_LINEABASEGEOAMBIENTAL\GPT_LINEA_BASE_GEOAMBIENTAL_HIDROQUIMICA', "NO_TEST")
-    arcpy.Append_management(_nombre_tabla_corregida, r'TB_ANIONS', "NO_TEST")
-    arcpy.Append_management(_nombre_tabla_corregida, r'TB_ANIONS_MEQ_L', "NO_TEST")
-    arcpy.Append_management(_nombre_tabla_corregida, r'TB_ANIONS_MEQ_L_PORC', "NO_TEST")
-    arcpy.Append_management(_nombre_tabla_corregida, r'TB_ASPECT_GEOL_LIT', "NO_TEST")
-    arcpy.Append_management(_nombre_tabla_corregida, r'TB_CAT_MEQ_L', "NO_TEST")
-    arcpy.Append_management(_nombre_tabla_corregida, r'TB_CAT_MEQ_L_PORC', "NO_TEST")
-    arcpy.Append_management(_nombre_tabla_corregida, r'TB_CAT_TOT', "NO_TEST")
-    arcpy.Append_management(_nombre_tabla_corregida, r'TB_INDICES_CALC', "NO_TEST")
-    arcpy.Append_management(_nombre_tabla_corregida, r'TB_LOCAL', "NO_TEST")
-    arcpy.Append_management(_nombre_tabla_corregida, r'TB_PARAM_FISQUIM', "NO_TEST")
-    arcpy.Append_management(_nombre_tabla_corregida, r'TB_USO_FUENTE', "NO_TEST")
+    codes = [x[0] for x in arcpy.da.SearchCursor(_nombre_fc,["CODIGO"])]
+    insercion_nuevos_datos(_nombre_fc, r'DS_LINEABASEGEOAMBIENTAL\GPT_LINEA_BASE_GEOAMBIENTAL', codes)
+    insercion_nuevos_datos(_nombre_fc, r'DS_LINEABASEGEOAMBIENTAL\GPT_LINEA_BASE_GEOAMBIENTAL_HIDROQUIMICA', codes)
+    insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_ANIONS', codes)
+    insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_ANIONS_MEQ_L', codes)
+    insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_ANIONS_MEQ_L_PORC', codes)
+    insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_ASPECT_GEOL_LIT', codes)
+    insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_CAT_MEQ_L', codes)
+    insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_CAT_MEQ_L_PORC', codes)
+    insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_CAT_TOT', codes)
+    insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_INDICES_CALC', codes)
+    insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_LOCAL', codes)
+    insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_PARAM_FISQUIM', codes)
+    insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_USO_FUENTE', codes)
 
-
-try:
-    crear_capas_auxiliares(gdb_base)
-    preparar_datos_csv(xls_file)
-    limpiar_tablas()
-    csvtemp_to_tabla_base(_cvs_temporal, _nombre_tabla)
-    insertar_de_base_a_capas_intermedias()
-    insertar_capas_produccion()
-    response["response"] = "response"
-except Exception as e:
-    response['status'] = 0
-    response['message'] = traceback.format_exc()
-finally:
-    response = json.dumps(response, encoding='windows-1252', ensure_ascii=False)
-    arcpy.SetParameterAsText(2, response)
+if __name__ == '__main__':
+    try:
+        obtenemos_variables_globales()
+        crear_capas_auxiliares(gdb_base)
+        df = preparar_datos_csv(xls_file)
+        datos_a_temporal(df)
+        limpiar_tablas()
+        csvtemp_to_tabla_base(_cvs_temporal, _nombre_tabla)
+        insertar_de_base_a_capas_intermedias()
+        insertar_capas_produccion()
+        response["response"] = "response"
+    except Exception as e:
+        response['status'] = 0
+        response['message'] = traceback.format_exc()
+    finally:
+        response = json.dumps(response, encoding='windows-1252', ensure_ascii=False)
+        arcpy.SetParameterAsText(2, response)

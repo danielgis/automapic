@@ -9,6 +9,7 @@ Public Class Form_mapa_hidrogeoquimico
     Dim RuntimeError As AutomapicExceptions = New AutomapicExceptions()
     Dim ruta_gdb_mhq As String
     Dim ruta_xls_mhq As String
+    Dim ruta_xlsout_mhq As String
     Dim params As New List(Of Object)
     Dim valid_gdb As Integer = 0
     Dim valid_xls As Integer = 0
@@ -45,6 +46,7 @@ Public Class Form_mapa_hidrogeoquimico
             Return
         End If
         tbx_mhq_excel.Text = ruta_xls_mhq
+        btn_mhq_calc_xls.Enabled = True
         valid_xls = 1
         If valid_gdb = 1 And valid_xls = 1 Then
             btn_mhq_cargar.Enabled = True
@@ -60,6 +62,34 @@ Public Class Form_mapa_hidrogeoquimico
 
 
         Dim response = ExecuteGP(_tool_insertarDatosGdb, params, _toolboxPath_mapa_hidrogeoquimico)
+        Dim responseJson = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(response)
+        If responseJson.Item("status") = 0 Then
+            RuntimeError.PythonError = responseJson.Item("message")
+            MessageBox.Show(RuntimeError.PythonError, __title__, MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+            runProgressBar("ini")
+            'Cursor.Current = Cursors.Default
+            Return
+        End If
+        runProgressBar("ini")
+    End Sub
+
+    Private Sub btn_mhq_calc_xls_Click(sender As Object, e As EventArgs) Handles btn_mhq_calc_xls.Click
+        Dim validador = SaveFileDialog1.ShowDialog()
+        ruta_xlsout_mhq = SaveFileDialog1.FileName
+
+        If validador = 2 Then
+            'Cursor.Current = Cursors.Default
+            Return
+        End If
+
+        runProgressBar()
+
+        params.Clear()
+        params.Add(ruta_xls_mhq)
+        params.Add(ruta_xlsout_mhq)
+
+        Dim response = ExecuteGP(_tool_calculoAnionesXls, params, _toolboxPath_mapa_hidrogeoquimico)
         Dim responseJson = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(response)
         If responseJson.Item("status") = 0 Then
             RuntimeError.PythonError = responseJson.Item("message")

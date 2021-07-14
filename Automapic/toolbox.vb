@@ -59,6 +59,7 @@ Module toolbox
 
     ':HERRAMIENTAS DEL MODULO DE MAPAS HIDROGEOQUIMICOS
     Public _tool_insertarDatosGdb As String = "insertarDatosGdb"
+    Public _tool_calculoAnionesXls As String = "calculoAnionesXls"
 
     ':HERRAMIENTAS DEL MODULO DE SINCRONIZACION DE GEODATABASE
     Public _tool_getFilterModeOptions As String = "getFilterModeOptions"

@@ -625,6 +625,9 @@
     <Content Include="scripts\MHQ_S01_ingresar_datos.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="scripts\MHQ_S02_obtener_xls_calculos.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="scripts\packages_aut.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

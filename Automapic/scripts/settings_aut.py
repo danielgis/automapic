@@ -130,8 +130,11 @@ _GREEN = "green"
 _RED = "red"
 _BLUE = "blue"
 
+# :Mapa hidrogeoquimico
 _CODIGO = u'Código'
 _TEMPORADA = 'Temporada'
+_IONES ={'cation' : [u'cálcica', u'magnésica', u'sódica'],
+'anion' : ['Bicarbonatada', 'Sulfatada', 'Clorurada']}
 
 # ---------------------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------------------
