@@ -9,12 +9,16 @@ import difflib as diff
 import traceback
 import settings_aut as st
 import numpy as np
+import packages_aut as pkg
+
 response = dict()
 response['status'] = 1
 response['message'] = 'success'
 
 gdb_base = arcpy.GetParameterAsText(0)
 xls_file = arcpy.GetParameterAsText(1)
+gdb_base = r"D:\jyupanqui\pruebas\GDB_LBG.gdb"
+xls_file = r"D:\jyupanqui\proyectos\dgar\BD_GA47C_AREQUIPA_ves4.xls"
 
 ## Definimos las variables estaticas
 _scratch = arcpy.env.scratchFolder
@@ -25,27 +29,38 @@ _tabla_relacion_campos = r'SIS_RELACION_CAMPOS'
 _tabla_dominios = r'SIS_DOMAINS'
 _cvs_temporal = os.path.join(_scratch, r'datos_temp.csv')
 
-campo_domino = list
+campo_dominio = list
 lista_campos = list
 lista_dominios = list
 # creamos el diccionario de equivalencias
 dic_equiv = dict()
+bd_relacion_campos = list
+bd_tabla_equivalencias = list
 tabla_equivalencias = _tabla_relacion_campos
 
 def obtenemos_variables_globales():
     arcpy.env.workspace = gdb_base
-    global campo_domino
+    global campo_dominio
     global lista_campos
     global lista_dominios
     global dic_equiv
-    campo_dominio = [[x[0], x[3]] for x in
-                    arcpy.da.SearchCursor(_tabla_relacion_campos, ["campo_fc", "tipo", "largo", "dominio"])]
-    listacampos = [x[0] for x in campo_dominio]
+    global bd_relacion_campos
+    global bd_tabla_equivalencias
+
+    bd_relacion_campos = pkg.get_relacion_campos()
+    bd_tabla_equivalencias = pkg.get_tabla_equivalencias()
+    # campo_dominio = [[x[0], x[3]] for x in
+    #                 arcpy.da.SearchCursor(_tabla_relacion_campos, ["campo_fc", "tipo", "largo", "dominio"])]
+                
+    campo_dominio = [[x[0], x[3]] for x in bd_relacion_campos ]
+    lista_campos = [x[0] for x in campo_dominio]
     listadominios = [x[1] for x in campo_dominio]
 
-    with arcpy.da.SearchCursor(tabla_equivalencias, ['campo_lab_2', 'campo_fc']) as cursor:
-        for row in cursor:
-            dic_equiv[row[0]] = row[1]
+    # with arcpy.da.SearchCursor(_tabla_relacion_campos, ['campo_lab_2', 'campo_fc']) as cursor:
+    #     for row in cursor:
+    #         dic_equiv[row[0]] = row[1]
+    for row in bd_tabla_equivalencias:
+        dic_equiv[row[0]] = row[1]
 
 
 # definimos funciones
@@ -65,16 +80,17 @@ def crear_tablas(gdb):
 def agregarcampos(capa):
     # arcpy.env.workspace = gdb_base
     try:
-        with arcpy.da.SearchCursor(_tabla_relacion_campos, ["campo_fc", "tipo", "largo", "dominio"]) as cursor:
-            for row in cursor:
-                if 'TABLA' in capa:
-                    largo = row[2]
-                    if row[3]:
-                        largo = 250
-                    arcpy.AddField_management(in_table=capa, field_name=row[0], field_type=row[1], field_length=largo)
-                else:
-                    arcpy.AddField_management(in_table=capa, field_name=row[0], field_type=row[1], field_length=row[2],
-                                              field_domain=row[3])
+        # with arcpy.da.SearchCursor(_tabla_relacion_campos, ["campo_fc", "tipo", "largo", "dominio"]) as cursor:
+        cursor = bd_relacion_campos
+        for row in cursor:
+            if 'TABLA' in capa:
+                largo = row[2]
+                if row[3]:
+                    largo = 250
+                arcpy.AddField_management(in_table=capa, field_name=row[0], field_type=row[1], field_length=largo)
+            else:
+                arcpy.AddField_management(in_table=capa, field_name=row[0], field_type=row[1], field_length=row[2],
+                                            field_domain=row[3])
     except:
         print "ya existen los campos para el objeto {0}".format(capa)
 
@@ -140,8 +156,8 @@ def preparar_datos_csv(excel_ingreso,salida=None):
     df["K_meq/l"] = df["K_dis"].apply(lambda x: x if str(x)[0] != "<" else 0)
     df["K_meq/l"] = df["K_meq/l"].apply(lambda x: float(x)/39.1 if x != "-" else "-")
 
-    df["Total_meq/l_cat"] = df["Ca_meq/l"] + df["Mg_meq/l"] + df["Na_meq/l"] + df["K_meq/l"]
-    df["Total_meq/l_cat"] = df["Total_meq/l_cat"].apply(lambda x: x if type(x) in (int,float) else '-' )
+    df["Suma_meq/l_cat"] = df["Ca_meq/l"] + df["Mg_meq/l"] + df["Na_meq/l"] + df["K_meq/l"]
+    df["Suma_meq/l_cat"] = df["Suma_meq/l_cat"].apply(lambda x: x if type(x) in (int,float) else '-' )
 
     # Calculamos valores para aniones
     df["HCO3_meq/l"] = df["HCO3-"].apply(lambda x: x if str(x)[0] != "<" else 0)
@@ -156,20 +172,20 @@ def preparar_datos_csv(excel_ingreso,salida=None):
     df["Cl_meq/l"] = df["Cl-"].apply(lambda x: x if str(x)[0] != "<" else 0)
     df["Cl_meq/l"] = df["Cl_meq/l"].apply(lambda x: float(x)/35.45 if x != "-" else "-")
 
-    df["Total_meq/l_an"] = df["HCO3_meq/l"] + df["CO3_meq/l"] + df["SO4_meq/l"] + df["Cl_meq/l"]
-    df["Total_meq/l_an"] = df["Total_meq/l_an"].apply(lambda x: x if type(x) in (int,float) else '-' )
+    df["Suma_meq/l_ani"] = df["HCO3_meq/l"] + df["CO3_meq/l"] + df["SO4_meq/l"] + df["Cl_meq/l"]
+    df["Suma_meq/l_ani"] = df["Suma_meq/l_ani"].apply(lambda x: x if type(x) in (int,float) else '-' )
 
     # Calculos
-    df["BI_%"] = df.apply(lambda x: sum_equiv(x["Total_meq/l_cat"], x["Total_meq/l_an"]) if x["Total_meq/l_cat"]!='-' else '-', axis=1)
+    df["BI_%"] = df.apply(lambda x: sum_equiv(x["Suma_meq/l_cat"], x["Suma_meq/l_ani"]) if x["Suma_meq/l_cat"]!='-' else '-', axis=1)
     # Resumen cationes
-    df["Ca_%"] = df.apply(lambda x: 100 * x["Ca_meq/l"]/x["Total_meq/l_cat"] if x["Total_meq/l_cat"]!='-' else '-', axis=1)
-    df["Mg_%"] = df.apply(lambda x: 100 * x["Mg_meq/l"]/x["Total_meq/l_cat"] if x["Total_meq/l_cat"]!='-' else '-', axis=1)
-    df["Na+K_%"] = df.apply(lambda x: 100 * (x["Na_meq/l"] + x["K_meq/l"])/x["Total_meq/l_cat"] if x["Total_meq/l_cat"]!='-' else '-', axis=1)
+    df["Ca_%"] = df.apply(lambda x: 100 * x["Ca_meq/l"]/x["Suma_meq/l_cat"] if x["Suma_meq/l_cat"]!='-' else '-', axis=1)
+    df["Mg_%"] = df.apply(lambda x: 100 * x["Mg_meq/l"]/x["Suma_meq/l_cat"] if x["Suma_meq/l_cat"]!='-' else '-', axis=1)
+    df["Na+K_%"] = df.apply(lambda x: 100 * (x["Na_meq/l"] + x["K_meq/l"])/x["Suma_meq/l_cat"] if x["Suma_meq/l_cat"]!='-' else '-', axis=1)
 
     # Resumen aniones
-    df["HCO3+CO3_%"] = df.apply(lambda x: 100 * (x["HCO3_meq/l"] + x["CO3_meq/l"])/x["Total_meq/l_an"] if x["Total_meq/l_an"]!='-' else '-', axis=1)
-    df["SO4_%"] = df.apply(lambda x: 100 * x["SO4_meq/l"]/x["Total_meq/l_an"] if x["Total_meq/l_an"]!='-' else '-', axis=1)
-    df["Cl_%"] = df.apply(lambda x: 100 * x["Cl_meq/l"] /x["Total_meq/l_an"] if x["Total_meq/l_an"]!='-' else '-', axis=1)
+    df["HCO3+CO3_%"] = df.apply(lambda x: 100 * (x["HCO3_meq/l"] + x["CO3_meq/l"])/x["Suma_meq/l_ani"] if x["Suma_meq/l_ani"]!='-' else '-', axis=1)
+    df["SO4_%"] = df.apply(lambda x: 100 * x["SO4_meq/l"]/x["Suma_meq/l_ani"] if x["Suma_meq/l_ani"]!='-' else '-', axis=1)
+    df["Cl_%"] = df.apply(lambda x: 100 * x["Cl_meq/l"] /x["Suma_meq/l_ani"] if x["Suma_meq/l_ani"]!='-' else '-', axis=1)
 
     # Calculo de facie
     df["HIDROTIPO"] = df.apply(lambda x: get_max_ion(x["HCO3+CO3_%"], x["SO4_%"], x["Cl_%"], 'anion') + " "+ get_max_ion(x["Ca_%"], x["Mg_%"], x["Na+K_%"], 'cation') if x["Cl_%"]!='-' else '-', axis=1 )
@@ -208,11 +224,15 @@ def csvtemp_to_tabla_base(csv, target):
 ### funciones para ingresar datos del csv a la gdb
 def getvalues_dominio(nom_dominio):
     diccionario_dominio = dict()
-    with arcpy.da.SearchCursor(_tabla_dominios, ["DOMINIO", "KEY", "VALUE"],
-                               where_clause="DOMINIO ='{}'".format(nom_dominio)) as cursor:
-        for row in cursor:
-            diccionario_dominio[row[2]] = row[1]
-
+    # with arcpy.da.SearchCursor(_tabla_dominios, ["DOMINIO", "KEY", "VALUE"],
+    #                            where_clause="DOMINIO ='{}'".format(nom_dominio)) as cursor:
+    #     for row in cursor:
+    #         diccionario_dominio[row[2]] = row[1]
+    
+    cursor = pkg.get_dic_dominio(nom_dominio)
+    for row in cursor:
+        diccionario_dominio[row[2]] = row[1]
+    del cursor
     return diccionario_dominio
 
 
@@ -242,9 +262,9 @@ def creargeometria(coor_x, coor_y, zona):
 
 def insertar_fc(capa):
     # insertamos registros de la tabla base a la tabla corregida y al fc
-    icursor = arcpy.da.InsertCursor(capa, listacampos)
+    icursor = arcpy.da.InsertCursor(capa, lista_campos)
 
-    with arcpy.da.SearchCursor(_nombre_tabla, listacampos) as cursor:
+    with arcpy.da.SearchCursor(_nombre_tabla, lista_campos) as cursor:
         for row in cursor:
             fila = []
             for columna in range(len(row)):
@@ -269,7 +289,10 @@ def insertar_fc(capa):
                         valor_columna = None
 
                 else:
-                    valor_columna = row[columna]
+                    try:
+                        valor_columna = eval(row[columna])
+                    except:
+                        valor_columna = row[columna]
                 del dominio_nombre
                 fila.append(valor_columna)
             fila_as_tupla = tuple(fila)

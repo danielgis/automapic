@@ -89,6 +89,18 @@ def get_topology_items_by_module(id_modulo, as_dataframe=True):
 @packageDecore
 def get_topology_items(query, as_dataframe=True):
     return "SELECT ID, NAME FROM TB_TOPOLOGY WHERE ID IN ({})".format(query)
+
+@packageDecore
+def get_dic_dominio(dom_name):
+    return "SELECT DOMINIO, KEY, VALUE FROM TB_MHQ_GDB_DOMINIOS WHERE DOMINIO = '{}'".format(dom_name)
+
+@packageDecore
+def get_relacion_campos():
+    return "SELECT campo_fc, tipo, largo, dominio FROM TB_MHQ_GDB_RELACION_CAMPOS "
+
+@packageDecore
+def get_tabla_equivalencias():
+    return "SELECT campo_lab_2, campo_fc FROM TB_MHQ_GDB_RELACION_CAMPOS "
 # @packageDecore
 # def get_log_data(getcursor=True, returnsql=False):
 #     return 'SELECT * FROM TB_LOG'
