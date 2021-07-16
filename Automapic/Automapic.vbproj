@@ -441,6 +441,12 @@
     <None Include="scripts\mxd\T0117.mxd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="scripts\mxd\T01MN_A0_H.mxd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="scripts\mxd\T01MN_A0_V.mxd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="scripts\mxd\T01PG17.mxd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -618,6 +624,7 @@
     <None Include="Resources\select.png" />
     <None Include="Resources\TableRecordsDelete32.png" />
     <None Include="Resources\ConfigureInfographics32.png" />
+    <None Include="Resources\MapRange16.png" />
     <Content Include="scripts\arcobjects.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -715,6 +722,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\MHG_S08_generar_mapa_ubicacion.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="scripts\MN_S01_parametros_region.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="scripts\NM_S02_generar_mapa_neotectonico.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\packages_aut.py">

@@ -25,11 +25,11 @@ try:
         zoom_cuenca = True
 
     layer_departamento = os.path.join(st._LAYERS_DIR, layer_name)
-    bdgeocat_conn = st._BDGEOCAT_SDE_DEV if st.__status__ == 'Development' else st._BDGEOCAT_SDE
+    # bdgeocat_conn = st._BDGEOCAT_SDE_DEV if st.__status__ == 'Development' else st._BDGEOCAT_SDE
     name_feature_departamento = "GPO_DEP_DEPARTAMENTO"
 
     # Agregando mapa de ubicacion nacional
-    aut.add_layer_with_new_datasource(layer_departamento, name_feature_departamento, bdgeocat_conn, "SDE_WORKSPACE", df_name=dataframe, query=None, zoom=zoom_nacional)
+    aut.add_layer_with_new_datasource(layer_departamento, name_feature_departamento, st._BDGEOCAT_SDE, "SDE_WORKSPACE", df_name=dataframe, query=None, zoom=zoom_nacional)
 
     # Agregando mapa de ubicacion cuenca
     layer_cuencas = os.path.join(st._LAYERS_DIR, "PO_01_cuencas_hidrograficas_mu.lyr")

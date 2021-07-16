@@ -1,7 +1,8 @@
 import settings_aut as st
 import arcpy
 
-connarc = arcpy.ArcSDESQLExecute(st._BDGEOCAT_SDE)
+arcpy.env.workspace = st._BASE_DIR
+connarc = arcpy.ArcSDESQLExecute(st._BDGEOCAT_NAME)
 
 def arcPackageDecore(func):
     def decorator(*args, **kwargs):
@@ -14,4 +15,4 @@ def arcPackageDecore(func):
 
 @arcPackageDecore
 def get_all_regions():
-    return "SELECT CD_DEPA, CD_DEPA || ' - ' || NM_DEPA FROM DATA_GIS.GPO_DEP_DEPARTAMENTO WHERE CD_DEPA <> '99'"
+    return "SELECT CD_DEPA, CAST(CD_DEPA || ' - ' || NM_DEPA as varchar(100)) FROM DATA_GIS.GPO_DEP_DEPARTAMENTO WHERE CD_DEPA <> '99'"

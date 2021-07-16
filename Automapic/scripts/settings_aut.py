@@ -8,8 +8,8 @@ __version__ = '1.0.1'
 __maintainer__ = 'Daniel Aguado H.'
 __mail__ = 'autonomoosi02@ingemmet.gob.pe'
 __title__ = 'Automapic'
-# __status__ = 'Development'
-__status__ = 'Production'
+__status__ = 'Development'
+# __status__ = 'Production'
 
 _BASE_DIR = os.path.dirname(__file__)
 _TEMP_FOLDER = pkg.get_config_param_value('TEMP_FOLDER', one=True)
@@ -18,8 +18,9 @@ _REQUIREMENTS_DIR = os.path.join(_BASE_DIR, 'require')
 _IMG_DIR = os.path.join(_BASE_DIR, 'img')
 _IMG_LOGO_INGEMMET = os.path.join(_IMG_DIR, 'logo_ingemmet.png')
 
-_BDGEOCAT_SDE = os.path.join(_BASE_DIR, 'bdgeocat.sde')
-_BDGEOCAT_SDE_DEV = os.path.join(_BASE_DIR, 'bdgeocat_dev.sde')
+_BDGEOCAT_NAME = 'bdgeocat_dev.sde' if __status__ == 'Development' else 'bdgeocat.sde'
+_BDGEOCAT_SDE = os.path.join(_BASE_DIR, _BDGEOCAT_NAME)
+# _BDGEOCAT_SDE_DEV = os.path.join(_BASE_DIR, 'bdgeocat_dev.sde')
 
 _ZONAS_GEOGRAFICAS = [17, 18, 19]
 _EPSG_W17S = 32717
@@ -142,3 +143,25 @@ _CL_HIDROG = "cl_hidrog"
 _SCL_HIDROG = "scl_hidrog"
 _ID_MAPA = "id_mapa"
 _ID_PADRE = "id_padre"
+
+
+
+# ---------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------------
+# Mapa Neotectonica
+# PATHS
+_GDB_PATH_NT = pkg.get_config_param_value('GDB_PATH_NT', one=True)
+_TB_REGION_CONFIG = os.path.join(_GDB_PATH_NT if _GDB_PATH_NT else '', 'tb_region_config')
+
+_CD_DEPA_FIELD = 'cd_depa'
+_NM_DEPA_FIELD = 'nm_depa'
+_ESCALA_FIELD = 'escala'
+_HOJA_FIELD = 'hoja'
+_ORIENTACION_FIELD = 'orientacion'
+_ZONA_FIELD = 'zona'
+
+_MXD_A0_H = os.path.join(_MXD_DIR, 'T01MN_A0_H.mxd')
+_MXD_A0_V = os.path.join(_MXD_DIR, 'T01MN_A0_V.mxd')
+
+_LAYER_DEPARTAMENTOS = 'GPO_DEP_DEPARTAMENTOS'
+_LAYER_DEPARTAMENTO = 'GPO_DEP_DEPARTAMENTO'

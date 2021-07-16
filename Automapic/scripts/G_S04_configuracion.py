@@ -10,6 +10,7 @@ bdgeocat_change = arcpy.GetParameter(3)
 bdgeocat_conn = arcpy.GetParameterAsText(4)
 gdb_mhidrogeo = arcpy.GetParameterAsText(5)
 gdb_mgeologico = arcpy.GetParameterAsText(6)
+gdb_mneotectonica = arcpy.GetParameterAsText(7)
 
 arcpy.AddMessage(msg._SET_CONFIG_TEMP_FOLDER)
 pkg.set_config_param(1, temp_folder, iscommit=True)
@@ -72,5 +73,8 @@ if gdb_mhidrogeo:
 if gdb_mgeologico:
     pkg.set_config_param(5, gdb_mgeologico, iscommit=True)
     pkg.set_datasources_tree_layers(gdb_mgeologico, 2, 1, iscommit=True)
+
+if gdb_mneotectonica:
+    pkg.set_config_param(6, gdb_mneotectonica, iscommit=True)
 
 arcpy.AddMessage(msg._PROCESS_FINISHED)

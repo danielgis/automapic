@@ -22,9 +22,10 @@ if _TEMP_FOLDER is None:
 # Obtenemos la conexion a la base de datos coorporativa de ingemmet
 _SDE_CONN = pkg.get_config_param_value('SDE_CONN', one=True)
 # Si no se ha configurado
-if (_SDE_CONN is None) or (_SDE_CONN == st._BDGEOCAT_SDE_DEV) or (_SDE_CONN == st._BDGEOCAT_SDE):
+# if (_SDE_CONN is None) or (_SDE_CONN == st._BDGEOCAT_SDE_DEV) or (_SDE_CONN == st._BDGEOCAT_SDE):
+if (_SDE_CONN is None):
     # Se agrega automaticamente el SDE registado dentro de la aplicacion
-    _SDE_CONN = st._BDGEOCAT_SDE_DEV if st.__status__ == 'Development' else st._BDGEOCAT_SDE
+    _SDE_CONN = st._BDGEOCAT_SDE
     pkg.set_config_param(3, _SDE_CONN, iscommit=True)
     pkg.set_datasources_tree_layers(_SDE_CONN, 1, 9, iscommit=True)
 # except Exception as e:
