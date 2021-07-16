@@ -17,8 +17,8 @@ response['message'] = 'success'
 
 gdb_base = arcpy.GetParameterAsText(0)
 xls_file = arcpy.GetParameterAsText(1)
-gdb_base = r"D:\jyupanqui\pruebas\GDB_LBG.gdb"
-xls_file = r"D:\jyupanqui\proyectos\dgar\BD_GA47C_AREQUIPA_ves4.xls"
+# gdb_base = r"D:\jyupanqui\pruebas\GDB_LBG.gdb"
+# xls_file = r"D:\jyupanqui\proyectos\dgar\BD_GA47C_AREQUIPA_ves4.xls"
 
 ## Definimos las variables estaticas
 _scratch = arcpy.env.scratchFolder
@@ -54,7 +54,7 @@ def obtenemos_variables_globales():
                 
     campo_dominio = [[x[0], x[3]] for x in bd_relacion_campos ]
     lista_campos = [x[0] for x in campo_dominio]
-    listadominios = [x[1] for x in campo_dominio]
+    lista_dominios = [x[1] for x in campo_dominio]
 
     # with arcpy.da.SearchCursor(_tabla_relacion_campos, ['campo_lab_2', 'campo_fc']) as cursor:
     #     for row in cursor:
@@ -120,6 +120,16 @@ def get_max_ion(a,b,c, ion):
     idx = lista_valores.index(max_value)
     texto = st._IONES[ion][idx]
     return texto
+
+def str_to_num(val):
+	try:
+		if '.'in val:
+			num = float(val)
+		else:
+			num = int(val)
+	except:
+		num = val
+	return num
 
 def preparar_datos_csv(excel_ingreso,salida=None):
     xls = excel_ingreso
@@ -198,6 +208,12 @@ def preparar_datos_csv(excel_ingreso,salida=None):
         return salida
 
 def datos_a_temporal(dataframe):
+    # Eliminamos espacios vacios de las cabeceras
+    columnas_xls = df.columns
+    columnas_xls = [x.strip() for x in columnas_xls]
+    df.columns = columnas_xls
+
+    # reemplazamos los nombres de cabeceras por el equivalente en el fc
     columnas_xls = dataframe.columns
     columnasfc = [getequivalentfc(x) for x in columnas_xls]
     dataframe.columns = columnasfc
@@ -211,6 +227,7 @@ def datos_a_temporal(dataframe):
 
 ####
 def limpiar_tablas():
+    arcpy.env.workspace = gdb_base
     arcpy.TruncateTable_management(_nombre_tabla)
     arcpy.TruncateTable_management(_nombre_tabla_corregida)
     arcpy.TruncateTable_management(_nombre_fc)
@@ -268,7 +285,7 @@ def insertar_fc(capa):
         for row in cursor:
             fila = []
             for columna in range(len(row)):
-                dominio_nombre = listadominios[columna]
+                dominio_nombre = lista_dominios[columna]
 
                 if dominio_nombre:
 
@@ -289,10 +306,7 @@ def insertar_fc(capa):
                         valor_columna = None
 
                 else:
-                    try:
-                        valor_columna = eval(row[columna])
-                    except:
-                        valor_columna = row[columna]
+                    valor_columna = str_to_num(row[columna])
                 del dominio_nombre
                 fila.append(valor_columna)
             fila_as_tupla = tuple(fila)
@@ -318,28 +332,37 @@ def insertar_de_base_a_capas_intermedias():
     act_geometria(_nombre_fc)
 
 def insercion_nuevos_datos(capain, capafin, codes):
-    with arcpy.da.UpdateCursor(capafin, ["CODIGO"]) as cursoru:
-        for row in cursoru:
-            if row[0] in codes:
-                cursoru.deleteRow()
+    num_registros = int(arcpy.GetCount_management(capafin)[0])
+    if num_registros>0:
+        with arcpy.da.UpdateCursor(capafin, ["CODIGO"]) as cursoru:
+            for row in cursoru:
+                if row[0] in codes:
+                    cursoru.deleteRow()
     
     arcpy.Append_management(capain, capafin, "NO_TEST")
 
 def insertar_capas_produccion():
+    edit = arcpy.da.Editor(gdb_base)
+    edit.startEditing(False, True)
+    edit.startOperation()
+
     codes = [x[0] for x in arcpy.da.SearchCursor(_nombre_fc,["CODIGO"])]
-    insercion_nuevos_datos(_nombre_fc, r'DS_LINEABASEGEOAMBIENTAL\GPT_LINEA_BASE_GEOAMBIENTAL', codes)
-    insercion_nuevos_datos(_nombre_fc, r'DS_LINEABASEGEOAMBIENTAL\GPT_LINEA_BASE_GEOAMBIENTAL_HIDROQUIMICA', codes)
     insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_ANIONS', codes)
     insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_ANIONS_MEQ_L', codes)
     insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_ANIONS_MEQ_L_PORC', codes)
     insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_ASPECT_GEOL_LIT', codes)
     insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_CAT_MEQ_L', codes)
     insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_CAT_MEQ_L_PORC', codes)
-    insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_CAT_TOT', codes)
+    # insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_CAT_TOT', codes)
     insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_INDICES_CALC', codes)
     insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_LOCAL', codes)
     insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_PARAM_FISQUIM', codes)
     insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_USO_FUENTE', codes)
+    insercion_nuevos_datos(_nombre_fc, r'DS_LINEABASEGEOAMBIENTAL\GPT_LINEA_BASE_GEOAMBIENTAL', codes)
+    insercion_nuevos_datos(_nombre_fc, r'DS_LINEABASEGEOAMBIENTAL\GPT_LINEA_BASE_GEOAMBIENTAL_HIDROQUIMICA', codes)
+
+    edit.stopOperation()
+    edit.stopEditing(True)
 
 if __name__ == '__main__':
     try:
