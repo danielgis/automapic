@@ -331,7 +331,7 @@ def insertar_de_base_a_capas_intermedias():
     insertar_fc(_nombre_tabla_corregida)
     act_geometria(_nombre_fc)
 
-def insercion_nuevos_datos(capain, capafin, codes):
+def limpieza_nuevos_datos(capain, capafin, codes):
     num_registros = int(arcpy.GetCount_management(capafin)[0])
     if num_registros>0:
         with arcpy.da.UpdateCursor(capafin, ["CODIGO"]) as cursoru:
@@ -339,7 +339,7 @@ def insercion_nuevos_datos(capain, capafin, codes):
                 if row[0] in codes:
                     cursoru.deleteRow()
     
-    arcpy.Append_management(capain, capafin, "NO_TEST")
+    # arcpy.Append_management(capain, capafin, "NO_TEST")
 
 def insertar_capas_produccion():
     edit = arcpy.da.Editor(gdb_base)
@@ -347,22 +347,47 @@ def insertar_capas_produccion():
     edit.startOperation()
 
     codes = [x[0] for x in arcpy.da.SearchCursor(_nombre_fc,["CODIGO"])]
-    insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_ANIONS', codes)
-    insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_ANIONS_MEQ_L', codes)
-    insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_ANIONS_MEQ_L_PORC', codes)
-    insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_ASPECT_GEOL_LIT', codes)
-    insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_CAT_MEQ_L', codes)
-    insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_CAT_MEQ_L_PORC', codes)
-    # insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_CAT_TOT', codes)
-    insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_INDICES_CALC', codes)
-    insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_LOCAL', codes)
-    insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_PARAM_FISQUIM', codes)
-    insercion_nuevos_datos(_nombre_tabla_corregida, r'TB_USO_FUENTE', codes)
-    insercion_nuevos_datos(_nombre_fc, r'DS_LINEABASEGEOAMBIENTAL\GPT_LINEA_BASE_GEOAMBIENTAL', codes)
-    insercion_nuevos_datos(_nombre_fc, r'DS_LINEABASEGEOAMBIENTAL\GPT_LINEA_BASE_GEOAMBIENTAL_HIDROQUIMICA', codes)
+    limpieza_nuevos_datos(_nombre_tabla_corregida, r'TB_ANIONS', codes)
+    limpieza_nuevos_datos(_nombre_tabla_corregida, r'TB_ANIONS_MEQ_L', codes)
+    limpieza_nuevos_datos(_nombre_tabla_corregida, r'TB_ANIONS_MEQ_L_PORC', codes)
+    limpieza_nuevos_datos(_nombre_tabla_corregida, r'TB_ASPECT_GEOL_LIT', codes)
+    limpieza_nuevos_datos(_nombre_tabla_corregida, r'TB_CAT_MEQ_L', codes)
+    limpieza_nuevos_datos(_nombre_tabla_corregida, r'TB_CAT_MEQ_L_PORC', codes)
+    # limpieza_nuevos_datos(_nombre_tabla_corregida, r'TB_CAT_TOT', codes)
+    limpieza_nuevos_datos(_nombre_tabla_corregida, r'TB_INDICES_CALC', codes)
+    limpieza_nuevos_datos(_nombre_tabla_corregida, r'TB_LOCAL', codes)
+    limpieza_nuevos_datos(_nombre_tabla_corregida, r'TB_PARAM_FISQUIM', codes)
+    limpieza_nuevos_datos(_nombre_tabla_corregida, r'TB_USO_FUENTE', codes)
+    limpieza_nuevos_datos(_nombre_fc, r'DS_LINEABASEGEOAMBIENTAL\GPT_LINEA_BASE_GEOAMBIENTAL_HIDROQUIMICA', codes)
+
+    # edit.stopOperation()
+    # edit.stopEditing(True)
+    # del edit 
+
+    # edit = arcpy.da.Editor(gdb_base)
+    # edit.startEditing(False, True)
+    # edit.startOperation()
+
+    limpieza_nuevos_datos(_nombre_fc, r'DS_LINEABASEGEOAMBIENTAL\GPT_LINEA_BASE_GEOAMBIENTAL', codes)
 
     edit.stopOperation()
     edit.stopEditing(True)
+
+    arcpy.Append_management(_nombre_tabla_corregida, r'TB_ANIONS', "NO_TEST")
+    arcpy.Append_management(_nombre_tabla_corregida, r'TB_ANIONS_MEQ_L', "NO_TEST")
+    arcpy.Append_management(_nombre_tabla_corregida, r'TB_ANIONS_MEQ_L_PORC', "NO_TEST")
+    arcpy.Append_management(_nombre_tabla_corregida, r'TB_ASPECT_GEOL_LIT', "NO_TEST")
+    arcpy.Append_management(_nombre_tabla_corregida, r'TB_CAT_MEQ_L', "NO_TEST")
+    arcpy.Append_management(_nombre_tabla_corregida, r'TB_CAT_MEQ_L_PORC', "NO_TEST")
+    # arcpy.Append_management(_nombre_tabla_corregida, r'TB_CAT_TOT', "NO_TEST")
+    arcpy.Append_management(_nombre_tabla_corregida, r'TB_INDICES_CALC', "NO_TEST")
+    arcpy.Append_management(_nombre_tabla_corregida, r'TB_LOCAL', "NO_TEST")
+    arcpy.Append_management(_nombre_tabla_corregida, r'TB_PARAM_FISQUIM', "NO_TEST")
+    arcpy.Append_management(_nombre_tabla_corregida, r'TB_USO_FUENTE', "NO_TEST")
+    arcpy.Append_management(_nombre_fc, r'DS_LINEABASEGEOAMBIENTAL\GPT_LINEA_BASE_GEOAMBIENTAL_HIDROQUIMICA', "NO_TEST")
+    arcpy.Append_management(_nombre_fc, r'DS_LINEABASEGEOAMBIENTAL\GPT_LINEA_BASE_GEOAMBIENTAL', "NO_TEST")
+
+
 
 if __name__ == '__main__':
     try:
