@@ -360,14 +360,6 @@ def insertar_capas_produccion():
     limpieza_nuevos_datos(_nombre_tabla_corregida, r'TB_USO_FUENTE', codes)
     limpieza_nuevos_datos(_nombre_fc, r'DS_LINEABASEGEOAMBIENTAL\GPT_LINEA_BASE_GEOAMBIENTAL_HIDROQUIMICA', codes)
 
-    # edit.stopOperation()
-    # edit.stopEditing(True)
-    # del edit 
-
-    # edit = arcpy.da.Editor(gdb_base)
-    # edit.startEditing(False, True)
-    # edit.startOperation()
-
     limpieza_nuevos_datos(_nombre_fc, r'DS_LINEABASEGEOAMBIENTAL\GPT_LINEA_BASE_GEOAMBIENTAL', codes)
 
     edit.stopOperation()
