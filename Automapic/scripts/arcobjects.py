@@ -9,9 +9,14 @@ InitStandalone()
 
 install_dir = arcpy.GetInstallInfo()['InstallDir']
 
-
-
 def set_scale_properties(mxd_path, name_scale, **kwargs):
+    """
+    Set the properties of a scale
+    :param mxd_path: Path to the mxd file
+    :param name_scale: Name of the scale to set
+    :param kwargs: Properties to set
+    :return:
+    """
     global install_dir
     esriCarto = GetModule(r'{}\com\esriCarto.olb'.format(install_dir))
     mxdObject = CreateObject(esriCarto.MapDocument, interface=esriCarto.IMapDocument)
@@ -33,8 +38,41 @@ def set_scale_properties(mxd_path, name_scale, **kwargs):
     mxdObject.Save()
     del mxdObject
 
+def select_grid_by_name(mxd_path, name_grid, exclude_grids=None):
+    """
+    Select a grid by name
+    :param mxd_path: Path to the mxd file
+    :param name_grid: Name of the grid to select
+    :param exclude_grids: List of names of grids to exclude
+    :return:
+    """
+    global install_dir
+    esriCarto = GetModule(r'{}\com\esriCarto.olb'.format(install_dir))
+    mxdObject = CreateObject(esriCarto.MapDocument, interface=esriCarto.IMapDocument)
+    mxdObject.Open(mxd_path)
+    activeView = mxdObject.ActiveView
+    pageLayout = activeView.QueryInterface(esriCarto.IPageLayout)
+    graphicsContainer = pageLayout.QueryInterface(esriCarto.IGraphicsContainer)
+    frameElement = graphicsContainer.FindFrame(mxdObject.ActiveView.FocusMap)
+    mapFrame = frameElement.QueryInterface(esriCarto.IMapFrame)
+    mapGrids = mapFrame.QueryInterface(esriCarto.IMapGrids)
+    for i in xrange(mapGrids.MapGridCount):
+        grid = mapGrids.MapGrid(i)
+        if exclude_grids:
+            if grid.Name in exclude_grids:
+                continue
+        grid.Visible = grid.Name == name_grid
+    mxdObject.Save()
+    del mxdObject
 
-def select_grid(mxd_path, scale):
+
+def select_grid_by_scale(mxd_path, scale):
+    """
+    Select a grid by scale
+    :param mxd_path: Path to the mxd file
+    :param scale: Scale to select
+    :return:
+    """
     global install_dir
 
     esriCarto = GetModule(r'{}\com\esriCarto.olb'.format(install_dir))

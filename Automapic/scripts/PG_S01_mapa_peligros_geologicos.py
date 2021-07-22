@@ -280,7 +280,7 @@ def generate_map():
     mxd.title = titulo
     mxd.author = autor
 
-    text_elements = arcpy.mapping.ListLayoutElements(mxd , "TEXT_ELEMENT")
+    text_elements = arcpy.mapping.ListLayoutElements(mxd, "TEXT_ELEMENT")
 
     prx = str()
     name_detalle = 'none'
@@ -374,7 +374,7 @@ def generate_map():
 
     params = set_scale_bar(escala)
     arc.set_scale_properties(response['mxd'], _BARRA_ESCALA, **params)
-    arc.select_grid(response['mxd'], escala)
+    arc.select_grid_by_scale(response['mxd'], escala)
     return response
 
     

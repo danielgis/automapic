@@ -9,7 +9,7 @@ name_packages = [
     'functools32-3.2.3-2.tar.gz',
     'six-1.16.0-py2.py3-none-any.whl',
     'cycler-0.10.0-py2.py3-none-any.whl',
-    'matplotlib-2.0.0-cp27-cp27m-win32.whl',
+    'matplotlib-2.1.0-cp27-cp27m-win32.whl',
     'comtypes-1.1.7-py2-none-any.whl',   
 ]
 
@@ -65,7 +65,7 @@ if __name__ == '__main__':
     try:
         import comtypes
         import matplotlib
-        if matplotlib.__version__ != '2.0.0':
+        if matplotlib.__version__ != '2.1.0':
             raise RuntimeError('Version incorrecta de matplotlib')
 
         # import pandas as pd

@@ -67,6 +67,7 @@ Module toolbox
     ':HERRAMIENTAS DEL MODULO DE NEOTECTONICA
     Public _tool_getpropertiesRegion As String = "getpropertiesRegion"
     Public _tool_generateMapNeotectonica As String = "generateMapNeotectonica"
+    Public _tool_getAutoresMn As String = "getAutoresMn"
 
 
 

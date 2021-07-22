@@ -14,6 +14,7 @@ Module settings
     Public __maintainer__ As String = __credits__
     Public __mail__ As String = "daguado@ingemmet.gob.pe"
     Public __status__ As String = "Development"
+    Public __tempdir__ As String = System.IO.Path.GetTempPath()
 
     '2. Variables globales estaticas
     '   - Estas variables no deben ser modificadas durante el proceso

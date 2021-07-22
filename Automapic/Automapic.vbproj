@@ -234,6 +234,12 @@
     </Compile>
     <Compile Include="settings.vb" />
     <Compile Include="toolbox.vb" />
+    <Compile Include="UserControl_CheckListBoxAutores.Designer.vb">
+      <DependentUpon>UserControl_CheckListBoxAutores.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl_CheckListBoxAutores.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="UserControl_CheckBoxAddLayers.Designer.vb">
       <DependentUpon>UserControl_CheckBoxAddLayers.vb</DependentUpon>
     </Compile>
@@ -286,6 +292,9 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControl_CheckListBoxAutores.resx">
+      <DependentUpon>UserControl_CheckListBoxAutores.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControl_CheckBoxAddLayers.resx">
       <DependentUpon>UserControl_CheckBoxAddLayers.vb</DependentUpon>
@@ -471,7 +480,7 @@
     <None Include="scripts\require\functools32-3.2.3-2.tar.gz">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="scripts\require\matplotlib-2.0.0-cp27-cp27m-win32.whl">
+    <None Include="scripts\require\matplotlib-2.1.0-cp27-cp27m-win32.whl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="scripts\require\six-1.16.0-py2.py3-none-any.whl">
@@ -728,6 +737,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\NM_S02_generar_mapa_neotectonico.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="scripts\NM_S03_listado_autores.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\packages_aut.py">

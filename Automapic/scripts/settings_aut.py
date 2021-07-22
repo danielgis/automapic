@@ -1,6 +1,11 @@
 import os
 import packages_aut as pkg
 
+"""
+This file contains the settings for the automapic module.
+"""
+
+
 __author__ = 'Daniel Fernando Aguado Huaccharaqui'
 __copyright__ = 'INGEMMET 2021'
 __credits__ = ['Daniel Aguado H.', 'Jorge Yupanqui H.']
@@ -152,13 +157,17 @@ _ID_PADRE = "id_padre"
 # PATHS
 _GDB_PATH_NT = pkg.get_config_param_value('GDB_PATH_NT', one=True)
 _TB_REGION_CONFIG = os.path.join(_GDB_PATH_NT if _GDB_PATH_NT else '', 'tb_region_config')
-
 _CD_DEPA_FIELD = 'cd_depa'
 _NM_DEPA_FIELD = 'nm_depa'
 _ESCALA_FIELD = 'escala'
 _HOJA_FIELD = 'hoja'
 _ORIENTACION_FIELD = 'orientacion'
 _ZONA_FIELD = 'zona'
+
+_TB_AUTOR = os.path.join(_GDB_PATH_NT if _GDB_PATH_NT else '', 'tb_autor')
+_ID_AUTOR_MN = 'id_autor'
+_AB_AUTOR_MN = 'abrev'
+
 
 _MXD_A0_H = os.path.join(_MXD_DIR, 'T01MN_A0_H.mxd')
 _MXD_A0_V = os.path.join(_MXD_DIR, 'T01MN_A0_V.mxd')

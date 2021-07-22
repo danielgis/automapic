@@ -7,6 +7,7 @@ Public Class Form_mapa_neotectonica
     Dim RuntimeError As AutomapicExceptions = New AutomapicExceptions()
     Dim regionesDictByCombobox As New Dictionary(Of String, String)
     Dim cd_depa As String
+    Dim idx_zona As String
     Private Sub Form_mapa_neotectonica_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         RemoveHandler cbx_mn_region.SelectedIndexChanged, AddressOf cbx_mn_region_SelectedIndexChanged
         params.Clear()
@@ -29,6 +30,10 @@ Public Class Form_mapa_neotectonica
         cbx_mn_region.ValueMember = "Key"
 
         AddHandler cbx_mn_region.SelectedIndexChanged, AddressOf cbx_mn_region_SelectedIndexChanged
+
+        params.Clear()
+        UserControl_CheckListBox1.populateChekListBox(_tool_getAutoresMn, _toolboxPath_mapa_neotectonica, params)
+
     End Sub
 
     Private Sub cbx_mn_region_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbx_mn_region.SelectedIndexChanged
@@ -62,8 +67,21 @@ Public Class Form_mapa_neotectonica
         'Validando la escala
         nud_mn_escala.Value = Convert.ToInt32(properties.item("escala"))
 
+
+        'Validando zona
+        If properties.item("zona").value = 17 Then
+            idx_zona = 0
+        ElseIf properties.item("zona").value = 18 Then
+            idx_zona = 1
+        ElseIf properties.item("zona").value = 19 Then
+            idx_zona = 2
+        Else
+            idx_zona = -1
+        End If
+        cbx_mn_zona.SelectedIndex = idx_zona
+
         'validando titulo
-        tbx_mn_titulo.Text = "MAPA NEOTECTÓNICO REGIÓN " & properties.item("nm_depa")
+        'tbx_mn_titulo.Text = "MAPA NEOTECTÓNICO REGIÓN " & properties.item("nm_depa")
 
     End Sub
 
@@ -72,13 +90,28 @@ Public Class Form_mapa_neotectonica
         runProgressBar()
 
         params.Clear()
+        'parametro cd_depa
         params.Add(cd_depa)
+
+        'parametro orientacion
         If rdb_mn_horizontal.Checked Then
             params.Add(1)
         Else
             params.Add(2)
         End If
-        params.Add(nud_mn_escala.Value)
+
+        'Parametro de zona
+        params.Add(Convert.ToInt32(cbx_mn_zona.Text))
+
+        'Parametro de escala
+        params.Add(Convert.ToInt32(nud_mn_escala.Value))
+
+        'Parametro autores
+        Dim autores As String = UserControl_CheckListBox1.getAutorsCheked()
+        params.Add(autores)
+
+        'Parametro outmxd
+        Dim outmxd As String = String.Format("{0}/response_{1}.mxd", __tempdir__, Guid.NewGuid.ToString())
 
         Dim response As String = ExecuteGP(_tool_generateMapNeotectonica, params, tbxpath:=_toolboxPath_mapa_neotectonica)
         Dim responseJson = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(response)
